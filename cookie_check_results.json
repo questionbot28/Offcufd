@@ -13,27 +13,27 @@
   "files_processed": 10,
   "archives_processed": 1,
   "valid_cookies": [
-    "/home/runner/workspace/spotify/Family_[AR] - joaquinschrohyahoo.com.ar - [Premium Family] - [Member] - [Daysleft - None].txt.txt",
     "/home/runner/workspace/spotify/Family_[AR] - benjajulian512gmail.com - [Premium Family] - [Member] - [Daysleft - None].txt.txt",
-    "/home/runner/workspace/spotify/Family_[AU] - cjwatt9gmail.com - [Premium Family] - [Member] - [Daysleft - None].txt.txt",
+    "/home/runner/workspace/spotify/Family_[AR] - joaquinschrohyahoo.com.ar - [Premium Family] - [Member] - [Daysleft - None].txt.txt",
+    "/home/runner/workspace/spotify/Family_[AR] - fac.agus.schgmail.com - [Premium Family] - [Member] - [Daysleft - None].txt.txt",
     "/home/runner/workspace/spotify/Family_[AU] - ch4rlittgmail.com - [Premium Family] - [Member] - [Daysleft - None].txt.txt",
-    "/home/runner/workspace/spotify/Family_[AT] - robihat100pinggmail.com - [Premium Family] - [Member] - [Daysleft - None].txt.txt",
     "/home/runner/workspace/spotify/Family_[AT] - 123hahahahahahaha123gmail.com - [Premium Family] - [Member] - [Daysleft - None].txt.txt",
-    "/home/runner/workspace/spotify/Family_[AR] - marcosramos642yahoo.com - [Premium Family] - [Owner] - [Daysleft - 20].txt.txt",
-    "/home/runner/workspace/spotify/Family_[AR] - fac.agus.schgmail.com - [Premium Family] - [Member] - [Daysleft - None].txt.txt"
+    "/home/runner/workspace/spotify/Family_[AT] - robihat100pinggmail.com - [Premium Family] - [Member] - [Daysleft - None].txt.txt",
+    "/home/runner/workspace/spotify/Family_[AU] - cjwatt9gmail.com - [Premium Family] - [Member] - [Daysleft - None].txt.txt",
+    "/home/runner/workspace/spotify/Family_[AR] - marcosramos642yahoo.com - [Premium Family] - [Owner] - [Daysleft - 20].txt.txt"
   ],
   "messages": [
-    "\u2714 Login successful: Delta/[AR] - joaquinschrohyahoo.com.ar - [Premium Family] - [Member] - [Daysleft - None].txt (Family)",
     "\u2714 Login successful: Delta/[AR] - benjajulian512gmail.com - [Premium Family] - [Member] - [Daysleft - None].txt (Family)",
-    "\u2714 Login successful: Delta/[AU] - cjwatt9gmail.com - [Premium Family] - [Member] - [Daysleft - None].txt (Family)",
-    "\u2714 Login successful: Delta/[AU] - ch4rlittgmail.com - [Premium Family] - [Member] - [Daysleft - None].txt (Family)",
-    "\u2714 Login successful: Delta/[AT] - robihat100pinggmail.com - [Premium Family] - [Member] - [Daysleft - None].txt (Family)",
-    "\u2714 Login successful: Delta/[AT] - 123hahahahahahaha123gmail.com - [Premium Family] - [Member] - [Daysleft - None].txt (Family)",
-    "\u2714 Login successful: Delta/[AR] - marcosramos642yahoo.com - [Premium Family] - [Owner] - [Daysleft - 20].txt (Family)",
+    "\u2714 Login successful: Delta/[AR] - joaquinschrohyahoo.com.ar - [Premium Family] - [Member] - [Daysleft - None].txt (Family)",
     "\u2714 Login successful: Delta/[AR] - fac.agus.schgmail.com - [Premium Family] - [Member] - [Daysleft - None].txt (Family)",
+    "\u2714 Login successful: Delta/[AU] - ch4rlittgmail.com - [Premium Family] - [Member] - [Daysleft - None].txt (Family)",
+    "\u2714 Login successful: Delta/[AT] - 123hahahahahahaha123gmail.com - [Premium Family] - [Member] - [Daysleft - None].txt (Family)",
+    "\u2714 Login successful: Delta/[AT] - robihat100pinggmail.com - [Premium Family] - [Member] - [Daysleft - None].txt (Family)",
+    "\u2714 Login successful: Delta/[AU] - cjwatt9gmail.com - [Premium Family] - [Member] - [Daysleft - None].txt (Family)",
+    "\u2714 Login successful: Delta/[AR] - marcosramos642yahoo.com - [Premium Family] - [Owner] - [Daysleft - 20].txt (Family)",
     "\u2718 Login failed: Delta/[AR] - manoncanos28gmail.com - [Premium Family] - [Member] - [Daysleft - None].txt (Status: 401)",
     "\u2718 Login failed: Delta/[AT] - pauli.deisergmail.com - [Premium Family] - [Member] - [Daysleft - None].txt (Status: 401)"
   ],
-  "processing_time_seconds": 0.6342222690582275,
-  "checking_speed": 15.767342914100524
+  "processing_time_seconds": 0.5288560390472412,
+  "checking_speed": 18.90873746665627
 }

@@ -187,6 +187,9 @@ async function checkNetflixCookies(filePath, message, statusMessage, threadCount
 
         let outputData = '';
         let errorData = '';
+        
+        // Track start time for performance metrics
+        const processStartTime = Date.now();
 
         pythonProcess.stdout.on('data', (data) => {
             const output = data.toString();
@@ -198,6 +201,21 @@ async function checkNetflixCookies(filePath, message, statusMessage, threadCount
                 const lines = output.split('\n');
                 for (const line of lines) {
                     if (line.includes('Progress:')) {
+                        // Extract metrics from the line
+                        const progressInfo = line.trim();
+                        const elapsedTime = ((Date.now() - processStartTime) / 1000).toFixed(2);
+                        
+                        // Extract speed information if available
+                        const speedMatch = progressInfo.match(/Speed: ([\d.]+) cookies\/sec/);
+                        const speed = speedMatch ? speedMatch[1] : '0.00';
+                        
+                        // Create detailed progress description
+                        const progressDescription = [
+                            `${progressInfo}`,
+                            `Processing Time: ${elapsedTime}s`,
+                            `Performance: ${speed} cookies/sec`,
+                            `Thread Count: ${threadCount}`
+                        ].join('\n');
                         // Extract metrics from the line
                         const progressInfo = line.trim();
                         const elapsedTime = ((Date.now() - startTime) / 1000).toFixed(2);

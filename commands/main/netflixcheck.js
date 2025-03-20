@@ -95,10 +95,53 @@ module.exports = {
 
             let outputData = '';
             let errorData = '';
+            
+            // Track start time for performance metrics
+            const processStartTime = Date.now();
 
             pythonProcess.stdout.on('data', (data) => {
-                outputData += data.toString();
-                console.log(`[Netflix Checker] ${data.toString().trim()}`);
+                const output = data.toString();
+                outputData += output;
+                console.log(`[Netflix Checker] ${output.trim()}`);
+                
+                // Try to update the message with progress information
+                try {
+                    const lines = output.split('\n');
+                    for (const line of lines) {
+                        if (line.includes('Progress:')) {
+                            // Extract metrics from the line
+                            const progressInfo = line.trim();
+                            const elapsedTime = ((Date.now() - processStartTime) / 1000).toFixed(2);
+                            
+                            // Extract speed information if available
+                            const speedMatch = progressInfo.match(/Speed: ([\d.]+) cookies\/sec/);
+                            const speed = speedMatch ? speedMatch[1] : '0.00';
+                            
+                            // Create detailed progress description
+                            const progressDescription = [
+                                `${progressInfo}`,
+                                `Processing Time: ${elapsedTime}s`,
+                                `Performance: ${speed} cookies/sec`,
+                                `Thread Count: ${threadCount}`
+                            ].join('\n');
+                            
+                            // Update status message with real-time progress
+                            statusMessage.edit({
+                                embeds: [
+                                    new MessageEmbed()
+                                        .setColor(config.color.blue)
+                                        .setTitle('Netflix Cookie Checker - Live Progress')
+                                        .setDescription(progressDescription)
+                                        .setFooter({ text: message.author.tag, iconURL: message.author.displayAvatarURL({ dynamic: true }) })
+                                        .setTimestamp()
+                                ]
+                            }).catch(error => console.error('Error updating progress message:', error));
+                            break;
+                        }
+                    }
+                } catch (error) {
+                    console.error('Error processing progress data:', error);
+                }
             });
 
             pythonProcess.stderr.on('data', (data) => {
