@@ -386,6 +386,108 @@ async function checkSpotifyCookies(filePath, message, statusMessage) {
                 
                 const results = JSON.parse(fsSync.readFileSync(resultsPath, 'utf8'));
                 
+                // Check for duplicates and prevent adding them
+                let duplicateCount = 0;
+                if (results.valid > 0 && results.valid_cookies.length > 0) {
+                    // Track existing cookies by identifier
+                    const uniqueIdentifiers = new Set();
+                    const existingFiles = fsSync.readdirSync(spotifyDir).filter(file => 
+                        !file.startsWith('.') && 
+                        !fsSync.statSync(path.join(spotifyDir, file)).isDirectory()
+                    );
+                    
+                    // First, collect identifiers from existing cookies
+                    existingFiles.forEach(file => {
+                        const filePath = path.join(spotifyDir, file);
+                        try {
+                            const content = fsSync.readFileSync(filePath, 'utf8');
+                            
+                            // Extract email or username
+                            let identifier = '';
+                            
+                            // Try from filename first
+                            if (file.includes('@')) {
+                                identifier = file.match(/[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}/)?.[0] || '';
+                            }
+                            
+                            // If not in filename, try content
+                            if (!identifier) {
+                                identifier = content.match(/[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}/)?.[0] || '';
+                            }
+                            
+                            // If still not found, use content hash
+                            if (!identifier) {
+                                const hash = require('crypto').createHash('md5').update(content).digest('hex');
+                                identifier = hash;
+                            }
+                            
+                            if (identifier) {
+                                uniqueIdentifiers.add(identifier);
+                            }
+                        } catch (err) {
+                            console.error(`Error processing file ${file}:`, err);
+                        }
+                    });
+                    
+                    // Now check each valid cookie and prevent duplicates
+                    const filteredCookies = [];
+                    
+                    for (const cookiePath of results.valid_cookies) {
+                        if (fsSync.existsSync(cookiePath)) {
+                            try {
+                                const content = fsSync.readFileSync(cookiePath, 'utf8');
+                                const fileName = path.basename(cookiePath);
+                                
+                                // Extract identifier
+                                let identifier = '';
+                                
+                                // Try from filename first
+                                if (fileName.includes('@')) {
+                                    identifier = fileName.match(/[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}/)?.[0] || '';
+                                }
+                                
+                                // If not in filename, try content
+                                if (!identifier) {
+                                    identifier = content.match(/[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}/)?.[0] || '';
+                                }
+                                
+                                // If still not found, use content hash
+                                if (!identifier) {
+                                    const hash = require('crypto').createHash('md5').update(content).digest('hex');
+                                    identifier = hash;
+                                }
+                                
+                                // If it's a duplicate, don't add it to the final spotify folder
+                                if (identifier && uniqueIdentifiers.has(identifier)) {
+                                    duplicateCount++;
+                                    console.log(`Skipping duplicate Spotify cookie: ${fileName}`);
+                                    
+                                    // The file should be kept in the working_cookies directory but not copied to spotify dir
+                                } else {
+                                    filteredCookies.push(cookiePath);
+                                    
+                                    // Add to our tracked identifiers to prevent duplicates within this batch
+                                    if (identifier) {
+                                        uniqueIdentifiers.add(identifier);
+                                    }
+                                    
+                                    // Also copy to the spotify folder (primary storage)
+                                    const destPath = path.join(spotifyDir, fileName);
+                                    fsSync.copyFileSync(cookiePath, destPath);
+                                    console.log(`Copied working cookie to: ${destPath}`);
+                                }
+                            } catch (err) {
+                                console.error(`Error checking for duplicates in ${cookiePath}:`, err);
+                            }
+                        }
+                    }
+                    
+                    // Update results with filtered cookies and duplicate count
+                    results.valid_cookies = filteredCookies;
+                    results.duplicates = duplicateCount;
+                    results.valid = results.valid_cookies.length;
+                }
+                
                 // Create results embed
                 const resultsEmbed = new MessageEmbed()
                     .setColor(config.color?.green || '#00ff00')
@@ -395,6 +497,7 @@ async function checkSpotifyCookies(filePath, message, statusMessage) {
                         { name: 'Total Checked', value: results.total_checked.toString(), inline: true },
                         { name: 'Valid Accounts', value: results.valid.toString(), inline: true },
                         { name: 'Invalid Accounts', value: results.invalid.toString(), inline: true },
+                        { name: 'Duplicates Found', value: (results.duplicates || 0).toString(), inline: true },
                         { name: 'Errors', value: results.errors.toString(), inline: true },
                         { name: 'Files Processed', value: results.files_processed.toString(), inline: true },
                         { name: 'Archives Processed', value: results.archives_processed.toString(), inline: true }

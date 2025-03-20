@@ -180,6 +180,88 @@ module.exports = {
                     workingFiles = fs.readdirSync(workingDir).filter(file => file.endsWith('.txt'));
                 }
                 
+                // Check for duplicates
+                let duplicateCount = 0;
+                const netflixDir = path.join(__dirname, '../../netflix');
+                
+                if (fs.existsSync(netflixDir) && Number(stats.working) > 0) {
+                    const uniqueIdentifiers = new Set();
+                    const existingFiles = fs.readdirSync(netflixDir).filter(file => 
+                        !file.startsWith('.') && 
+                        !fs.statSync(path.join(netflixDir, file)).isDirectory() &&
+                        file.endsWith('.txt')
+                    );
+                    
+                    // First gather all existing Netflix cookie identifiers
+                    existingFiles.forEach(file => {
+                        const filePath = path.join(netflixDir, file);
+                        try {
+                            const content = fs.readFileSync(filePath, 'utf8');
+                            
+                            // Extract Netflix profile ID or session ID
+                            let identifier = '';
+                            const profileMatch = content.match(/NetflixId=([a-f0-9-]+)/i);
+                            
+                            if (profileMatch && profileMatch[1]) {
+                                identifier = profileMatch[1];
+                            } else {
+                                // Try to extract session ID as fallback
+                                const sessionMatch = content.match(/netflix-session-id=([a-f0-9-]+)/i);
+                                if (sessionMatch && sessionMatch[1]) {
+                                    identifier = sessionMatch[1];
+                                } else {
+                                    // If all else fails, use a hash of the content
+                                    const hash = require('crypto').createHash('md5').update(content).digest('hex');
+                                    identifier = hash;
+                                }
+                            }
+                            
+                            if (identifier) {
+                                uniqueIdentifiers.add(identifier);
+                            }
+                        } catch (err) {
+                            console.error(`Error processing file ${file}:`, err);
+                        }
+                    });
+                    
+                    // Now check newly created files for duplicates
+                    const newFilesDir = path.join(__dirname, '../../working_cookies/netflix/premium');
+                    if (fs.existsSync(newFilesDir)) {
+                        const newFiles = fs.readdirSync(newFilesDir).filter(file => file.endsWith('.txt'));
+                        
+                        newFiles.forEach(file => {
+                            const filePath = path.join(newFilesDir, file);
+                            try {
+                                const content = fs.readFileSync(filePath, 'utf8');
+                                
+                                // Extract Netflix profile ID or session ID
+                                let identifier = '';
+                                const profileMatch = content.match(/NetflixId=([a-f0-9-]+)/i);
+                                
+                                if (profileMatch && profileMatch[1]) {
+                                    identifier = profileMatch[1];
+                                } else {
+                                    // Try to extract session ID as fallback
+                                    const sessionMatch = content.match(/netflix-session-id=([a-f0-9-]+)/i);
+                                    if (sessionMatch && sessionMatch[1]) {
+                                        identifier = sessionMatch[1];
+                                    } else {
+                                        // If all else fails, use a hash of the content
+                                        const hash = require('crypto').createHash('md5').update(content).digest('hex');
+                                        identifier = hash;
+                                    }
+                                }
+                                
+                                if (identifier && uniqueIdentifiers.has(identifier)) {
+                                    duplicateCount++;
+                                }
+                            } catch (err) {
+                                console.error(`Error checking for duplicates in ${file}:`, err);
+                            }
+                        });
+                    }
+                }
+                
                 // Create success embed with results
                 const resultsEmbed = new MessageEmbed()
                     .setColor(config.color?.green || '#00ff00')
@@ -190,7 +272,8 @@ module.exports = {
                         { name: 'Working Cookies', value: stats.working, inline: true },
                         { name: 'Unsubscribed', value: stats.unsubscribed, inline: true },
                         { name: 'Failed Cookies', value: stats.failed, inline: true },
-                        { name: 'Broken Cookies', value: stats.broken, inline: true }
+                        { name: 'Broken Cookies', value: stats.broken, inline: true },
+                        { name: 'Duplicates Found', value: String(duplicateCount), inline: true }
                     ])
                     .setImage('https://cdn.discordapp.com/attachments/1263458101886193725/1349031252216250503/350kb.gif?ex=67db8202&is=67da3082&hm=87a320f2ce832ed433016bb268feba16068c2d03cc7905166f7c1996b9cfb569&')
                     .setFooter({ text: message.author.tag, iconURL: message.author.displayAvatarURL({ dynamic: true }) })

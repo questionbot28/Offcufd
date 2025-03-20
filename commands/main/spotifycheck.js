@@ -239,6 +239,91 @@ module.exports = {
                 
                 const results = JSON.parse(fs.readFileSync(resultsPath, 'utf8'));
                 
+                // Check for duplicate cookies
+                const duplicatesFound = [];
+                const spotifyDir = path.join(__dirname, '../../spotify');
+                const uniqueIdentifiers = new Set();
+                
+                if (fs.existsSync(spotifyDir) && results.valid > 0) {
+                    // Create a map of existing cookies by ID/email
+                    const existingFiles = fs.readdirSync(spotifyDir);
+                    
+                    existingFiles.forEach(file => {
+                        if (file === '.gitkeep' || file.startsWith('.')) return;
+                        
+                        const filePath = path.join(spotifyDir, file);
+                        if (fs.statSync(filePath).isDirectory()) return;
+                        
+                        try {
+                            const content = fs.readFileSync(filePath, 'utf8');
+                            
+                            // Extract email or username from file name or content
+                            let identifier = '';
+                            
+                            // Try to extract from file name first
+                            if (file.includes('@')) {
+                                identifier = file.match(/[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}/)?.[0] || '';
+                            } 
+                            
+                            // If not found in filename, try content
+                            if (!identifier) {
+                                identifier = content.match(/[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}/)?.[0] || '';
+                            }
+                            
+                            // If still not found, use a hash of the content
+                            if (!identifier) {
+                                const hash = require('crypto').createHash('md5').update(content).digest('hex');
+                                identifier = hash;
+                            }
+                            
+                            uniqueIdentifiers.add(identifier);
+                        } catch (err) {
+                            console.error(`Error processing file ${file}:`, err);
+                        }
+                    });
+                    
+                    // Now check new cookies for duplicates
+                    let duplicateCount = 0;
+                    
+                    for (const cookiePath of results.valid_cookies) {
+                        if (fs.existsSync(cookiePath)) {
+                            try {
+                                const content = fs.readFileSync(cookiePath, 'utf8');
+                                const fileName = path.basename(cookiePath);
+                                
+                                // Extract identifier
+                                let identifier = '';
+                                
+                                // Try to extract from file name first
+                                if (fileName.includes('@')) {
+                                    identifier = fileName.match(/[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}/)?.[0] || '';
+                                } 
+                                
+                                // If not found in filename, try content
+                                if (!identifier) {
+                                    identifier = content.match(/[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}/)?.[0] || '';
+                                }
+                                
+                                // If still not found, use a hash of the content
+                                if (!identifier) {
+                                    const hash = require('crypto').createHash('md5').update(content).digest('hex');
+                                    identifier = hash;
+                                }
+                                
+                                if (uniqueIdentifiers.has(identifier)) {
+                                    duplicateCount++;
+                                    duplicatesFound.push(fileName);
+                                }
+                            } catch (err) {
+                                console.error(`Error checking for duplicates in ${cookiePath}:`, err);
+                            }
+                        }
+                    }
+                    
+                    // Add duplicate info to results
+                    results.duplicates = duplicateCount;
+                }
+                
                 // Create results embed
                 const resultsEmbed = new MessageEmbed()
                     .setColor(config.color.green)
@@ -249,6 +334,7 @@ module.exports = {
                         `Valid Accounts: ${results.valid}\n` +
                         `Invalid Accounts: ${results.invalid}\n` +
                         `Errors: ${results.errors}\n` +
+                        `Duplicates Found: ${results.duplicates || 0}\n` +
                         `Files Processed: ${results.files_processed}\n` +
                         `Archives Processed: ${results.archives_processed}`
                     )
