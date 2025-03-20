@@ -48,14 +48,19 @@ module.exports = {
 
         message.channel.send({ embeds: [vouchEmbed] });
 
-        // Check for auto roles after vouch
+        // Check for role promotions after vouch
         db.get('SELECT vouches FROM vouches WHERE user_id = ?', [mentionedUser.id], async (err, row) => {
             if (err) {
                 console.error(`Error retrieving vouch count: ${err.message}`);
                 return;
             }
 
-            const autoRoleTiers = config.autoRoleTiers;
+            const autoRoleTiers = [
+                { threshold: 20, roleID: "1200663200358727714" },  // First promotion role at 20 vouches
+                { threshold: 60, roleID: "1200663200358727715" },  // Second promotion role at 60 vouches
+                { threshold: 100, roleID: "1200663200358727716" }  // Third promotion role at 100 vouches
+            ];
+
             for (const tier of autoRoleTiers) {
                 if (row.vouches >= tier.threshold) {
                     const autoRole = message.guild.roles.cache.get(tier.roleID);
@@ -69,7 +74,10 @@ module.exports = {
                                     const promotionEmbed = new Discord.MessageEmbed()
                                         .setColor('#00ff00')
                                         .setTitle('🎉 Role Promotion')
-                                        .setDescription(`${mentionedUser.tag} has received the ${autoRole.name} role for reaching ${row.vouches} vouches!`);
+                                        .setDescription(`${mentionedUser.tag} has received the ${autoRole.name} role for reaching ${row.vouches} vouches!`)
+                                        .addField('New Role', autoRole.name)
+                                        .addField('Vouch Count', `${row.vouches} vouches`)
+                                        .setTimestamp();
                                     promotionChannel.send({ embeds: [promotionEmbed] });
                                 }
                             }
