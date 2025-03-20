@@ -217,7 +217,7 @@ client.on('guildMemberRemove', async (member) => {
             console.error('Error sending leave message:', sendError);
         }
 
-        // Update leaves count for their inviter if we can find it
+        // Update leaves count and decrement total invites for their inviter if we can find it
         client.db.all('SELECT * FROM invites WHERE invite_codes LIKE ?', [`%${member.user.id}%`], (err, rows) => {
             if (err) {
                 console.error('Error checking inviter for leaving member:', err);
@@ -226,8 +226,13 @@ client.on('guildMemberRemove', async (member) => {
 
             if (rows.length > 0) {
                 const inviterId = rows[0].user_id;
-                client.db.run('UPDATE invites SET leaves = leaves + 1 WHERE user_id = ?', [inviterId], (dbError) => {
-                    if (dbError) console.error('Error updating leaves count:', dbError);
+                // Update leaves count and decrease total_invites by 1
+                client.db.run('UPDATE invites SET leaves = leaves + 1, total_invites = total_invites - 1 WHERE user_id = ?', [inviterId], (dbError) => {
+                    if (dbError) {
+                        console.error('Error updating inviter stats for leaving member:', dbError);
+                    } else {
+                        console.log(`Updated invites for user ${inviterId}: incremented leaves count and decremented total invites`);
+                    }
                 });
             }
         });

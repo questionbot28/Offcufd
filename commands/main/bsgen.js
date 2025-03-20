@@ -18,14 +18,14 @@ module.exports = {
       }
 
       if (config.command.error_message === true) {
-        return message.channel.send(
-          new MessageEmbed()
+        return message.channel.send({
+          embeds: [new MessageEmbed()
             .setColor(config.color.red)
             .setTitle('Error occurred!')
             .setDescription('Not a valid bgen channel specified!')
-            .setFooter(message.author.tag, message.author.displayAvatarURL({ dynamic: true, size: 64 }))
-            .setTimestamp()
-        );
+            .setFooter({ text: message.author.tag, iconURL: message.author.displayAvatarURL({ dynamic: true, size: 64 }) })
+            .setTimestamp()]
+        });
       } else {
         return;
       }
@@ -33,26 +33,26 @@ module.exports = {
 
     if (message.channel.id === config.bgenChannel) {
       if (generated.has(message.author.id)) {
-        return message.channel.send(
-          new MessageEmbed()
+        return message.channel.send({
+          embeds: [new MessageEmbed()
             .setColor(config.color.red)
             .setTitle('Cooldown!')
             .setDescription(`Please wait **${config.bgenCooldown / 60000}m** before executing that command again!`)
-            .setFooter(message.author.tag, message.author.displayAvatarURL({ dynamic: true, size: 64 }))
-            .setTimestamp()
-        );
+            .setFooter({ text: message.author.tag, iconURL: message.author.displayAvatarURL({ dynamic: true, size: 64 }) })
+            .setTimestamp()]
+        });
       } else {
         const service = args[0];
 
         if (!service) {
-          return message.channel.send(
-            new MessageEmbed()
+          return message.channel.send({
+            embeds: [new MessageEmbed()
               .setColor(config.color.red)
               .setTitle('Missing parameters!')
               .setDescription('You need to give a service name!')
-              .setFooter(message.author.tag, message.author.displayAvatarURL({ dynamic: true, size: 64 }))
-              .setTimestamp()
-          );
+              .setFooter({ text: message.author.tag, iconURL: message.author.displayAvatarURL({ dynamic: true, size: 64 }) })
+              .setTimestamp()]
+          });
         }
 
         const filePath = `${__dirname}/../../bstock/${args[0]}.txt`;
@@ -65,14 +65,14 @@ module.exports = {
             const firstLine = data.split('\n')[0];
 
             if (position === -1) {
-              return message.channel.send(
-                new MessageEmbed()
+              return message.channel.send({
+                embeds: [new MessageEmbed()
                   .setColor(config.color.red)
                   .setTitle('Generator error!')
                   .setDescription(`I do not find the \`${args[0]}\` service in my bstock!`)
-                  .setFooter(message.author.tag, message.author.displayAvatarURL({ dynamic: true, size: 64 }))
-                  .setTimestamp()
-              );
+                  .setFooter({ text: message.author.tag, iconURL: message.author.displayAvatarURL({ dynamic: true, size: 64 }) })
+                  .setTimestamp()]
+              });
             }
 
             const generatedCode = firstLine; // Save the generated code
