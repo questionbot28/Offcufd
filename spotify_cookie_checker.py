@@ -442,7 +442,11 @@ def worker(task_queue, valid_cookies, errors):
                     
                     # Show detailed status with enhanced metrics
                     ts = datetime.now().strftime('%H:%M:%S.%f')[:-3]
-                    print(f"[{ts}] Progress: Checked {total_checked} cookies | Valid: {results['hits']} ({results['premium']} Premium, {results['family']} Family, {results['duo']} Duo) | Failed: {results['bad']} | Speed: {checking_speed:.2f} cookies/sec | Threads: {threading.active_count()} | Cookies/thread: {cookies_per_thread:.2f}/sec | Elapsed: {elapsed_time:.3f}s")
+                    print(f"[{ts}] 🎵 SPOTIFY PROGRESS REPORT 🎵\n"
+                          f"✅ Checked: {total_checked} cookies | ✓ Valid: {results['hits']} | ❌ Failed: {results['bad']}\n"
+                          f"🔰 Premium: {results['premium']} | 👨‍👩‍👧‍👦 Family: {results['family']} | 👥 Duo: {results['duo']}\n"
+                          f"⚡ Speed: {checking_speed:.2f} cookies/sec | 🧵 Threads: {threading.active_count()}\n"
+                          f"📊 Cookies/thread: {cookies_per_thread:.2f}/sec | ⏱️ Elapsed: {elapsed_time:.3f}s")
             
             # Store results with thread safety but minimize lock time
             with lock:
@@ -640,7 +644,9 @@ def process_batch(batch_files, batch_id):
                 total_checked = local_results['hits'] + local_results['bad'] + local_results['errors']
                 checking_speed = total_checked / elapsed_time if elapsed_time > 0 else 0
                 
-                print(f"[{datetime.now().strftime('%H:%M:%S.%f')[:-3]}] Batch {batch_id} Progress: {total_checked}/{len(batch_files)} cookies | Valid: {local_results['hits']} | Speed: {checking_speed:.2f} cookies/sec")
+                print(f"[{datetime.now().strftime('%H:%M:%S.%f')[:-3]}] 🎵 BATCH {batch_id} PROGRESS\n"
+                      f"📝 Processed: {total_checked}/{len(batch_files)} cookies | ✓ Valid: {local_results['hits']}\n"
+                      f"⚡ Speed: {checking_speed:.2f} cookies/sec")
         except Exception as e:
             batch_errors.append(f"⚠ Error processing {file_name}: {str(e)}")
             local_results['errors'] += 1
@@ -756,11 +762,12 @@ def check_cookies(input_file):
                                             overall_speed = total_checked / elapsed_time if elapsed_time > 0 else 0
                                             batch_speed = batch_result["processed"] / batch_result["time"] if batch_result["time"] > 0 else 0
                                             
-                                            print(f"\n[{datetime.now().strftime('%H:%M:%S.%f')[:-3]}] Batch {batch_result['batch_id']} completed:")
-                                            print(f"  - Processed {batch_result['processed']} cookies in {batch_result['time']:.2f} seconds")
-                                            print(f"  - Batch speed: {batch_speed:.2f} cookies/sec")
-                                            print(f"  - Overall progress: {total_checked}/{len(cookie_files)} cookies | Valid: {results['hits']} | Failed: {results['bad']} | Errors: {results['errors']}")
-                                            print(f"  - Overall speed: {overall_speed:.2f} cookies/sec | Elapsed time: {elapsed_time:.2f}s")
+                                            print(f"\n[{datetime.now().strftime('%H:%M:%S.%f')[:-3]}] 🎵 BATCH {batch_result['batch_id']} COMPLETED 🎵")
+                                            print(f"  ✅ Processed: {batch_result['processed']} cookies in {batch_result['time']:.2f} seconds")
+                                            print(f"  ⚡ Batch speed: {batch_speed:.2f} cookies/sec")
+                                            print(f"  📊 Overall progress: {total_checked}/{len(cookie_files)} cookies")
+                                            print(f"  ✓ Valid: {results['hits']} | ❌ Failed: {results['bad']} | ⚠️ Errors: {results['errors']}")
+                                            print(f"  🚀 Overall speed: {overall_speed:.2f} cookies/sec | ⏱️ Elapsed: {elapsed_time:.2f}s")
                                 except Exception as e:
                                     debug_print(f"Error processing batch: {str(e)}")
                                     combined_errors.append(f"⚠ Batch processing error: {str(e)}")

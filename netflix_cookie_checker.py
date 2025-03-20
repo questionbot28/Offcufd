@@ -877,11 +877,12 @@ def check_netflix_cookies(cookies_dir="netflix", num_threads=None):
                             overall_speed = total_checked / elapsed_time if elapsed_time > 0 else 0
                             batch_speed = batch_result["checked"] / batch_result["time"] if batch_result["time"] > 0 else 0
                             
-                            print(f"\n[{datetime.now().strftime('%H:%M:%S.%f')[:-3]}] Batch {batch_result['batch_id']} completed:")
-                            print(f"  - Processed {batch_result['checked']} cookies in {batch_result['time']:.2f} seconds")
-                            print(f"  - Batch speed: {batch_speed:.2f} cookies/sec")
-                            print(f"  - Overall progress: {total_checked}/{len(cookie_files)} cookies | Valid: {total_working} | Failed: {total_fails}")
-                            print(f"  - Overall speed: {overall_speed:.2f} cookies/sec | Elapsed time: {elapsed_time:.2f}s")
+                            print(f"\n[{datetime.now().strftime('%H:%M:%S.%f')[:-3]}] 🚀 BATCH {batch_result['batch_id']} COMPLETED 🚀")
+                            print(f"  ✅ Processed: {batch_result['checked']} cookies in {batch_result['time']:.2f} seconds")
+                            print(f"  ⚡ Batch speed: {batch_speed:.2f} cookies/sec")
+                            print(f"  📊 Overall progress: {total_checked}/{len(cookie_files)} cookies")
+                            print(f"  ✓ Valid: {total_working} | ❌ Failed: {total_fails} | ⚠️ Broken: {total_broken}")
+                            print(f"  🚀 Overall speed: {overall_speed:.2f} cookies/sec | ⏱️ Elapsed: {elapsed_time:.2f}s")
                 except Exception as e:
                     debug_print(f"Error processing batch: {str(e)}")
     except Exception as e:
@@ -895,25 +896,46 @@ def check_netflix_cookies(cookies_dir="netflix", num_threads=None):
     
     # Calculate and print final statistics
     checking_speed = total_checked / elapsed_time if elapsed_time > 0 else 0
-    print(f"\n--- Netflix Cookie Check Results ---")
-    print(f"Total checked: {total_checked} cookies")
-    print(f"Working cookies: {total_working}")
-    print(f"Unsubscribed accounts: {total_unsubscribed}")
-    print(f"Failed cookies: {total_fails}")
-    print(f"Broken files: {total_broken}")
-    print(f"Total processing time: {elapsed_time:.2f} seconds")
-    print(f"Average checking speed: {checking_speed:.2f} cookies/sec")
+    print(f"\n🎬 NETFLIX COOKIE CHECK RESULTS 🎬")
+    print(f"━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━")
+    print(f"✅ Total checked: {total_checked} cookies")
+    print(f"✓ Working cookies: {total_working}")
+    print(f"⚠️ Unsubscribed accounts: {total_unsubscribed}")
+    print(f"❌ Failed cookies: {total_fails}")
+    print(f"🔧 Broken files: {total_broken}")
+    print(f"━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━")
+    print(f"⏱️ Total processing time: {elapsed_time:.2f} seconds")
+    print(f"🚀 Average checking speed: {checking_speed:.2f} cookies/sec")
+    print(f"━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━")
     
     return results
 
 def print_statistics():
     """Print statistics of the Netflix cookie checking process."""
+    elapsed_time = time.time() - start_time
+    checking_speed = total_checked / elapsed_time if elapsed_time > 0 else 0
+    
+    print(f"\n🎬 NETFLIX COOKIE CHECK RESULTS 🎬")
+    print(f"━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━")
+    print(f"✅ Total checked: {total_checked} cookies")
+    print(f"✓ Working cookies: {total_working}")
+    print(f"⚠️ Unsubscribed accounts: {total_unsubscribed}")
+    print(f"❌ Failed cookies: {total_fails}")
+    print(f"🔧 Broken files: {total_broken}")
+    print(f"━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━")
+    print(f"⏱️ Total processing time: {elapsed_time:.2f} seconds")
+    print(f"🚀 Average checking speed: {checking_speed:.2f} cookies/sec")
+    print(f"━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━")
+    
+    # Also log to debug
     debug_print("\n--- Netflix Cookie Check Statistics ---")
     debug_print(f"Total checked: {total_checked}")
     debug_print(f"Working cookies: {total_working}")
     debug_print(f"Unsubscribed accounts: {total_unsubscribed}")
     debug_print(f"Failed cookies: {total_fails}")
     debug_print(f"Broken cookies: {total_broken}")
+    debug_print(f"Processing time: {elapsed_time:.2f} seconds")
+    debug_print(f"Checking speed: {checking_speed:.2f} cookies/sec")
     debug_print("-------------------------------------\n")
 
 def check_cookie(cookie_content):
