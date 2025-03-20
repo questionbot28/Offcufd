@@ -1,0 +1,19 @@
+
+    ─────────────────────────────────────────────────────────────
+    PLAN       : Premium
+    COUNTRY    : VN
+    AutoPay    : True
+    Trial      : False
+    Invite Link: N/A
+    Email      : N/A
+    checker by : ITSMEBOI
+    
+    ─────────────────────────────────────────────────────────────
+
+    .spotify.com	TRUE	/	TRUE	1752495795	sp_dc	AQAE1p_SbFicYEQCZQhJ1D2ycDVXhsM0T3hFWhY32sn76UPnpfcx7uG5usCUM7hIJhf_9NDaQftbNyzX2o7sXKK-OSScA1ssURalWNAV9KM3Jy8cqh3lh_UZw45dkdZLB57pUiL2v9Y20x0PVBybhXA9uCbGiX2j
+.spotify.com	TRUE	/	TRUE	1752495795	sp_key	f45fbb7b-a014-43ae-98ed-233fa9fbb9a6
+    
+    ─────────────────────────────────────────────────────────────
+                    CHECKER BY ITSMEBOI
+    ─────────────────────────────────────────────────────────────
+    

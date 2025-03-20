@@ -1,0 +1,27 @@
+
+    ─────────────────────────────────────────────────────────────
+    PLAN       : Free
+    COUNTRY    : CL
+    AutoPay    : False
+    Trial      : False
+    Invite Link: N/A
+    Email      : N/A
+    checker by : ITSMEBOI
+    
+    ─────────────────────────────────────────────────────────────
+
+    accounts.spotify.com	FALSE	/	TRUE	1762814037	__Host-device_id	AQAbRMFmKF52BhcfTckV-fApweBO1ZqGKVuLqdOY29EPepGDKQJzUlXeq3xxHJoSxF7QqAMlMx-x5LfC85wNo-lH_2wekm8Dyd4
+.accounts.spotify.com	TRUE	/	TRUE	0	__Secure-TPASESSION	AQAPT83h1+emku0gxcmvIgzH3upyngeV11veA/T8ErlH1gg4V3q9szpoN4BRCnHGOzB+o8JbU3oQGmTuRxOpJWNAdoR8zLYkbSY=
+accounts.spotify.com	FALSE	/	FALSE	0	sp_t	76df6cae-14c6-48c8-9643-ef276ee353db
+.accounts.spotify.com	TRUE	/	TRUE	0	sp_tr	false
+accounts.spotify.com	FALSE	/	TRUE	0	remember	bestayvillalobos87%40gmail.com
+.spotify.com	TRUE	/	TRUE	1769808708	sp_dc	AQCvC5oNAfbqD4pKKzmGbDOaxtMKU5EfAKW1COoKgq0sulqzT9BPQiwubvIIjRutdUkERX1MjYeI1RkGko92Xp9xRw7RtYpq-1EMCrYVO_F6PcVdWHEIxx-fA3IX3rtRIE1YgQz7rOhAS5vLr43NK3jqr4FVmWBsi1Ef8sx726Q_5q2_ZibWWlp_ck1qoBCFwq004bGdIlmL8IQUFGs
+.spotify.com	TRUE	/	TRUE	1769808708	sp_key	bafb112d-6c72-4e87-be0f-c5241d847bfc
+.accounts.spotify.com	TRUE	/	TRUE	0	sp_sso_csrf_token	013acda7194933bd3919a282462af762f381889d8d31373338323732373037343233
+.accounts.spotify.com	TRUE	/	TRUE	0	csrf_token	AQBO-PVOwMMuukaWb-d9Ff50NeqL2QuFYBhPMysy-Vvxwg2vWmJLiMsLrV4VPtjAqDMxIgr3MxYpOpZijw
+.spotify.com	TRUE	/	TRUE	1769808712	sp_t	1ac3b92d99aa32c64a11e9c70c3a76d2
+    
+    ─────────────────────────────────────────────────────────────
+                    CHECKER BY ITSMEBOI
+    ─────────────────────────────────────────────────────────────
+    

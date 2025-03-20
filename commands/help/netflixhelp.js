@@ -13,9 +13,15 @@ module.exports = {
             .setDescription('Learn how to use the Netflix cookie checker commands')
             .addFields(
                 { 
-                    name: '`.netflixcheck`',
+                    name: '`.netflixcheck [threads]`',
                     value: 'Upload a file containing Netflix cookies to check.\n' +
-                          'The checker will verify each cookie, categorize as premium/free/broken, and save valid cookies for future use.' 
+                          'The checker will verify each cookie, categorize as premium/free/broken, and save valid cookies for future use.\n' +
+                          'Optionally specify a thread count between 1-200 to control processing speed (e.g., `.netflixcheck 100`)'
+                },
+                {
+                    name: '`.c-upload netflix [threads]`',
+                    value: 'Alternative command for uploading and checking Netflix cookies.\n' +
+                          'Supports the same thread count parameter for optimizing processing speed.'
                 },
                 {
                     name: '`.csend @user netflix`', 

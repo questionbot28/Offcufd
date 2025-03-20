@@ -1,0 +1,19 @@
+
+    ─────────────────────────────────────────────────────────────
+    PLAN       : Family
+    COUNTRY    : US
+    AutoPay    : True
+    Trial      : False
+    Invite Link: N/A
+    Email      : N/A
+    checker by : ITSMEBOI
+    
+    ─────────────────────────────────────────────────────────────
+
+    .spotify.com	TRUE	/	FALSE	1746771929	sp_dc	AQANJ6htgptRg8JUh4ifp6DakFRMhIRp1TT84Wm3szaNO8YHT6tb7wiT3jZzv1bYl23QQqxs0hPhBt04zroCvhojIMWUrbEmuoTTRcg02qdu690XHv9GOy96SU3eKpFsg95vWed3IoIs3-GAT1aTpqpGUHBog8RS
+.spotify.com	TRUE	/	FALSE	1746771929	sp_key	9b151772-829d-4eec-9950-c55f61fef824
+    
+    ─────────────────────────────────────────────────────────────
+                    CHECKER BY ITSMEBOI
+    ─────────────────────────────────────────────────────────────
+    

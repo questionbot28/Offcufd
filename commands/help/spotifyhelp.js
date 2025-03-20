@@ -12,7 +12,8 @@ module.exports = {
             .setColor(config.color.blue)
             .setTitle('🎵 Spotify Cookie Checker Help')
             .setDescription('The Spotify cookie checker allows you to check the validity of Spotify cookies and determine their account types.')
-            .addField('Commands', '`.spotifycheck` - Check Spotify cookies in an attached file')
+            .addField('Commands', '`.spotifycheck [threads]` - Check Spotify cookies in an attached file\n`.c-upload spotify [threads]` - Alternative command for cookie uploads')
+            .addField('Thread Count', 'Specify a number between 1-200 to control how many threads to use for processing. Higher thread counts will process files faster but use more resources.\nExample: `.spotifycheck 100` will use 100 threads')
             .addField('Supported File Types', '`.txt` - Text files containing Netscape cookies\n`.zip` - Zip archives containing cookie files\n`.rar` - RAR archives containing cookie files')
             .addField('How It Works',
                 '1. Upload a file containing Spotify cookies with your command\n' +

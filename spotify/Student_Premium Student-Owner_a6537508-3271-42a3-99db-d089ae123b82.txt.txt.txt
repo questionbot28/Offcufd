@@ -1,0 +1,19 @@
+
+    ─────────────────────────────────────────────────────────────
+    PLAN       : Student
+    COUNTRY    : TR
+    AutoPay    : True
+    Trial      : False
+    Invite Link: N/A
+    Email      : N/A
+    checker by : ITSMEBOI
+    
+    ─────────────────────────────────────────────────────────────
+
+    .spotify.com	TRUE	/	TRUE	1744297624	sp_dc	AQDFENgi6S5QzwOimIeINzDIdvpqT9ITqHf_kGFLwPNZ0qVuYbLESBp_9PL0bk4WFkrRlm953M2VGzUBN1LtM8L-Qik_2yR50b5vuGImBEXlbdcZgLv0SduHY0S5hPfc3zLeh4i2t1jUGufy1I6bpsDdRsMAPTUw
+.spotify.com	TRUE	/	TRUE	1744297624	sp_key	6f5a6749-b3ed-4ff0-96e9-458b7c10d57b
+    
+    ─────────────────────────────────────────────────────────────
+                    CHECKER BY ITSMEBOI
+    ─────────────────────────────────────────────────────────────
+    

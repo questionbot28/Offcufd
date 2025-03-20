@@ -326,9 +326,10 @@ async function checkNetflixCookies(filePath, message, statusMessage, threadCount
 async function checkSpotifyCookies(filePath, message, statusMessage, threadCount = 200) {
     try {
         // Run the Python script to check cookies
-        console.log(`Starting Python process to check: ${filePath}`);
+        console.log(`Starting Python process to check: ${filePath} with ${threadCount} threads`);
         const scriptPath = path.join(__dirname, '../../spotify_cookie_checker.py');
-        const pythonProcess = spawn('/nix/store/wqhkxzzlaswkj3gimqign99sshvllcg6-python-wrapped-0.1.0/bin/python', [scriptPath, filePath]);
+        const pythonProcess = spawn('/nix/store/wqhkxzzlaswkj3gimqign99sshvllcg6-python-wrapped-0.1.0/bin/python', 
+            [scriptPath, filePath, '--threads', threadCount.toString()]);
         
         // Add a timeout to prevent hanging
         const timeoutMs = 300000; // 5 minutes
