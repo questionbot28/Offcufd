@@ -482,15 +482,33 @@ def process_cookie_file(cookie_file):
             total_broken += 1
         return result
 
-def worker(cookie_files, results):
-    """Worker thread to process Netflix cookie files."""
-    while cookie_files:
+def worker(task_queue, results):
+    """Worker thread to process Netflix cookie files using a queue system."""
+    while True:
         try:
-            cookie_file = cookie_files.pop(0)
+            # Get a task from the queue (non-blocking with timeout)
+            cookie_file = task_queue.get(block=False)
+            if cookie_file is None:  # Sentinel value to indicate end of tasks
+                break
+                
+            debug_print(f"Thread processing cookie file: {os.path.basename(cookie_file)}")
             result = process_cookie_file(cookie_file)
-            results.append(result)
+            
+            # Store results with thread safety
+            with lock:
+                results.append(result)
+                
+            # Mark task as complete
+            task_queue.task_done()
+            
+        except queue.Empty:
+            # No more tasks in the queue
+            break
         except Exception as e:
-            debug_print(f"Worker error: {str(e)}")
+            debug_print(f"Worker thread error: {str(e)}")
+            # Mark task as done even if there was an error
+            if 'cookie_file' in locals() and cookie_file is not None:
+                task_queue.task_done()
 
 def extract_from_archive(archive_path, extract_dir):
     """Extract files from a ZIP or RAR archive."""
@@ -710,10 +728,17 @@ def process_directory(directory, processed_files=None, depth=0, max_depth=5):
     debug_print(f"Found {len(cookie_files)} cookie files in directory: {directory}")
     return cookie_files
 
-def check_netflix_cookies(cookies_dir="netflix", num_threads=3):
-    """Check all Netflix cookies in the specified directory."""
+def check_netflix_cookies(cookies_dir="netflix", num_threads=None):
+    """Check all Netflix cookies in the specified directory using a thread pool."""
     global total_working, total_fails, total_unsubscribed, total_checked, total_broken
     total_working = total_fails = total_unsubscribed = total_checked = total_broken = 0
+    
+    # Set default threads if not specified
+    if num_threads is None:
+        num_threads = MAX_THREADS
+    
+    start_time = time.time()
+    debug_print(f"Starting Netflix cookie check with up to {num_threads} threads")
     
     # Setup directories
     setup_directories()
@@ -730,20 +755,45 @@ def check_netflix_cookies(cookies_dir="netflix", num_threads=3):
         debug_print("No cookie files found.")
         return []
     
-    # Process cookies with multiple threads
+    # Process cookies with multiple threads using a queue
     results = []
+    
+    # Create a queue for tasks
+    task_queue = queue.Queue()
+    for cookie_file in cookie_files:
+        task_queue.put(cookie_file)
+    
+    # Determine optimal number of threads (don't create more threads than files)
+    num_threads = min(num_threads, len(cookie_files))
+    debug_print(f"Using {num_threads} threads for processing {len(cookie_files)} cookie files")
+    
+    # Create and start worker threads
     threads = []
-    
-    # Divide cookies among threads
-    for i in range(min(num_threads, len(cookie_files))):
-        thread_cookies = cookie_files[i::num_threads]
-        thread = threading.Thread(target=worker, args=(thread_cookies, results))
-        threads.append(thread)
+    for _ in range(num_threads):
+        thread = threading.Thread(
+            target=worker,
+            args=(task_queue, results)
+        )
+        thread.daemon = True
         thread.start()
+        threads.append(thread)
     
-    # Wait for all threads to complete
+    # Wait for all tasks to complete
+    task_queue.join()
+    
+    # Stop the worker threads
+    for _ in range(num_threads):
+        try:
+            task_queue.put(None)  # Send sentinel value to each thread
+        except Exception:
+            pass  # Ignore errors when stopping threads
+    
+    # Wait for all threads to finish
     for thread in threads:
-        thread.join()
+        thread.join(timeout=1.0)  # Use timeout to avoid hanging
+    
+    elapsed_time = time.time() - start_time
+    debug_print(f"Cookie checking completed in {elapsed_time:.2f} seconds")
     
     # Print statistics
     print_statistics()

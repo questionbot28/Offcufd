@@ -639,7 +639,16 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser(description='Check Spotify cookies')
     parser.add_argument('input_file', nargs='?', help='File or directory to check')
     parser.add_argument('--all_cookies', action='store_true', help='Check all cookies in spotify directory')
+    parser.add_argument('--threads', type=int, default=MAX_THREADS, help=f'Number of threads to use (1-{MAX_THREADS}, default: {MAX_THREADS})')
     args = parser.parse_args()
+    
+    # Validate and set thread count
+    if args.threads < 1:
+        args.threads = 1
+    elif args.threads > MAX_THREADS:
+        args.threads = MAX_THREADS
+    
+    debug_print(f"Using {args.threads} threads for processing")
     
     if args.all_cookies:
         # Check all cookies in the spotify directory

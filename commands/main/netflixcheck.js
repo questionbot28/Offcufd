@@ -7,8 +7,13 @@ const config = require('../../config.json');
 module.exports = {
     name: 'netflixcheck',
     description: 'Check Netflix cookies',
-    usage: 'netflixcheck',
+    usage: 'netflixcheck [threads]',
     async execute(message, args) {
+        // Check if user specified a thread count
+        let threadCount = 200; // Default to 200 threads
+        if (args.length > 0 && !isNaN(args[0])) {
+            threadCount = Math.min(200, Math.max(1, parseInt(args[0]))); // Limit between 1-200
+        }
         // Check if the user has permission to use this command
         const allowedRoleIDs = config.cookieCheckRoles || []; // Use a specific role setting or an empty array if not set
         const userRoles = message.member.roles.cache.map(role => role.id);
@@ -84,7 +89,9 @@ module.exports = {
             
             // Run the Python script to check the uploaded file
             const scriptPath = path.join(__dirname, '../../netflix_cookie_checker.py');
-            const pythonProcess = spawn('/nix/store/wqhkxzzlaswkj3gimqign99sshvllcg6-python-wrapped-0.1.0/bin/python', [scriptPath, filePath]);
+            console.log(`Starting Netflix cookie check with ${threadCount} threads`);
+            const pythonProcess = spawn('/nix/store/wqhkxzzlaswkj3gimqign99sshvllcg6-python-wrapped-0.1.0/bin/python', 
+                [scriptPath, filePath, '--threads', threadCount.toString()]);
 
             let outputData = '';
             let errorData = '';

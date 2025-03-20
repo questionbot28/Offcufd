@@ -10,9 +10,14 @@ const { createWriteStream } = require('fs');
 module.exports = {
     name: 'spotifycheck',
     description: 'Check Spotify cookies in uploaded files',
-    usage: 'spotifycheck (attach a .txt, .zip, or .rar file)',
+    usage: 'spotifycheck [threads] (attach a .txt, .zip, or .rar file)',
     
     async execute(message, args) {
+        // Check if user specified a thread count
+        let threadCount = 200; // Default to 200 threads
+        if (args.length > 0 && !isNaN(args[0])) {
+            threadCount = Math.min(200, Math.max(1, parseInt(args[0]))); // Limit between 1-200
+        }
         // Create necessary directories
         const tempDir = path.join(__dirname, '../../temp');
         const cookiesDir = path.join(__dirname, '../../cookies');
@@ -83,9 +88,10 @@ module.exports = {
             });
             
             // Run the Python script to check cookies with a timeout
-            console.log(`Starting Python process to check: ${filePath}`);
+            console.log(`Starting Python process to check: ${filePath} with ${threadCount} threads`);
             const scriptPath = path.join(__dirname, '../../spotify_cookie_checker.py');
-            const pythonProcess = spawn('/nix/store/wqhkxzzlaswkj3gimqign99sshvllcg6-python-wrapped-0.1.0/bin/python', [scriptPath, filePath]);
+            const pythonProcess = spawn('/nix/store/wqhkxzzlaswkj3gimqign99sshvllcg6-python-wrapped-0.1.0/bin/python', 
+                [scriptPath, filePath, '--threads', threadCount.toString()]);
             
             // Add a timeout to prevent hanging
             const timeoutMs = 300000; // 5 minutes
