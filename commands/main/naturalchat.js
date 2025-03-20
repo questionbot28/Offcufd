@@ -222,7 +222,13 @@ module.exports = {
 
       // Send the response directly as a normal message (more conversational)
       if (response) {
-        await message.reply(response);
+        // 50% chance to ping the user
+        const shouldPing = Math.random() < 0.5;
+        if (shouldPing) {
+          await message.reply(response); // This pings the user
+        } else {
+          await message.channel.send(response); // This doesn't ping
+        }
         return true; // Indicates we handled this message
       }
 
