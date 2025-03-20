@@ -216,20 +216,6 @@ async function checkNetflixCookies(filePath, message, statusMessage, threadCount
                             `Performance: ${speed} cookies/sec`,
                             `Thread Count: ${threadCount}`
                         ].join('\n');
-                        // Extract metrics from the line
-                        const progressInfo = line.trim();
-                        const elapsedTime = ((Date.now() - startTime) / 1000).toFixed(2);
-                        
-                        // Extract speed information if available
-                        const speedMatch = progressInfo.match(/Speed: ([\d.]+) cookies\/sec/);
-                        const speed = speedMatch ? speedMatch[1] : '0.00';
-                        
-                        // Create enhanced progress description with performance metrics
-                        const progressDescription = [
-                            `${progressInfo}`,
-                            `Processing Time: ${elapsedTime}s`,
-                            `Performance: ${speed} cookies/sec`
-                        ].join('\n');
                         
                         statusMessage.edit({
                             embeds: [
