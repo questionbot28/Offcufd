@@ -103,6 +103,11 @@ module.exports = {
                     `Basic: ${netflixResults.basic}`,
                     true
                 )
+                .addField('Performance Metrics', 
+                    `Spotify: ${spotifyResults.speed} cookies/sec (${spotifyResults.elapsedTime}s)\n` +
+                    `Netflix: ${netflixResults.speed} cookies/sec (${netflixResults.elapsedTime}s)`,
+                    false
+                )
                 .setFooter({ text: message.author.tag, iconURL: message.author.displayAvatarURL({ dynamic: true }) })
                 .setTimestamp();
                 
@@ -210,6 +215,9 @@ async function checkSpotifyCookies(updateStatus) {
         // Now run the actual checker script to validate working cookies
         updateStatus('Cookie Verification Process', `Removed ${results.duplicatesRemoved} duplicate Spotify cookies.\nNow validating remaining cookies...`);
         
+        // Start timing for performance metrics
+        const startTime = Date.now();
+        
         // Set up a status update interval while the Python script runs
         const statusUpdateInterval = setInterval(async () => {
             // Try to read progress from logs or temp file
@@ -217,7 +225,8 @@ async function checkSpotifyCookies(updateStatus) {
                 const logLines = stdout ? stdout.split('\n') : [];
                 const progressLine = logLines.find(line => line.includes('Progress:'));
                 if (progressLine) {
-                    await updateStatus('Spotify Cookie Validation Progress', progressLine);
+                    const elapsedSecs = ((Date.now() - startTime) / 1000).toFixed(2);
+                    await updateStatus('Spotify Cookie Validation Progress', `${progressLine}\nElapsed time: ${elapsedSecs}s`);
                 }
             } catch (e) {
                 // Ignore errors in status updates
@@ -229,6 +238,13 @@ async function checkSpotifyCookies(updateStatus) {
         const childProcess = exec(`python3 ${scriptPath} --all_cookies`, async (error, stdout, stderr) => {
             // Clear the status update interval
             clearInterval(statusUpdateInterval);
+            
+            // Calculate performance metrics
+            const endTime = Date.now();
+            const elapsedSeconds = (endTime - startTime) / 1000;
+            results.elapsedTime = elapsedSeconds.toFixed(2);
+            results.speed = (results.total / elapsedSeconds).toFixed(2);
+            
             if (error) {
                 console.error(`Error running Spotify cookie checker: ${error}`);
                 if (stderr) console.error(`stderr: ${stderr}`);
@@ -359,6 +375,9 @@ async function checkNetflixCookies(updateStatus) {
         // Now run the actual checker script to validate working cookies
         updateStatus('Cookie Verification Process', `Removed ${results.duplicatesRemoved} duplicate Netflix cookies.\nNow validating remaining cookies...`);
         
+        // Start timing for performance metrics
+        const startTime = Date.now();
+        
         // Set up a status update interval while the Python script runs
         const statusUpdateInterval = setInterval(async () => {
             // Try to read progress from logs or temp file
@@ -366,7 +385,8 @@ async function checkNetflixCookies(updateStatus) {
                 const logLines = stdout ? stdout.split('\n') : [];
                 const progressLine = logLines.find(line => line.includes('Progress:'));
                 if (progressLine) {
-                    await updateStatus('Netflix Cookie Validation Progress', progressLine);
+                    const elapsedSecs = ((Date.now() - startTime) / 1000).toFixed(2);
+                    await updateStatus('Netflix Cookie Validation Progress', `${progressLine}\nElapsed time: ${elapsedSecs}s`);
                 }
             } catch (e) {
                 // Ignore errors in status updates
@@ -378,6 +398,13 @@ async function checkNetflixCookies(updateStatus) {
         const childProcess = exec(`python3 ${scriptPath} --all_cookies`, async (error, stdout, stderr) => {
             // Clear the status update interval
             clearInterval(statusUpdateInterval);
+            
+            // Calculate performance metrics
+            const endTime = Date.now();
+            const elapsedSeconds = (endTime - startTime) / 1000;
+            results.elapsedTime = elapsedSeconds.toFixed(2);
+            results.speed = (results.total / elapsedSeconds).toFixed(2);
+            
             if (error) {
                 console.error(`Error running Netflix cookie checker: ${error}`);
                 if (stderr) console.error(`stderr: ${stderr}`);

@@ -13,6 +13,8 @@ import argparse
 import sys
 import queue
 import concurrent.futures
+import multiprocessing
+from multiprocessing import Manager, Pool, Process, Value, Lock
 from datetime import datetime
 
 # Global counters
@@ -23,11 +25,12 @@ total_checked = 0
 total_broken = 0
 lock = threading.Lock()
 last_update_time = time.time()  # Track time for progress updates
-update_interval = 0.001  # Update progress every millisecond (1/1000 of a second)
+update_interval = 0.0005  # Update progress every half millisecond
 start_time = time.time()  # Track overall start time for speed calculations
 
 # Maximum limits
-MAX_THREADS = 1000  # Maximum number of threads for cookie checking
+MAX_THREADS = 2000  # Increased maximum number of threads
+CPU_COUNT = multiprocessing.cpu_count()  # Get number of CPU cores
 
 # Global paths
 working_cookies_dir = "working_cookies"

@@ -1,0 +1,19 @@
+
+    ─────────────────────────────────────────────────────────────
+    PLAN       : Premium
+    COUNTRY    : MA
+    AutoPay    : True
+    Trial      : False
+    Invite Link: N/A
+    Email      : N/A
+    checker by : ITSMEBOI
+    
+    ─────────────────────────────────────────────────────────────
+
+    .spotify.com	TRUE	/	TRUE	1751980982	sp_dc	AQBVM8f7WRLK0A10TpY7Q8xYStDtZJWmsKLWnwq473ryfWEw4iQMEeyQGBv9R7wQ-bRcsifH_Md-rnJaT19zOHGTP4t1878Rj_Q5scuIhtSURWuzRkmX0EqyI-wfgEzr2z5wQQbcWAwExinirAmBxD3iPgASrwA
+.spotify.com	TRUE	/	TRUE	1751980982	sp_key	1cbc1392-7032-4bc3-ac0f-901e39733a26
+    
+    ─────────────────────────────────────────────────────────────
+                    CHECKER BY ITSMEBOI
+    ─────────────────────────────────────────────────────────────
+    

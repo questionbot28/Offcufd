@@ -14,3 +14,5 @@ webdriver-manager
 rarfile
 termcolor
 rarfile
+rarfile
+termcolor

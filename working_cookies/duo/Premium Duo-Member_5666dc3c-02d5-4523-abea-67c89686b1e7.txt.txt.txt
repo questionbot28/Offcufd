@@ -1,0 +1,19 @@
+
+    ─────────────────────────────────────────────────────────────
+    PLAN       : Duo
+    COUNTRY    : US
+    AutoPay    : True
+    Trial      : False
+    Invite Link: N/A
+    Email      : N/A
+    checker by : ITSMEBOI
+    
+    ─────────────────────────────────────────────────────────────
+
+    .spotify.com	TRUE	/	FALSE	1742952692	sp_dc	AQBf_bUmvTrsEiATEztorIulWZOb0D1b4N5D9jNCzSb1X8LqB21w91Bl02__kw8Cv86V9JGJiVQJAzQ5TQqcE7LTl7gb5Y8Nw7jvojNJqoi31OdAFK2o5yE2gpzYTjsqp_YzKYFnn7oUgCWBb-6kkoqdEsfEklq-
+.spotify.com	TRUE	/	FALSE	1742952692	sp_key	fd45f9cb-f86e-40f4-8e72-7a1ef083de09
+    
+    ─────────────────────────────────────────────────────────────
+                    CHECKER BY ITSMEBOI
+    ─────────────────────────────────────────────────────────────
+    

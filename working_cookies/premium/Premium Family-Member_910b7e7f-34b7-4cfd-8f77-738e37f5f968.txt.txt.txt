@@ -1,0 +1,19 @@
+
+    ─────────────────────────────────────────────────────────────
+    PLAN       : Premium
+    COUNTRY    : US
+    AutoPay    : False
+    Trial      : False
+    Invite Link: N/A
+    Email      : N/A
+    checker by : ITSMEBOI
+    
+    ─────────────────────────────────────────────────────────────
+
+    .spotify.com	TRUE	/	FALSE	1753134316	sp_dc	AQA1BPBx6upxFHZCzFsDUz6gkSAuNikp9JTxcV4Rmvro2HFc8xL0-yRUUX_HNp6xxwENwz9LWejmSR7szlbxIsvwldQh9_EHVSUJ5sYyYpHRzqK7Eg_hw-ugKE0_tXxxsaDTLuEx86Fe85nvr3CSJPttjWxJ_AVz
+.spotify.com	TRUE	/	FALSE	1753134316	sp_key	bcefd3bf-29b4-455c-8c3f-1520bee55bd4
+    
+    ─────────────────────────────────────────────────────────────
+                    CHECKER BY ITSMEBOI
+    ─────────────────────────────────────────────────────────────
+    
