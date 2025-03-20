@@ -13,3 +13,4 @@ unzip
 webdriver-manager
 rarfile
 termcolor
+rarfile
