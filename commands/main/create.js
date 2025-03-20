@@ -43,10 +43,20 @@ module.exports = {
                 }
             } catch (error) {
                 console.error(error);
-                message.reply('An error occurred while creating the file.');
+                
+                // Send error via DM to keep it private
+                message.author.send('An error occurred while creating the file.').catch(e => {
+                    console.error('Could not send DM to user:', e);
+                });
+                
+                // Delete the original command message if possible
+                if (message.deletable) {
+                    await message.delete().catch(e => console.error('Could not delete command message:', e));
+                }
             }
         } else {
-            return message.channel.send({
+            // Send error via DM to keep it private
+            message.author.send({
                 embeds: [
                     new Discord.MessageEmbed()
                         .setColor(config.color.red)
@@ -55,7 +65,16 @@ module.exports = {
                         .setFooter({ text: message.author.tag, iconURL: message.author.displayAvatarURL({ dynamic: true, size: 64 }) })
                         .setTimestamp()
                 ]
+            }).catch(e => {
+                console.error('Could not send DM to user:', e);
             });
+            
+            // Delete the original command message if possible
+            if (message.deletable) {
+                await message.delete().catch(e => console.error('Could not delete command message:', e));
+            }
+            
+            return;
         }
     },
 };

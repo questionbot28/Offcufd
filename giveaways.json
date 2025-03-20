@@ -94,6 +94,18 @@
       "status": "active",
       "winner": null,
       "accountDetails": null
+    },
+    "02799a7b492f21d5": {
+      "id": "02799a7b492f21d5",
+      "accountName": "steam",
+      "creatorId": "1153479317519605791",
+      "endTime": 1742470987793,
+      "participants": [],
+      "messageId": "1352245827648618587",
+      "channelId": "1348251265544491094",
+      "status": "active",
+      "winner": null,
+      "accountDetails": null
     }
   },
   "claimCodes": {
