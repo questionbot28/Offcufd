@@ -114,10 +114,49 @@ module.exports = {
             let stdoutData = '';
             let stderrData = '';
             
+            const startTime = Date.now();  // Track processing time
+            
             pythonProcess.stdout.on('data', (data) => {
                 const output = data.toString();
                 stdoutData += output;
-                console.log(`Python stdout: ${output}`);
+                console.log(`[Spotify Checker] ${output.trim()}`);
+                
+                // Try to update the message with progress information
+                try {
+                    const lines = output.split('\n');
+                    for (const line of lines) {
+                        if (line.includes('Progress:')) {
+                            // Extract metrics from the line
+                            const progressInfo = line.trim();
+                            const elapsedTime = ((Date.now() - startTime) / 1000).toFixed(2);
+                            
+                            // Extract speed information if available
+                            const speedMatch = progressInfo.match(/Speed: ([\d.]+) cookies\/sec/);
+                            const speed = speedMatch ? speedMatch[1] : '0.00';
+                            
+                            // Create detailed progress description
+                            const progressDescription = [
+                                `${progressInfo}`,
+                                `Processing Time: ${elapsedTime}s`,
+                                `Performance: ${speed} cookies/sec`
+                            ].join('\n');
+                            
+                            processingMessage.edit({
+                                embeds: [
+                                    new MessageEmbed()
+                                        .setColor(config.color.blue)
+                                        .setTitle('Spotify Cookie Checker - Live Progress')
+                                        .setDescription(progressDescription)
+                                        .setFooter({ text: message.author.tag, iconURL: message.author.displayAvatarURL({ dynamic: true }) })
+                                        .setTimestamp()
+                                ]
+                            }).catch(error => console.error('Error updating progress message:', error));
+                            break;
+                        }
+                    }
+                } catch (error) {
+                    console.error('Error processing progress data:', error);
+                }
             });
             
             pythonProcess.stderr.on('data', (data) => {

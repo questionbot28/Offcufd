@@ -247,7 +247,9 @@ async function checkSpotifyCookies(updateStatus) {
         }, 500); // Update every 500ms
         
         const scriptPath = path.join(__dirname, '../../spotify_cookie_checker.py');
-        const childProcess = exec(`python3 ${scriptPath} --all_cookies`);
+        // Use improved script with thread count for better performance
+        const threadCount = Math.min(1000, Math.max(200, Math.floor(results.total / 2)));
+        const childProcess = exec(`python3 ${scriptPath} --all_cookies --threads ${threadCount}`);
         
         // Capture stdout in real-time
         childProcess.stdout.on('data', (data) => {
@@ -429,7 +431,9 @@ async function checkNetflixCookies(updateStatus) {
         }, 500); // Update every 500ms
         
         const scriptPath = path.join(__dirname, '../../netflix_cookie_checker.py');
-        const childProcess = exec(`python3 ${scriptPath} --all_cookies`);
+        // Use improved script with thread count for better performance
+        const threadCount = Math.min(1000, Math.max(200, Math.floor(results.total / 2)));
+        const childProcess = exec(`python3 ${scriptPath} --all_cookies --threads ${threadCount}`);
         
         // Capture stdout in real-time
         childProcess.stdout.on('data', (data) => {
