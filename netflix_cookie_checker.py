@@ -22,6 +22,8 @@ total_unsubscribed = 0
 total_checked = 0
 total_broken = 0
 lock = threading.Lock()
+last_update_time = time.time()  # Track time for progress updates
+update_interval = 2.0  # Update progress every 2 seconds
 
 # Maximum limits
 MAX_THREADS = 1000  # Maximum number of threads for cookie checking
@@ -484,6 +486,7 @@ def process_cookie_file(cookie_file):
 
 def worker(task_queue, results):
     """Worker thread to process Netflix cookie files using a queue system."""
+    global last_update_time
     while True:
         try:
             # Get a task from the queue (non-blocking with timeout)
@@ -497,6 +500,13 @@ def worker(task_queue, results):
             # Store results with thread safety
             with lock:
                 results.append(result)
+                
+                # Check if it's time to print a progress update
+                current_time = time.time()
+                if current_time - last_update_time > update_interval:
+                    last_update_time = current_time
+                    checking_speed = total_checked / (current_time - start_time) if current_time > start_time else 0
+                    print(f"Progress: Checked {total_checked} cookies | Valid: {total_working} | Failed: {total_fails} | Speed: {checking_speed:.2f} cookies/sec")
                 
             # Mark task as complete
             task_queue.task_done()
