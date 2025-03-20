@@ -153,9 +153,12 @@ def load_cookies_from_file(cookie_file):
                         if file.lower().endswith('.txt'):
                             cookie_files.append(os.path.join(root, file))
                 
-                # If we found cookie files, use the first one
+                # If we found cookie files, process all of them (not just the first)
+                # But for the initial cookie functionality, still return cookies from the first file
                 if cookie_files:
-                    debug_print(f"Found {len(cookie_files)} cookie files in archive, using the first one")
+                    # For now, use the first cookie file for this function's return value
+                    # The process_directory function will handle checking all files properly
+                    debug_print(f"Found {len(cookie_files)} cookie files in archive, using the first one for initial check")
                     return load_cookies_from_file(cookie_files[0])
             
             debug_print("Could not find any valid cookie files in the archive")
@@ -792,11 +795,39 @@ if __name__ == "__main__":
             # If checking a single file
             debug_print(f"Checking single cookie file: {filepath}")
             
-            # Process the single file and get the result
-            result = process_cookie_file(filepath)
-            
-            # Print statistics
-            print_statistics()
+            # Check file extension to see if it's an archive
+            file_ext = os.path.splitext(filepath)[1].lower()
+            if file_ext in ['.zip', '.rar']:
+                # For archives, extract and process all files
+                extract_dir = os.path.join(os.path.dirname(filepath), f"temp_extracted_{os.path.basename(filepath)}")
+                os.makedirs(extract_dir, exist_ok=True)
+                
+                if extract_from_archive(filepath, extract_dir):
+                    # Process all extracted cookie files
+                    cookie_files = process_directory(extract_dir)
+                    
+                    if cookie_files:
+                        debug_print(f"Processing {len(cookie_files)} cookie files from archive")
+                        
+                        # Process each cookie file
+                        results = []
+                        for cookie_file in cookie_files:
+                            result = process_cookie_file(cookie_file)
+                            results.append(result)
+                        
+                        # Print statistics
+                        print_statistics()
+                    else:
+                        debug_print("No cookie files found in the archive")
+                        print_statistics()
+                else:
+                    # If extraction failed, try processing the archive as a regular file
+                    result = process_cookie_file(filepath)
+                    print_statistics()
+            else:
+                # For regular files, just process the single file
+                result = process_cookie_file(filepath)
+                print_statistics()
         else:
             # If it's a directory, check all files in it
             check_netflix_cookies(filepath)
