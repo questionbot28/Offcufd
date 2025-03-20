@@ -66,7 +66,7 @@ module.exports = {
 
             // Get all users with vouches
             const rows = await new Promise((resolve, reject) => {
-                db.all('SELECT user_id, vouches FROM vouches WHERE vouches > 0', (err, rows) => {
+                db.all('SELECT user_id, vouches FROM vouches WHERE vouches >= 20', (err, rows) => {
                     if (err) {
                         console.error('Error fetching vouch data:', err);
                         reject(err);
@@ -76,11 +76,12 @@ module.exports = {
                 });
             });
 
-            console.log(`Found ${rows.length} users with vouches to process`);
+            console.log(`Found ${rows.length} users with 20+ vouches to process`);
 
             let updatedUsers = 0;
             let promotionsMade = 0;
             let errors = [];
+            let skippedUsers = [];
 
             const promotionTiers = [
                 { threshold: 20, roleID: "1200663200358727714" },  // First promotion at 20 vouches
@@ -92,16 +93,14 @@ module.exports = {
             for (const row of rows) {
                 try {
                     console.log(`Processing user ${row.user_id} with ${row.vouches} vouches`);
-                    const member = await message.guild.members.fetch(row.user_id).catch(err => {
-                        console.error(`Failed to fetch member ${row.user_id}:`, err);
-                        return null;
-                    });
+                    const member = await message.guild.members.fetch(row.user_id).catch(() => null);
 
                     if (!member) {
-                        console.log(`Could not find member ${row.user_id} in guild`);
-                        errors.push(`Could not find member ${row.user_id}`);
+                        skippedUsers.push(row.user_id);
                         continue;
                     }
+
+                    let userPromoted = false;
 
                     // Check each promotion tier
                     for (const tier of promotionTiers) {
@@ -119,6 +118,7 @@ module.exports = {
                                 try {
                                     await member.roles.add(role);
                                     promotionsMade++;
+                                    userPromoted = true;
 
                                     // Send promotion announcement
                                     const promotionEmbed = new MessageEmbed()
@@ -137,12 +137,13 @@ module.exports = {
                                     console.error(`Failed to assign role to ${member.user.tag}:`, roleError);
                                     errors.push(`Failed to assign role to ${member.user.tag}`);
                                 }
-                            } else {
-                                console.log(`User ${member.user.tag} already has role ${role.name}`);
                             }
                         }
                     }
-                    updatedUsers++;
+
+                    if (userPromoted) {
+                        updatedUsers++;
+                    }
                 } catch (userError) {
                     console.error(`Error processing user ${row.user_id}:`, userError);
                     errors.push(`Error processing user ${row.user_id}: ${userError.message}`);
@@ -160,9 +161,16 @@ module.exports = {
                 ])
                 .setTimestamp();
 
+            // Add skipped users field if any were skipped
+            if (skippedUsers.length > 0) {
+                successEmbed.addField('Skipped Users', 
+                    `${skippedUsers.length} user(s) were skipped (no longer in server)`);
+            }
+
             // Add errors field if there were any
             if (errors.length > 0) {
-                successEmbed.addField('Errors', errors.slice(0, 3).join('\n') + (errors.length > 3 ? '\n...' : ''));
+                successEmbed.addField('Errors', 
+                    errors.slice(0, 3).join('\n') + (errors.length > 3 ? '\n...' : ''));
             }
 
             await message.reply({ embeds: [successEmbed] });

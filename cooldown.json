@@ -1,13 +1,5 @@
 {
-  "startdrop": 1742452940825,
-  "totalDrops": 1,
-  "lastReset": 1742452883954,
-  "accountsClaimed": 1,
-  "dropStats": {
-    "basic": 1,
-    "premium": 0,
-    "extreme": 0,
-    "free": 0,
-    "cookie": 0
-  }
+  "startdrop": 0,
+  "totalDrops": 0,
+  "lastReset": 1742454959140
 }
