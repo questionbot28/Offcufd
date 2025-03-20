@@ -36,17 +36,19 @@ module.exports = {
             // Get promotion channel first to verify access
             const promotionChannel = message.guild.channels.cache.get(config.promotionChannelId);
             if (!promotionChannel) {
+                console.error(`Promotion channel ${config.promotionChannelId} not found!`);
                 return message.reply({
                     embeds: [new MessageEmbed()
                         .setColor('#FF0000')
                         .setTitle('Channel Error')
-                        .setDescription(`Promotion channel (${config.promotionChannelId}) not found!`)]
+                        .setDescription(`Promotion channel (#『🎭』promotion) not found!`)]
                 });
             }
 
             // Verify bot permissions in promotion channel
             const botPermissions = promotionChannel.permissionsFor(message.guild.me);
             if (!botPermissions.has('SEND_MESSAGES') || !botPermissions.has('VIEW_CHANNEL')) {
+                console.error('Bot lacks required permissions in promotion channel!');
                 return message.reply({
                     embeds: [new MessageEmbed()
                         .setColor('#FF0000')
@@ -55,16 +57,7 @@ module.exports = {
                 });
             }
 
-            // First refresh drop stats
-            const cooldownFile = './cooldown.json';
-            const cooldownData = {
-                startdrop: 0,
-                totalDrops: 0,
-                lastReset: Date.now()
-            };
-            fs.writeFileSync(cooldownFile, JSON.stringify(cooldownData, null, 2));
-
-            // Get all users with vouches
+            // Get all users with vouches >= 20
             const rows = await new Promise((resolve, reject) => {
                 db.all('SELECT user_id, vouches FROM vouches WHERE vouches >= 20', (err, rows) => {
                     if (err) {
@@ -81,44 +74,44 @@ module.exports = {
             let updatedUsers = 0;
             let promotionsMade = 0;
             let errors = [];
-            let skippedUsers = [];
 
             const promotionTiers = [
-                { threshold: 20, roleID: "1200663200358727714" },  // First promotion at 20 vouches
-                { threshold: 60, roleID: "1200663200358727715" },  // Second promotion at 60 vouches
-                { threshold: 100, roleID: "1200663200358727716" }  // Third promotion at 100 vouches
+                { threshold: 20, roleID: "1348251264299044920", name: "Trial" },      // Trial role at 20 vouches
+                { threshold: 60, roleID: "1348251264299044921", name: "Second" },     // Second promotion at 60 vouches
+                { threshold: 100, roleID: "1348251264299044922", name: "Third" },     // Third promotion at 100 vouches
+                { threshold: 400, roleID: "1348251264299044923", name: "Fourth" }     // Fourth promotion at 400 vouches
             ];
 
             // Process each user
             for (const row of rows) {
                 try {
                     console.log(`Processing user ${row.user_id} with ${row.vouches} vouches`);
-                    const member = await message.guild.members.fetch(row.user_id).catch(() => null);
+                    const member = await message.guild.members.fetch(row.user_id);
 
                     if (!member) {
-                        skippedUsers.push(row.user_id);
+                        console.log(`Could not find member ${row.user_id} in guild`);
                         continue;
                     }
 
-                    let userPromoted = false;
+                    let userUpdated = false;
 
                     // Check each promotion tier
                     for (const tier of promotionTiers) {
                         if (row.vouches >= tier.threshold) {
                             const role = message.guild.roles.cache.get(tier.roleID);
                             if (!role) {
-                                console.error(`Role ${tier.roleID} not found!`);
-                                errors.push(`Role ${tier.roleID} not found`);
+                                console.error(`Role ${tier.roleID} (${tier.name}) not found!`);
+                                errors.push(`Role ${tier.name} (${tier.roleID}) not found`);
                                 continue;
                             }
 
                             // Check if user already has the role
                             if (!member.roles.cache.has(tier.roleID)) {
-                                console.log(`Assigning role ${role.name} to ${member.user.tag}`);
+                                console.log(`Assigning ${tier.name} role to ${member.user.tag}`);
                                 try {
                                     await member.roles.add(role);
                                     promotionsMade++;
-                                    userPromoted = true;
+                                    userUpdated = true;
 
                                     // Send promotion announcement
                                     const promotionEmbed = new MessageEmbed()
@@ -135,13 +128,15 @@ module.exports = {
                                     console.log(`Successfully promoted ${member.user.tag} to ${role.name}`);
                                 } catch (roleError) {
                                     console.error(`Failed to assign role to ${member.user.tag}:`, roleError);
-                                    errors.push(`Failed to assign role to ${member.user.tag}`);
+                                    errors.push(`Failed to assign ${tier.name} role to ${member.user.tag}`);
                                 }
+                            } else {
+                                console.log(`User ${member.user.tag} already has ${tier.name} role`);
                             }
                         }
                     }
 
-                    if (userPromoted) {
+                    if (userUpdated) {
                         updatedUsers++;
                     }
                 } catch (userError) {
@@ -149,6 +144,15 @@ module.exports = {
                     errors.push(`Error processing user ${row.user_id}: ${userError.message}`);
                 }
             }
+
+            // Reset drop stats
+            const cooldownFile = './cooldown.json';
+            const cooldownData = {
+                startdrop: 0,
+                totalDrops: 0,
+                lastReset: Date.now()
+            };
+            fs.writeFileSync(cooldownFile, JSON.stringify(cooldownData, null, 2));
 
             // Send success message
             const successEmbed = new MessageEmbed()
@@ -161,15 +165,9 @@ module.exports = {
                 ])
                 .setTimestamp();
 
-            // Add skipped users field if any were skipped
-            if (skippedUsers.length > 0) {
-                successEmbed.addField('Skipped Users', 
-                    `${skippedUsers.length} user(s) were skipped (no longer in server)`);
-            }
-
             // Add errors field if there were any
             if (errors.length > 0) {
-                successEmbed.addField('Errors', 
+                successEmbed.addField('Errors',
                     errors.slice(0, 3).join('\n') + (errors.length > 3 ? '\n...' : ''));
             }
 

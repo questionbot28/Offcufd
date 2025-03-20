@@ -126,9 +126,10 @@ module.exports = {
 
                 // Check for promotions
                 const promotionTiers = [
-                    { threshold: 20, roleID: "1200663200358727714" },  // First promotion at 20 vouches
-                    { threshold: 60, roleID: "1200663200358727715" },  // Second promotion at 60 vouches
-                    { threshold: 100, roleID: "1200663200358727716" }  // Third promotion at 100 vouches
+                    { threshold: 20, roleID: "1348251264299044920" },  // Trial role at 20 vouches
+                    { threshold: 60, roleID: "1348251264299044921" },  // Second promotion at 60 vouches
+                    { threshold: 100, roleID: "1348251264299044922" }, // Third promotion at 100 vouches
+                    { threshold: 400, roleID: "1348251264299044923" }  // Fourth promotion at 400 vouches
                 ];
 
                 for (const tier of promotionTiers) {

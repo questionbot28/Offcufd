@@ -114,15 +114,19 @@
   "autoRoleTiers": [
     {
       "threshold": 20,
-      "roleID": "1200663200358727714"
+      "roleID": "1348251264299044920"
     },
     {
       "threshold": 60,
-      "roleID": "1200663200358727715"
+      "roleID": "1348251264299044921"
     },
     {
       "threshold": 100,
-      "roleID": "1200663200358727716"
+      "roleID": "1348251264299044922"
+    },
+    {
+      "threshold": 400,
+      "roleID": "1348251264299044923"
     }
   ],
   "dropSessionActive": true,
