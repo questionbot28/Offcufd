@@ -498,23 +498,24 @@ def worker(task_queue, results):
             cookie_file = task_queue.get(block=False)
             if cookie_file is None:  # Sentinel value to indicate end of tasks
                 break
-                
-            debug_print(f"Thread processing cookie file: {os.path.basename(cookie_file)}")
+            
+            # Process the cookie file without unnecessary debug output to improve speed
             result = process_cookie_file(cookie_file)
             
             # Store results with thread safety
             with lock:
                 results.append(result)
                 
-                # Real-time millisecond progress updates
+                # Ultra-fast real-time progress updates
                 current_time = time.time()
                 if current_time - last_update_time > update_interval:
                     last_update_time = current_time
                     elapsed_time = current_time - start_time
                     checking_speed = total_checked / elapsed_time if elapsed_time > 0 else 0
+                    cookies_per_thread = checking_speed / (threading.active_count() - 1) if threading.active_count() > 1 else checking_speed
                     
-                    # Detailed status message with millisecond precision
-                    print(f"[{datetime.now().strftime('%H:%M:%S.%f')[:-3]}] Progress: Checked {total_checked} cookies | Valid: {total_working} | Failed: {total_fails} | Unsubscribed: {total_unsubscribed} | Broken: {total_broken} | Speed: {checking_speed:.2f} cookies/sec | Elapsed: {elapsed_time:.3f}s")
+                    # Enhanced status message with millisecond precision and speed metrics
+                    print(f"[{datetime.now().strftime('%H:%M:%S.%f')[:-3]}] Progress: Checked {total_checked} cookies | Valid: {total_working} | Failed: {total_fails} | Unsubscribed: {total_unsubscribed} | Broken: {total_broken} | Speed: {checking_speed:.2f} cookies/sec | Threads: {threading.active_count()-1} | Cookies/thread: {cookies_per_thread:.2f}/sec | Elapsed: {elapsed_time:.3f}s")
                 
             # Mark task as complete
             task_queue.task_done()
@@ -523,8 +524,7 @@ def worker(task_queue, results):
             # No more tasks in the queue
             break
         except Exception as e:
-            debug_print(f"Worker thread error: {str(e)}")
-            # Mark task as done even if there was an error
+            # Mark task as done even if there was an error - minimal error handling for speed
             if 'cookie_file' in locals() and cookie_file is not None:
                 task_queue.task_done()
 
@@ -746,24 +746,74 @@ def process_directory(directory, processed_files=None, depth=0, max_depth=5):
     debug_print(f"Found {len(cookie_files)} cookie files in directory: {directory}")
     return cookie_files
 
+def process_batch(batch_files, batch_id):
+    """Process a batch of cookie files in a separate process."""
+    global total_working, total_fails, total_unsubscribed, total_checked, total_broken, last_update_time, start_time
+    
+    # Initialize local counters
+    local_working = local_fails = local_unsubscribed = local_checked = local_broken = 0
+    batch_results = []
+    batch_start_time = time.time()
+    
+    for cookie_file in batch_files:
+        try:
+            result = process_cookie_file(cookie_file)
+            batch_results.append(result)
+            
+            # Update local counters based on result
+            if "Working" in result:
+                local_working += 1
+            elif "Unsubscribed" in result:
+                local_unsubscribed += 1
+            elif "Failed" in result:
+                local_fails += 1
+            elif "Error" in result:
+                local_broken += 1
+                
+            local_checked += 1
+            
+            # Super fast local progress update
+            current_time = time.time()
+            if current_time - last_update_time > update_interval:
+                last_update_time = current_time
+                elapsed_time = current_time - batch_start_time
+                checking_speed = local_checked / elapsed_time if elapsed_time > 0 else 0
+                
+                print(f"[{datetime.now().strftime('%H:%M:%S.%f')[:-3]}] Batch {batch_id} Progress: {local_checked}/{len(batch_files)} cookies | Valid: {local_working} | Speed: {checking_speed:.2f} cookies/sec")
+        except Exception as e:
+            batch_results.append(f"Error processing {cookie_file}: {str(e)}")
+            local_broken += 1
+    
+    # Return all batch results and metrics
+    return {
+        "results": batch_results,
+        "working": local_working,
+        "fails": local_fails,
+        "unsubscribed": local_unsubscribed,
+        "checked": local_checked,
+        "broken": local_broken,
+        "batch_id": batch_id,
+        "time": time.time() - batch_start_time
+    }
+
 def check_netflix_cookies(cookies_dir="netflix", num_threads=None):
-    """Check all Netflix cookies in the specified directory using a thread pool."""
-    global total_working, total_fails, total_unsubscribed, total_checked, total_broken
+    """Check all Netflix cookies in the specified directory using both multiprocessing and multithreading."""
+    global total_working, total_fails, total_unsubscribed, total_checked, total_broken, start_time
     total_working = total_fails = total_unsubscribed = total_checked = total_broken = 0
     
-    # Set default threads if not specified
+    # Determine optimal number of processes and threads
+    num_processes = min(CPU_COUNT, 16)  # Limit to reasonable number
     if num_threads is None:
-        # Check if args exists (from command line) and has threads attribute
         if 'args' in globals() and hasattr(args, 'threads'):
             num_threads = args.threads
         else:
-            num_threads = MAX_THREADS
+            num_threads = MAX_THREADS // num_processes  # Divide threads among processes
     
     # Ensure thread count is within limits
     num_threads = max(1, min(num_threads, MAX_THREADS))
     
     start_time = time.time()
-    debug_print(f"Starting Netflix cookie check with up to {num_threads} threads")
+    debug_print(f"Starting Netflix cookie check with {num_processes} processes and up to {num_threads} threads per process")
     
     # Setup directories
     setup_directories()
@@ -780,48 +830,73 @@ def check_netflix_cookies(cookies_dir="netflix", num_threads=None):
         debug_print("No cookie files found.")
         return []
     
-    # Process cookies with multiple threads using a queue
-    results = []
+    # Initialize multiprocessing resources
+    manager = Manager()
+    shared_results = manager.list()
     
-    # Create a queue for tasks
-    task_queue = queue.Queue()
-    for cookie_file in cookie_files:
-        task_queue.put(cookie_file)
+    # Divide files into batches for multiprocessing
+    batch_size = max(1, len(cookie_files) // num_processes)
+    batches = [cookie_files[i:i + batch_size] for i in range(0, len(cookie_files), batch_size)]
     
-    # Determine optimal number of threads (don't create more threads than files)
-    num_threads = min(num_threads, len(cookie_files))
-    debug_print(f"Using {num_threads} threads for processing {len(cookie_files)} cookie files")
+    debug_print(f"Divided {len(cookie_files)} files into {len(batches)} batches of approximately {batch_size} each")
     
-    # Create and start worker threads
-    threads = []
-    for _ in range(num_threads):
-        thread = threading.Thread(
-            target=worker,
-            args=(task_queue, results)
-        )
-        thread.daemon = True
-        thread.start()
-        threads.append(thread)
+    # Display initial information 
+    print(f"\n[{datetime.now().strftime('%H:%M:%S.%f')[:-3]}] Starting cookie check with {num_processes} processes")
+    print(f"Total cookies to check: {len(cookie_files)} | Batch size: {batch_size}")
     
-    # Wait for all tasks to complete
-    task_queue.join()
+    try:
+        # Use ThreadPoolExecutor for faster processing
+        with concurrent.futures.ProcessPoolExecutor(max_workers=num_processes) as executor:
+            # Submit all batches for processing
+            futures = [executor.submit(process_batch, batch, i) for i, batch in enumerate(batches)]
+            
+            # Process results as they complete
+            for future in concurrent.futures.as_completed(futures):
+                try:
+                    batch_result = future.result()
+                    if batch_result:
+                        # Update global counters atomically
+                        with lock:
+                            total_working += batch_result["working"]
+                            total_fails += batch_result["fails"]
+                            total_unsubscribed += batch_result["unsubscribed"]
+                            total_checked += batch_result["checked"]
+                            total_broken += batch_result["broken"]
+                            
+                            # Add batch results to shared results
+                            shared_results.extend(batch_result["results"])
+                            
+                            # Calculate and display overall progress
+                            elapsed_time = time.time() - start_time
+                            overall_speed = total_checked / elapsed_time if elapsed_time > 0 else 0
+                            batch_speed = batch_result["checked"] / batch_result["time"] if batch_result["time"] > 0 else 0
+                            
+                            print(f"\n[{datetime.now().strftime('%H:%M:%S.%f')[:-3]}] Batch {batch_result['batch_id']} completed:")
+                            print(f"  - Processed {batch_result['checked']} cookies in {batch_result['time']:.2f} seconds")
+                            print(f"  - Batch speed: {batch_speed:.2f} cookies/sec")
+                            print(f"  - Overall progress: {total_checked}/{len(cookie_files)} cookies | Valid: {total_working} | Failed: {total_fails}")
+                            print(f"  - Overall speed: {overall_speed:.2f} cookies/sec | Elapsed time: {elapsed_time:.2f}s")
+                except Exception as e:
+                    debug_print(f"Error processing batch: {str(e)}")
+    except Exception as e:
+        debug_print(f"Error in process pool: {str(e)}")
     
-    # Stop the worker threads
-    for _ in range(num_threads):
-        try:
-            task_queue.put(None)  # Send sentinel value to each thread
-        except Exception:
-            pass  # Ignore errors when stopping threads
-    
-    # Wait for all threads to finish
-    for thread in threads:
-        thread.join(timeout=1.0)  # Use timeout to avoid hanging
+    # Convert shared_results to a normal list
+    results = list(shared_results)
     
     elapsed_time = time.time() - start_time
     debug_print(f"Cookie checking completed in {elapsed_time:.2f} seconds")
     
-    # Print statistics
-    print_statistics()
+    # Calculate and print final statistics
+    checking_speed = total_checked / elapsed_time if elapsed_time > 0 else 0
+    print(f"\n--- Netflix Cookie Check Results ---")
+    print(f"Total checked: {total_checked} cookies")
+    print(f"Working cookies: {total_working}")
+    print(f"Unsubscribed accounts: {total_unsubscribed}")
+    print(f"Failed cookies: {total_fails}")
+    print(f"Broken files: {total_broken}")
+    print(f"Total processing time: {elapsed_time:.2f} seconds")
+    print(f"Average checking speed: {checking_speed:.2f} cookies/sec")
     
     return results
 

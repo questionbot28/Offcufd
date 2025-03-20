@@ -13,6 +13,8 @@ import time
 import argparse
 import queue
 import concurrent.futures
+import multiprocessing
+from multiprocessing import Manager, Pool, Process, Value, Lock
 from datetime import datetime
 from termcolor import colored
 
@@ -28,7 +30,7 @@ debug_print("Script started")
 # Global tracking variables for progress updates
 last_update_time = time.time()
 start_time = time.time()
-update_interval = 0.001  # Update progress every millisecond
+update_interval = 0.0005  # Update progress every half millisecond
 
 # Directory structure
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
@@ -38,12 +40,13 @@ WORKING_COOKIES_DIR = os.path.join(BASE_DIR, "working_cookies")
 SPOTIFY_DIR = os.path.join(BASE_DIR, "spotify")
 
 # Maximum limits to prevent hanging
-MAX_FILES_TO_PROCESS = 1000   # Maximum number of files to process
-MAX_ARCHIVES_TO_PROCESS = 50  # Maximum number of archives to process
+MAX_FILES_TO_PROCESS = 2000   # Increased maximum files
+MAX_ARCHIVES_TO_PROCESS = 100  # Increased maximum archives
 MAX_RECURSION_DEPTH = 5       # Maximum recursion depth for nested archives
-MAX_THREADS = 1000            # Maximum number of threads for cookie checking
+MAX_THREADS = 2000            # Increased maximum threads
+CPU_COUNT = multiprocessing.cpu_count()  # Get CPU core count
 
-debug_print(f"Configuration: MAX_FILES={MAX_FILES_TO_PROCESS}, MAX_ARCHIVES={MAX_ARCHIVES_TO_PROCESS}, MAX_DEPTH={MAX_RECURSION_DEPTH}, MAX_THREADS={MAX_THREADS}")
+debug_print(f"Configuration: MAX_FILES={MAX_FILES_TO_PROCESS}, MAX_ARCHIVES={MAX_ARCHIVES_TO_PROCESS}, MAX_DEPTH={MAX_RECURSION_DEPTH}, MAX_THREADS={MAX_THREADS}, CPU_CORES={CPU_COUNT}")
 
 # Results dictionary
 results = {
@@ -403,10 +406,14 @@ def process_directory(directory, base_file_name, valid_cookies, errors):
         print(f"Error processing directory {directory}: {e}")
         errors.append(f"⚠ Error processing directory {directory}: {e}")
 
-# Worker thread function to process cookie files in parallel
+# Worker thread function for high-speed processing 
 def worker(task_queue, valid_cookies, errors):
-    """Worker thread to process cookie files."""
+    """Worker thread to process cookie files with optimized performance."""
     global last_update_time, start_time, results
+    
+    # Track local stats for this thread
+    thread_processed = 0
+    thread_start_time = time.time()
     
     while True:
         task = None
@@ -417,12 +424,12 @@ def worker(task_queue, valid_cookies, errors):
                 break
                 
             file_path, file_name = task
-            debug_print(f"Thread processing file: {file_name}")
             
-            # Process the cookie file
+            # Process the cookie file with minimal logging for speed
             cookie_path, message = process_file_for_cookies(file_path, file_name)
+            thread_processed += 1
             
-            # Update progress in milliseconds
+            # Ultra-fast progress updates with minimal lock contention
             with lock:
                 current_time = time.time()
                 if current_time - last_update_time > update_interval:
@@ -430,12 +437,14 @@ def worker(task_queue, valid_cookies, errors):
                     elapsed_time = current_time - start_time
                     total_checked = results['hits'] + results['bad'] + results['errors']
                     checking_speed = total_checked / elapsed_time if elapsed_time > 0 else 0
+                    thread_speed = thread_processed / (current_time - thread_start_time) if current_time > thread_start_time else 0
+                    cookies_per_thread = checking_speed / threading.active_count() if threading.active_count() > 0 else 0
                     
-                    # Show detailed status with millisecond precision
+                    # Show detailed status with enhanced metrics
                     ts = datetime.now().strftime('%H:%M:%S.%f')[:-3]
-                    print(f"[{ts}] Progress: Checked {total_checked} cookies | Valid: {results['hits']} ({results['premium']} Premium, {results['family']} Family, {results['student']} Student) | Failed: {results['bad']} | Errors: {results['errors']} | Speed: {checking_speed:.2f} cookies/sec | Elapsed: {elapsed_time:.3f}s")
+                    print(f"[{ts}] Progress: Checked {total_checked} cookies | Valid: {results['hits']} ({results['premium']} Premium, {results['family']} Family, {results['duo']} Duo) | Failed: {results['bad']} | Speed: {checking_speed:.2f} cookies/sec | Threads: {threading.active_count()} | Cookies/thread: {cookies_per_thread:.2f}/sec | Elapsed: {elapsed_time:.3f}s")
             
-            # Store results with thread safety
+            # Store results with thread safety but minimize lock time
             with lock:
                 if cookie_path:
                     valid_cookies.append((cookie_path, message))
@@ -446,12 +455,11 @@ def worker(task_queue, valid_cookies, errors):
             # No more tasks in the queue
             break
         except Exception as e:
-            # Log the error and continue with other files
+            # Minimal error handling for speed
             with lock:
                 errors.append(f"⚠ Thread error: {str(e)}")
-            debug_print(f"Thread error: {str(e)}")
         finally:
-            # Mark task as done if we got one
+            # Always mark task as done to prevent deadlocks
             if 'task' in locals() and task is not None:
                 task_queue.task_done()
 

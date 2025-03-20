@@ -16,3 +16,5 @@ termcolor
 rarfile
 rarfile
 termcolor
+rarfile
+termcolor
