@@ -23,9 +23,10 @@ lock = threading.Lock()
 working_cookies_dir = "working_cookies"
 temp_dir = "temp"
 MAX_RECURSION_DEPTH = 5  # Prevent infinite recursion
+NETFLIX_DIR = "netflix"  # Direct netflix folder for commands like .cstock and .csend
 dirs = {
     "netflix": {
-        "root": "netflix", 
+        "root": NETFLIX_DIR, 
         "hits": "working_cookies/netflix/premium",
         "failures": "working_cookies/netflix/failures", 
         "broken": "working_cookies/netflix/broken",
@@ -46,6 +47,9 @@ def setup_directories():
     
     # Create base working cookies directory if it doesn't exist
     os.makedirs(working_cookies_dir, exist_ok=True)
+    
+    # Create netflix directory for command access
+    os.makedirs(NETFLIX_DIR, exist_ok=True)
     
     # Create temporary extraction directory for archives
     os.makedirs(os.path.join(temp_dir, "netflix", "extracted"), exist_ok=True)
@@ -231,10 +235,14 @@ def handle_successful_login(cookie_file, info, is_subscribed):
     safe_filename = f"{country}_{plan_name}_{is_extra}_{base_filename}"
     safe_filename = re.sub(r'[\\/*?:"<>|]', '_', safe_filename)
     
-    # Prepare the destination folder
+    # Prepare the destination folders
     hits_folder = dirs["netflix"]["hits"]
     os.makedirs(hits_folder, exist_ok=True)
-    new_filepath = os.path.join(hits_folder, safe_filename)
+    os.makedirs(NETFLIX_DIR, exist_ok=True)
+    
+    # Create paths for both locations
+    organized_filepath = os.path.join(hits_folder, safe_filename)
+    netflix_filepath = os.path.join(NETFLIX_DIR, f"Premium_{country}_{base_filename}")
     
     # Read the original cookie content
     with open(cookie_file, 'r', encoding='utf-8', errors='ignore') as infile:
@@ -250,16 +258,23 @@ def handle_successful_login(cookie_file, info, is_subscribed):
     # Convert boolean to Yes/No
     extra_members = "Yes" if info.get('showExtraMemberSection') == "True" else "No" if info.get('showExtraMemberSection') == "False" else "Unknown"
     
-    # Write to the new file with cookie details
-    with open(new_filepath, 'w', encoding='utf-8') as outfile:
-        outfile.write(f"PLAN: {plan_name}\n")
-        outfile.write(f"COUNTRY: {info['countryOfSignup']}\n")
-        outfile.write(f"MAX STREAMS: {max_streams}\n")
-        outfile.write(f"EXTRA MEMBERS: {extra_members}\n")
-        outfile.write(f"MEMBER SINCE: {member_since}\n")
-        outfile.write(f"CHECKED ON: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}\n")
-        outfile.write("\n\n")
-        outfile.write(original_cookie_content)
+    # Prepare formatted content
+    formatted_content = f"PLAN: {plan_name}\n"
+    formatted_content += f"COUNTRY: {info['countryOfSignup']}\n"
+    formatted_content += f"MAX STREAMS: {max_streams}\n"
+    formatted_content += f"EXTRA MEMBERS: {extra_members}\n"
+    formatted_content += f"MEMBER SINCE: {member_since}\n"
+    formatted_content += f"CHECKED ON: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}\n\n\n"
+    formatted_content += original_cookie_content
+    
+    # Write to both locations
+    # 1. Write to organized folder
+    with open(organized_filepath, 'w', encoding='utf-8') as outfile:
+        outfile.write(formatted_content)
+        
+    # 2. Write to netflix folder for .cstock and .csend commands
+    with open(netflix_filepath, 'w', encoding='utf-8') as outfile:
+        outfile.write(formatted_content)
     
     # Remove the original file after successful processing
     if os.path.exists(cookie_file):

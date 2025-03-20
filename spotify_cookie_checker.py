@@ -47,6 +47,7 @@ lock = threading.Lock()
 # Ensure directories exist
 os.makedirs(COOKIES_DIR, exist_ok=True)
 os.makedirs(WORKING_COOKIES_DIR, exist_ok=True)
+os.makedirs(SPOTIFY_DIR, exist_ok=True)
 
 # Plan name mapping
 def plan_name_mapping(plan):
@@ -204,14 +205,30 @@ def check_single_cookie(cookie_content, filename):
                 
                 # Format and save cookie
                 formatted_cookie, plan = format_cookie_file(data, remove_unwanted_content(cookie_content))
+                
+                # Save in both working_cookies (for organization) and spotify folder (for commands)
+                # 1. Save to working_cookies for organization by plan
                 plan_folder = os.path.join(WORKING_COOKIES_DIR, plan.replace(" ", "_").lower())
                 os.makedirs(plan_folder, exist_ok=True)
+                
+                # 2. Make sure spotify folder exists
+                os.makedirs(SPOTIFY_DIR, exist_ok=True)
                 
                 # Extract just the filename without path and remove any directory paths
                 base_filename = os.path.basename(filename)
                 # Create unique filename by stripping and making safe for filesystem
                 safe_filename = re.sub(r'[\\/*?:"<>|]', '_', base_filename)
-                cookie_file_path = os.path.join(plan_folder, f"{safe_filename}.txt")
+                
+                # Save in working_cookies by plan
+                working_file_path = os.path.join(plan_folder, f"{safe_filename}.txt")
+                
+                # Also save in spotify folder for .cstock and .csend commands
+                cookie_file_path = os.path.join(SPOTIFY_DIR, f"{plan}_{safe_filename}.txt")
+                
+                # Write to both locations
+                with open(working_file_path, 'w', encoding='utf-8') as out_f:
+                    out_f.write(formatted_cookie)
+                    
                 with open(cookie_file_path, 'w', encoding='utf-8') as out_f:
                     out_f.write(formatted_cookie)
                 
