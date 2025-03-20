@@ -220,10 +220,21 @@ def handle_successful_login(cookie_file, info, is_subscribed):
         total_working += 1
     debug_print(f"Login successful with {cookie_file} - Country: {info['countryOfSignup']}, Member since: {info['memberSince']}")
     
-    # Create a meaningful filename
-    new_filename = f"{info['countryOfSignup']}_{info.get('localizedPlanName', 'Unknown').replace(' ', '_')}_{info.get('showExtraMemberSection', 'unknown')}_{os.path.basename(cookie_file)}"
+    # Create a meaningful filename - strip paths and make safe
+    base_filename = os.path.basename(cookie_file)
+    # Clean the filename to avoid invalid characters
+    plan_name = info.get('localizedPlanName', 'Unknown').replace(' ', '_')
+    country = info['countryOfSignup']
+    is_extra = info.get('showExtraMemberSection', 'unknown')
+    
+    # Make sure filename is safe for filesystem
+    safe_filename = f"{country}_{plan_name}_{is_extra}_{base_filename}"
+    safe_filename = re.sub(r'[\\/*?:"<>|]', '_', safe_filename)
+    
+    # Prepare the destination folder
     hits_folder = dirs["netflix"]["hits"]
-    new_filepath = os.path.join(hits_folder, new_filename)
+    os.makedirs(hits_folder, exist_ok=True)
+    new_filepath = os.path.join(hits_folder, safe_filename)
     
     # Read the original cookie content
     with open(cookie_file, 'r', encoding='utf-8', errors='ignore') as infile:

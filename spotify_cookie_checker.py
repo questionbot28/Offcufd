@@ -206,7 +206,11 @@ def check_single_cookie(cookie_content, filename):
                 plan_folder = os.path.join(WORKING_COOKIES_DIR, plan.replace(" ", "_").lower())
                 os.makedirs(plan_folder, exist_ok=True)
                 
-                cookie_file_path = os.path.join(plan_folder, f"{filename}.txt")
+                # Extract just the filename without path and remove any directory paths
+                base_filename = os.path.basename(filename)
+                # Create unique filename by stripping and making safe for filesystem
+                safe_filename = re.sub(r'[\\/*?:"<>|]', '_', base_filename)
+                cookie_file_path = os.path.join(plan_folder, f"{safe_filename}.txt")
                 with open(cookie_file_path, 'w', encoding='utf-8') as out_f:
                     out_f.write(formatted_cookie)
                 

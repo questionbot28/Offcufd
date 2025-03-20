@@ -29,7 +29,36 @@ module.exports = {
             }
 
             if (folderCommands.length > 0) {
-                embed.addField(`# ${folder} Commands:`, folderCommands.join('\n\n'));
+                // Make sure the value doesn't exceed 1024 characters (Discord's limit)
+                const value = folderCommands.join('\n\n');
+                if (value.length <= 1024) {
+                    embed.addFields([{ name: `# ${folder} Commands:`, value: value }]);
+                } else {
+                    // Split into multiple fields if too long
+                    const chunks = [];
+                    let currentChunk = "";
+                    
+                    for (const cmd of folderCommands) {
+                        if ((currentChunk + "\n\n" + cmd).length > 1024) {
+                            chunks.push(currentChunk);
+                            currentChunk = cmd;
+                        } else {
+                            currentChunk += (currentChunk ? "\n\n" : "") + cmd;
+                        }
+                    }
+                    
+                    if (currentChunk) {
+                        chunks.push(currentChunk);
+                    }
+                    
+                    // Add the first chunk with the folder name
+                    embed.addFields([{ name: `# ${folder} Commands:`, value: chunks[0] }]);
+                    
+                    // Add any additional chunks with continuation names
+                    for (let i = 1; i < chunks.length; i++) {
+                        embed.addFields([{ name: `# ${folder} Commands (continued ${i}):`, value: chunks[i] }]);
+                    }
+                }
             }
         }
 
