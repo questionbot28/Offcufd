@@ -11,17 +11,16 @@ module.exports = {
     const helpEmbed = new MessageEmbed()
       .setColor('#0099ff')
       .setTitle('🎁 Drop System Commands')
-      .setDescription(`The drop system allows users to claim accounts during special drop events in <#${config.dropChannelId}>.`)
+      .setDescription(`The drop system allows admins to run special drop events in <#${config.dropChannelId}>.`)
       .addField('For Users', `
-• \`.drop\` - Claim an account during an active drop session
-• \`.dropstats\` - Check drop statistics and cooldowns
+• \`.drop\` - Check if a drop session is active
+• \`.dropstats\` - Check drop statistics
       `)
       .addField('For Staff', `
 • \`.startdrop\` - Start a new drop session (staff only)
 • \`.stopdrop\` - End the current drop session (staff only)
       `)
-      .addField('Cooldown Rules', '• 2-hour cooldown between drops\n• Maximum 4 drops per 24-hour period')
-      .setFooter({ text: 'Type .drop during active drop sessions to claim accounts!' });
+      .setFooter({ text: 'Watch for drop announcements in the channel!' });
 
     message.channel.send({ embeds: [helpEmbed] });
   },

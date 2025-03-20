@@ -10,7 +10,7 @@ module.exports = {
     execute: async (message, args, usedPrefix) => {
         // Check if the user has the restock role
         const restockRoleId = config.restockroleid;
-        if (!message.member.roles.cache.has(restockRoleId) && !message.member.hasPermission('ADMINISTRATOR')) {
+        if (!message.member.roles.cache.has(restockRoleId) && !message.member.permissions.has('ADMINISTRATOR')) {
             return message.reply('You do not have the necessary permissions to use this command.');
         }
 
@@ -32,20 +32,30 @@ module.exports = {
 
                 sendMessage(message, keyword, fileName);
 
-                message.reply(`File ${fileName} created successfully in the ${folderType} folder.`);
+                // Use a private ephemeral message that only the command user can see
+                message.author.send(`File ${fileName} created successfully in the ${folderType} folder.`).catch(e => {
+                    console.error('Could not send DM to user:', e);
+                });
+                
+                // Delete the original command message if possible
+                if (message.deletable) {
+                    await message.delete().catch(e => console.error('Could not delete command message:', e));
+                }
             } catch (error) {
                 console.error(error);
                 message.reply('An error occurred while creating the file.');
             }
         } else {
-            return message.channel.send(
-                new Discord.MessageEmbed()
-                    .setColor(config.color.red)
-                    .setTitle('Invalid keyword!')
-                    .setDescription('You need to specify a valid keyword ("free", "premium", "boost", "basic", "cookie", or "extreme").')
-                    .setFooter(message.author.tag, message.author.displayAvatarURL({ dynamic: true, size: 64 }))
-                    .setTimestamp()
-            );
+            return message.channel.send({
+                embeds: [
+                    new Discord.MessageEmbed()
+                        .setColor(config.color.red)
+                        .setTitle('Invalid keyword!')
+                        .setDescription('You need to specify a valid keyword ("free", "premium", "boost", "basic", "cookie", or "extreme").')
+                        .setFooter({ text: message.author.tag, iconURL: message.author.displayAvatarURL({ dynamic: true, size: 64 }) })
+                        .setTimestamp()
+                ]
+            });
         }
     },
 };
@@ -97,7 +107,7 @@ function sendMessage(message, keyword, fileName) {
             .setTitle('Service Created!')
             .setDescription(`The service **${fileName.replace('.txt', '')}** has been created in the **${keyword}** category.`);
 
-        categoryChannel.send(embed);
+        categoryChannel.send({ embeds: [embed] });
     } else {
         console.error(`Channel with ID ${channelID} not found or not a text channel.`);
     }

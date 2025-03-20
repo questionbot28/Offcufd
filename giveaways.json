@@ -14,6 +14,86 @@
       "winner": "1153479317519605791",
       "accountDetails": "/home/runner/workspace/giveaways/2ddc0fda93fb82ce.txt",
       "claimed": true
+    },
+    "2e785f203eeb4451": {
+      "id": "2e785f203eeb4451",
+      "accountName": "stream",
+      "creatorId": "1153479317519605791",
+      "endTime": 1742469817930,
+      "participants": [
+        "1153479317519605791"
+      ],
+      "messageId": "1352240921022042143",
+      "channelId": "1348251265544491094",
+      "status": "ended",
+      "winner": "1153479317519605791",
+      "accountDetails": null
+    },
+    "832e12c87ae80b4a": {
+      "id": "832e12c87ae80b4a",
+      "accountName": "steam",
+      "creatorId": "1153479317519605791",
+      "endTime": 1742469849756,
+      "participants": [
+        "1153479317519605791"
+      ],
+      "messageId": "1352241053368848384",
+      "channelId": "1348251265544491094",
+      "status": "ended",
+      "winner": "1153479317519605791",
+      "accountDetails": null
+    },
+    "c7f1b8ab82d68f0b": {
+      "id": "c7f1b8ab82d68f0b",
+      "accountName": "steam",
+      "creatorId": "1196132788601110573",
+      "endTime": 1742469931432,
+      "participants": [],
+      "messageId": "1352241395187843072",
+      "channelId": "1348251265544491094",
+      "status": "active",
+      "winner": null,
+      "accountDetails": null
+    },
+    "98b54eab5474f630": {
+      "id": "98b54eab5474f630",
+      "accountName": "steam",
+      "creatorId": "1196132788601110573",
+      "endTime": 1742470441942,
+      "participants": [
+        "1196132788601110573"
+      ],
+      "messageId": "1352241775095578675",
+      "channelId": "1348251265544491092",
+      "status": "active",
+      "winner": null,
+      "accountDetails": null
+    },
+    "cdca064a2a289f0f": {
+      "id": "cdca064a2a289f0f",
+      "accountName": "steam",
+      "creatorId": "1196132788601110573",
+      "endTime": 1742517992176,
+      "participants": [
+        "1196132788601110573"
+      ],
+      "messageId": "1352241901935267851",
+      "channelId": "1348251265544491094",
+      "status": "active",
+      "winner": null,
+      "accountDetails": null
+    },
+    "24fadb862a3a9673": {
+      "id": "24fadb862a3a9673",
+      "accountName": "steam",
+      "creatorId": "1153479317519605791",
+      "endTime": 1742470391258,
+      "participants": [],
+      "messageId": "1352243325545091092",
+      "channelId": "1348251265544491094",
+      "status": "active",
+      "winner": null,
+      "accountDetails": null
     }
   },
   "claimCodes": {
@@ -21,6 +101,16 @@
       "giveawayId": "2ddc0fda93fb82ce",
       "winnerId": "1153479317519605791",
       "claimed": true
+    },
+    "4d1dc276cb6f787d1e13bed8": {
+      "giveawayId": "2e785f203eeb4451",
+      "winnerId": "1153479317519605791",
+      "claimed": false
+    },
+    "0ebd9be1dd41089175980776": {
+      "giveawayId": "832e12c87ae80b4a",
+      "winnerId": "1153479317519605791",
+      "claimed": false
     }
   }
 }

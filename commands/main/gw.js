@@ -221,6 +221,7 @@ module.exports = {
                         .addField('Duration', `${timeInMinutes} minute${timeInMinutes !== 1 ? 's' : ''}`)
                         .addField('Ends At', `<t:${Math.floor(endTime / 1000)}:R>`)
                         .addField('Hosted By', `<@${message.author.id}>`)
+                        .setImage('https://cdn.discordapp.com/attachments/1263458101886193725/1349031252216250503/350kb.gif?ex=67dcd382&is=67db8202&hm=819b12370cf47cf8e4f9ca413f31212080bbfd344c9a6dac2f264a89848e8aeb&')
                         .setFooter({ text: 'Click the button below to enter!' })
                         .setTimestamp()
                 ],
@@ -236,17 +237,35 @@ module.exports = {
             // Set a timeout to end the giveaway
             setTimeout(() => endGiveaway(message.client, giveawayId), timeInMinutes * 60 * 1000);
             
-            // Confirm to user
-            return message.channel.send({
-                embeds: [
-                    new MessageEmbed()
-                        .setColor(config.color.green)
-                        .setTitle('Giveaway Started')
-                        .setDescription(`Giveaway for **${accountName}** has been started successfully. Check your DMs for the giveaway ID.`)
-                        .setFooter({ text: message.author.tag, iconURL: message.author.displayAvatarURL({ dynamic: true }) })
-                        .setTimestamp()
-                ]
-            });
+            // Only send a private DM to the creator with the giveaway ID
+            try {
+                await message.author.send({
+                    embeds: [
+                        new MessageEmbed()
+                            .setColor(config.color.green)
+                            .setTitle('Giveaway Started')
+                            .setDescription(`Giveaway for **${accountName}** has been started successfully.\nGiveaway ID: \`${giveawayId}\``)
+                            .setFooter({ text: 'This message is only visible to you' })
+                            .setTimestamp()
+                    ]
+                });
+                
+                // Delete the original command message if possible
+                if (message.deletable) {
+                    await message.delete().catch(e => console.error('Could not delete command message:', e));
+                }
+                
+                // No public confirmation - completely silent to others
+                return;
+            } catch (err) {
+                console.error('Error sending giveaway confirmation DM:', err);
+                // If DM fails, we still don't want to reveal anything in the channel
+                // Just delete the command and return silently
+                if (message.deletable) {
+                    await message.delete().catch(e => console.error('Could not delete command message:', e));
+                }
+                return;
+            }
         }
     }
 };
@@ -286,6 +305,7 @@ async function endGiveaway(client, giveawayId) {
                         .setTitle('🎉 GIVEAWAY ENDED 🎉')
                         .setDescription(`No one entered the giveaway for **${giveaway.accountName}**`)
                         .addField('Hosted By', `<@${giveaway.creatorId}>`)
+                        .setImage('https://cdn.discordapp.com/attachments/1263458101886193725/1349031252216250503/350kb.gif?ex=67dcd382&is=67db8202&hm=819b12370cf47cf8e4f9ca413f31212080bbfd344c9a6dac2f264a89848e8aeb&')
                         .setFooter({ text: 'Better luck next time!' })
                         .setTimestamp()
                 ],
@@ -320,6 +340,7 @@ async function endGiveaway(client, giveawayId) {
                     .setDescription(`The giveaway for **${giveaway.accountName}** has ended!`)
                     .addField('Winner', `<@${winnerId}>`)
                     .addField('Hosted By', `<@${giveaway.creatorId}>`)
+                    .setImage('https://cdn.discordapp.com/attachments/1263458101886193725/1349031252216250503/350kb.gif?ex=67dcd382&is=67db8202&hm=819b12370cf47cf8e4f9ca413f31212080bbfd344c9a6dac2f264a89848e8aeb&')
                     .setFooter({ text: 'Thanks for participating!' })
                     .setTimestamp()
             ],

@@ -46,7 +46,6 @@ module.exports = {
             .setColor('#00FF00')
             .setTitle('🎁 Drop Started!')
             .setDescription('Drop Started! A new drop session has started! Hurry up and get the drops!!')
-            .addField('How to claim', 'Type `.drop` to claim an account')
             .setFooter({ text: 'Hurry! First come, first served!' });
 
         // Mention the drop role if it exists
