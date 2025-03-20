@@ -23,7 +23,7 @@ total_checked = 0
 total_broken = 0
 lock = threading.Lock()
 last_update_time = time.time()  # Track time for progress updates
-update_interval = 2.0  # Update progress every 2 seconds
+update_interval = 0.001  # Update progress every millisecond (1/1000 of a second)
 
 # Maximum limits
 MAX_THREADS = 1000  # Maximum number of threads for cookie checking
