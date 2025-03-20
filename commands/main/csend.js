@@ -22,19 +22,19 @@ module.exports = {
         if (args.length !== 2) {
             return message.reply('Please provide the correct arguments. Usage: `csend <@user> <netflix/spotify>`.');
         }
-
+        
         const mentionedUser = message.mentions.users.first();
         if (!mentionedUser) {
             return message.reply('Please mention a user to send the cookie to.');
         }
         
         const category = args[1].toLowerCase();
-
+        
         // Check if the specified category is valid (netflix or spotify)
         if (!(category === 'netflix' || category === 'spotify')) {
             return message.reply('Please provide a valid category (netflix or spotify).');
         }
-
+        
         // Processing message
         const processingEmbed = new MessageEmbed()
             .setColor(config.color.blue || '#0099ff')
@@ -44,7 +44,7 @@ module.exports = {
             .setTimestamp();
             
         const processingMessage = await message.channel.send({ embeds: [processingEmbed] });
-
+        
         try {
             let validCookie = null;
             let validCookieContent = null;
@@ -444,14 +444,38 @@ module.exports = {
                 await mentionedUser.send({ embeds: [dmEmbed] });
                 await mentionedUser.send({ files: [fileAttachment] });
                 
-                // Delete the cookie file after sending
+                // Enhanced file deletion with proper path resolution and logging
                 try {
-                    if (validCookie && fs.existsSync(validCookie)) {
-                        fs.unlinkSync(validCookie);
-                        console.log(`Deleted cookie file: ${validCookie}`);
+                    if (validCookie) {
+                        const absolutePath = path.resolve(validCookie);
+                        console.log(`Attempting to delete cookie file at: ${absolutePath}`);
+
+                        if (fs.existsSync(absolutePath)) {
+                            try {
+                                fs.unlinkSync(absolutePath);
+                                console.log(`Successfully deleted cookie file: ${absolutePath}`);
+
+                                // Verify deletion
+                                const stillExists = fs.existsSync(absolutePath);
+                                console.log(`File deletion verification - File still exists?: ${stillExists}`);
+
+                                if (stillExists) {
+                                    console.error(`Warning: File still exists after deletion attempt: ${absolutePath}`);
+                                }
+                            } catch (deleteError) {
+                                console.error(`Error during file deletion:`, deleteError);
+                                console.error(`File path: ${absolutePath}`);
+                                console.error(`Error stack: ${deleteError.stack}`);
+                            }
+                        } else {
+                            console.log(`Cookie file not found at path: ${absolutePath}`);
+                        }
+                    } else {
+                        console.log('No valid cookie file to delete');
                     }
-                } catch (deleteError) {
-                    console.error(`Error deleting cookie file: ${deleteError.message}`);
+                } catch (error) {
+                    console.error('Error in cookie deletion process:', error);
+                    console.error('Error stack:', error.stack);
                 }
                 
                 // Success message in channel with cookie details
