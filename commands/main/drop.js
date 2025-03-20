@@ -6,8 +6,8 @@ const config = require('../../config.json');
 
 module.exports = {
   name: 'drop',
-  description: 'Drop a random account from a specified tier',
-  usage: 'drop <tier>',
+  description: 'Claim a random account from the current drop',
+  usage: 'drop',
   async execute(message, args) {
     // Check if the command is used in the allowed channel
     const allowedChannelId = config.dropChannelId;
@@ -29,49 +29,9 @@ module.exports = {
 
       return message.channel.send({ embeds: [errorEmbed] });
     }
-
-    // Get the tier
-    const validTiers = ['basic', 'b', 'premium', 'p', 'extreme', 'e', 'free', 'f', 'cookie', 'c'];
     
-    if (!args[0] || !validTiers.includes(args[0].toLowerCase())) {
-      const errorEmbed = new MessageEmbed()
-        .setColor('#FF0000')
-        .setTitle('Invalid Tier')
-        .setDescription('Please specify a valid tier: basic (b), premium (p), extreme (e), free (f), or cookie (c).')
-        .setFooter({ text: 'Example: .drop basic' });
-
-      return message.channel.send({ embeds: [errorEmbed] });
-    }
-
-    const tier = args[0].toLowerCase();
-    
-    // Map tier to folder
-    let folderPath;
-    
-    switch(tier) {
-      case 'basic':
-      case 'b':
-        folderPath = 'basicstock';
-        break;
-      case 'premium':
-      case 'p':
-        folderPath = 'stock';
-        break;
-      case 'extreme':
-      case 'e':
-        folderPath = 'extreme';
-        break;
-      case 'free':
-      case 'f':
-        folderPath = 'fstock';
-        break;
-      case 'cookie':
-      case 'c':
-        folderPath = 'cookies';
-        break;
-      default:
-        folderPath = 'basicstock';
-    }
+    // Use the configured drop folder or default to stock
+    const folderPath = config.dropFolder || 'stock';
 
     // Get list of files in the folder
     try {
@@ -124,40 +84,12 @@ module.exports = {
         // Initialize dropStats if it doesn't exist
         if (!cooldownData.dropStats) {
           cooldownData.dropStats = {
-            basic: 0,
-            premium: 0,
-            extreme: 0,
-            free: 0,
-            cookie: 0
+            accounts: 0
           };
         }
         
-        // Increment the appropriate tier counter
-        let tierKey;
-        switch(tier) {
-          case 'basic':
-          case 'b':
-            tierKey = 'basic';
-            break;
-          case 'premium':
-          case 'p':
-            tierKey = 'premium';
-            break;
-          case 'extreme':
-          case 'e':
-            tierKey = 'extreme';
-            break;
-          case 'free':
-          case 'f':
-            tierKey = 'free';
-            break;
-          case 'cookie':
-          case 'c':
-            tierKey = 'cookie';
-            break;
-        }
-        
-        cooldownData.dropStats[tierKey] = (cooldownData.dropStats[tierKey] || 0) + 1;
+        // Increment the accounts counter
+        cooldownData.dropStats.accounts = (cooldownData.dropStats.accounts || 0) + 1;
         
         // Save updated statistics
         fs.writeFileSync(cooldownFile, JSON.stringify(cooldownData, null, 2));
@@ -165,7 +97,7 @@ module.exports = {
         // Send the account as a DM to the user
         const dmEmbed = new MessageEmbed()
           .setColor('#00FF00')
-          .setTitle(`${tier.toUpperCase()} Tier Drop - ${randomFile.replace('.txt', '')}`)
+          .setTitle(`Drop - ${randomFile.replace('.txt', '')}`)
           .setDescription(`Here's your account:\n\`\`\`\n${randomAccount}\n\`\`\``)
           .setFooter({ text: 'Dropped at ' + new Date().toLocaleString() });
 
@@ -175,8 +107,8 @@ module.exports = {
         const successEmbed = new MessageEmbed()
           .setColor('#00FF00')
           .setTitle('🎉 Drop Claimed!')
-          .setDescription(`${message.author.tag} has claimed a ${tier.toUpperCase()} tier account!\nCheck your DMs for the account details.`)
-          .setFooter({ text: 'Type .drop <tier> to claim an account' });
+          .setDescription(`${message.author.tag} has claimed an account!\nCheck your DMs for the account details.`)
+          .setFooter({ text: 'Type .drop to claim an account' });
 
         message.channel.send({ embeds: [successEmbed] });
         

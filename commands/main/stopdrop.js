@@ -82,7 +82,7 @@ module.exports = {
         const successEmbed = new MessageEmbed()
             .setColor('#00FF00')
             .setTitle('🛑 Drop Stopped')
-            .setDescription('The drop session has been stopped!')
+            .setDescription('Drop Stopped: The drop session has stopped.')
             .addField('Thanks', 'Thank you for participating in the drop session.')
             .setFooter({ text: 'See you in the next drop!' });
 

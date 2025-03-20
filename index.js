@@ -78,7 +78,8 @@ client.db = new sqlite3.Database('vouches.db', (err) => {
                 leaves INTEGER DEFAULT 0,
                 bonus_invites INTEGER DEFAULT 0,
                 fake_invites INTEGER DEFAULT 0,
-                invite_codes TEXT DEFAULT '[]'
+                invite_codes TEXT DEFAULT '[]',
+                role_cooldowns TEXT DEFAULT '{}'
             )`);
         });
     }
