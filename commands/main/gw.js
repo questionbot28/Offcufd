@@ -177,10 +177,23 @@ module.exports = {
             
             // Send giveaway announcement
             let giveawayChannel;
-            if (config.giveawayChannelId) {
-                giveawayChannel = message.guild.channels.cache.get(config.giveawayChannelId);
+            
+            // Check if we're in one of the dedicated giveaway channels
+            const currentChannelId = message.channel.id;
+            
+            // Check all the giveaway channels
+            if (config.giveawayChannels) {
+                // Use the current channel if it's one of our dedicated giveaway channels
+                if (Object.values(config.giveawayChannels).includes(currentChannelId)) {
+                    giveawayChannel = message.channel;
+                } 
+                // If we're not in a giveaway channel, use the default or channel 1
+                else if (config.giveawayChannelId) {
+                    giveawayChannel = message.guild.channels.cache.get(config.giveawayChannelId);
+                }
             }
             
+            // Fallback to the current channel if no giveaway channel is found
             if (!giveawayChannel) {
                 giveawayChannel = message.channel;
             }
