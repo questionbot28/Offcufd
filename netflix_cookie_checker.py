@@ -639,7 +639,19 @@ def process_directory(directory, processed_files=None, depth=0, max_depth=5):
             debug_print(f"Directory does not exist: {directory}")
             return cookie_files
             
-        # Walk through all files and subdirectories
+        # First, specifically check for cookie files in the cookies subdirectory if it exists
+        cookies_dir = os.path.join(directory, "cookies")
+        if os.path.exists(cookies_dir) and os.path.isdir(cookies_dir):
+            debug_print(f"Found 'cookies' subdirectory: {cookies_dir}")
+            for root, dirs, files in os.walk(cookies_dir):
+                for file in files:
+                    if file.lower().endswith('.txt'):
+                        file_path = os.path.join(root, file)
+                        debug_print(f"Found cookie file in cookies subdirectory: {file_path}")
+                        cookie_files.append(file_path)
+                        processed_files.append(file_path)
+        
+        # Now do the general recursive processing of all subdirectories
         for root, dirs, files in os.walk(directory):
             debug_print(f"Scanning {root}: found {len(files)} files and {len(dirs)} directories")
             
@@ -684,9 +696,9 @@ def process_directory(directory, processed_files=None, depth=0, max_depth=5):
                 elif file_ext == '.txt':
                     debug_print(f"Found cookie file: {file_path}")
                     cookie_files.append(file_path)
-                    
-            # Only process the top level directory, letting os.walk handle recursion
-            break
+            
+            # Process one level at a time
+            # Don't break here anymore to allow full traversal
     except Exception as e:
         debug_print(f"Error processing directory {directory}: {str(e)}")
     
