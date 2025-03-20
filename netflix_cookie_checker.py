@@ -735,7 +735,14 @@ def check_netflix_cookies(cookies_dir="netflix", num_threads=None):
     
     # Set default threads if not specified
     if num_threads is None:
-        num_threads = MAX_THREADS
+        # Check if args exists (from command line) and has threads attribute
+        if 'args' in globals() and hasattr(args, 'threads'):
+            num_threads = args.threads
+        else:
+            num_threads = MAX_THREADS
+    
+    # Ensure thread count is within limits
+    num_threads = max(1, min(num_threads, MAX_THREADS))
     
     start_time = time.time()
     debug_print(f"Starting Netflix cookie check with up to {num_threads} threads")

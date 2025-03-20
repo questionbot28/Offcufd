@@ -9,9 +9,31 @@ const config = require('../../config.json');
 module.exports = {
     name: 'c-upload',
     description: 'Upload, check and store working cookies',
-    usage: 'c-upload <netflix/spotify> {.zip attachment}',
+    usage: 'c-upload <netflix/spotify> [threads] {.zip attachment}',
 
     execute: async (message, args, usedPrefix) => {
+        // Check if we have a valid service type
+        if (!args[0] || !['netflix', 'spotify'].includes(args[0].toLowerCase())) {
+            return message.reply({
+                embeds: [
+                    new MessageEmbed()
+                        .setColor(config.color?.red || '#ff0000')
+                        .setTitle('Invalid Usage')
+                        .setDescription(`Please specify either 'netflix' or 'spotify' as the service type.\nUsage: \`${usedPrefix}c-upload <netflix/spotify> [threads] {.zip attachment}\``)
+                        .setFooter({ text: message.author.tag, iconURL: message.author.displayAvatarURL({ dynamic: true }) })
+                        .setTimestamp()
+                ]
+            });
+        }
+        
+        // Get service type
+        const serviceType = args[0].toLowerCase();
+        
+        // Check if user specified a thread count
+        let threadCount = 200; // Default to 200 threads
+        if (args.length > 1 && !isNaN(args[1])) {
+            threadCount = Math.min(200, Math.max(1, parseInt(args[1]))); // Limit between 1-200
+        }
         // Create the necessary directories
         const tempDir = './temp';
         const netflixDir = './netflix';
@@ -97,9 +119,9 @@ module.exports = {
             
             // Call appropriate checker based on service type
             if (service === 'netflix') {
-                await checkNetflixCookies(filePath, message, processingMessage);
+                await checkNetflixCookies(filePath, message, processingMessage, threadCount);
             } else if (service === 'spotify') {
-                await checkSpotifyCookies(filePath, message, processingMessage);
+                await checkSpotifyCookies(filePath, message, processingMessage, threadCount);
             }
             
         } catch (error) {
@@ -138,7 +160,7 @@ function downloadFile(url, filePath) {
 }
 
 // Function to check Netflix cookies
-async function checkNetflixCookies(filePath, message, statusMessage) {
+async function checkNetflixCookies(filePath, message, statusMessage, threadCount = 200) {
     try {
         // Update status with file extension information
         const fileExt = path.extname(filePath).toLowerCase();
@@ -159,7 +181,9 @@ async function checkNetflixCookies(filePath, message, statusMessage) {
         
         // Run the Python script to check the uploaded file
         const scriptPath = path.join(__dirname, '../../netflix_cookie_checker.py');
-        const pythonProcess = spawn('/nix/store/wqhkxzzlaswkj3gimqign99sshvllcg6-python-wrapped-0.1.0/bin/python', [scriptPath, filePath]);
+        console.log(`Starting Netflix cookie check with ${threadCount} threads`);
+        const pythonProcess = spawn('/nix/store/wqhkxzzlaswkj3gimqign99sshvllcg6-python-wrapped-0.1.0/bin/python', 
+            [scriptPath, filePath, '--threads', threadCount.toString()]);
 
         let outputData = '';
         let errorData = '';
@@ -299,7 +323,7 @@ async function checkNetflixCookies(filePath, message, statusMessage) {
 }
 
 // Function to check Spotify cookies
-async function checkSpotifyCookies(filePath, message, statusMessage) {
+async function checkSpotifyCookies(filePath, message, statusMessage, threadCount = 200) {
     try {
         // Run the Python script to check cookies
         console.log(`Starting Python process to check: ${filePath}`);
