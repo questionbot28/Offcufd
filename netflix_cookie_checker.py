@@ -9,6 +9,8 @@ import time
 import traceback
 import zipfile
 import rarfile
+import argparse
+import sys
 from datetime import datetime
 
 # Global counters
@@ -537,15 +539,30 @@ if __name__ == "__main__":
     colorama.init()
     print_banner()
     
-    import sys
+    # Parse command-line arguments
+    parser = argparse.ArgumentParser(description='Check Netflix cookies')
+    parser.add_argument('input_file', nargs='?', help='File or directory to check')
+    parser.add_argument('--all_cookies', action='store_true', help='Check all cookies in netflix directory')
+    args = parser.parse_args()
     
-    # Check if a specific file path was provided as an argument
-    if len(sys.argv) > 1:
-        filepath = sys.argv[1]
+    # Setup directories
+    setup_directories()
+    
+    if args.all_cookies:
+        # Check all cookies in the netflix directory
+        debug_print("Checking all Netflix cookies...")
+        print("Checking all Netflix cookies in the netflix directory...")
+        
+        if os.path.exists(NETFLIX_DIR):
+            check_netflix_cookies(NETFLIX_DIR)
+        else:
+            error_msg = f"Error: Netflix directory not found at {NETFLIX_DIR}"
+            print(error_msg)
+            debug_print(error_msg)
+            sys.exit(1)
+    elif args.input_file:
+        filepath = args.input_file
         if os.path.isfile(filepath):
-            # Setup directories
-            setup_directories()
-            
             # If checking a single file
             debug_print(f"Checking single cookie file: {filepath}")
             

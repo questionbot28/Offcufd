@@ -614,10 +614,12 @@ if __name__ == "__main__":
         sys.exit(1)
     
     try:
-        debug_print(f"Calling check_cookies with {input_file}")
-        summary_path = check_cookies(input_file)
-        print(f"Results saved to: {summary_path}")
-        debug_print("Script completed successfully")
+        # This section only runs when not using --all_cookies and when a valid input_file is provided
+        if args.input_file:
+            debug_print(f"Calling check_cookies with {args.input_file}")
+            summary_path = check_cookies(args.input_file)
+            print(f"Results saved to: {summary_path}")
+            debug_print("Script completed successfully")
     except Exception as e:
         error_msg = f"Unhandled exception in main: {str(e)}\n{traceback.format_exc()}"
         debug_print(error_msg)

@@ -12,11 +12,14 @@ module.exports = {
     
     async execute(message) {
         // Check if user has permission (owner or co-owner only)
+        const ownerRoleId = '1348251264336527416';
+        const coownerRoleId = '1348251264336527414';
+        
         const hasPermission = message.member.roles.cache.some(role => 
             role.name.toLowerCase() === 'owner' || 
             role.name.toLowerCase() === 'cowner' ||
-            role.id === config.ownerRoleId || 
-            role.id === config.cownerRoleId
+            role.id === ownerRoleId || 
+            role.id === coownerRoleId
         );
         
         if (!hasPermission) {
