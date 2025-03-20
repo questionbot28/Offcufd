@@ -1,4 +1,5 @@
 const fs = require('fs');
+const path = require('path');
 const { MessageEmbed } = require('discord.js');
 const config = require('../../config.json');
 
@@ -9,43 +10,61 @@ module.exports = {
 
     execute: function (message, args) {
         try {
-            const cookiesPath = `${__dirname}/../../cookies/`;
-            let netflixCount = 0;
-            let spotifyCount = 0;
+            const cookiesPath = path.join(__dirname, '../../cookies/');
+            const services = [
+                { name: 'Netflix', file: 'netflix.txt' },
+                { name: 'Spotify', file: 'spotify.txt' },
+                { name: 'Amazon Prime', file: 'amazonprime.txt' },
+                { name: 'Gmail', file: 'gmail.txt' },
+                { name: 'Instagram', file: 'instagram.txt' },
+                { name: 'Phub', file: 'phub.txt' },
+                { name: 'Steam', file: 'steam.txt' },
+                { name: 'TikTok', file: 'tiktok.txt' },
+                { name: 'Twitch', file: 'twitch.txt' }
+            ];
             
-            // Get the real count of cookies in the files
-            try {
-                if (fs.existsSync(`${cookiesPath}netflix.txt`)) {
-                    const netflixContent = fs.readFileSync(`${cookiesPath}netflix.txt`, 'utf8');
-                    const netflixLines = netflixContent.split('\n');
-                    netflixCount = netflixLines.filter(line => line.trim() !== '').length;
-                    console.log(`Netflix count: ${netflixCount}`);
-                } else {
-                    console.log('Netflix cookie file not found');
+            let totalCount = 0;
+            let description = '';
+            
+            // Get the count of cookies for each service
+            for (const service of services) {
+                let count = 0;
+                try {
+                    const filePath = path.join(cookiesPath, service.file);
+                    if (fs.existsSync(filePath)) {
+                        const content = fs.readFileSync(filePath, 'utf8');
+                        const lines = content.split('\n');
+                        count = lines.filter(line => line.trim() !== '').length;
+                        console.log(`${service.name} count: ${count}`);
+                    } else {
+                        console.log(`${service.name} cookie file not found`);
+                    }
+                } catch (error) {
+                    console.error(`Error reading ${service.name} file:`, error);
                 }
-            } catch (error) {
-                console.error('Error reading Netflix file:', error);
+                
+                totalCount += count;
+                description += `**${service.name}**: \`${count}\` items\n`;
             }
 
+            // Check family_premium folder if it exists
             try {
-                if (fs.existsSync(`${cookiesPath}spotify.txt`)) {
-                    const spotifyContent = fs.readFileSync(`${cookiesPath}spotify.txt`, 'utf8');
-                    const spotifyLines = spotifyContent.split('\n');
-                    spotifyCount = spotifyLines.filter(line => line.trim() !== '').length;
-                    console.log(`Spotify count: ${spotifyCount}`);
-                } else {
-                    console.log('Spotify cookie file not found');
+                const familyPath = path.join(cookiesPath, 'family_premium');
+                if (fs.existsSync(familyPath) && fs.statSync(familyPath).isDirectory()) {
+                    const familyFiles = fs.readdirSync(familyPath).filter(file => 
+                        fs.statSync(path.join(familyPath, file)).isFile());
+                    const familyCount = familyFiles.length;
+                    totalCount += familyCount;
+                    description += `**Family Premium**: \`${familyCount}\` items\n`;
                 }
             } catch (error) {
-                console.error('Error reading Spotify file:', error);
+                console.error('Error reading Family Premium folder:', error);
             }
-
-            const totalCount = netflixCount + spotifyCount;
 
             const embed = new MessageEmbed()
                 .setColor(config.color.blue)
                 .setTitle('🍪 Cookie Stock')
-                .setDescription(`Total items: \`${totalCount}\`\n\n**Netflix**: \`${netflixCount}\` items\n**Spotify**: \`${spotifyCount}\` items`)
+                .setDescription(`Total items: \`${totalCount}\`\n\n${description}`)
                 .setFooter({ text: message.author.tag, iconURL: message.author.displayAvatarURL({ dynamic: true }) })
                 .setTimestamp();
 
