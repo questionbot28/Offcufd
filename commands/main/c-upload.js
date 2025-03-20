@@ -189,8 +189,46 @@ async function checkNetflixCookies(filePath, message, statusMessage, threadCount
         let errorData = '';
 
         pythonProcess.stdout.on('data', (data) => {
-            outputData += data.toString();
-            console.log(`[Netflix Checker] ${data.toString().trim()}`);
+            const output = data.toString();
+            outputData += output;
+            console.log(`[Netflix Checker] ${output.trim()}`);
+            
+            // Try to update the message with progress information if progress data is found
+            try {
+                const lines = output.split('\n');
+                for (const line of lines) {
+                    if (line.includes('Progress:')) {
+                        // Extract metrics from the line
+                        const progressInfo = line.trim();
+                        const elapsedTime = ((Date.now() - startTime) / 1000).toFixed(2);
+                        
+                        // Extract speed information if available
+                        const speedMatch = progressInfo.match(/Speed: ([\d.]+) cookies\/sec/);
+                        const speed = speedMatch ? speedMatch[1] : '0.00';
+                        
+                        // Create enhanced progress description with performance metrics
+                        const progressDescription = [
+                            `${progressInfo}`,
+                            `Processing Time: ${elapsedTime}s`,
+                            `Performance: ${speed} cookies/sec`
+                        ].join('\n');
+                        
+                        statusMessage.edit({
+                            embeds: [
+                                new MessageEmbed()
+                                    .setColor(config.color?.blue || '#0099ff')
+                                    .setTitle('Netflix Cookie Checker - Live Progress')
+                                    .setDescription(progressDescription)
+                                    .setFooter({ text: message.author.tag, iconURL: message.author.displayAvatarURL({ dynamic: true }) })
+                                    .setTimestamp()
+                            ]
+                        }).catch(error => console.error('Error updating progress message:', error));
+                        break;
+                    }
+                }
+            } catch (error) {
+                console.error('Error processing progress data:', error);
+            }
         });
 
         pythonProcess.stderr.on('data', (data) => {
@@ -203,7 +241,7 @@ async function checkNetflixCookies(filePath, message, statusMessage, threadCount
         let startTime = Date.now();
         const isArchive = fileExt === '.zip' || fileExt === '.rar';
         
-        // Update status periodically
+        // Update status periodically (every 500ms for near real-time updates)
         const updateInterval = setInterval(async () => {
             const elapsedTime = Math.floor((Date.now() - startTime) / 1000);
             let statusDescription = 'Checking your Netflix cookies...';
@@ -217,21 +255,36 @@ async function checkNetflixCookies(filePath, message, statusMessage, threadCount
                 processingStage = 'processing';
             }
             
+            // Try to extract performance metrics if available
+            let speedInfo = '';
+            const speedMatch = outputData.match(/Speed: ([\d.]+) cookies\/sec/);
+            if (speedMatch) {
+                speedInfo = `\nPerformance: ${speedMatch[1]} cookies/sec`;
+            }
+            
             // Create appropriate status message based on stage
             switch (processingStage) {
                 case 'extracting':
-                    statusDescription = `Extracting files from ${fileExt.toUpperCase()} archive... (${elapsedTime}s elapsed)`;
+                    statusDescription = `Extracting files from ${fileExt.toUpperCase()} archive... (${elapsedTime}s elapsed)${speedInfo}`;
                     break;
                 case 'found_files':
                     const foundMatch = outputData.match(/Found (\d+) Netflix cookie files to check/);
                     const fileCount = foundMatch ? foundMatch[1] : 'multiple';
-                    statusDescription = `Found ${fileCount} cookie files to check. Processing... (${elapsedTime}s elapsed)`;
+                    statusDescription = `Found ${fileCount} cookie files to check. Processing... (${elapsedTime}s elapsed)${speedInfo}`;
                     break;
                 case 'processing':
-                    statusDescription = `Checking Netflix cookies... This might take a few minutes. (${elapsedTime}s elapsed)`;
+                    // Try to extract progress info for more detailed status
+                    const progressMatch = outputData.match(/Progress: (\d+)\/(\d+)/);
+                    if (progressMatch) {
+                        const [_, current, total] = progressMatch;
+                        const percent = Math.floor((parseInt(current) / parseInt(total)) * 100);
+                        statusDescription = `Checking Netflix cookies: ${current}/${total} (${percent}%)\nElapsed time: ${elapsedTime}s${speedInfo}`;
+                    } else {
+                        statusDescription = `Checking Netflix cookies... This might take a few minutes. (${elapsedTime}s elapsed)${speedInfo}`;
+                    }
                     break;
                 default:
-                    statusDescription = `Analyzing ${isArchive ? fileExt.toUpperCase() + ' archive' : 'cookie file'}... (${elapsedTime}s elapsed)`;
+                    statusDescription = `Analyzing ${isArchive ? fileExt.toUpperCase() + ' archive' : 'cookie file'}... (${elapsedTime}s elapsed)${speedInfo}`;
             }
             
             await statusMessage.edit({
@@ -243,8 +296,8 @@ async function checkNetflixCookies(filePath, message, statusMessage, threadCount
                         .setFooter({ text: message.author.tag, iconURL: message.author.displayAvatarURL({ dynamic: true }) })
                         .setTimestamp()
                 ]
-            });
-        }, 5000);
+            }).catch(error => console.error('Error updating status message:', error));
+        }, 500);
 
         // Handle process completion
         return new Promise((resolve, reject) => {
@@ -369,7 +422,44 @@ async function checkSpotifyCookies(filePath, message, statusMessage, threadCount
         pythonProcess.stdout.on('data', (data) => {
             const output = data.toString();
             stdoutData += output;
-            console.log(`Python stdout: ${output}`);
+            console.log(`[Spotify Checker] ${output.trim()}`);
+            
+            // Try to update the message with progress information if progress data is found
+            try {
+                const lines = output.split('\n');
+                for (const line of lines) {
+                    if (line.includes('Progress:')) {
+                        // Extract metrics from the line
+                        const progressInfo = line.trim();
+                        const elapsedTime = ((Date.now() - startTime) / 1000).toFixed(2);
+                        
+                        // Extract speed information if available
+                        const speedMatch = progressInfo.match(/Speed: ([\d.]+) cookies\/sec/);
+                        const speed = speedMatch ? speedMatch[1] : '0.00';
+                        
+                        // Create enhanced progress description with performance metrics
+                        const progressDescription = [
+                            `${progressInfo}`,
+                            `Processing Time: ${elapsedTime}s`,
+                            `Performance: ${speed} cookies/sec`
+                        ].join('\n');
+                        
+                        statusMessage.edit({
+                            embeds: [
+                                new MessageEmbed()
+                                    .setColor(config.color?.blue || '#0099ff')
+                                    .setTitle('Spotify Cookie Checker - Live Progress')
+                                    .setDescription(progressDescription)
+                                    .setFooter({ text: message.author.tag, iconURL: message.author.displayAvatarURL({ dynamic: true }) })
+                                    .setTimestamp()
+                            ]
+                        }).catch(error => console.error('Error updating progress message:', error));
+                        break;
+                    }
+                }
+            } catch (error) {
+                console.error('Error processing progress data:', error);
+            }
         });
         
         pythonProcess.stderr.on('data', (data) => {

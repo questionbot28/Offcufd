@@ -565,9 +565,99 @@ def process_file(file_path, filename):
     return [], [f"Unsupported file format: {file_ext}"]
 
 # Main function to check cookies
+def create_error_summary(error_message):
+    """Create an error summary in JSON format."""
+    error_summary = {
+        "status": "error",
+        "error_message": error_message,
+        "total_checked": 0,
+        "valid": 0,
+        "invalid": 0,
+        "errors": 1,
+        "premium": 0,
+        "family": 0,
+        "duo": 0,
+        "student": 0,
+        "free": 0,
+        "unknown": 0,
+        "files_processed": results.get('files_processed', 0),
+        "archives_processed": results.get('archives_processed', 0),
+        "valid_cookies": [],
+        "messages": [f"⚠ {error_message}"]
+    }
+    
+    summary_path = os.path.join(BASE_DIR, "cookie_check_results.json")
+    with open(summary_path, 'w') as f:
+        json.dump(error_summary, f, indent=2)
+        
+    return summary_path
+
+def process_batch(batch_files, batch_id):
+    """Process a batch of cookie files in a separate process."""
+    global results, last_update_time, start_time
+    
+    # Initialize local counters for this batch
+    local_results = {key: 0 for key in results}
+    batch_results = []
+    batch_errors = []
+    batch_start_time = time.time()
+    
+    for file_path, file_name in batch_files:
+        try:
+            # Process the cookie file
+            cookie_path, message = process_file_for_cookies(file_path, file_name)
+            
+            # Update local results based on the message
+            if cookie_path:
+                batch_results.append((cookie_path, message))
+                local_results['hits'] += 1
+                
+                # Increment the plan counter based on the message
+                if "Premium" in message:
+                    local_results['premium'] += 1
+                elif "Family" in message:
+                    local_results['family'] += 1
+                elif "Duo" in message:
+                    local_results['duo'] += 1
+                elif "Student" in message:
+                    local_results['student'] += 1
+                elif "Free" in message:
+                    local_results['free'] += 1
+                else:
+                    local_results['unknown'] += 1
+            else:
+                batch_errors.append(message)
+                if "failed" in message.lower():
+                    local_results['bad'] += 1
+                else:
+                    local_results['errors'] += 1
+            
+            # Super fast local progress update
+            current_time = time.time()
+            if current_time - last_update_time > update_interval:
+                last_update_time = current_time
+                elapsed_time = current_time - batch_start_time
+                total_checked = local_results['hits'] + local_results['bad'] + local_results['errors']
+                checking_speed = total_checked / elapsed_time if elapsed_time > 0 else 0
+                
+                print(f"[{datetime.now().strftime('%H:%M:%S.%f')[:-3]}] Batch {batch_id} Progress: {total_checked}/{len(batch_files)} cookies | Valid: {local_results['hits']} | Speed: {checking_speed:.2f} cookies/sec")
+        except Exception as e:
+            batch_errors.append(f"⚠ Error processing {file_name}: {str(e)}")
+            local_results['errors'] += 1
+    
+    # Return batch results and statistics
+    return {
+        "batch_id": batch_id,
+        "results": batch_results,
+        "errors": batch_errors,
+        "local_results": local_results,
+        "processed": len(batch_files),
+        "time": time.time() - batch_start_time
+    }
+
 def check_cookies(input_file):
     debug_print(f"check_cookies called with input_file: {input_file}")
-    global start_time, last_update_time
+    global start_time, last_update_time, results
     
     # Reset timers for this run
     start_time = time.time()
@@ -589,10 +679,130 @@ def check_cookies(input_file):
         
         debug_print(f"File copied successfully, size: {os.path.getsize(temp_file_path)} bytes")
         
-        # Process the file
-        debug_print("Starting to process the file")
-        valid_cookies, errors = process_file(temp_file_path, os.path.basename(input_file))
-        debug_print(f"Processing complete. Found {len(valid_cookies)} valid cookies, {len(errors)} errors")
+        # Determine if we should use multiprocessing based on file type
+        file_ext = os.path.splitext(temp_file_path)[1].lower()
+        if file_ext in ['.zip', '.rar']:
+            # For archives, we'll extract and process with multiprocessing
+            debug_print("Archive detected, using multiprocessing for extraction")
+            
+            # Extract archive
+            extract_dir = os.path.join(COOKIES_DIR, f"extracted_{os.path.basename(temp_file_path)}")
+            os.makedirs(extract_dir, exist_ok=True)
+            
+            if extract_from_archive(temp_file_path, extract_dir):
+                debug_print("Archive extraction successful")
+                
+                # Find all cookie files in extracted directory
+                cookie_files = []
+                for root, _, files in os.walk(extract_dir):
+                    for file in files:
+                        if file.endswith('.txt'):
+                            file_path = os.path.join(root, file)
+                            file_name = os.path.relpath(file_path, extract_dir)
+                            cookie_files.append((file_path, file_name))
+                
+                debug_print(f"Found {len(cookie_files)} cookie files in archive")
+                
+                if not cookie_files:
+                    debug_print("No cookie files found in archive")
+                    return create_error_summary("No cookie files found in archive")
+                
+                # Use multiprocessing for large archives
+                if len(cookie_files) > 10:
+                    debug_print(f"Using multiprocessing for {len(cookie_files)} cookie files")
+                    
+                    # Determine optimal number of processes
+                    num_processes = min(CPU_COUNT, 8)  # Limit to 8 processes max
+                    
+                    # Initialize multiprocessing resources
+                    manager = Manager()
+                    combined_results = []
+                    combined_errors = []
+                    
+                    # Divide files into batches for multiprocessing
+                    batch_size = max(1, len(cookie_files) // num_processes)
+                    batches = [cookie_files[i:i + batch_size] for i in range(0, len(cookie_files), batch_size)]
+                    
+                    debug_print(f"Divided {len(cookie_files)} files into {len(batches)} batches of ~{batch_size} each")
+                    
+                    # Display initial information
+                    print(f"\n[{datetime.now().strftime('%H:%M:%S.%f')[:-3]}] Starting cookie check with {num_processes} processes")
+                    print(f"Total cookies to check: {len(cookie_files)} | Batch size: {batch_size}")
+                    
+                    try:
+                        # Use ProcessPoolExecutor for multiprocessing
+                        with concurrent.futures.ProcessPoolExecutor(max_workers=num_processes) as executor:
+                            # Submit all batches for processing
+                            futures = [executor.submit(process_batch, batch, i) for i, batch in enumerate(batches)]
+                            
+                            # Process results as they complete
+                            for future in concurrent.futures.as_completed(futures):
+                                try:
+                                    batch_result = future.result()
+                                    if batch_result:
+                                        # Update global counters atomically
+                                        with lock:
+                                            for key in results:
+                                                if key in batch_result["local_results"]:
+                                                    results[key] += batch_result["local_results"][key]
+                                            
+                                            # Combine results and errors
+                                            combined_results.extend(batch_result["results"])
+                                            combined_errors.extend(batch_result["errors"])
+                                            
+                                            # Calculate and display overall progress
+                                            elapsed_time = time.time() - start_time
+                                            total_checked = results['hits'] + results['bad'] + results['errors']
+                                            overall_speed = total_checked / elapsed_time if elapsed_time > 0 else 0
+                                            batch_speed = batch_result["processed"] / batch_result["time"] if batch_result["time"] > 0 else 0
+                                            
+                                            print(f"\n[{datetime.now().strftime('%H:%M:%S.%f')[:-3]}] Batch {batch_result['batch_id']} completed:")
+                                            print(f"  - Processed {batch_result['processed']} cookies in {batch_result['time']:.2f} seconds")
+                                            print(f"  - Batch speed: {batch_speed:.2f} cookies/sec")
+                                            print(f"  - Overall progress: {total_checked}/{len(cookie_files)} cookies | Valid: {results['hits']} | Failed: {results['bad']} | Errors: {results['errors']}")
+                                            print(f"  - Overall speed: {overall_speed:.2f} cookies/sec | Elapsed time: {elapsed_time:.2f}s")
+                                except Exception as e:
+                                    debug_print(f"Error processing batch: {str(e)}")
+                                    combined_errors.append(f"⚠ Batch processing error: {str(e)}")
+                    except Exception as e:
+                        debug_print(f"Error in process pool: {str(e)}")
+                        combined_errors.append(f"⚠ Process pool error: {str(e)}")
+                    
+                    # Clean up extracted directory
+                    try:
+                        for root, dirs, files in os.walk(extract_dir, topdown=False):
+                            for name in files:
+                                try:
+                                    os.remove(os.path.join(root, name))
+                                except Exception as e:
+                                    debug_print(f"Error removing file: {str(e)}")
+                            for name in dirs:
+                                try:
+                                    os.rmdir(os.path.join(root, name))
+                                except Exception as e:
+                                    debug_print(f"Error removing directory: {str(e)}")
+                        os.rmdir(extract_dir)
+                    except Exception as e:
+                        debug_print(f"Error cleaning up extract directory: {str(e)}")
+                    
+                    # Generate summary
+                    valid_cookies = [path for path, _ in combined_results]
+                    messages = [msg for _, msg in combined_results] + combined_errors
+                else:
+                    # For smaller archives, use normal processing
+                    debug_print("Using normal processing for small archive")
+                    valid_cookies, errors = process_file(temp_file_path, os.path.basename(input_file))
+                    messages = [msg for _, msg in valid_cookies] + errors
+                    valid_cookies = [path for path, _ in valid_cookies]
+            else:
+                debug_print("Archive extraction failed")
+                return create_error_summary("Failed to extract archive")
+        else:
+            # For regular files, use normal processing
+            debug_print("Using normal processing for non-archive file")
+            valid_cookies_tuples, errors = process_file(temp_file_path, os.path.basename(input_file))
+            valid_cookies = [path for path, _ in valid_cookies_tuples]
+            messages = [msg for _, msg in valid_cookies_tuples] + errors
         
         # Clean up
         if os.path.exists(temp_file_path):
@@ -620,9 +830,10 @@ def check_cookies(input_file):
             "unknown": results['unknown'],
             "files_processed": results['files_processed'],
             "archives_processed": results['archives_processed'],
-            "valid_cookies": [path for path, _ in valid_cookies],
-            "messages": [msg for _, msg in valid_cookies] + errors,
-            "processing_time_seconds": elapsed_time
+            "valid_cookies": valid_cookies,
+            "messages": messages,
+            "processing_time_seconds": elapsed_time,
+            "checking_speed": (results['hits'] + results['bad'] + results['errors']) / elapsed_time if elapsed_time > 0 else 0
         }
         
         # Save summary to JSON

@@ -219,14 +219,26 @@ async function checkSpotifyCookies(updateStatus) {
         const startTime = Date.now();
         
         // Set up a status update interval while the Python script runs
+        let stdout = '';
         const statusUpdateInterval = setInterval(async () => {
             // Try to read progress from logs or temp file
             try {
-                const logLines = stdout ? stdout.split('\n') : [];
-                const progressLine = logLines.find(line => line.includes('Progress:'));
+                const logLines = stdout.split('\n');
+                const progressLine = logLines.reverse().find(line => line.includes('Progress:'));
                 if (progressLine) {
                     const elapsedSecs = ((Date.now() - startTime) / 1000).toFixed(2);
-                    await updateStatus('Spotify Cookie Validation Progress', `${progressLine}\nElapsed time: ${elapsedSecs}s`);
+                    const speedMatch = progressLine.match(/Speed: ([\d.]+) cookies\/sec/);
+                    const speed = speedMatch ? speedMatch[1] : '0.00';
+                    const validMatch = progressLine.match(/Valid: (\d+)/);
+                    const valid = validMatch ? validMatch[1] : '0';
+                    
+                    const progressDescription = [
+                        `${progressLine}`,
+                        `Elapsed time: ${elapsedSecs}s`,
+                        `Performance: ${speed} cookies/sec`
+                    ].join('\n');
+                    
+                    await updateStatus('Spotify Cookie Validation Progress', progressDescription);
                 }
             } catch (e) {
                 // Ignore errors in status updates
@@ -235,9 +247,19 @@ async function checkSpotifyCookies(updateStatus) {
         }, 500); // Update every 500ms
         
         const scriptPath = path.join(__dirname, '../../spotify_cookie_checker.py');
-        const childProcess = exec(`python3 ${scriptPath} --all_cookies`, async (error, stdout, stderr) => {
+        const childProcess = exec(`python3 ${scriptPath} --all_cookies`);
+        
+        // Capture stdout in real-time
+        childProcess.stdout.on('data', (data) => {
+            stdout += data.toString();
+        });
+        
+        childProcess.on('close', async (code, signal) => {
             // Clear the status update interval
             clearInterval(statusUpdateInterval);
+            
+            const error = code !== 0;
+            const stderr = '';
             
             // Calculate performance metrics
             const endTime = Date.now();
@@ -379,14 +401,26 @@ async function checkNetflixCookies(updateStatus) {
         const startTime = Date.now();
         
         // Set up a status update interval while the Python script runs
+        let stdout = '';
         const statusUpdateInterval = setInterval(async () => {
             // Try to read progress from logs or temp file
             try {
-                const logLines = stdout ? stdout.split('\n') : [];
-                const progressLine = logLines.find(line => line.includes('Progress:'));
+                const logLines = stdout.split('\n');
+                const progressLine = logLines.reverse().find(line => line.includes('Progress:'));
                 if (progressLine) {
                     const elapsedSecs = ((Date.now() - startTime) / 1000).toFixed(2);
-                    await updateStatus('Netflix Cookie Validation Progress', `${progressLine}\nElapsed time: ${elapsedSecs}s`);
+                    const speedMatch = progressLine.match(/Speed: ([\d.]+) cookies\/sec/);
+                    const speed = speedMatch ? speedMatch[1] : '0.00';
+                    const validMatch = progressLine.match(/Valid: (\d+)/);
+                    const valid = validMatch ? validMatch[1] : '0';
+                    
+                    const progressDescription = [
+                        `${progressLine}`,
+                        `Elapsed time: ${elapsedSecs}s`, 
+                        `Performance: ${speed} cookies/sec`
+                    ].join('\n');
+                    
+                    await updateStatus('Netflix Cookie Validation Progress', progressDescription);
                 }
             } catch (e) {
                 // Ignore errors in status updates
@@ -395,9 +429,19 @@ async function checkNetflixCookies(updateStatus) {
         }, 500); // Update every 500ms
         
         const scriptPath = path.join(__dirname, '../../netflix_cookie_checker.py');
-        const childProcess = exec(`python3 ${scriptPath} --all_cookies`, async (error, stdout, stderr) => {
+        const childProcess = exec(`python3 ${scriptPath} --all_cookies`);
+        
+        // Capture stdout in real-time
+        childProcess.stdout.on('data', (data) => {
+            stdout += data.toString();
+        });
+        
+        childProcess.on('close', async (code, signal) => {
             // Clear the status update interval
             clearInterval(statusUpdateInterval);
+            
+            const error = code !== 0;
+            const stderr = '';
             
             // Calculate performance metrics
             const endTime = Date.now();
