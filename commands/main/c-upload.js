@@ -275,6 +275,13 @@ async function checkNetflixCookies(filePath, message, statusMessage, threadCount
                     failed: (outputData.match(/Failed cookies: (\d+)/i) || [])[1] || '0',
                     broken: (outputData.match(/Broken cookies: (\d+)/i) || [])[1] || '0'
                 };
+                
+                // Get speed metrics (cookies per second)
+                const endTime = Date.now();
+                const elapsedSeconds = (endTime - startTime) / 1000;
+                const cookiesPerSecond = parseInt(stats.total) / elapsedSeconds;
+                stats.speed = cookiesPerSecond.toFixed(2);
+                stats.elapsedTime = elapsedSeconds.toFixed(2);
 
                 // Create success embed with results
                 const resultsEmbed = new MessageEmbed()
@@ -287,6 +294,10 @@ async function checkNetflixCookies(filePath, message, statusMessage, threadCount
                         { name: 'Unsubscribed', value: stats.unsubscribed, inline: true },
                         { name: 'Failed Cookies', value: stats.failed, inline: true },
                         { name: 'Broken Cookies', value: stats.broken, inline: true }
+                    ])
+                    .addFields([
+                        { name: 'Speed', value: `${stats.speed} cookies/sec`, inline: true },
+                        { name: 'Processing Time', value: `${stats.elapsedTime} seconds`, inline: true }
                     ])
                     .setFooter({ text: message.author.tag, iconURL: message.author.displayAvatarURL({ dynamic: true }) })
                     .setTimestamp();
@@ -301,7 +312,7 @@ async function checkNetflixCookies(filePath, message, statusMessage, threadCount
                             new MessageEmbed()
                                 .setColor(config.color?.green || '#00ff00')
                                 .setTitle('Working Netflix Cookies')
-                                .setDescription(`Found ${stats.working} working Netflix cookies! They've been stored and are ready for use.`)
+                                .setDescription(`Found ${stats.working} working Netflix cookies! They've been stored and are ready for use.\n\n**Performance:** Processed ${stats.total} cookies in ${stats.elapsedTime}s (${stats.speed} cookies/sec)`)
                                 .setFooter({ text: message.author.tag, iconURL: message.author.displayAvatarURL({ dynamic: true }) })
                                 .setTimestamp()
                         ]
@@ -325,6 +336,9 @@ async function checkNetflixCookies(filePath, message, statusMessage, threadCount
 // Function to check Spotify cookies
 async function checkSpotifyCookies(filePath, message, statusMessage, threadCount = 1000) {
     try {
+        // Start timing for performance metrics
+        const startTime = Date.now();
+        
         // Run the Python script to check cookies
         console.log(`Starting Python process to check: ${filePath} with ${threadCount} threads`);
         const scriptPath = path.join(__dirname, '../../spotify_cookie_checker.py');
@@ -412,6 +426,13 @@ async function checkSpotifyCookies(filePath, message, statusMessage, threadCount
                 }
                 
                 const results = JSON.parse(fsSync.readFileSync(resultsPath, 'utf8'));
+                
+                // Calculate speed metrics
+                const endTime = Date.now();
+                const elapsedSeconds = (endTime - startTime) / 1000;
+                const cookiesPerSecond = results.total_checked / elapsedSeconds;
+                results.speed = cookiesPerSecond.toFixed(2);
+                results.elapsedTime = elapsedSeconds.toFixed(2);
                 
                 // Check for duplicates and prevent adding them
                 let duplicateCount = 0;
@@ -545,6 +566,10 @@ async function checkSpotifyCookies(filePath, message, statusMessage, threadCount
                         { name: 'Free', value: results.free.toString(), inline: true },
                         { name: 'Unknown', value: results.unknown.toString(), inline: true }
                     ])
+                    .addFields([
+                        { name: 'Speed', value: `${results.speed} cookies/sec`, inline: true },
+                        { name: 'Processing Time', value: `${results.elapsedTime} seconds`, inline: true }
+                    ])
                     .setFooter({ text: message.author.tag, iconURL: message.author.displayAvatarURL({ dynamic: true }) })
                     .setTimestamp();
                 
@@ -557,7 +582,7 @@ async function checkSpotifyCookies(filePath, message, statusMessage, threadCount
                             new MessageEmbed()
                                 .setColor(config.color?.green || '#00ff00')
                                 .setTitle('Working Spotify Cookies')
-                                .setDescription(`Found ${results.valid} working Spotify cookies! They've been stored and are ready for use.`)
+                                .setDescription(`Found ${results.valid} working Spotify cookies! They've been stored and are ready for use.\n\n**Performance:** Processed ${results.total_checked} cookies in ${results.elapsedTime}s (${results.speed} cookies/sec)`)
                                 .setFooter({ text: message.author.tag, iconURL: message.author.displayAvatarURL({ dynamic: true }) })
                                 .setTimestamp()
                         ]
