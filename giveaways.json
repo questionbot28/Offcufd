@@ -100,7 +100,9 @@
       "accountName": "steam",
       "creatorId": "1153479317519605791",
       "endTime": 1742470987793,
-      "participants": [],
+      "participants": [
+        "1196132788601110573"
+      ],
       "messageId": "1352245827648618587",
       "channelId": "1348251265544491094",
       "status": "active",
