@@ -10,46 +10,25 @@ const db = new sqlite3.Database(dbPath, (err) => {
         console.error('Error connecting to vouches database:', err);
     } else {
         console.log('Connected to vouches database');
-        // Create table if it doesn't exist
-        db.run(`CREATE TABLE IF NOT EXISTS vouches (
-            user_id TEXT PRIMARY KEY,
-            vouches INTEGER DEFAULT 0,
-            negvouches INTEGER DEFAULT 0,
-            todayvouches INTEGER DEFAULT 0,
-            last3daysvouches INTEGER DEFAULT 0,
-            lastweekvouches INTEGER DEFAULT 0,
-            reasons TEXT DEFAULT '[]',
-            last_updated TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-        )`, (createError) => {
-            if (createError) {
-                console.error('Error creating vouches table:', createError);
-            } else {
-                console.log('Vouches table ready');
-            }
-        });
     }
 });
 
 module.exports = {
     name: 'managevouch',
-    description: 'Shows cookie stock count',
+    description: 'Manage vouches for a user',
     usage: '+managevouch <@user> <-number / +number>',
     examples: [
         '+managevouch @user +1',    // Add 1 vouch
         '+managevouch @user -1',    // Remove 1 vouch
         '+managevouch @user +5',    // Add 5 vouches
     ],
-
-    execute: function (message, args) {
+    async execute(message, args) {
         try {
             // Enhanced role checking with detailed logging
             const allowedRoleIDs = [
                 '1348251264336527414', // Co-owner
                 '1348251264336527416'  // Owner
             ];
-            console.log(`Checking roles for user ${message.author.tag}`);
-            console.log(`Allowed roles:`, allowedRoleIDs);
-            console.log(`User roles:`, message.member.roles.cache.map(r => r.id));
 
             // Check if user has required role
             if (!message.member.roles.cache.some(role => allowedRoleIDs.includes(role.id))) {
@@ -58,7 +37,7 @@ module.exports = {
                         new Discord.MessageEmbed()
                             .setColor('#ff0000')
                             .setTitle('Permission Denied')
-                            .setDescription(`You don't have permission to manage vouches. Required roles: ${allowedRoleIDs.map(roleId => `<@&${roleId}>`).join(', ')}`)
+                            .setDescription('You must have Co-owner or Owner role to use this command.')
                     ]
                 });
             }
@@ -72,7 +51,7 @@ module.exports = {
                     .addFields([
                         { name: 'Format', value: '`+managevouch @user <+/- number>`' },
                         { name: 'Examples', value: this.examples.join('\n') },
-                        { name: 'Notes', value: '- You must have the required roles\n- The number can be positive or negative\n- Vouches cannot go below 0' }
+                        { name: 'Notes', value: '- You must have Co-owner or Owner role\n- The number can be positive or negative\n- Vouches cannot go below 0' }
                     ]);
                 return message.reply({ embeds: [exampleEmbed] });
             }
@@ -92,82 +71,105 @@ module.exports = {
                 });
             }
 
-            console.log(`Attempting to update vouches for user ${mentionedUser.tag}`);
-            console.log(`Vouch change requested: ${vouchChange}`);
-
-            // Check if user exists in database
-            db.get('SELECT * FROM vouches WHERE user_id = ?', [mentionedUser.id], (err, row) => {
-                if (err) {
-                    console.error('Error checking vouches:', err);
-                    return message.reply({
-                        embeds: [
-                            new Discord.MessageEmbed()
-                                .setColor('#ff0000')
-                                .setTitle('Database Error')
-                                .setDescription('An error occurred while checking vouches.')
-                        ]
+            try {
+                // First ensure the user exists in the database
+                await new Promise((resolve, reject) => {
+                    db.run(`INSERT OR IGNORE INTO vouches (
+                        user_id, vouches, negvouches, todayvouches, 
+                        last3daysvouches, lastweekvouches, reasons, last_updated
+                    ) VALUES (?, 0, 0, 0, 0, 0, '[]', CURRENT_TIMESTAMP)`, 
+                    [mentionedUser.id], (err) => {
+                        if (err) reject(err);
+                        else resolve();
                     });
-                }
+                });
 
-                // If user doesn't exist, create new entry
-                if (!row) {
-                    console.log(`Creating new vouch entry for user ${mentionedUser.tag}`);
-                    db.run('INSERT INTO vouches (user_id, vouches) VALUES (?, 0)', [mentionedUser.id]);
-                    row = { vouches: 0 };
-                }
+                // Get current vouches
+                const row = await new Promise((resolve, reject) => {
+                    db.get('SELECT vouches FROM vouches WHERE user_id = ?', [mentionedUser.id], (err, row) => {
+                        if (err) reject(err);
+                        else resolve(row || { vouches: 0 });
+                    });
+                });
 
-                const newVouchCount = Math.max(0, row.vouches + vouchChange);
-                console.log(`Current vouches: ${row.vouches}, New vouch count: ${newVouchCount}`);
+                const currentVouches = row.vouches;
+                const newVouchCount = Math.max(0, currentVouches + vouchChange);
 
                 // Update the vouch count
-                db.run(
-                    'UPDATE vouches SET vouches = ?, last_updated = CURRENT_TIMESTAMP WHERE user_id = ?',
-                    [newVouchCount, mentionedUser.id],
-                    (updateError) => {
-                        if (updateError) {
-                            console.error('Error updating vouches:', updateError);
-                            return message.reply({
-                                embeds: [
-                                    new Discord.MessageEmbed()
-                                        .setColor('#ff0000')
-                                        .setTitle('Update Error')
-                                        .setDescription('An error occurred while updating vouches.')
-                                ]
-                            });
+                await new Promise((resolve, reject) => {
+                    db.run(
+                        'UPDATE vouches SET vouches = ?, last_updated = CURRENT_TIMESTAMP WHERE user_id = ?',
+                        [newVouchCount, mentionedUser.id],
+                        (err) => {
+                            if (err) reject(err);
+                            else resolve();
                         }
+                    );
+                });
 
-                        console.log(`Successfully updated vouches for ${mentionedUser.tag}`);
+                // Send success message
+                const vouchEmbed = new Discord.MessageEmbed()
+                    .setColor('#00ff00')
+                    .setTitle('Vouch Management')
+                    .setDescription(
+                        `Successfully updated vouches for ${mentionedUser.tag}\n` +
+                        `Previous count: ${currentVouches}\n` +
+                        `Change: ${vouchChange > 0 ? '+' : ''}${vouchChange}\n` +
+                        `New count: ${newVouchCount}`
+                    )
+                    .setTimestamp()
+                    .setFooter({ 
+                        text: `Updated by ${message.author.tag}`, 
+                        iconURL: message.author.displayAvatarURL({ dynamic: true }) 
+                    });
 
-                        // Send success message
-                        const vouchEmbed = new Discord.MessageEmbed()
-                            .setColor('#00ff00')
-                            .setTitle('Vouch Management')
-                            .setDescription(
-                                `Successfully updated vouches for ${mentionedUser.tag}\n` +
-                                `Previous count: ${row.vouches}\n` +
-                                `Change: ${vouchChange > 0 ? '+' : ''}${vouchChange}\n` +
-                                `New count: ${newVouchCount}`
-                            )
-                            .setTimestamp()
-                            .setFooter({ 
-                                text: `Updated by ${message.author.tag}`, 
-                                iconURL: message.author.displayAvatarURL({ dynamic: true }) 
-                            });
+                await message.reply({ embeds: [vouchEmbed] });
 
-                        message.reply({ embeds: [vouchEmbed] });
+                // Check for promotions
+                const promotionTiers = [
+                    { threshold: 20, roleID: "1200663200358727714" },  // First promotion at 20 vouches
+                    { threshold: 60, roleID: "1200663200358727715" },  // Second promotion at 60 vouches
+                    { threshold: 100, roleID: "1200663200358727716" }  // Third promotion at 100 vouches
+                ];
+
+                for (const tier of promotionTiers) {
+                    if (newVouchCount >= tier.threshold) {
+                        const promotionRole = message.guild.roles.cache.get(tier.roleID);
+                        if (promotionRole) {
+                            try {
+                                const member = await message.guild.members.fetch(mentionedUser.id);
+                                if (member && !member.roles.cache.has(promotionRole.id)) {
+                                    await member.roles.add(promotionRole);
+
+                                    // Send promotion announcement
+                                    const promotionChannel = message.guild.channels.cache.get(config.promotionChannelId);
+                                    if (promotionChannel) {
+                                        const promotionEmbed = new Discord.MessageEmbed()
+                                            .setColor('#00ff00')
+                                            .setTitle('🎉 Role Promotion')
+                                            .setDescription(`${mentionedUser.tag} has received the ${promotionRole.name} role!`)
+                                            .addFields([
+                                                { name: 'Achievement', value: `Reached ${newVouchCount} vouches` },
+                                                { name: 'New Role', value: promotionRole.name }
+                                            ])
+                                            .setTimestamp();
+
+                                        await promotionChannel.send({ embeds: [promotionEmbed] });
+                                    }
+                                }
+                            } catch (roleError) {
+                                console.error('Error assigning promotion role:', roleError);
+                            }
+                        }
                     }
-                );
-            });
+                }
+            } catch (dbError) {
+                console.error('Database error:', dbError);
+                return message.reply('An error occurred while updating vouches. Please try again.');
+            }
         } catch (error) {
             console.error('Error in managevouch command:', error);
-            message.reply({
-                embeds: [
-                    new Discord.MessageEmbed()
-                        .setColor('#ff0000')
-                        .setTitle('Error')
-                        .setDescription('An unexpected error occurred while managing vouches.')
-                ]
-            });
+            message.reply('An unexpected error occurred while managing vouches.');
         }
     },
 };

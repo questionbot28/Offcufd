@@ -115,7 +115,7 @@
       "roleID": "1200663200358727716"
     }
   ],
-  "dropSessionActive": false,
+  "dropSessionActive": true,
   "refreshRoleIds": [
     "1200663200358727719",
     "1200663200383901736",
