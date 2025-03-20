@@ -129,9 +129,38 @@ def process_json_files(directory):
 
 def load_cookies_from_file(cookie_file):
     """Load cookies from a given file and return a dictionary of cookies."""
-    global total_broken
+    global total_broken, dirs
     cookies = {}
     try:
+        # Check file extension first
+        file_ext = os.path.splitext(cookie_file)[1].lower()
+        
+        # If this is an archive file that somehow wasn't caught by the directory processor
+        if file_ext in ['.zip', '.rar']:
+            debug_print(f"Warning: Attempting to load cookies directly from archive file: {cookie_file}")
+            debug_print("This should have been handled by the archive extraction process")
+            
+            # Create a temporary extraction directory
+            extract_dir = os.path.join(os.path.dirname(cookie_file), f"temp_extracted_{os.path.basename(cookie_file)}")
+            os.makedirs(extract_dir, exist_ok=True)
+            
+            # Try to extract and find cookie files
+            if extract_from_archive(cookie_file, extract_dir):
+                # Find any TXT files in the extracted directory
+                cookie_files = []
+                for root, dirs_list, files in os.walk(extract_dir):
+                    for file in files:
+                        if file.lower().endswith('.txt'):
+                            cookie_files.append(os.path.join(root, file))
+                
+                # If we found cookie files, use the first one
+                if cookie_files:
+                    debug_print(f"Found {len(cookie_files)} cookie files in archive, using the first one")
+                    return load_cookies_from_file(cookie_files[0])
+            
+            debug_print("Could not find any valid cookie files in the archive")
+            # We'll continue trying to parse the archive file as a text file (will likely fail)
+        
         # Try with different encodings to handle various file formats
         encodings_to_try = ['utf-8', 'latin-1', 'ascii']
         file_content = None
@@ -147,6 +176,12 @@ def load_cookies_from_file(cookie_file):
         if not file_content:
             debug_print(f"Could not read file content with any encoding: {cookie_file}")
             raise ValueError("Failed to read file with any encoding")
+        
+        # Check if it might be a binary file (like an archive) by looking for common binary markers
+        # This is a simple heuristic to detect non-text files
+        if '\x00' in file_content or file_content.startswith('PK') or file_content.startswith('Rar!'):
+            debug_print(f"File appears to be binary (possibly an archive): {cookie_file}")
+            raise ValueError("File appears to be binary, not a text cookie file")
         
         # Process each line in the file content
         for line in file_content.splitlines():
@@ -185,8 +220,8 @@ def load_cookies_from_file(cookie_file):
                         continue
     except Exception as e:
         debug_print(f"Error loading cookies from {cookie_file}: {str(e)}")
-        broken_folder = dirs["netflix"]["broken"]
-        if os.path.exists(cookie_file):
+        if 'netflix' in dirs and 'broken' in dirs['netflix'] and os.path.exists(cookie_file):
+            broken_folder = dirs["netflix"]["broken"]
             shutil.move(cookie_file, os.path.join(broken_folder, os.path.basename(cookie_file)))
         with lock:
             total_broken += 1
@@ -196,6 +231,11 @@ def load_cookies_from_file(cookie_file):
         debug_print(f"No cookies found in file: {cookie_file}")
     else:
         debug_print(f"Found {len(cookies)} cookies in file: {cookie_file}")
+    
+    # Look for specific Netflix cookies
+    netflix_keys = ['NetflixId', 'SecureNetflixId']
+    if any(key in cookies for key in netflix_keys):
+        debug_print(f"Netflix authentication cookies found in file: {cookie_file}")
     
     return cookies
 
@@ -458,6 +498,15 @@ def extract_from_archive(archive_path, extract_dir):
                     file_list = zip_ref.namelist()
                     debug_print(f"ZIP contains {len(file_list)} files/directories")
                     
+                    # Check if there are nested archives inside this ZIP
+                    nested_archives = []
+                    for f in file_list:
+                        if f.lower().endswith('.zip') or f.lower().endswith('.rar'):
+                            nested_archives.append(f)
+                    
+                    if nested_archives:
+                        debug_print(f"Found {len(nested_archives)} nested archives inside ZIP")
+                    
                     # Filter out problematic filenames before extraction
                     safe_file_list = []
                     for file_path in file_list:
@@ -471,7 +520,7 @@ def extract_from_archive(archive_path, extract_dir):
                     
                     debug_print(f"Extracting {len(safe_file_list)} safe files out of {len(file_list)} total")
                     
-                    # Extract only safe files
+                    # Extract all safe files (including folders)
                     for file_path in safe_file_list:
                         try:
                             zip_ref.extract(file_path, extract_dir)
@@ -479,6 +528,21 @@ def extract_from_archive(archive_path, extract_dir):
                             debug_print(f"Error extracting {file_path}: {ex}")
                     
                 debug_print("ZIP extraction completed")
+                
+                # Look for .txt files in the extracted content including subdirectories
+                cookie_files = []
+                for root, dirs, files in os.walk(extract_dir):
+                    for file in files:
+                        if file.lower().endswith('.txt'):
+                            file_path = os.path.join(root, file)
+                            debug_print(f"Found cookie file in extraction: {file_path}")
+                            cookie_files.append(file_path)
+                
+                if cookie_files:
+                    debug_print(f"Found {len(cookie_files)} cookie files in extracted content")
+                else:
+                    debug_print("No cookie files found in extracted content")
+                
                 return True
             except zipfile.BadZipFile as e:
                 debug_print(f"Bad ZIP file: {e}")
@@ -491,6 +555,15 @@ def extract_from_archive(archive_path, extract_dir):
                     # List all files in the archive
                     file_list = rar_ref.namelist()
                     debug_print(f"RAR contains {len(file_list)} files/directories")
+                    
+                    # Check if there are nested archives inside this RAR
+                    nested_archives = []
+                    for f in file_list:
+                        if f.lower().endswith('.zip') or f.lower().endswith('.rar'):
+                            nested_archives.append(f)
+                    
+                    if nested_archives:
+                        debug_print(f"Found {len(nested_archives)} nested archives inside RAR")
                     
                     # Filter out problematic filenames
                     safe_file_list = []
@@ -505,7 +578,7 @@ def extract_from_archive(archive_path, extract_dir):
                     
                     debug_print(f"Extracting {len(safe_file_list)} safe files out of {len(file_list)} total")
                     
-                    # Extract only safe files
+                    # Extract only safe files (including folders)
                     for file_path in safe_file_list:
                         try:
                             rar_ref.extract(file_path, extract_dir)
@@ -513,6 +586,21 @@ def extract_from_archive(archive_path, extract_dir):
                             debug_print(f"Error extracting {file_path}: {ex}")
                     
                 debug_print("RAR extraction completed")
+                
+                # Look for .txt files in the extracted content including subdirectories
+                cookie_files = []
+                for root, dirs, files in os.walk(extract_dir):
+                    for file in files:
+                        if file.lower().endswith('.txt'):
+                            file_path = os.path.join(root, file)
+                            debug_print(f"Found cookie file in extraction: {file_path}")
+                            cookie_files.append(file_path)
+                
+                if cookie_files:
+                    debug_print(f"Found {len(cookie_files)} cookie files in extracted content")
+                else:
+                    debug_print("No cookie files found in extracted content")
+                
                 return True
             except Exception as e:
                 debug_print(f"Error with RAR file: {e}")
@@ -529,54 +617,77 @@ def extract_from_archive(archive_path, extract_dir):
         debug_print(f"Error extracting archive {archive_path}: {e}")
         return False
 
-def process_directory(directory, processed_files=None):
+def process_directory(directory, processed_files=None, depth=0, max_depth=5):
     """Process a directory recursively for cookie files and archives."""
     if processed_files is None:
         processed_files = []
     
-    debug_print(f"Processing directory: {directory}")
+    # Prevent infinite recursion
+    if depth > max_depth:
+        debug_print(f"Maximum recursion depth reached for directory: {directory}")
+        return []
+    
+    debug_print(f"Processing directory: {directory} (depth {depth})")
     cookie_files = []
     
-    # Walk through all files and subdirectories
-    for root, dirs, files in os.walk(directory):
-        debug_print(f"Scanning {root}: found {len(files)} files and {len(dirs)} directories")
-        
-        for file in files:
-            file_path = os.path.join(root, file)
+    try:
+        # Check if the directory exists
+        if not os.path.exists(directory):
+            debug_print(f"Directory does not exist: {directory}")
+            return cookie_files
             
-            # Skip if already processed
-            if file_path in processed_files:
-                debug_print(f"Skipping already processed file: {file_path}")
-                continue
+        # Walk through all files and subdirectories
+        for root, dirs, files in os.walk(directory):
+            debug_print(f"Scanning {root}: found {len(files)} files and {len(dirs)} directories")
             
-            # Add to processed files
-            processed_files.append(file_path)
-            
-            # Check file extension
-            file_ext = os.path.splitext(file)[1].lower()
-            
-            # Process archives
-            if file_ext in ['.zip', '.rar']:
-                debug_print(f"Found archive: {file_path}")
+            # Process files in this directory
+            for file in files:
+                file_path = os.path.join(root, file)
                 
-                # Create extraction directory
-                extract_dir = os.path.join(directory, f"extracted_{os.path.splitext(file)[0]}")
-                os.makedirs(extract_dir, exist_ok=True)
+                # Skip if already processed
+                if file_path in processed_files:
+                    debug_print(f"Skipping already processed file: {file_path}")
+                    continue
                 
-                # Extract archive
-                if extract_from_archive(file_path, extract_dir):
-                    # Process extracted files
-                    additional_files = process_directory(extract_dir, processed_files)
-                    cookie_files.extend(additional_files)
+                # Add to processed files
+                processed_files.append(file_path)
+                
+                # Check file extension
+                file_ext = os.path.splitext(file)[1].lower()
+                
+                # Process archives
+                if file_ext in ['.zip', '.rar']:
+                    debug_print(f"Found archive: {file_path}")
                     
-                    # We don't delete the extraction directory here to avoid issues with
-                    # files that might still be in use
-            
-            # Process txt files
-            elif file_ext == '.txt':
-                debug_print(f"Found cookie file: {file_path}")
-                cookie_files.append(file_path)
+                    # Create extraction directory with unique name based on full path
+                    # This avoids conflicts when multiple archives have the same base name
+                    extract_dir = os.path.join(
+                        os.path.dirname(file_path), 
+                        f"extracted_{os.path.splitext(os.path.basename(file_path))[0]}_{hash(file_path) % 10000}"
+                    )
+                    os.makedirs(extract_dir, exist_ok=True)
+                    
+                    # Extract archive
+                    if extract_from_archive(file_path, extract_dir):
+                        # Process extracted files
+                        additional_files = process_directory(extract_dir, processed_files, depth + 1, max_depth)
+                        if additional_files:
+                            debug_print(f"Found {len(additional_files)} cookie files in archive: {file_path}")
+                            cookie_files.extend(additional_files)
+                        else:
+                            debug_print(f"No cookie files found in archive: {file_path}")
+                
+                # Process txt files
+                elif file_ext == '.txt':
+                    debug_print(f"Found cookie file: {file_path}")
+                    cookie_files.append(file_path)
+                    
+            # Only process the top level directory, letting os.walk handle recursion
+            break
+    except Exception as e:
+        debug_print(f"Error processing directory {directory}: {str(e)}")
     
+    debug_print(f"Found {len(cookie_files)} cookie files in directory: {directory}")
     return cookie_files
 
 def check_netflix_cookies(cookies_dir="netflix", num_threads=3):
