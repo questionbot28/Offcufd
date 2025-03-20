@@ -12,12 +12,16 @@ module.exports = {
             const cookiesPath = `${__dirname}/../../cookies/`;
             let netflixCount = 0;
             let spotifyCount = 0;
-
-            // Read the Netflix and Spotify files if they exist
+            
+            // Get the real count of cookies in the files
             try {
                 if (fs.existsSync(`${cookiesPath}netflix.txt`)) {
                     const netflixContent = fs.readFileSync(`${cookiesPath}netflix.txt`, 'utf8');
-                    netflixCount = netflixContent.split('\n').filter(line => line.trim() !== '').length;
+                    const netflixLines = netflixContent.split('\n');
+                    netflixCount = netflixLines.filter(line => line.trim() !== '').length;
+                    console.log(`Netflix count: ${netflixCount}`);
+                } else {
+                    console.log('Netflix cookie file not found');
                 }
             } catch (error) {
                 console.error('Error reading Netflix file:', error);
@@ -26,7 +30,11 @@ module.exports = {
             try {
                 if (fs.existsSync(`${cookiesPath}spotify.txt`)) {
                     const spotifyContent = fs.readFileSync(`${cookiesPath}spotify.txt`, 'utf8');
-                    spotifyCount = spotifyContent.split('\n').filter(line => line.trim() !== '').length;
+                    const spotifyLines = spotifyContent.split('\n');
+                    spotifyCount = spotifyLines.filter(line => line.trim() !== '').length;
+                    console.log(`Spotify count: ${spotifyCount}`);
+                } else {
+                    console.log('Spotify cookie file not found');
                 }
             } catch (error) {
                 console.error('Error reading Spotify file:', error);

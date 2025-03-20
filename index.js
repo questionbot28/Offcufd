@@ -960,6 +960,52 @@ for (const folder of commandFolders) {
 client.on('messageCreate', async (message) => {
     if (message.author.bot) return;
 
+    // Check if message is in the verification channel (ID: 1348251266312306822)
+    if (message.channel.id === '1348251266312306822') {
+        try {
+            const username = message.content.trim();
+            
+            if (username) {
+                // Create verified.txt if it doesn't exist
+                if (!fs.existsSync('./verified.txt')) {
+                    fs.writeFileSync('./verified.txt', '');
+                }
+                
+                // Add username to verified.txt
+                fs.appendFileSync('./verified.txt', `${username}\n`);
+                
+                // Create an embed showing staff role requirements
+                const staffRolesEmbed = new Discord.MessageEmbed()
+                    .setColor(config.color.default)
+                    .setTitle('Staff Role Requirements')
+                    .setDescription('Here are the vouches needed for each staff role:')
+                    .addFields(
+                        { name: 'Trial Helper', value: '10 vouches', inline: true },
+                        { name: 'Helper', value: '20 vouches', inline: true },
+                        { name: 'Trusted Helper', value: '35 vouches', inline: true },
+                        { name: 'Junior Mod', value: '50 vouches', inline: true },
+                        { name: 'Moderator', value: '75 vouches', inline: true },
+                        { name: 'Senior Mod', value: '100 vouches', inline: true },
+                        { name: 'Head Mod', value: '125 vouches', inline: true },
+                        { name: 'Admin', value: '150+ vouches', inline: true }
+                    )
+                    .setFooter({ text: 'Username has been added to verified.txt' });
+                
+                // Send confirmation message
+                await message.channel.send({ 
+                    content: `Added username "${username}" to verified list.`, 
+                    embeds: [staffRolesEmbed] 
+                });
+                
+                console.log(`Added username "${username}" to verified.txt`);
+            }
+        } catch (error) {
+            console.error('Error handling verification message:', error);
+            await message.channel.send('An error occurred while processing the username.');
+        }
+        return; // Don't process this message as a command
+    }
+
     // First check for natural conversation
     try {
         const naturalChat = require('./commands/main/naturalchat');

@@ -21,7 +21,10 @@ module.exports = {
                 .setTitle('Extreme Give User List')
                 .setDescription('List of users and their services in extremegive');
 
-            // Add each user and their service to the embed
+            // Create fields array for the embed
+            const fields = [];
+            
+            // Add each user and their service to the fields array
             lines.forEach((line) => {
                 const trimmedLine = line.trim();
                 if (trimmedLine !== '') {
@@ -29,13 +32,16 @@ module.exports = {
                     if (parts.length === 2) {
                         const username = parts[0].trim();
                         const service = parts[1].trim();
-                        embed.addField(username, service);
+                        fields.push({ name: username, value: service, inline: true });
                     }
                 }
             });
+            
+            // Add fields to the embed
+            embed.addFields(fields);
 
             // Send the embed to the channel
-            message.channel.send(embed);
+            message.channel.send({ embeds: [embed] });
         } catch (error) {
             console.error(`Error processing the command: ${error}`);
             return message.channel.send('Error processing the command.');

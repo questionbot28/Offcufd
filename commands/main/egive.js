@@ -75,13 +75,15 @@ How to get on your own mail?:
                     const receiverEmbed = new MessageEmbed()
                         .setColor(config.color.blue)
                         .setTitle(`Your ${service}`)
-                        .addField('Giver', giverUser.user.tag, true)
-                        .addField('Service', service, true)
-                        .addField('Account', details)
-                        .setFooter('Service provided by the bot');
+                        .addFields([
+                            { name: 'Giver', value: giverUser.user.tag, inline: true },
+                            { name: 'Service', value: service, inline: true },
+                            { name: 'Account', value: details }
+                        ])
+                        .setFooter({ text: 'Service provided by the bot' });
 
                     // Send DM to the receiver
-                    receiverUser.send(receiverEmbed).catch((err) => {
+                    receiverUser.send({ embeds: [receiverEmbed] }).catch((err) => {
                         console.error(`Failed to send DM to ${receiverUser.user.tag}: ${err}`);
                     });
 
@@ -89,17 +91,19 @@ How to get on your own mail?:
                     const extremeEmbed = new MessageEmbed()
                         .setColor(config.color.blue)
                         .setTitle(`Service Sent: ${service}`)
-                        .addField('Giver', giverUser.user.tag, true)
-                        .addField('Receiver', receiverUser.user.tag, true)
-                        .addField('Service', service, true)
-                        .setFooter('Service provided by the bot');
+                        .addFields([
+                            { name: 'Giver', value: giverUser.user.tag, inline: true },
+                            { name: 'Receiver', value: receiverUser.user.tag, inline: true },
+                            { name: 'Service', value: service, inline: true }
+                        ])
+                        .setFooter({ text: 'Service provided by the bot' });
 
                     // Send message to the extreme channel
                     const extremechannelId = config.extremechannelId;
                     if (extremechannelId) {
                         const extremechannel = message.client.channels.cache.get(extremechannelId);
                         if (extremechannel) {
-                            extremechannel.send(extremeEmbed);
+                            extremechannel.send({ embeds: [extremeEmbed] });
                         }
                     }
 
