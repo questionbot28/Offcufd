@@ -27,124 +27,144 @@ const db = new sqlite3.Database(dbPath, (err) => {
 
 module.exports = {
     name: 'managevouch',
-    description: 'Manage vouches for a user.',
-    usage: 'managevouch <@user> <-number / +number>',
-    execute(message, args, prefix) {
-        // Enhanced role checking with detailed logging
-        const allowedRoles = config.vouchManagerRoles || [];
-        console.log(`Checking roles for user ${message.author.tag}`);
-        console.log(`Allowed roles:`, allowedRoles);
-        console.log(`User roles:`, message.member.roles.cache.map(r => r.id));
+    description: 'Shows cookie stock count',
+    usage: '+managevouch <@user> <-number / +number>',
+    examples: [
+        '+managevouch @user +1',    // Add 1 vouch
+        '+managevouch @user -1',    // Remove 1 vouch
+        '+managevouch @user +5',    // Add 5 vouches
+    ],
 
-        if (!message.member.roles.cache.some(role => allowedRoles.includes(role.id))) {
-            console.log(`User ${message.author.tag} lacks required roles for vouch management`);
-            return message.channel.send({
-                embeds: [
-                    new Discord.MessageEmbed()
-                        .setColor('#ff0000')
-                        .setTitle('Permission Denied')
-                        .setDescription('You do not have permission to manage vouches.')
-                ]
-            });
-        }
+    execute: function (message, args) {
+        try {
+            // Enhanced role checking with detailed logging
+            const allowedRoleIDs = config.vouchManagerRoles || []; // Assuming config.vouchManagerRoles is an array of role IDs
+            console.log(`Checking roles for user ${message.author.tag}`);
+            console.log(`Allowed roles:`, allowedRoleIDs);
+            console.log(`User roles:`, message.member.roles.cache.map(r => r.id));
 
-        // Check if the command is used in the specified vouch channel
-        if (message.channel.id !== config.vouchChannelId) {
-            return message.channel.send({
-                embeds: [
-                    new Discord.MessageEmbed()
-                        .setColor('#ff0000')
-                        .setTitle('Wrong Channel')
-                        .setDescription(`This command can only be used in <#${config.vouchChannelId}>.`)
-                ]
-            });
-        }
-
-        // Validate command usage
-        if (!message.mentions.users.size || args.length < 2) {
-            return message.channel.send({
-                embeds: [
-                    new Discord.MessageEmbed()
-                        .setColor('#ff0000')
-                        .setTitle('Invalid Usage')
-                        .setDescription(`Usage: ${prefix}managevouch @user {integer(+/-)}`)
-                ]
-            });
-        }
-
-        const mentionedUser = message.mentions.users.first();
-        const vouchChange = parseInt(args[1]);
-
-        // Validate vouch change value
-        if (isNaN(vouchChange)) {
-            return message.channel.send({
-                embeds: [
-                    new Discord.MessageEmbed()
-                        .setColor('#ff0000')
-                        .setTitle('Invalid Input')
-                        .setDescription('Please provide a valid number for vouch change.')
-                ]
-            });
-        }
-
-        // Check if user exists in database
-        db.get('SELECT * FROM vouches WHERE user_id = ?', [mentionedUser.id], (err, row) => {
-            if (err) {
-                console.error('Error checking vouches:', err);
-                return message.channel.send({
+            // Check if user has required role
+            if (!message.member.roles.cache.some(role => allowedRoleIDs.includes(role.id))) {
+                return message.reply({
                     embeds: [
                         new Discord.MessageEmbed()
                             .setColor('#ff0000')
-                            .setTitle('Database Error')
-                            .setDescription('An error occurred while checking vouches.')
+                            .setTitle('Permission Denied')
+                            .setDescription(`You don't have permission to manage vouches. Required roles: ${allowedRoleIDs.map(roleId => `<@&${roleId}>`).join(', ')}`)
                     ]
                 });
             }
 
-            // If user doesn't exist, create new entry
-            if (!row) {
-                db.run('INSERT INTO vouches (user_id, vouches) VALUES (?, 0)', [mentionedUser.id]);
-                row = { vouches: 0 };
+            // Check if the command is used in the specified vouch channel
+            if (config.vouchChannelId && message.channel.id !== config.vouchChannelId) {
+                return message.reply({
+                    embeds: [
+                        new Discord.MessageEmbed()
+                            .setColor('#ff0000')
+                            .setTitle('Wrong Channel')
+                            .setDescription(`This command can only be used in <#${config.vouchChannelId}>.`)
+                    ]
+                });
             }
 
-            const newVouchCount = Math.max(0, row.vouches + vouchChange);
+            // Validate command usage
+            if (!message.mentions.users.size || args.length < 2) {
+                const exampleEmbed = new Discord.MessageEmbed()
+                    .setColor('#ff9900')
+                    .setTitle('Vouch Management Usage')
+                    .setDescription('How to use the vouch management command:')
+                    .addFields([
+                        { name: 'Format', value: '`+managevouch @user <+/- number>`' },
+                        { name: 'Examples', value: this.examples.join('\n') },
+                        { name: 'Notes', value: '- You must have the required roles\n- The number can be positive or negative\n- Vouches cannot go below 0' }
+                    ]);
+                return message.reply({ embeds: [exampleEmbed] });
+            }
 
-            // Update the vouch count
-            db.run(
-                'UPDATE vouches SET vouches = ?, last_updated = CURRENT_TIMESTAMP WHERE user_id = ?',
-                [newVouchCount, mentionedUser.id],
-                (updateError) => {
-                    if (updateError) {
-                        console.error('Error updating vouches:', updateError);
-                        return message.channel.send({
-                            embeds: [
-                                new Discord.MessageEmbed()
-                                    .setColor('#ff0000')
-                                    .setTitle('Update Error')
-                                    .setDescription('An error occurred while updating vouches.')
-                            ]
-                        });
-                    }
+            const mentionedUser = message.mentions.users.first();
+            const vouchChange = parseInt(args[1]);
 
-                    // Send success message
-                    const vouchEmbed = new Discord.MessageEmbed()
-                        .setColor('#00ff00')
-                        .setTitle('Vouch Management')
-                        .setDescription(
-                            `Successfully updated vouches for ${mentionedUser.tag}\n` +
-                            `Previous count: ${row.vouches}\n` +
-                            `Change: ${vouchChange > 0 ? '+' : ''}${vouchChange}\n` +
-                            `New count: ${newVouchCount}`
-                        )
-                        .setTimestamp()
-                        .setFooter({ 
-                            text: `Updated by ${message.author.tag}`, 
-                            iconURL: message.author.displayAvatarURL({ dynamic: true }) 
-                        });
+            // Validate vouch change value
+            if (isNaN(vouchChange)) {
+                return message.reply({
+                    embeds: [
+                        new Discord.MessageEmbed()
+                            .setColor('#ff0000')
+                            .setTitle('Invalid Input')
+                            .setDescription('Please provide a valid number for vouch change.')
+                    ]
+                });
+            }
 
-                    message.channel.send({ embeds: [vouchEmbed] });
+            // Check if user exists in database
+            db.get('SELECT * FROM vouches WHERE user_id = ?', [mentionedUser.id], (err, row) => {
+                if (err) {
+                    console.error('Error checking vouches:', err);
+                    return message.reply({
+                        embeds: [
+                            new Discord.MessageEmbed()
+                                .setColor('#ff0000')
+                                .setTitle('Database Error')
+                                .setDescription('An error occurred while checking vouches.')
+                        ]
+                    });
                 }
-            );
-        });
+
+                // If user doesn't exist, create new entry
+                if (!row) {
+                    db.run('INSERT INTO vouches (user_id, vouches) VALUES (?, 0)', [mentionedUser.id]);
+                    row = { vouches: 0 };
+                }
+
+                const newVouchCount = Math.max(0, row.vouches + vouchChange);
+
+                // Update the vouch count
+                db.run(
+                    'UPDATE vouches SET vouches = ?, last_updated = CURRENT_TIMESTAMP WHERE user_id = ?',
+                    [newVouchCount, mentionedUser.id],
+                    (updateError) => {
+                        if (updateError) {
+                            console.error('Error updating vouches:', updateError);
+                            return message.reply({
+                                embeds: [
+                                    new Discord.MessageEmbed()
+                                        .setColor('#ff0000')
+                                        .setTitle('Update Error')
+                                        .setDescription('An error occurred while updating vouches.')
+                                ]
+                            });
+                        }
+
+                        // Send success message
+                        const vouchEmbed = new Discord.MessageEmbed()
+                            .setColor('#00ff00')
+                            .setTitle('Vouch Management')
+                            .setDescription(
+                                `Successfully updated vouches for ${mentionedUser.tag}\n` +
+                                `Previous count: ${row.vouches}\n` +
+                                `Change: ${vouchChange > 0 ? '+' : ''}${vouchChange}\n` +
+                                `New count: ${newVouchCount}`
+                            )
+                            .setTimestamp()
+                            .setFooter({ 
+                                text: `Updated by ${message.author.tag}`, 
+                                iconURL: message.author.displayAvatarURL({ dynamic: true }) 
+                            });
+
+                        message.reply({ embeds: [vouchEmbed] });
+                    }
+                );
+            });
+        } catch (error) {
+            console.error('Error in managevouch command:', error);
+            message.reply({
+                embeds: [
+                    new Discord.MessageEmbed()
+                        .setColor('#ff0000')
+                        .setTitle('Error')
+                        .setDescription('An unexpected error occurred while managing vouches.')
+                ]
+            });
+        }
     },
 };
