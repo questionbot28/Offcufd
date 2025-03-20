@@ -11,6 +11,8 @@ import re
 import traceback
 import time
 import argparse
+import queue
+import concurrent.futures
 from termcolor import colored
 
 # Set up debugging
@@ -33,8 +35,9 @@ SPOTIFY_DIR = os.path.join(BASE_DIR, "spotify")
 MAX_FILES_TO_PROCESS = 1000   # Maximum number of files to process
 MAX_ARCHIVES_TO_PROCESS = 50  # Maximum number of archives to process
 MAX_RECURSION_DEPTH = 5       # Maximum recursion depth for nested archives
+MAX_THREADS = 200             # Maximum number of threads for cookie checking
 
-debug_print(f"Configuration: MAX_FILES={MAX_FILES_TO_PROCESS}, MAX_ARCHIVES={MAX_ARCHIVES_TO_PROCESS}, MAX_DEPTH={MAX_RECURSION_DEPTH}")
+debug_print(f"Configuration: MAX_FILES={MAX_FILES_TO_PROCESS}, MAX_ARCHIVES={MAX_ARCHIVES_TO_PROCESS}, MAX_DEPTH={MAX_RECURSION_DEPTH}, MAX_THREADS={MAX_THREADS}")
 
 # Results dictionary
 results = {
@@ -394,6 +397,42 @@ def process_directory(directory, base_file_name, valid_cookies, errors):
         print(f"Error processing directory {directory}: {e}")
         errors.append(f"⚠ Error processing directory {directory}: {e}")
 
+# Worker thread function to process cookie files in parallel
+def worker(task_queue, valid_cookies, errors):
+    """Worker thread to process cookie files."""
+    while True:
+        try:
+            # Get a task from the queue (non-blocking with timeout)
+            task = task_queue.get(block=False)
+            if task is None:  # Sentinel value indicating end of tasks
+                break
+                
+            file_path, file_name = task
+            debug_print(f"Thread processing file: {file_name}")
+            
+            # Process the cookie file
+            cookie_path, message = process_file_for_cookies(file_path, file_name)
+            
+            # Store results with thread safety
+            with lock:
+                if cookie_path:
+                    valid_cookies.append((cookie_path, message))
+                else:
+                    errors.append(message)
+            
+        except queue.Empty:
+            # No more tasks in the queue
+            break
+        except Exception as e:
+            # Log the error and continue with other files
+            with lock:
+                errors.append(f"⚠ Thread error: {str(e)}")
+            debug_print(f"Thread error: {str(e)}")
+        finally:
+            # Mark task as done if we got one
+            if 'task' in locals() and task is not None:
+                task_queue.task_done()
+
 # Process a file (txt, zip, rar)
 def process_file(file_path, filename):
     file_ext = os.path.splitext(file_path)[1].lower()
@@ -415,8 +454,53 @@ def process_file(file_path, filename):
         if extract_from_archive(file_path, temp_extract_dir):
             print(f"Extraction successful for {filename}. Processing contents...")
             
-            # Process the extracted directory recursively
-            process_directory(temp_extract_dir, os.path.splitext(filename)[0], valid_cookies, errors)
+            # Collect all text files for multi-threaded processing
+            text_files = []
+            for root, dirs, files in os.walk(temp_extract_dir):
+                for file in files:
+                    if file.endswith('.txt'):
+                        file_path = os.path.join(root, file)
+                        relative_path = os.path.relpath(file_path, temp_extract_dir)
+                        file_name = f"{os.path.splitext(filename)[0]}/{relative_path}"
+                        text_files.append((file_path, file_name))
+            
+            if text_files:
+                # Determine number of threads to use (up to MAX_THREADS)
+                num_threads = min(MAX_THREADS, len(text_files))
+                debug_print(f"Found {len(text_files)} text files, using {num_threads} threads for processing")
+                
+                # Create a queue for tasks
+                task_queue = queue.Queue()
+                for file_info in text_files:
+                    task_queue.put(file_info)
+                
+                # Create and start worker threads
+                threads = []
+                for _ in range(num_threads):
+                    thread = threading.Thread(
+                        target=worker,
+                        args=(task_queue, valid_cookies, errors)
+                    )
+                    thread.daemon = True
+                    thread.start()
+                    threads.append(thread)
+                
+                # Wait for all tasks to complete
+                task_queue.join()
+                
+                # Stop the worker threads
+                for _ in range(num_threads):
+                    task_queue.put(None)  # Send sentinel value to each thread
+                
+                # Wait for all threads to finish
+                for thread in threads:
+                    thread.join()
+                
+                debug_print(f"Multithreaded processing complete. Found {len(valid_cookies)} valid cookies, {len(errors)} errors")
+            else:
+                # No text files found, process directories normally
+                debug_print("No text files found in archive, processing normally")
+                process_directory(temp_extract_dir, os.path.splitext(filename)[0], valid_cookies, errors)
             
             print(f"Finished processing contents of {filename}. Cleaning up...")
             

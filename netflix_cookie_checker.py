@@ -11,6 +11,8 @@ import zipfile
 import rarfile
 import argparse
 import sys
+import queue
+import concurrent.futures
 from datetime import datetime
 
 # Global counters
@@ -20,6 +22,9 @@ total_unsubscribed = 0
 total_checked = 0
 total_broken = 0
 lock = threading.Lock()
+
+# Maximum limits
+MAX_THREADS = 200  # Maximum number of threads for cookie checking
 
 # Global paths
 working_cookies_dir = "working_cookies"
