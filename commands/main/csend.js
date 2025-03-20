@@ -444,6 +444,16 @@ module.exports = {
                 await mentionedUser.send({ embeds: [dmEmbed] });
                 await mentionedUser.send({ files: [fileAttachment] });
                 
+                // Delete the cookie file after sending
+                try {
+                    if (validCookie && fs.existsSync(validCookie)) {
+                        fs.unlinkSync(validCookie);
+                        console.log(`Deleted cookie file: ${validCookie}`);
+                    }
+                } catch (deleteError) {
+                    console.error(`Error deleting cookie file: ${deleteError.message}`);
+                }
+                
                 // Success message in channel with cookie details
                 const successEmbed = new MessageEmbed()
                     .setColor(config.color.green || '#00ff00')
