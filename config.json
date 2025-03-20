@@ -129,7 +129,7 @@
       "roleID": "1348251264299044923"
     }
   ],
-  "dropSessionActive": true,
+  "dropSessionActive": false,
   "ticketcategories": [
     "1351852294974472193",
     "1351852297331675206",

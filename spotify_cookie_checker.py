@@ -10,6 +10,7 @@ import rarfile
 import re
 import traceback
 import time
+import argparse
 from termcolor import colored
 
 # Set up debugging
@@ -550,17 +551,40 @@ def check_cookies(input_file):
 if __name__ == "__main__":
     debug_print("Main program starting")
     
-    if len(sys.argv) != 2:
-        print("Usage: python spotify_cookie_checker.py <file_path>")
+    # Parse command-line arguments
+    parser = argparse.ArgumentParser(description='Check Spotify cookies')
+    parser.add_argument('input_file', nargs='?', help='File or directory to check')
+    parser.add_argument('--all_cookies', action='store_true', help='Check all cookies in spotify directory')
+    args = parser.parse_args()
+    
+    if args.all_cookies:
+        # Check all cookies in the spotify directory
+        debug_print("Checking all Spotify cookies...")
+        print("Checking all Spotify cookies in the spotify directory...")
+        
+        if os.path.exists(SPOTIFY_DIR):
+            check_cookies(SPOTIFY_DIR)
+        else:
+            error_msg = f"Error: Spotify directory not found at {SPOTIFY_DIR}"
+            print(error_msg)
+            debug_print(error_msg)
+            sys.exit(1)
+    elif args.input_file:
+        # Check specified file or directory
+        input_file = args.input_file
+        debug_print(f"Input file argument: {input_file}")
+        
+        if not os.path.exists(input_file):
+            error_msg = f"File not found: {input_file}"
+            print(error_msg)
+            debug_print(error_msg)
+            sys.exit(1)
+            
+        check_cookies(input_file)
+    else:
+        print("Please provide a file/directory path as an argument or use --all_cookies")
+        debug_print("No arguments provided")
         sys.exit(1)
-    
-    input_file = sys.argv[1]
-    debug_print(f"Input file argument: {input_file}")
-    
-    if not os.path.exists(input_file):
-        error_msg = f"File not found: {input_file}"
-        print(error_msg)
-        debug_print(error_msg)
         
         # Create an error file anyway to avoid hanging
         error_summary = {
