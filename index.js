@@ -81,6 +81,37 @@ client.db = new sqlite3.Database('vouches.db', (err) => {
                 invite_codes TEXT DEFAULT '[]',
                 role_cooldowns TEXT DEFAULT '{}'
             )`);
+            
+            // Ensure the role_cooldowns column exists (for compatibility with existing databases)
+            client.db.all(`PRAGMA table_info(invites)`, [], (err, rows) => {
+                if (err) {
+                    console.error('Error checking invites table schema:', err);
+                    return;
+                }
+                
+                // Check if role_cooldowns column exists
+                let hasRoleCooldowns = false;
+                if (rows) {
+                    for (const row of rows) {
+                        if (row && row.name === 'role_cooldowns') {
+                            hasRoleCooldowns = true;
+                            break;
+                        }
+                    }
+                }
+                
+                // Add the column if it doesn't exist
+                if (!hasRoleCooldowns) {
+                    console.log('Adding role_cooldowns column to invites table');
+                    client.db.run(`ALTER TABLE invites ADD COLUMN role_cooldowns TEXT DEFAULT '{}'`, (alterErr) => {
+                        if (alterErr) {
+                            console.error('Error adding role_cooldowns column:', alterErr);
+                        } else {
+                            console.log('Successfully added role_cooldowns column');
+                        }
+                    });
+                }
+            });
         });
     }
 });
