@@ -159,15 +159,29 @@ def load_cookies_from_file(cookie_file):
 def make_request_with_cookies(cookies):
     """Make an HTTP request to Netflix using provided cookies."""
     session = requests.Session()
-    session.cookies.update(cookies)
+    
+    # Sanitize cookie values to prevent encoding issues
+    safe_cookies = {}
+    for key, value in cookies.items():
+        try:
+            # Convert value to string and sanitize
+            if value is not None:
+                # Remove any non-ASCII characters
+                safe_value = str(value).encode('ascii', 'ignore').decode('ascii')
+                safe_cookies[key] = safe_value
+        except Exception as e:
+            debug_print(f"Error sanitizing cookie {key}: {str(e)}")
+            # Skip problematic cookies
+            continue
+    
+    # Update session with sanitized cookies
+    session.cookies.update(safe_cookies)
+    
+    # Use minimal headers to avoid encoding issues
     headers = {
         'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
-        'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8',
+        'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
         'Accept-Language': 'en-US,en;q=0.9',
-        'Referer': 'https://www.netflix.com/',
-        'sec-ch-ua': '"Not_A Brand";v="8", "Chromium";v="120"',
-        'sec-ch-ua-mobile': '?0',
-        'sec-ch-ua-platform': '"Windows"'
     }
     
     try:

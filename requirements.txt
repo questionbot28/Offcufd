@@ -11,3 +11,5 @@ requests
 selenium
 unzip
 webdriver-manager
+rarfile
+termcolor
