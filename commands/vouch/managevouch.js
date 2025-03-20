@@ -59,7 +59,6 @@ module.exports = {
             const mentionedUser = message.mentions.users.first();
             const vouchChange = parseInt(args[1]);
 
-            // Validate vouch change value
             if (isNaN(vouchChange)) {
                 return message.reply({
                     embeds: [
@@ -77,7 +76,7 @@ module.exports = {
                     db.run(`INSERT OR IGNORE INTO vouches (
                         user_id, vouches, negvouches, todayvouches, 
                         last3daysvouches, lastweekvouches, reasons, last_updated
-                    ) VALUES (?, 0, 0, 0, 0, 0, '[]', CURRENT_TIMESTAMP)`, 
+                    ) VALUES (?, 0, 0, 0, 0, 0, '[]', datetime('now'))`, 
                     [mentionedUser.id], (err) => {
                         if (err) reject(err);
                         else resolve();
@@ -98,7 +97,7 @@ module.exports = {
                 // Update the vouch count
                 await new Promise((resolve, reject) => {
                     db.run(
-                        'UPDATE vouches SET vouches = ?, last_updated = CURRENT_TIMESTAMP WHERE user_id = ?',
+                        'UPDATE vouches SET vouches = ?, last_updated = datetime("now") WHERE user_id = ?',
                         [newVouchCount, mentionedUser.id],
                         (err) => {
                             if (err) reject(err);
@@ -171,5 +170,5 @@ module.exports = {
             console.error('Error in managevouch command:', error);
             message.reply('An unexpected error occurred while managing vouches.');
         }
-    },
+    }
 };

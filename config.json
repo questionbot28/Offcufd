@@ -55,7 +55,7 @@
     "1200663200358727712",
     "1153479317519605791"
   ],
-  "promotionChannelId": "1200663201969340430",
+  "promotionChannelId": "1348251265905463341",
   "staffRoleIds": [
     "1348251264299044920",
     "1348251264299044921",
@@ -144,7 +144,7 @@
     },
     {
       "id": "1351852297331675206",
-      "name": "🎁│Reward Tickets",
+      "name": "🎁│Reward Tickets", 
       "description": "Exchange invites for rewards",
       "type": "🎁"
     },
@@ -157,7 +157,7 @@
     {
       "id": "1351852301475778612",
       "name": "❓│Support Tickets",
-      "description": "General support and assistance",
+      "description": "General support and assistance", 
       "type": "❓"
     }
   ],

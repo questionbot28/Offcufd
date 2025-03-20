@@ -10,9 +10,8 @@ const db = new sqlite3.Database(dbPath, (err) => {
         console.error('Error connecting to vouches database:', err);
     } else {
         console.log('Connected to vouches database');
-
-        // Create vouches_new with correct schema
-        db.run(`CREATE TABLE IF NOT EXISTS vouches_new (
+        // Create table with all required columns
+        db.run(`CREATE TABLE IF NOT EXISTS vouches (
             user_id TEXT PRIMARY KEY,
             vouches INTEGER DEFAULT 0,
             negvouches INTEGER DEFAULT 0,
@@ -20,39 +19,13 @@ const db = new sqlite3.Database(dbPath, (err) => {
             last3daysvouches INTEGER DEFAULT 0,
             lastweekvouches INTEGER DEFAULT 0,
             reasons TEXT DEFAULT '[]',
-            last_updated TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+            last_updated DATETIME DEFAULT CURRENT_TIMESTAMP
         )`, (err) => {
             if (err) {
-                console.error('Error creating new table:', err);
-                return;
+                console.error('Error creating vouches table:', err);
+            } else {
+                console.log('Vouches table created successfully');
             }
-
-            // Copy existing data
-            db.run(`INSERT OR IGNORE INTO vouches_new (
-                user_id, vouches, negvouches, todayvouches, 
-                last3daysvouches, lastweekvouches, reasons, last_updated
-            ) SELECT 
-                user_id, 
-                COALESCE(vouches, 0),
-                COALESCE(negvouches, 0),
-                COALESCE(todayvouches, 0),
-                COALESCE(last3daysvouches, 0),
-                COALESCE(lastweekvouches, 0),
-                COALESCE(reasons, '[]'),
-                CURRENT_TIMESTAMP
-            FROM vouches`, (err) => {
-                if (err) {
-                    console.error('Error copying data:', err);
-                    return;
-                }
-
-                // Drop old table and rename new one
-                db.serialize(() => {
-                    db.run('DROP TABLE IF EXISTS vouches');
-                    db.run('ALTER TABLE vouches_new RENAME TO vouches');
-                    console.log('Database migration completed successfully');
-                });
-            });
         });
     }
 });
@@ -95,7 +68,7 @@ module.exports = {
                     db.run(`INSERT OR IGNORE INTO vouches (
                         user_id, vouches, negvouches, todayvouches, 
                         last3daysvouches, lastweekvouches, reasons, last_updated
-                    ) VALUES (?, 0, 0, 0, 0, 0, '[]', CURRENT_TIMESTAMP)`, 
+                    ) VALUES (?, 0, 0, 0, 0, 0, '[]', datetime('now'))`, 
                     [mentionedUser.id], (err) => {
                         if (err) reject(err);
                         else resolve();
@@ -111,7 +84,7 @@ module.exports = {
                             last3daysvouches = last3daysvouches + 1,
                             lastweekvouches = lastweekvouches + 1,
                             reasons = json_array(COALESCE(json_extract(reasons, '$'), '[]'), ?),
-                            last_updated = CURRENT_TIMESTAMP
+                            last_updated = datetime('now')
                         WHERE user_id = ?
                     `, [reason, mentionedUser.id], (err) => {
                         if (err) {
