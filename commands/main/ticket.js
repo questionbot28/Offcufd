@@ -1,4 +1,65 @@
 const Discord = require('discord.js');
+const fs = require('fs').promises;
+const fsSync = require('fs');
+const path = require('path');
+
+// Function to check if username is verified
+async function isVerified(username) {
+    try {
+        // Check if verified.txt exists
+        if (!fsSync.existsSync('./verified.txt')) {
+            console.log('verified.txt does not exist, no verified users');
+            return false;
+        }
+        
+        const content = await fs.readFile('./verified.txt', 'utf8');
+        const verifiedUsers = content.split('\n').filter(line => line.trim() !== '');
+        
+        return verifiedUsers.includes(username.trim());
+    } catch (error) {
+        console.error('Error checking if user is verified:', error);
+        return false;
+    }
+}
+
+// Function to remove a username from verified.txt
+async function removeVerifiedUser(username) {
+    try {
+        // Check if file exists
+        if (!fsSync.existsSync('./verified.txt')) {
+            console.log('verified.txt does not exist, nothing to remove');
+            return false;
+        }
+        
+        // Make sure username is valid
+        if (!username || typeof username !== 'string' || username.trim() === '') {
+            console.error('Invalid username for removal:', username);
+            return false;
+        }
+        
+        // Clean username
+        const cleanUsername = username.trim();
+        
+        // Read current verified users
+        const verifiedContent = await fs.readFile('./verified.txt', 'utf8');
+        const verifiedUsers = verifiedContent.split('\n').filter(line => line.trim() !== '');
+        
+        // Check if user is in the verified list
+        if (!verifiedUsers.includes(cleanUsername)) {
+            console.log(`User ${cleanUsername} is not in verified list`);
+            return false;
+        }
+        
+        // Remove user from verified.txt
+        const updatedList = verifiedUsers.filter(user => user !== cleanUsername);
+        await fs.writeFile('./verified.txt', updatedList.join('\n'), 'utf8');
+        console.log(`Removed ${cleanUsername} from verified users`);
+        return true;
+    } catch (error) {
+        console.error('Error removing verified user:', error);
+        return false;
+    }
+}
 
 module.exports = {
     name: 'ticket',
@@ -128,6 +189,25 @@ module.exports = {
                     if (!categoryId) {
                         throw new Error(`Category ID not found for ${value} tickets. Please run the setup command first.`);
                     }
+
+                    // Check if user is verified and remove them from verified.txt
+                    const username = interaction.user.username;
+                    const verified = await isVerified(username);
+                    
+                    // Create additional messaging for verification status
+                    let verificationNote = '';
+                    if (verified) {
+                        // Remove user from verified list when they open a ticket
+                        if (await removeVerifiedUser(username)) {
+                            console.log(`Removed ${username} from verified.txt after ticket creation`);
+                            verificationNote = '\n\n⚠️ **Verification Note**: Your verification has been consumed for this ticket. You will need to verify again for future services.';
+                        }
+                    } else {
+                        verificationNote = '\n\n⚠️ **Verification Note**: You do not appear to be verified. Please make sure to verify before requesting services.';
+                    }
+                    
+                    // Add verification note to ticket embed
+                    ticketEmbed.setDescription(ticketEmbed.description + verificationNote);
 
                     const ticketChannel = await interaction.guild.channels.create(ticketName, {
                         type: 'GUILD_TEXT',

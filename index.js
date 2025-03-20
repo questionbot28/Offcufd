@@ -29,6 +29,9 @@ require('dotenv').config();
 const config = require('./config.json');
 const token = process.env.DISCORD_BOT_TOKEN || config.token;
 
+// File system operations
+const fsPromises = fs.promises;
+
 const app = express();
 const port = process.env.PORT || 3000;
 
@@ -238,6 +241,115 @@ client.on('guildMemberRemove', async (member) => {
         });
     } catch (err) {
         console.error('Error handling member leave:', err);
+    }
+});
+
+// Function to add a username to verified.txt
+async function addVerifiedUser(username) {
+    try {
+        // Make sure username is valid
+        if (!username || typeof username !== 'string' || username.trim() === '') {
+            console.error('Invalid username received:', username);
+            return false;
+        }
+        
+        // Clean username (remove special characters, etc.)
+        const cleanUsername = username.trim();
+        
+        // Check if file exists, create it if not
+        if (!fs.existsSync('./verified.txt')) {
+            await fsPromises.writeFile('./verified.txt', '', 'utf8');
+            console.log('Created verified.txt file');
+        }
+        
+        // Read current verified users
+        const verifiedContent = await fsPromises.readFile('./verified.txt', 'utf8');
+        const verifiedUsers = verifiedContent.split('\n').filter(line => line.trim() !== '');
+        
+        // Check if user is already verified
+        if (verifiedUsers.includes(cleanUsername)) {
+            console.log(`User ${cleanUsername} is already verified`);
+            return false;
+        }
+        
+        // Add user to verified.txt
+        verifiedUsers.push(cleanUsername);
+        await fsPromises.writeFile('./verified.txt', verifiedUsers.join('\n'), 'utf8');
+        console.log(`Added ${cleanUsername} to verified users`);
+        return true;
+    } catch (error) {
+        console.error('Error adding verified user:', error);
+        return false;
+    }
+}
+
+// Function to remove a username from verified.txt
+async function removeVerifiedUser(username) {
+    try {
+        // Check if file exists
+        if (!fs.existsSync('./verified.txt')) {
+            console.log('verified.txt does not exist, nothing to remove');
+            return false;
+        }
+        
+        // Make sure username is valid
+        if (!username || typeof username !== 'string' || username.trim() === '') {
+            console.error('Invalid username for removal:', username);
+            return false;
+        }
+        
+        // Clean username
+        const cleanUsername = username.trim();
+        
+        // Read current verified users
+        const verifiedContent = await fsPromises.readFile('./verified.txt', 'utf8');
+        const verifiedUsers = verifiedContent.split('\n').filter(line => line.trim() !== '');
+        
+        // Check if user is in the verified list
+        if (!verifiedUsers.includes(cleanUsername)) {
+            console.log(`User ${cleanUsername} is not in verified list`);
+            return false;
+        }
+        
+        // Remove user from verified.txt
+        const updatedList = verifiedUsers.filter(user => user !== cleanUsername);
+        await fsPromises.writeFile('./verified.txt', updatedList.join('\n'), 'utf8');
+        console.log(`Removed ${cleanUsername} from verified users`);
+        return true;
+    } catch (error) {
+        console.error('Error removing verified user:', error);
+        return false;
+    }
+}
+
+// Event to listen for webhook messages in the verification channel
+client.on('messageCreate', async (message) => {
+    try {
+        // Check if this is a message in the verification channel
+        if (message.channel.id === '1349015627368497205') {
+            console.log(`Received message in verification channel: ${message.content}`);
+            
+            // Check if it's from a webhook
+            if (message.webhookId) {
+                console.log(`Message is from webhook: ${message.webhookId}`);
+                
+                // Extract username from the message (assuming message content is the username)
+                const username = message.content.trim();
+                
+                // Add username to verified.txt
+                if (await addVerifiedUser(username)) {
+                    console.log(`Successfully verified user: ${username}`);
+                    // You can add a reaction to the message to indicate success if needed
+                    try {
+                        await message.react('✅');
+                    } catch (reactError) {
+                        console.error('Error adding reaction:', reactError);
+                    }
+                }
+            }
+        }
+    } catch (error) {
+        console.error('Error handling verification message:', error);
     }
 });
 
