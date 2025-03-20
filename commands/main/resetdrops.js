@@ -38,11 +38,7 @@ module.exports = {
       lastReset: Date.now(),
       accountsClaimed: 0,
       dropStats: {
-        basic: 0,
-        premium: 0,
-        extreme: 0,
-        free: 0,
-        cookie: 0
+        accounts: 0
       }
     };
 
