@@ -32,7 +32,7 @@ module.exports = {
         // Check if user specified a thread count
         let threadCount = 200; // Default to 200 threads
         if (args.length > 1 && !isNaN(args[1])) {
-            threadCount = Math.min(200, Math.max(1, parseInt(args[1]))); // Limit between 1-200
+            threadCount = Math.min(1000, Math.max(1, parseInt(args[1]))); // Limit between 1-1000
         }
         // Create the necessary directories
         const tempDir = './temp';
@@ -160,7 +160,7 @@ function downloadFile(url, filePath) {
 }
 
 // Function to check Netflix cookies
-async function checkNetflixCookies(filePath, message, statusMessage, threadCount = 200) {
+async function checkNetflixCookies(filePath, message, statusMessage, threadCount = 1000) {
     try {
         // Update status with file extension information
         const fileExt = path.extname(filePath).toLowerCase();
@@ -323,7 +323,7 @@ async function checkNetflixCookies(filePath, message, statusMessage, threadCount
 }
 
 // Function to check Spotify cookies
-async function checkSpotifyCookies(filePath, message, statusMessage, threadCount = 200) {
+async function checkSpotifyCookies(filePath, message, statusMessage, threadCount = 1000) {
     try {
         // Run the Python script to check cookies
         console.log(`Starting Python process to check: ${filePath} with ${threadCount} threads`);

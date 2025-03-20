@@ -20,10 +20,10 @@ module.exports = {
       const boosterCount = await countTotalItems(`${__dirname}/../../bstock/`);
       const basicCount = await countTotalItems(`${__dirname}/../../basicstock/`);
       
-      // Function to format stock entries with total count
+      // Function to format stock entries without quantity
       const formatStockField = (title, count, stockItems) => {
         const stockText = stockItems.length > 0 ? `\n${stockItems.join('\n')}` : '';
-        return { name: title, value: `Total Items: ${count}${stockText}`, inline: true };
+        return { name: title, value: stockItems.length > 0 ? stockText : 'No services', inline: true };
       };
       
       const embed = new MessageEmbed()
@@ -54,7 +54,7 @@ async function readDirectory(directoryPath) {
         const acc = await fs.readFile(`${directoryPath}/${file}`, 'utf-8');
         const lines = acc.split(/\r?\n/).filter(Boolean);
         if (lines.length > 0) {  // Only add if file has content
-          stock.push(`${file.replace('.txt', '')} (${lines.length})`);
+          stock.push(`${file.replace('.txt', '')}`);
         }
       }
     }
