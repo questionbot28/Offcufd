@@ -132,20 +132,57 @@ def load_cookies_from_file(cookie_file):
     global total_broken
     cookies = {}
     try:
-        with open(cookie_file, 'r', encoding='utf-8', errors='ignore') as f:
-            for line in f:
-                # Skip comment lines and empty lines
-                if line.strip() and not line.strip().startswith('#'):
-                    parts = line.strip().split('\t')
-                    if len(parts) >= 7:
-                        domain, _, path, secure, expires, name, value = parts[:7]
-                        cookies[name] = value
-                    elif '=' in line:  # Try to handle key=value format
-                        for pair in line.split(';'):
-                            pair = pair.strip()
-                            if '=' in pair:
-                                name, value = pair.split('=', 1)
-                                cookies[name.strip()] = value.strip().strip('"')
+        # Try with different encodings to handle various file formats
+        encodings_to_try = ['utf-8', 'latin-1', 'ascii']
+        file_content = None
+        
+        for encoding in encodings_to_try:
+            try:
+                with open(cookie_file, 'r', encoding=encoding, errors='ignore') as f:
+                    file_content = f.read()
+                break  # If successful, stop trying different encodings
+            except UnicodeDecodeError:
+                continue
+        
+        if not file_content:
+            debug_print(f"Could not read file content with any encoding: {cookie_file}")
+            raise ValueError("Failed to read file with any encoding")
+        
+        # Process each line in the file content
+        for line in file_content.splitlines():
+            # Skip comment lines and empty lines
+            if not line.strip() or line.strip().startswith('#'):
+                continue
+                
+            # First try tab-separated Netscape format (domain\tFLAG\tpath\tSSL\texpiry\tname\tvalue)
+            parts = line.strip().split('\t')
+            if len(parts) >= 7:
+                try:
+                    domain, _, path, secure, expires, name, value = parts[:7]
+                    # Clean and validate cookie name and value
+                    name = name.strip()
+                    value = value.strip()
+                    
+                    if name and isinstance(name, str):
+                        # Ensure value is properly formatted
+                        cookies[name] = value.strip('"\'')
+                except Exception as e:
+                    debug_print(f"Error parsing Netscape format line: {e}")
+                    continue
+            elif '=' in line:  # Try to handle key=value format (common in HTTP headers)
+                for pair in line.split(';'):
+                    try:
+                        pair = pair.strip()
+                        if '=' in pair:
+                            name, value = pair.split('=', 1)
+                            name = name.strip()
+                            value = value.strip().strip('"\'')
+                            
+                            if name:
+                                cookies[name] = value
+                    except Exception as e:
+                        debug_print(f"Error parsing cookie pair: {e}")
+                        continue
     except Exception as e:
         debug_print(f"Error loading cookies from {cookie_file}: {str(e)}")
         broken_folder = dirs["netflix"]["broken"]
@@ -153,6 +190,12 @@ def load_cookies_from_file(cookie_file):
             shutil.move(cookie_file, os.path.join(broken_folder, os.path.basename(cookie_file)))
         with lock:
             total_broken += 1
+    
+    # Check if we found any cookies
+    if not cookies:
+        debug_print(f"No cookies found in file: {cookie_file}")
+    else:
+        debug_print(f"Found {len(cookies)} cookies in file: {cookie_file}")
     
     return cookies
 
@@ -166,13 +209,28 @@ def make_request_with_cookies(cookies):
         try:
             # Convert value to string and sanitize
             if value is not None:
-                # Remove any non-ASCII characters
+                # More aggressive sanitization:
+                # 1. Strip any surrounding quotes or spaces
+                # 2. Remove any non-ASCII characters
+                # 3. Ensure the value is URL-encodable
+                if isinstance(value, str):
+                    value = value.strip().strip('"\'')
                 safe_value = str(value).encode('ascii', 'ignore').decode('ascii')
+                
+                # Additional check to handle any problematic characters
+                # This ensures only valid URL-safe characters are kept
+                safe_value = re.sub(r'[^\x00-\x7F]+', '', safe_value)
                 safe_cookies[key] = safe_value
         except Exception as e:
             debug_print(f"Error sanitizing cookie {key}: {str(e)}")
             # Skip problematic cookies
             continue
+    
+    # If important Netflix cookies are missing, don't even try the request
+    required_cookies = ['NetflixId', 'SecureNetflixId']
+    if not any(cookie in safe_cookies for cookie in required_cookies):
+        debug_print("Missing essential Netflix cookies, skipping request")
+        return ""
     
     # Update session with sanitized cookies
     session.cookies.update(safe_cookies)
@@ -185,10 +243,17 @@ def make_request_with_cookies(cookies):
     }
     
     try:
+        # Add more comprehensive exception handling
         response = session.get("https://www.netflix.com/YourAccount", headers=headers, timeout=10)
         return response.text
     except requests.exceptions.RequestException as e:
         debug_print(f"Request error: {str(e)}")
+        return ""
+    except UnicodeError as e:
+        debug_print(f"Unicode encoding error: {str(e)}")
+        return ""
+    except Exception as e:
+        debug_print(f"Unexpected error during request: {str(e)}")
         return ""
 
 def extract_info(response_text):
@@ -393,9 +458,27 @@ def extract_from_archive(archive_path, extract_dir):
                     file_list = zip_ref.namelist()
                     debug_print(f"ZIP contains {len(file_list)} files/directories")
                     
-                    # Extract the files
-                    zip_ref.extractall(extract_dir)
-                debug_print("ZIP extraction successful")
+                    # Filter out problematic filenames before extraction
+                    safe_file_list = []
+                    for file_path in file_list:
+                        try:
+                            # Test if the filename can be properly encoded
+                            file_path.encode('latin-1')
+                            safe_file_list.append(file_path)
+                        except UnicodeEncodeError:
+                            debug_print(f"Skipping file with problematic name: {file_path}")
+                            continue
+                    
+                    debug_print(f"Extracting {len(safe_file_list)} safe files out of {len(file_list)} total")
+                    
+                    # Extract only safe files
+                    for file_path in safe_file_list:
+                        try:
+                            zip_ref.extract(file_path, extract_dir)
+                        except Exception as ex:
+                            debug_print(f"Error extracting {file_path}: {ex}")
+                    
+                debug_print("ZIP extraction completed")
                 return True
             except zipfile.BadZipFile as e:
                 debug_print(f"Bad ZIP file: {e}")
@@ -409,9 +492,27 @@ def extract_from_archive(archive_path, extract_dir):
                     file_list = rar_ref.namelist()
                     debug_print(f"RAR contains {len(file_list)} files/directories")
                     
-                    # Extract the files
-                    rar_ref.extractall(extract_dir)
-                debug_print("RAR extraction successful")
+                    # Filter out problematic filenames
+                    safe_file_list = []
+                    for file_path in file_list:
+                        try:
+                            # Test if the filename can be properly encoded
+                            file_path.encode('latin-1')
+                            safe_file_list.append(file_path)
+                        except UnicodeEncodeError:
+                            debug_print(f"Skipping file with problematic name: {file_path}")
+                            continue
+                    
+                    debug_print(f"Extracting {len(safe_file_list)} safe files out of {len(file_list)} total")
+                    
+                    # Extract only safe files
+                    for file_path in safe_file_list:
+                        try:
+                            rar_ref.extract(file_path, extract_dir)
+                        except Exception as ex:
+                            debug_print(f"Error extracting {file_path}: {ex}")
+                    
+                debug_print("RAR extraction completed")
                 return True
             except Exception as e:
                 debug_print(f"Error with RAR file: {e}")
