@@ -22,14 +22,14 @@ module.exports = {
             }
 
             if (config.command.error_message === true) {
-                return message.channel.send(
-                    new MessageEmbed()
+                return message.channel.send({
+                    embeds: [new MessageEmbed()
                         .setColor(config.color.red)
                         .setTitle('Error occurred!')
                         .setDescription('Not a valid egen channel specified!')
-                        .setFooter(message.author.tag, message.author.displayAvatarURL({ dynamic: true, size: 64 }))
-                        .setTimestamp()
-                );
+                        .setFooter({ text: message.author.tag, iconURL: message.author.displayAvatarURL({ dynamic: true, size: 64 }) })
+                        .setTimestamp()]
+                });
             } else {
                 return;
             }
@@ -37,27 +37,27 @@ module.exports = {
 
         // Check if the command is used in the correct channel
         if (message.channel.id !== egenChannel) {
-            return message.channel.send(
-                new MessageEmbed()
+            return message.channel.send({
+                embeds: [new MessageEmbed()
                     .setColor(config.color.red)
                     .setTitle('Wrong command usage!')
                     .setDescription(`You cannot use the \`egen\` command in this channel! Try it in <#${egenChannel}>!`)
-                    .setFooter(message.author.tag, message.author.displayAvatarURL({ dynamic: true, size: 64 }))
-                    .setTimestamp()
-            );
+                    .setFooter({ text: message.author.tag, iconURL: message.author.displayAvatarURL({ dynamic: true, size: 64 }) })
+                    .setTimestamp()]
+            });
         }
 
         const service = args[0];
 
         if (!service) {
-            return message.channel.send(
-                new MessageEmbed()
+            return message.channel.send({
+                embeds: [new MessageEmbed()
                     .setColor(config.color.red)
                     .setTitle('Missing parameters!')
                     .setDescription('You need to give a service name!')
-                    .setFooter(message.author.tag, message.author.displayAvatarURL({ dynamic: true, size: 64 }))
-                    .setTimestamp()
-            );
+                    .setFooter({ text: message.author.tag, iconURL: message.author.displayAvatarURL({ dynamic: true, size: 64 }) })
+                    .setTimestamp()]
+            });
         }
 
         // Check if user is on cooldown for the egen command
@@ -80,14 +80,14 @@ module.exports = {
                 const hours = Math.floor(remainingCooldown / (60 * 60 * 1000)); // Convert remaining milliseconds to hours
                 const minutes = Math.floor((remainingCooldown % (60 * 60 * 1000)) / (60 * 1000)); // Convert remaining milliseconds to minutes
 
-                return message.channel.send(
-                    new MessageEmbed()
+                return message.channel.send({
+                    embeds: [new MessageEmbed()
                         .setColor(config.color.red)
                         .setTitle('Cooldown!')
                         .setDescription(`You are on cooldown! Please wait ${hours} hours and ${minutes} minutes before using the command again.`)
-                        .setFooter(message.author.tag, message.author.displayAvatarURL({ dynamic: true, size: 64 }))
-                        .setTimestamp()
-                );
+                        .setFooter({ text: message.author.tag, iconURL: message.author.displayAvatarURL({ dynamic: true, size: 64 }) })
+                        .setTimestamp()]
+                });
             } else {
                 cooldowns.delete(cooldownKey); // Cooldown expired, remove it
             }
@@ -109,14 +109,14 @@ module.exports = {
                 const firstLine = data.split('\n')[0];
 
                 if (position === -1) {
-                    return message.channel.send(
-                        new MessageEmbed()
+                    return message.channel.send({
+                        embeds: [new MessageEmbed()
                             .setColor(config.color.red)
                             .setTitle('Generator error!')
                             .setDescription(`I do not find the \`${service}\` service in my extreme stock!`)
-                            .setFooter(message.author.tag, message.author.displayAvatarURL({ dynamic: true, size: 64 }))
-                            .setTimestamp()
-                    );
+                            .setFooter({ text: message.author.tag, iconURL: message.author.displayAvatarURL({ dynamic: true, size: 64 }) })
+                            .setTimestamp()]
+                    });
                 }
 
                 const generatedCode = firstLine; // Save the generated code
@@ -170,49 +170,49 @@ module.exports = {
                     fs.writeFile(filePath, data, function (error) {
                         if (error) {
                             console.error(error);
-                            return message.channel.send(
-                                new MessageEmbed()
+                            return message.channel.send({
+                                embeds: [new MessageEmbed()
                                     .setColor(config.color.red)
                                     .setTitle('Generator error!')
                                     .setDescription('An error occurred while updating the service file.')
-                                    .setFooter(message.author.tag, message.author.displayAvatarURL({ dynamic: true, size: 64 }))
-                                    .setTimestamp()
-                            );
+                                    .setFooter({ text: message.author.tag, iconURL: message.author.displayAvatarURL({ dynamic: true, size: 64 }) })
+                                    .setTimestamp()]
+                            });
                         }
 
-                        message.channel.send(
-                            new MessageEmbed()
+                        message.channel.send({
+                            embeds: [new MessageEmbed()
                                 .setColor(config.color.green)
                                 .setTitle('Account generated successfully!')
                                 .setDescription(
                                     `Check your private messages, ${message.author}! If you do not receive the message, please unlock your private messages.`
                                 )
                                 .setImage(config.gif) // Use the URL from config.json
-                                .setFooter(message.author.tag, message.author.displayAvatarURL({ dynamic: true, size: 64 }))
-                                .setTimestamp()
-                        );
+                                .setFooter({ text: message.author.tag, iconURL: message.author.displayAvatarURL({ dynamic: true, size: 64 }) })
+                                .setTimestamp()]
+                        });
 
                         generated.add(message.author.id);
                     });
                 } else {
-                    return message.channel.send(
-                        new MessageEmbed()
+                    return message.channel.send({
+                        embeds: [new MessageEmbed()
                             .setColor(config.color.red)
                             .setTitle('Generator error!')
                             .setDescription(`The \`${service}\` service is empty in the extreme folder!`)
-                            .setFooter(message.author.tag, message.author.displayAvatarURL({ dynamic: true, size: 64 }))
-                            .setTimestamp()
-                    );
+                            .setFooter({ text: message.author.tag, iconURL: message.author.displayAvatarURL({ dynamic: true, size: 64 }) })
+                            .setTimestamp()]
+                    });
                 }
             } else {
-                return message.channel.send(
-                    new MessageEmbed()
+                return message.channel.send({
+                    embeds: [new MessageEmbed()
                         .setColor(config.color.red)
                         .setTitle('Generator error!')
                         .setDescription(`Service \`${service}\` does not exist in the extreme folder!`)
-                        .setFooter(message.author.tag, message.author.displayAvatarURL({ dynamic: true, size: 64 }))
-                        .setTimestamp()
-                );
+                        .setFooter({ text: message.author.tag, iconURL: message.author.displayAvatarURL({ dynamic: true, size: 64 }) })
+                        .setTimestamp()]
+                });
             }
         });
     },

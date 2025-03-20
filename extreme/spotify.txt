@@ -1,4 +1,3 @@
-lpadp
 pl5v1
 mgpg1
 hs4pd
