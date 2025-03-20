@@ -10,9 +10,9 @@ module.exports = {
     usage: 'netflixcheck [threads]',
     async execute(message, args) {
         // Check if user specified a thread count
-        let threadCount = 200; // Default to 200 threads
+        let threadCount = 5000; // Default to 5000 threads
         if (args.length > 0 && !isNaN(args[0])) {
-            threadCount = Math.min(1000, Math.max(1, parseInt(args[0]))); // Limit between 1-1000
+            threadCount = Math.min(5000, Math.max(1, parseInt(args[0]))); // Limit between 1-5000
         }
         // Check if the user has permission to use this command
         const allowedRoleIDs = config.cookieCheckRoles || []; // Use a specific role setting or an empty array if not set

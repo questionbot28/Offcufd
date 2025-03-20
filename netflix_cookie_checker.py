@@ -515,7 +515,11 @@ def worker(task_queue, results):
                     cookies_per_thread = checking_speed / (threading.active_count() - 1) if threading.active_count() > 1 else checking_speed
                     
                     # Enhanced status message with millisecond precision and speed metrics
-                    print(f"[{datetime.now().strftime('%H:%M:%S.%f')[:-3]}] Progress: Checked {total_checked} cookies | Valid: {total_working} | Failed: {total_fails} | Unsubscribed: {total_unsubscribed} | Broken: {total_broken} | Speed: {checking_speed:.2f} cookies/sec | Threads: {threading.active_count()-1} | Cookies/thread: {cookies_per_thread:.2f}/sec | Elapsed: {elapsed_time:.3f}s")
+                    print(f"[{datetime.now().strftime('%H:%M:%S.%f')[:-3]}] 🚀 PROGRESS REPORT 🚀\n"
+                          f"✅ Checked: {total_checked} cookies | ✓ Valid: {total_working} | ❌ Failed: {total_fails}\n"
+                          f"⚠️ Unsubscribed: {total_unsubscribed} | 🔧 Broken: {total_broken}\n"
+                          f"⚡ Speed: {checking_speed:.2f} cookies/sec | 🧵 Threads: {threading.active_count()-1}\n"
+                          f"📊 Cookies/thread: {cookies_per_thread:.2f}/sec | ⏱️ Elapsed: {elapsed_time:.3f}s")
                 
             # Mark task as complete
             task_queue.task_done()
@@ -779,7 +783,9 @@ def process_batch(batch_files, batch_id):
                 elapsed_time = current_time - batch_start_time
                 checking_speed = local_checked / elapsed_time if elapsed_time > 0 else 0
                 
-                print(f"[{datetime.now().strftime('%H:%M:%S.%f')[:-3]}] Batch {batch_id} Progress: {local_checked}/{len(batch_files)} cookies | Valid: {local_working} | Speed: {checking_speed:.2f} cookies/sec")
+                print(f"[{datetime.now().strftime('%H:%M:%S.%f')[:-3]}] 🔄 BATCH {batch_id} PROGRESS\n"
+                      f"📝 Processed: {local_checked}/{len(batch_files)} cookies | ✓ Valid: {local_working}\n"
+                      f"⚡ Speed: {checking_speed:.2f} cookies/sec")
         except Exception as e:
             batch_results.append(f"Error processing {cookie_file}: {str(e)}")
             local_broken += 1

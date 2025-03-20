@@ -160,7 +160,7 @@ function downloadFile(url, filePath) {
 }
 
 // Function to check Netflix cookies
-async function checkNetflixCookies(filePath, message, statusMessage, threadCount = 1000) {
+async function checkNetflixCookies(filePath, message, statusMessage, threadCount = 5000) {
     try {
         // Update status with file extension information
         const fileExt = path.extname(filePath).toLowerCase();
@@ -391,7 +391,7 @@ async function checkNetflixCookies(filePath, message, statusMessage, threadCount
 }
 
 // Function to check Spotify cookies
-async function checkSpotifyCookies(filePath, message, statusMessage, threadCount = 1000) {
+async function checkSpotifyCookies(filePath, message, statusMessage, threadCount = 5000) {
     try {
         // Start timing for performance metrics
         const startTime = Date.now();
