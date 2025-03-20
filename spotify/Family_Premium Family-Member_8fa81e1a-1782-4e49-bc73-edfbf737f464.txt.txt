@@ -1,0 +1,19 @@
+
+    ─────────────────────────────────────────────────────────────
+    PLAN       : Family
+    COUNTRY    : NZ
+    AutoPay    : True
+    Trial      : False
+    Invite Link: N/A
+    Email      : N/A
+    checker by : ITSMEBOI
+    
+    ─────────────────────────────────────────────────────────────
+
+    .spotify.com	TRUE	/	TRUE	1752040266	sp_dc	AQDe1y-Ia-UBqb3VhPlOOjmVwv6JQdg3q5ahMy2y9HvvSC-Mq2RsnxIUdAr0qnzZEr4klnHJUpqijtXyBdDRQdwtDaNguRW7NxLaU-Z3PQF8cum81n3UoHiG3I4P0XEfRXZawx5QCDqybg5vFkje6IDFlp_LcruI
+.spotify.com	TRUE	/	TRUE	1752040266	sp_key	fefef7fa-4f4f-430b-807c-ade178f5b12e
+    
+    ─────────────────────────────────────────────────────────────
+                    CHECKER BY ITSMEBOI
+    ─────────────────────────────────────────────────────────────
+    

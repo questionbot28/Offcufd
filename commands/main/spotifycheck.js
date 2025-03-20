@@ -16,7 +16,7 @@ module.exports = {
         // Check if user specified a thread count
         let threadCount = 200; // Default to 200 threads
         if (args.length > 0 && !isNaN(args[0])) {
-            threadCount = Math.min(200, Math.max(1, parseInt(args[0]))); // Limit between 1-200
+            threadCount = Math.min(1000, Math.max(1, parseInt(args[0]))); // Limit between 1-1000
         }
         // Create necessary directories
         const tempDir = path.join(__dirname, '../../temp');

@@ -24,7 +24,7 @@ total_broken = 0
 lock = threading.Lock()
 
 # Maximum limits
-MAX_THREADS = 200  # Maximum number of threads for cookie checking
+MAX_THREADS = 1000  # Maximum number of threads for cookie checking
 
 # Global paths
 working_cookies_dir = "working_cookies"

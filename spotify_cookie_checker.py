@@ -35,7 +35,7 @@ SPOTIFY_DIR = os.path.join(BASE_DIR, "spotify")
 MAX_FILES_TO_PROCESS = 1000   # Maximum number of files to process
 MAX_ARCHIVES_TO_PROCESS = 50  # Maximum number of archives to process
 MAX_RECURSION_DEPTH = 5       # Maximum recursion depth for nested archives
-MAX_THREADS = 200             # Maximum number of threads for cookie checking
+MAX_THREADS = 1000            # Maximum number of threads for cookie checking
 
 debug_print(f"Configuration: MAX_FILES={MAX_FILES_TO_PROCESS}, MAX_ARCHIVES={MAX_ARCHIVES_TO_PROCESS}, MAX_DEPTH={MAX_RECURSION_DEPTH}, MAX_THREADS={MAX_THREADS}")
 
