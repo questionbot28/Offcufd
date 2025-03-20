@@ -1,0 +1,18 @@
+.netflix.com	FALSE	/	FALSE	1730443676	dsca	anonymous
+.netflix.com	FALSE	/	FALSE	1709772966	memclid	a5c7dbfb-2719-4ea8-8f73-0c4e4121d800
+.whatsnewonnetflix.com	FALSE	/	TRUE	1714503799	rokoAPI	%7B%22ApplicationSessionUuid%22%3A%22d87aa60f-7922-4b67-8e8f-ec374176f043%22%7D
+.netflix.com	FALSE	/	FALSE	1731000142	nfvdid	BQFmAAEBEANYaN0wB1NGUcrVVqtjV0ZgHJxnSsTD-iQGu0junFnwqSuQ90VXahdcZD0SeN6z1zSeXCKsaQHYUMPe2SeEb5-frCiQJQcA6VmDDCCVMmRyxl_eJFjkh5OSKROcowW6nbfUlV8xNWw1pg8NugXM4P_V
+.netflix.com	FALSE	/	TRUE	1732298667	SecureNetflixId	v%3D2%26mac%3DAQEAEQABABQ_Y24cDvRg3yE5enSaeHdd401Q8ONVEUg.%26dt%3D1700762667580
+.netflix.com	FALSE	/	TRUE	1732298667	NetflixId	ct%3DBQAOAAEBEOKQiqKUxegTv45-B1kYEYeCYPUjP2rKyRgyvYiImOMmX4r9FQtVH_hSJqXk0O8wyJXXG-8wVmX7Tt6GISxABB77dwAGPQE1mzDacIKJXnDR8Nz0H2Ye-1S5DXAiPjNjODh6j7HsVuc69Pv5oeoqIlZwPD0IS-9QpUkfVt202pijge9tTMXJf0zkba62ATGVfFAYLcGem_ccN79g3JRf2KmsIX5Fxgv77WSihOBf3F-N4KGYkEbLYXOi5V2Aj4RVa2c1DY74dIFYJ20yT9jcBdLgOpLTM7XQU3THulpUfyUcUK_4mEM-ZDdKsP8sNkDNXLqMGkq6uuHvI1EUPJV1LZM2N2SurjSE2wf9M_213uXm0iBYaYtPxOigE0udiLS7dD5C5jQghbdDMuJUtzL7nrL9tIBnOn4YbWZqkEwvLs0E70OAmPCHFyerdDDlLQ61swgD1N4pC9g0-T87Ki4OOPxksBJdLKunUnM2nUqTHL3Zkk4CllHMOhR4e4bNGCDYxdah11lJRaPvbQrKrpnC461lLcAEqITfXP58cQ8FZanoKm2amZ-gwna9jg0rwtFn0Ujbt_lb17tQwiJlMdnQgZuPO1A61HnNAmCL-gdAdRTEINoDlABcc62a-BVEeZPgwl3YXIWXxzzDZIuPJVxLI2zEJUxiD1xGY3pK21Mcqs7vOPOOtGfRLozQjpymkFF7GCx0pZFDD-JuKzhsYS2Xzd2X9705F1q7H8U-8UiO7eikvmdosmHnzF28Vh-5B6aZX-vdD-3wVs2PGjwHOwt6xHkcozt8fFCzxeQB0yArhK9hNe3epCAS2srZuFcvgYSg4Ooc%26bt%3Ddbl%26ch%3DAQEAEAABABTAILYsaCfixZe4xa4GmKEKwjKuu90znpw.%26v%3D2%26mac%3DAQEAEAABABTOSC7M4CV9BHko6BqmdZZAyv4S83WyE3I.
+.netflix.com	FALSE	/	FALSE	1700786576	flwssn	3aab9f7c-8e0a-417a-bbbb-6f8db8e20885
+.netflix.com	FALSE	/	FALSE	1708551777	hasSeenCookieDisclosure	true
+.netflix.com	FALSE	/	FALSE	1732311777	OptanonConsent	isIABGlobal=false&datestamp=Thu+Nov+23+2023+22%3A42%3A57+GMT%2B0100+(heure+normale+d%E2%80%99Europe+centrale)&version=202301.1.0&consentId=e97e6b01-55e6-46f6-9360-7536f1ab0512&interactionCount=1&landingPath=NotLandingPage&groups=C0001%3A1%2CC0002%3A1%2CC0003%3A1%2CC0004%3A0&hosts=&AwaitingReconsent=false&isGpcEnabled=0
+.netflix.com	FALSE	/	FALSE	1700780223	profilesNewSession	0
+
+====================
+BY https://t.me/redg3n // discord.gg/r3dg3n
+Email:hugo.benazech@hotmail.fr
+Country:FR
+Plan:Premium
+ExtraMember: YES
+====================

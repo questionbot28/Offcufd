@@ -1,0 +1,16 @@
+.netflix.com	TRUE	/	FALSE	1674019052	dsca	anonymous
+.netflix.com	TRUE	/	FALSE	1642441150	OptanonConsent	isIABGlobal=false&datestamp=Sun+Jan+17+2021+18%3A39%3A10+GMT%2B0100+(Mitteleurop%C3%A4ische+Normalzeit)&version=6.6.0&consentId=cd6b11e0-bfb8-423f-bf3c-23792e183ecc&interactionCount=1&landingPath=https%3A%2F%2Fwww.netflix.com%2Fde%2F&groups=C0001%3A1%2CC0002%3A1%2CC0004%3A0&hosts=H1%3A1%2CH2%3A1%2CH12%3A1%2CH13%3A1%2CH27%3A0%2CH28%3A0%2CH30%3A0
+.netflix.com	TRUE	/	FALSE	1642441276	nfvdid	BQFmAAEBECZSWCA3rANHGnHp1Oi2BPhg1IaEelvlFCTmLR1qtLQPCPGrJCSC93Bvq_cezPdSix5zMlbpBLoUTYywc87Jxx4WCfpVAEmJ5tSjTRX2UyCqsFOTrlMXrWy9EgQdyQA_hNBeJgWEBRfP_b9siRCxFc1e
+.netflix.com	TRUE	/	FALSE	1626104769	hasSeenCookieDisclosure	true
+.netflix.com	TRUE	/	FALSE	1649865682	SecureNetflixId	v%3D2%26mac%3DAQEAEQABABROB7KQWJvBZyuNZCmUsRYy0b9ScQ57_PY.%26dt%3D1618329682397
+.netflix.com	TRUE	/	FALSE	1649865682	NetflixId	v%3D2%26ct%3DBQAOAAEBEMxEzRfFf5o0GCaMX3cbpkaB0OZ9jXxckbnPt7Rjz5JPcsUqTTymcXgvTXcn8Gg4btkeECbjvzeEpTvTvTGp0GKLx88yr8KR50yVnl5ZAMw_ue-LQFAAixgpHVCQ1EWODXxU7WMCBi6pHoZp3qRO7wvENq--tUi6naFXCZGblfqEKZz5MwkkCQKSDu6EVPmldnn4_zm0Hk6I77bgUu1Gqa8ewrDFoxEycQ4JMFpwSXYigB5gSh202-x5FwuLs4g5h5JoCr5VqRe6U4EV81LXWKEvQBRSW0JoWIW4uNPr3kbf7_wxU2LtR5z58Vw_GftCLaKiVPszkpdHd88Byx-898zDS_u1Cn_L_srGREVhmovXd9YTO5KTgKhCKt0iQ5nYNIo1y6GVvJW5hXh0iCzhtdwdnJtDTyZXWu_mj6lNeQLd1WY05GZNBLfJSKgP2zhqSYNqRsQNaA4XZ0UHOnvGaJUFhi_nESGdln_33W3nhJ3LWJYEWB-BAGyrIt03NUFLpZBhYn0aQJzVH7qhOVfGAaL6k4C8zKIFej_xF0XZX0LlMaMutA04uZ3DfUss2fK7XE8f14mhgfby_Nj3WfTBpg-z_KiO0cdyQhyd_jXOkcz-MEGxyoKWwWqZkDQiL0RSvUAo%26bt%3Ddbl%26ch%3DAQEAEAABABQrzYLD0ZaxLrw1gyZsMq5n37iLn3ABv_o.%26mac%3DAQEAEAABABQuDzZHxaX5eVnoAiFutYL67hvdmi5EXEQ.
+.netflix.com	TRUE	/	FALSE	1649865803	memclid	6c93a50f-8b70-48d8-a06d-a83a78cddf40
+.netflix.com	TRUE	/	FALSE	1626105862	playerPerfMetrics	%7B%22uiValue%22%3A%7B%22throughput%22%3A1963.42%2C%22throughputNiqr%22%3A0.3252030951284427%7D%2C%22mostRecentValue%22%3A%7B%22throughput%22%3A2222.2%2C%22throughputNiqr%22%3A0.5905731610177106%7D%7D
+
+====================
+BY https://t.me/redg3n // discord.gg/r3dg3n
+Email:jahaarmann@gmx.de
+Country:DE
+Plan:Basis
+ExtraMember: NO
+====================

@@ -1,0 +1,33 @@
+PLAN = Family Premium
+COUNTRY = PL
+AutoPay = True
+Trial = False
+Checker By: by nobody028912
+Spotify COOKIE :👇
+
+
+PLAN = Family Premium
+COUNTRY = PL
+AutoPay = True
+Trial = False
+Checker By: by nobody028912
+Spotify COOKIE :👇
+
+
+accounts.spotify.com	FALSE	/	TRUE	1738691780	__Host-device_id	AQA2kl2lt8TDlgNwNtHf_MfUeb9-CZtFQhaxpGhPS_1Dh_oFvhiAY4O6FoIdlWWrGC7xv2hA_Kow_HALSF17auEy-H5WhWnZyfI
+.spotify.com	TRUE	/	TRUE	1738691793	sp_dc	AQDw2qY9Rhlt_VpM3A6SsLZCS2DMpVei5Ol57r6PEUxIV18DYJTjsw7DRAtq3f3GjRdAMie9SyxsJ5DLUs0rhNooDt74Yme6sW1vSXXgd3uL0mz5Nxi5c9w8IoiFxPtFMyB3ybS52WgH0feE-OAKnVdnizg6ZxU
+.spotify.com	TRUE	/	TRUE	1738691793	sp_key	c759a6ad-90e0-4f01-91bc-97c32fca5afa
+.spotify.com	TRUE	/	TRUE	1728521949	sp_gaid	0088fc8b8099159b3a2f1fa33f52d67e4f4516b04ed91d659bff06
+.spotify.com	TRUE	/	TRUE	1723424338	sp_landing	https%3A%2F%2Fopen.spotify.com%2Fuser%2F11140654047%3Fsp_cid%3Dd551d87d2b283cb83a33602756b31859%26device%3Ddesktop
+.spotify.com	TRUE	/	TRUE	1738889949	sp_m	pl
+.spotify.com	TRUE	/	TRUE	1728522021	sp_last_utm	%7B%22utm_campaign%22%3A%22drm_error%22%2C%22utm_medium%22%3A%22web%22%2C%22utm_source%22%3A%22open%22%7D
+.spotify.com	TRUE	/	TRUE	1738890017	sp_t	d551d87d2b283cb83a33602756b31859
+
+===========================================
+BY https://t.me/redg3n // https://dsc.gg/r3dg3n
+Email: zxqwfn74@gmail.com
+Plan: Family
+Trial: NO
+Member: YES
+Days Left: null
+===========================================

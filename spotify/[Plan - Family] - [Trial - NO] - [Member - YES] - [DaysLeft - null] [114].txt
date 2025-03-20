@@ -1,0 +1,19 @@
+accounts.spotify.com	FALSE	/	FALSE	1706152952	__Host-device_id	AQBLG52VMM0nVCc17m-HcljLYtthlcAJ8KuN3ZTE6LuWLd5mZWCQxFohH0wyXzSh-6vuc9NLdtpaYcjjA6F-80fw2OPWW9ZJKK0
+.accounts.spotify.com	TRUE	/	FALSE	17281519360935502	__Secure-TPASESSION	AQDZJcSjAetxdfHzA0xVGp3JB5YGZq6cnNoJL5qJIDhWo4r/bX0ONx5NJWHk56R+9NjitftyQhnIAlLZz6PFoJiH9+tma94nrAo=
+.accounts.spotify.com	TRUE	/	FALSE	17281519360935502	sp_tr	false
+.accounts.spotify.com	TRUE	/	FALSE	17281519362730705	csrf_token	AQDsWAYEUCGbivJ_1oUpcYCKukiMfNYy8Uv_JI0oVMcW3ctuoHIFUU2U2rRgJN0eDuKZWeEf7Ko6AsG9cw
+accounts.spotify.com	FALSE	/	FALSE	17281519362730705	remember	marlireid%40gmail.com
+.spotify.com	TRUE	/	FALSE	1722815777	sp_dc	AQCuka1PQBO7J3WrMTQTjjZryV7XdXo9-9kP0I68jZKFAB8kDNujGNSWXaEnQqbDm06PdZyyCSeNdmhVD_mJw6C6o3hReIcvRc77eXwDe3H5lew61ZjfTaqyW62EdKcvwXwr9zGtx_j0L_VkFhkrPkxw1GsyC2NB
+.spotify.com	TRUE	/	FALSE	1722815777	sp_key	382f9deb-247b-4bbc-b317-b0e7d7198a7e
+.accounts.spotify.com	TRUE	/	FALSE	17281519362740676	sp_sso_csrf_token	013acda7197f911a0b32e656653189643da5410af331363931323739373736363831
+.spotify.com	TRUE	/	FALSE	1722815779	sp_t	b4f21397474945e26039be514445a7d1
+
+
+
+====================
+BY https://t.me/redg3n // discord.gg/r3dg3n
+Plan: Family
+Trial: NO
+Member: YES
+Days Left: null
+====================

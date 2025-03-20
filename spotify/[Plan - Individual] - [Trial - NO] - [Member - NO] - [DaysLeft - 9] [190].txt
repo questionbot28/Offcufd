@@ -1,0 +1,20 @@
+accounts.spotify.com	FALSE	/	FALSE	1729085501	__Host-device_id	AQAOH9Tdoewl47bWs4-ezCCP7GFEhQ4T5kRjHBN2qHnAp8IB75heJRPcsYUSq9bd9yPO1Bg7CBSgKOBDPGjVhPEyJ2CfXviWcZo
+.accounts.spotify.com	TRUE	/	FALSE	17261664174998788	__Secure-TPASESSION	AQAy6vFXxhzcJzK48Hblli2RDgd9Le6f2nTfs3C0PCZBUEk062HX4TOnO6bTgDra1CZ8UVy13tiEMM/KBGoRiftSqp4VBoaGf/M=
+.accounts.spotify.com	TRUE	/	FALSE	17261664175008775	sp_tr	false
+accounts.spotify.com	FALSE	/	FALSE	17261664175058748	remember	gunthermirko%40gmail.com
+.spotify.com	TRUE	/	FALSE	1726061605	sp_dc	AQBd_7rWCFyDtUyuJ7aPSMwDXp8bvIp396G1_CIK871X4lB98jnR4w-CUQV2zeMTejoNfCUZYUoil0QXT8ci1u7KmVxj9FegGq08n82GVHdeS1bVvJ68HMIP2SIi8RhoWqtZiPIWWIxdiMDM6VOOKhziXeFAUJEC
+.spotify.com	TRUE	/	FALSE	1726061605	sp_key	6d0fd6cd-5348-438e-81ff-2e91fc511dda
+.accounts.spotify.com	TRUE	/	FALSE	17261664175078740	sp_sso_csrf_token	013acda719f1fa7924b5dd68298d49fd6b967b537031363934353235383535363539
+.accounts.spotify.com	TRUE	/	FALSE	17261664175088727	csrf_token	AQB9vClvVE2qy9Rp-bwrfaCkyv_wGWAqdy3ObLt98jSZ930e3IjqqA78mbb9u6jPgQ-81JQpHPeW1exQSWaSBQweZlgGDs3-SgR_Oq5bAkGVH6g8EA
+.spotify.com	TRUE	/	FALSE	1694612444	sp_landing	https%3A%2F%2Fopen.spotify.com%2Fdesktop%2Fauth%2Fsuccess%3Fsp_cid%3D8ae926b6b7135b363914e4d2432bc773%26device%3Ddesktop
+.spotify.com	TRUE	/	FALSE	1726062044	sp_t	8ae926b6b7135b363914e4d2432bc773
+
+
+
+====================
+BY https://t.me/redg3n // discord.gg/r3dg3n
+Plan: Individual
+Trial: NO
+Member: NO
+Days Left: 9
+====================

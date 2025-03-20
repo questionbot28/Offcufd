@@ -1,0 +1,18 @@
+PLAN = Student Premium
+COUNTRY = TR
+AutoPay = True
+Trial = False
+Checker By: by nobody028912
+Spotify COOKIE :👇
+
+
+.spotify.com	TRUE	/	TRUE	1753132436	sp_dc	AQBzvaorK8HMKV75C1OMGJp7jC65lQHHJF4pLpDZQ6uOkVhAHp5N2z_Lu9gTcxdrn6-J5qW2dIEXj6lwyuPZQf3qBLjiA19cqHsMbnVi-sYJhxPKKTq6d6rJ7MnvU3_gk8xWdp_QiEAdnSTzODkUIo-NXjBLi5Y
+.spotify.com	TRUE	/	TRUE	1753132436	sp_key	b56073ac-146e-4680-8721-0f5628e648d5
+
+==============================
+ |||***By FR3AK G3N CHECKER***
+ Plan: Premium Student
+ status: Owner
+ |||||||| https://discord.gg/fr3akgen |||||||||||
+ ================================================
+                         

@@ -1,0 +1,34 @@
+.spotify.com	TRUE	/	TRUE	1727378415	sp_dc	AQDAHU8RjJeLQVwbkp9Dw7eV2jHzYgCvUvuXjerovFWNK2_JOQdAnKo8KGeAVhLYKaOwqHhGofaToorTeDW875lHZEpHq0R9rtaPX8X_2a2550mN34vaMNqzjeuPVvG_7TF2jcWMW93StoxNr-B1Qz9e0aEDwJT9
+.spotify.com	TRUE	/	TRUE	1727378415	sp_key	c156a620-12ad-4747-9d52-e1cce2f3742e
+.spotify.com	TRUE	/	FALSE	1730335879	_cs_c	0
+.spotify.com	TRUE	/	FALSE	1730335879	_cs_id	3a588bf6-a337-ad81-cf19-b2e65ab2a77c.1696171879.1.1696171879.1696171879.1.1730335879817
+.spotify.com	TRUE	/	FALSE	1730731882	_ga_S35RN5WNT2	GS1.1.1696171879.1.0.1696171882.0.0.0
+.spotify.com	TRUE	/	FALSE	1730358577	_scid	3b382f2c-e767-44cc-bb6c-463749b30fce
+.spotify.com	TRUE	/	FALSE	1730358577	_scid_r	3b382f2c-e767-44cc-bb6c-463749b30fce
+.spotify.com	TRUE	/	FALSE	1730358578	_sctr	1%7C1696093200000
+.spotify.com	TRUE	/	TRUE	1727707879	sp_adid	c44daa86-1f6e-4020-8ce6-5f19dd8daa8b
+.spotify.com	TRUE	/	TRUE	1701355876	sp_gaid	0088fc69209f4926e0ddf7adc90c232cc23995157c3b7b8b4142e3
+.spotify.com	TRUE	/	TRUE	1701355878	sp_last_utm	%7B%22utm_campaign%22%3A%22your_account%22%2C%22utm_medium%22%3A%22menu%22%2C%22utm_source%22%3A%22spotify%22%7D
+.spotify.com	TRUE	/	FALSE	1728917990	OptanonAlertBoxClosed	2023-10-15T14:59:50.370Z
+.spotify.com	TRUE	/	FALSE	1728919475	OptanonConsent	isIABGlobal=false&datestamp=Sun+Oct+15+2023+22%3A24%3A35+GMT%2B0700+(Western+Indonesia+Time)&version=6.26.0&hosts=&landingPath=NotLandingPage&groups=s00%3A1%2Cf00%3A1%2Cm00%3A1%2Ct00%3A1%2Ci00%3A1%2Cf11%3A1&geolocation=ID%3BSS&AwaitingReconsent=false
+accounts.spotify.com	FALSE	/	TRUE	1731941995	__Host-device_id	AQA433Hr58zf4sMmE1Tb8Bb-u5PgWueCVgQkpaL6Z9BG5vey-GtUYYzpXYZZRDxnOiS-RvLtWhntZOmqkk5NxuFHCSDp4YQdjy0
+.spotify.com	TRUE	/	FALSE	1731943475	_ga	GA1.1.957831966.1697381980
+.spotify.com	TRUE	/	FALSE	1731945875	_ga_ZWG1NSHWD8	GS1.1.1697385874.2.0.1697385875.0.0.0
+.spotify.com	TRUE	/	FALSE	1705157980	_gcl_au	1.1.1449774045.1697381980
+.spotify.com	TRUE	/	FALSE	1697469875	_gid	GA1.2.69094676.1697381980
+.spotify.com	TRUE	/	TRUE	1697468372	sp_landing	https%3A%2F%2Fwww.spotify.com%2Fid-id%2F
+.spotify.com	TRUE	/	TRUE	1697468372	sp_landingref	https%3A%2F%2Fid.search.yahoo.com%2F
+.spotify.com	TRUE	/	TRUE	1697468372	sp_new	1
+open.spotify.com	FALSE	/	TRUE	1699973975	sp_pfhp	2c2ccb58-8a92-4713-a1c0-8b43b3090b49
+.spotify.com	TRUE	/	TRUE	1728921874	sp_t	5078a6aa-f986-42b8-90ca-e6ab536a80f4
+.spotify.com	TRUE	/	TRUE	1731941972	sp_m	id-id
+
+
+
+====================
+BY https://t.me/redg3n // discord.gg/r3dg3n
+Plan: Student
+Trial: NO
+Member: NO
+Days Left: 0
+====================

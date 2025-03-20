@@ -1,0 +1,17 @@
+.spotify.com	TRUE	/	TRUE	1746170274	sp_m	ph-en
+accounts.spotify.com	FALSE	/	TRUE	-516830174	__Host-device_id	AQAEgLzroQgDsEoUfZeNYya0M0Yo-1bkTHWK1PMCC2bOfkv_BpdzwpOe7bn6Q3nE70l1ISNh8kCWdcQT7nsvzJS6lvehKT1XYH4
+.spotify.com	TRUE	/	FALSE	1746170294	spot	%7B%22t%22%3A1630653494%2C%22m%22%3A%22ph-en%22%2C%22p%22%3Anull%7D
+www.spotify.com	FALSE	/	FALSE	1946100928	spAnalytics_id	eyJkZXZpY2VJZCI6IjE4MDg1YmVjOGU0YWY1MTRlNGM4OGI5MmY1YWYxZjNjIiwidXNlcklkIjpudWxsfQ==
+.spotify.com	TRUE	/	TRUE	1724342003	sp_dc	AQDehBbTVu-GEJ4RmJzT1wiH4ZqoAGOFKM9LHT4Dk6n5IzziOuzmJIUxy1LTIdmIRB_PF3CHFlSxlHdhFb0yrvwEATfBNRDur5AZKKIfGYONsz0xfK8oQWR019s_F_2rVawJ_ncXC5z_cfkdo4WXje6gh42GOfe8
+.spotify.com	TRUE	/	TRUE	1724342003	sp_key	7bdb53ff-79f3-45d7-9f96-93f1acf4efaf
+.spotify.com	TRUE	/	TRUE	1724342006	sp_t	d7e001f9db608960b9078deaf6cb8176
+
+
+
+====================
+BY https://t.me/redg3n // discord.gg/r3dg3n
+Plan: Individual
+Trial: NO
+Member: NO
+Days Left: 25
+====================

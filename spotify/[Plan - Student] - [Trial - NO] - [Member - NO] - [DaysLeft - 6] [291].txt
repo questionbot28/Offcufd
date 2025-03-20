@@ -1,0 +1,39 @@
+accounts.spotify.com	FALSE	/	TRUE	1725385718	__Host-device_id	AQBqGDm_Pc-rPZWE6l3ZRsS6mcc27EYnAko2785WSSQW4DVR2wTUAA4uubAJMy4foz1IGA0d80W830Mwjo__JbU9MAMCheM0eoc
+.spotify.com	TRUE	/	TRUE	1722361801	sp_dc	AQAcEJ_gJSZj_C7XssbI_6mExgmdi4U9ydD1WBEGF-IKrFSK-t8MovgMnRmZ-b5cMAeDE3woRBisrwRwlTFFDQhURKLGOG8Odcgn6NlVXIU5UNLVPvh3_4Kp302bz2erQlpRsbadOXx5Wu9PRy3QM9SHvMxidko
+.spotify.com	TRUE	/	TRUE	1722361801	sp_key	42ad4797-0042-409b-b4fc-a569656db08c
+.spotify.com	TRUE	/	TRUE	1722361808	sp_t	8a40c3df9292ac772034b28bea7df292
+.spotify.com	TRUE	/	TRUE	1698670912	sp_gaid	0088fce765e6bb3fd0b6fb3db80a27130db456089f199eda28c24c
+.spotify.com	TRUE	/	FALSE	1727650914	_cs_c	0
+.spotify.com	TRUE	/	FALSE	1727673612	_scid	789afb55-6199-4f67-8a76-6ce1af9d6be1
+.spotify.com	TRUE	/	TRUE	1728047180	sp_m	tr-tr
+.spotify.com	TRUE	/	FALSE	1727183342	_tt_enable_cookie	1
+.spotify.com	TRUE	/	FALSE	1727183342	_ttp	RjVNJtsyrFNwhdGTqIge7ZNV-0t
+.spotify.com	TRUE	/	FALSE	1728789791	_sctr	1%7C1694552400000
+.spotify.com	TRUE	/	TRUE	1699868489	sp_last_utm	%7B%22utm_campaign%22%3A%22your_account%22%2C%22utm_medium%22%3A%22menu%22%2C%22utm_source%22%3A%22spotify%22%7D
+.spotify.com	TRUE	/	FALSE	1726307044	__kdtv	t%3D1694684644188%3Bi%3D9ba6b5cfd084814fd26ef532b17817679b146bf0
+.spotify.com	TRUE	/	FALSE	1726307044	_kdt	%7B%22t%22%3A1694684644188%2C%22i%22%3A%229ba6b5cfd084814fd26ef532b17817679b146bf0%22%7D
+.spotify.com	TRUE	/	FALSE	1726220658	OptanonConsent	isIABGlobal=false&datestamp=Thu+Sep+14+2023+12%3A44%3A18+GMT%2B0300+(GMT%2B03%3A00)&version=6.26.0&hosts=&landingPath=NotLandingPage&groups=s00%3A1%2Cf00%3A1%2Cm00%3A1%2Ct00%3A1%2Ci00%3A1%2Cf11%3A1&AwaitingReconsent=false
+www.spotify.com	FALSE	/	TRUE	1726220651	RoktRecogniser	68a92399-bd70-4dca-b977-2b0f549e0ccc
+.www.spotify.com	TRUE	/	FALSE	1729244650	__lt__cid	3ebaa017-0535-41b8-b308-caeae0aa4759
+.spotify.com	TRUE	/	FALSE	1702460650	_fbp	fb.1.1694684650954.1954307014
+.spotify.com	TRUE	/	FALSE	1729244658	_ga	GA1.2.1865800386.1693486914
+.spotify.com	TRUE	/	FALSE	1701262914	_gcl_au	1.1.168347517.1693486914
+.spotify.com	TRUE	/	FALSE	1726220651	_pin_unauth	dWlkPU5qa3pZalZrTTJNdFpEQmtaQzAwTXpKaUxUaGhNbVl0TTJVM05XRTJZVEJrWXpBMg
+.spotify.com	TRUE	/	TRUE	1702460650	_rdt_uuid	1693487342661.91ce05b9-dbbc-4d2c-939d-e7aa1c947ed4
+.spotify.com	TRUE	/	FALSE	1728871356	_scid_r	789afb55-6199-4f67-8a76-6ce1af9d6be1
+.spotify.com	TRUE	/	FALSE	1728380650	_uetvid	41b2cb8052e311eebbb975f68aab7530
+.spotify.com	TRUE	/	FALSE	1726307050	_yjsu_yjad	1694684650.b1db2ae7-c69e-4314-b8d2-8f3c93898165
+www.spotify.com	FALSE	/	TRUE	1726220648	ravelinDeviceId	rjs-72c2e8fe-5a49-43a8-8b93-2223c3f9d75a
+.spotify.com	TRUE	/	TRUE	1726220658	sp_adid	e833b7d7-c7fd-4498-a2af-09e818ab70b2
+.spotify.com	TRUE	/	FALSE	1727650914	_cs_id	d537f23e-a50e-a485-a5e1-9dfdf7a5a830.1693486914.4.1694692250.1694692250.1.1727650914615
+.spotify.com	TRUE	/	FALSE	1729252253	_ga_S35RN5WNT2	GS1.1.1694692253.5.0.1694692253.0.0.0
+
+
+
+====================
+BY https://t.me/redg3n // discord.gg/r3dg3n
+Plan: Student
+Trial: NO
+Member: NO
+Days Left: 6
+====================

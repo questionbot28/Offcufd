@@ -1,0 +1,16 @@
+accounts.spotify.com	FALSE	/	FALSE	1732416465	__Host-device_id	AQBLOK8jzzpWpCmXFl-zWWIECnzlCLKCtLe-7VdBCItxjChg3uKpld6XGqD93sN9_1XrCPdLnNP__Rcij4Q48hj_ZSJKFqRrytU
+accounts.spotify.com	FALSE	/	FALSE	1697860260	__Host-sp_csrf_sid	3b106d9f74a661346c663b2ac0f49b2da02b463dfa0e3e28724c410030c00ef5
+.spotify.com	TRUE	/	FALSE	1729392660	sp_dc	AQDNJZvtlvafs9GyCpVWuL4sb7ezOfP6QDuPfHI92-ffCknIVVJknBBu77ToLS4syV9eiyJ02crXRCFI2QujaGxD9acHxiGngjsjThCM0oGnlcPJ4hfFGPwbrJvBsnZZm10hOxyKOdpwCO7S9Zp8lqaa79fFVihW
+.spotify.com	TRUE	/	FALSE	1729392660	sp_key	cf3ffa98-b219-4968-9501-c2068b35093e
+.spotify.com	TRUE	/	FALSE	1697943065	sp_landing	https%3A%2F%2Fopen.spotify.com%2Fdesktop%2Fauth%2Fsuccess%3Fsp_cid%3Dbfa969d33e7536807780385b4240c449%26device%3Ddesktop
+.spotify.com	TRUE	/	FALSE	1729392665	sp_t	bfa969d33e7536807780385b4240c449
+
+
+
+====================
+BY https://t.me/redg3n // discord.gg/r3dg3n
+Plan: Family
+Trial: NO
+Member: YES
+Days Left: null
+====================

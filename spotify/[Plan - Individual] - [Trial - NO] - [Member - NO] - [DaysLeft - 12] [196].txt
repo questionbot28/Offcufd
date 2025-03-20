@@ -1,0 +1,20 @@
+spotify.link	FALSE	/	FALSE	1707152636	_s	uQQPyrsC4DQBUca1nBX4Qk%2BbbP7aMQR9dZtYWnmIubV2hck2NEisTJTlfaZAE76v
+.spotify.com	TRUE	/	FALSE	1725987869	sp_m	th-th
+accounts.spotify.com	FALSE	/	FALSE	1725987915	__Host-device_id	AQCU4IzxlQMD2Y44XXVIS-tw8se_tNdN4h40mW06dcflvSPsmKXKyXafslft8NXc4fHYU9ytlq0U3TNHaZWdeyJ4FDxSZ0D2WbQ
+.spotify.com	TRUE	/	FALSE	1722963935	sp_dc	AQB_RJew5kd1LzjvrvYBNC7neFuM_KXSoGnwZw5csfAWXI4_XG8UEeSWHUAmaskr3WULOJTkQGByzl6ZsAbO1VcNCkJbXvNg5UdNh67qZSLK2uiOUMBjZkxCYgB6oEgiOzF--xS1wdU1AQ7kWNS7qTgCUKvhirk
+.spotify.com	TRUE	/	FALSE	1722963935	sp_key	40a16ac8-c059-43ca-a18e-839cd27209f8
+www.spotify.com	FALSE	/	FALSE	1723722117	RoktRecogniser	84b1a827-e779-4b67-8385-a36b1ac55c4f
+.spotify.com	TRUE	/	FALSE	1699962117	_rdt_uuid	1692186061134.15d012b4-bb27-4f39-8d39-4457ade1501c
+www.spotify.com	FALSE	/	FALSE	1723722115	ravelinDeviceId	rjs-acd788e7-958e-4200-8289-aa3100eee117
+.spotify.com	TRUE	/	FALSE	1723722123	sp_adid	b1296164-1537-4f6c-9e68-a8edd76eeb28
+.spotify.com	TRUE	/	FALSE	1723722123	sp_t	960129269ad8295877a6f6ffb97ee6bd
+
+
+
+====================
+BY https://t.me/redg3n // discord.gg/r3dg3n
+Plan: Individual
+Trial: NO
+Member: NO
+Days Left: 12
+====================

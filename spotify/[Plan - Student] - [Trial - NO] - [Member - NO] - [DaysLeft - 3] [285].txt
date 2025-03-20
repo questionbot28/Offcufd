@@ -1,0 +1,18 @@
+accounts.spotify.com	FALSE	/	FALSE	1726331765	__Host-device_id	AQASvBMB9JT4y7bzIS6HumE089yk8I4G4rq11ZaSwlAE1xSI-f8XHl1y-lzzIHTIKkf9nl1wRYHZbPZgADC2QuD1vQy7H6jsWR0
+.spotify.com	TRUE	/	FALSE	1723831520	sp_dc	AQDHwZu8zPnQFaw94VWXb1EB9Qtxz80LSNTd_QmIALS1ILiwrD9_q63HZT2gm2CRV6SoVuivurF5eRdwOKdsqO2rdk88eQKS5jApzaw8ylSD6bXmd0T9FJ6Vf6cet7oaprWlWmUqTX1o-B-Cmp0dEgbH0kxrqxI
+.spotify.com	TRUE	/	FALSE	1723831520	sp_key	8172550d-6d96-4e64-8df1-fb0fa3c33feb
+.spotify.com	TRUE	/	FALSE	1723831522	sp_t	cecfcbb9d3c0102da35eb218771b37ed
+.spotify.com	TRUE	/	FALSE	1728244905	LPVID	UyZWU3YjVhZjZkM2ZjOGJm
+.spotify.com	TRUE	/	FALSE	1698868886	sp_gaid	0088fcddd0b9f09ca1f4d40360cf5bc2d17aeaefd758e1fd10246a
+.spotify.com	TRUE	/	FALSE	1693771288	sp_landing	https%3A%2F%2Fsupport.spotify.com%2Ffr%2Farticle%2Fspotify-connect%2F
+.spotify.com	TRUE	/	FALSE	1728244886	sp_m	fr
+
+
+
+====================
+BY https://t.me/redg3n // discord.gg/r3dg3n
+Plan: Student
+Trial: NO
+Member: NO
+Days Left: 3
+====================

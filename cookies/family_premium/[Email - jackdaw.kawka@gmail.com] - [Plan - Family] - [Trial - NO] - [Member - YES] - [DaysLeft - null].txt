@@ -1,0 +1,40 @@
+PLAN = Family Premium
+COUNTRY = PL
+AutoPay = True
+Trial = False
+Checker By: by nobody028912
+Spotify COOKIE :👇
+
+
+PLAN = Family Premium
+COUNTRY = PL
+AutoPay = True
+Trial = False
+Checker By: by nobody028912
+Spotify COOKIE :👇
+
+
+.spotify.com	TRUE	/	TRUE	1734213721	sp_adid	c1a30a7e-7e7f-4204-8575-ec901650b418
+.spotify.com	TRUE	/	TRUE	1744404385	sp_m	pl
+accounts.spotify.com	FALSE	/	TRUE	1744404566	__Host-device_id	AQCanHBvdIf5GwtZGdp-vsimf0PYUcgKH16X8xYFnus4X3mY_djsBUUIl2egegxaAke7BQ0eoh6yEeTmBsxj7vJbE1lXw_PyArY
+.accounts.spotify.com	TRUE	/	TRUE	0	__Secure-TPASESSION	AQCI2nN600JSG2tGDomjGOp/HnLwVL2sDWMF6LBnePZl1EWGL8fnsSigTmQ/9kGTVpldV4VgjiO9IwgcDaERTr8IWStK10JOQOs=
+.accounts.spotify.com	TRUE	/	TRUE	0	sp_tr	true
+www.spotify.com	FALSE	/	TRUE	0	__Host-state	4db5529c-5f1e-48cb-bfc1-8e859751dfe8
+community.spotify.com	FALSE	/	TRUE	0	LiSESSIONID	0BB6333E1EDE0E406DF9B76E7EB49352
+community.spotify.com	FALSE	/	TRUE	1725625569	LithiumVisitor	~2PC16aHyoqVVNUAod~uAw8-5xjRfroNSevFVhbHTsmmEc8r7Rj3ibGT8tr6PI_L2PMLwOkC3tAAm1ixhU6HBcVVexPppL5p6DSZWe7MA..
+community.spotify.com	FALSE	/	TRUE	1725625572	VISITOR_BEACON	~2oMonCBALz3wlGRgP~qHWBIUwORz8QpKmhEzT3LJxTeWUZKHbTt0wBI4t02OWHklIIvjLNevIpczVguLqVZyNAnF1XedMbdCvqZ3RFYQ..
+accounts.spotify.com	FALSE	/	TRUE	0	remember	jackdaw.kawka%40gmail.com
+.spotify.com	TRUE	/	TRUE	1741382960	sp_dc	AQDq8mqiSaNtXkJ3e0h0rFhTfI6d3ufglgLfI0yL3Mdk05IKdsqhCWfF_ie38AyFGyRg1lh41pz9tUbIQcdhx0WhreY9a7-QnCh_c2umJpJnmwEq4v9qoynVFPfZmv4XhSM9w05WRNe00_dSd7xX5iBIKctqQN55
+.spotify.com	TRUE	/	TRUE	1741382960	sp_key	5b91674b-ed3e-4c9a-9af9-9077d0212cd9
+.accounts.spotify.com	TRUE	/	TRUE	0	sp_sso_csrf_token	013acda7192ed4b6eb630c6c6587c13126d67d5ee231373039383436393634393931
+.spotify.com	TRUE	/	TRUE	1741382969	sp_t	789d445e44590652c89e44cd2dc23910
+.accounts.spotify.com	TRUE	/	TRUE	0	csrf_token	AQBM3sSxxpgJUfGXNDRRwUTCFGW_luRIXzciLHpaNE_87HDBQfWQklZdn-q2rLPw-S82OYmMMcy-JnGF
+
+===========================================
+BY https://t.me/redg3n // https://dsc.gg/r3dg3n
+Email: jackdaw.kawka@gmail.com
+Plan: Family
+Trial: NO
+Member: YES
+Days Left: null
+===========================================

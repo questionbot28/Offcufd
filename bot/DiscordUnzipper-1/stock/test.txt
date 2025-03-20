@@ -1,3 +1,0 @@
-test@email.com:password123
-test2@email.com:password456
-test3@email.com:password789

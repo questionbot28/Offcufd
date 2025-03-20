@@ -1,0 +1,16 @@
+accounts.spotify.com	FALSE	/	FALSE	1724553499	__Host-device_id	AQB6JQk-jvGlJDkgwP3zGm5URGLpXn70bfX64DGpg7_gZfj--uzAise_0T2SsWQ_qOHAB4ddes3CtAKhfaeSB0l0ei5pD1PoJfc
+accounts.spotify.com	FALSE	/	FALSE	1689997115	__Host-sp_csrf_sid	115e605ebb7b433c3ca93c9fe53e77d393c4b9452eae30305cef627fb413f085
+.spotify.com	TRUE	/	FALSE	1721529515	sp_dc	AQDblG0cGsGSHLRQ2JSqLXUi7h2TJ0J2qBrcDXkpdTk3SS9emvfF971oBErqTsayyfDki7D0VE1O5kNlaQDkCuvRKShqF2YCbcjBsgpPSPeZnQmOekgI_OytJK-TO6JanKUT2Qla4e5D3Wait8k3yhGyp38d3_mS
+.spotify.com	TRUE	/	FALSE	1721529515	sp_key	f7839e06-89e7-4fc1-a493-187ec6776c0b
+.spotify.com	TRUE	/	FALSE	1690079921	sp_landing	https%3A%2F%2Fopen.spotify.com%2Fdesktop%2Fauth%2Fsuccess%3Fsp_cid%3Dab2c8ca2a8bf92b351760c83f11f467e%26device%3Ddesktop
+.spotify.com	TRUE	/	FALSE	1721529521	sp_t	ab2c8ca2a8bf92b351760c83f11f467e
+
+
+
+====================
+BY https://t.me/redg3n // discord.gg/r3dg3n
+Plan: Individual
+Trial: Not Found
+Member: IDK
+Days Left: null
+====================

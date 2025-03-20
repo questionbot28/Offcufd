@@ -1,0 +1,18 @@
+PLAN = Family Premium
+COUNTRY = DE
+AutoPay = True
+Trial = False
+Checker By: by nobody028912
+Spotify COOKIE :👇
+
+
+.spotify.com	TRUE	/	FALSE	1744282437	sp_dc	AQArcaYUEMs5peh6UHVNVkGD5I73ri9Kk7GxXhgSEeapP7_lQc64Uuuds34oVjc25ERHLtN-s2dAJkUDyagCeuV8EuEAgxZZTLhi1TkmnA3jwRl96fzhL7JUnMMXfiSCK8onf6PKlkZZGBErnMsaPG5jjjQq6Jfc
+.spotify.com	TRUE	/	FALSE	1744282437	sp_key	c8879c55-41ef-4e79-a98a-dd21a3d84d38
+
+==============================
+ |||***By FR3AK G3N CHECKER***
+ Plan: Premium Family
+ status: Member
+ |||||||| https://discord.gg/fr3akgen |||||||||||
+ ================================================
+                         

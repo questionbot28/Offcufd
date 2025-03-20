@@ -1,0 +1,40 @@
+accounts.spotify.com	FALSE	/	FALSE	1724150424	__Host-device_id	AQAaal_rWpPigBBPbLmFYc0q1xS65piVTzJjn8a4LiPl8R0qQ702QpTu_1UWCugBuYlMer0DpGv6b8SR7tFOzJqFFIiaH2Kltec
+.accounts.spotify.com	TRUE	/	FALSE	17289259757069913	__Secure-TPASESSION	AQDLGBVefGzOwhkBI29MMKsdYGGfHBRVTk3SIZp7in7Iz9kfxbseMqeF0OtfjnaAn6pN02p8s/JamYPDm5vU13wWcixFiI7Cpu8=
+.spotify.com	TRUE	/	FALSE	1723777121	_scid	0ab31308-926c-4967-a9f9-f018d6a6977f
+.accounts.spotify.com	TRUE	/	FALSE	17289259757079923	sp_tr	true
+.spotify.com	TRUE	/	FALSE	1697366439	_fbp	fb.1.1689590424606.1596015125
+.spotify.com	TRUE	/	FALSE	1723777136	_scid_r	0ab31308-926c-4967-a9f9-f018d6a6977f
+accounts.spotify.com	FALSE	/	FALSE	17289259757110646	remember	anyahwee06%40gmail.com
+.spotify.com	TRUE	/	FALSE	1721126436	sp_dc	AQD7hc8Vu5OqMXvl5zdAHSzBMxK6PU_cFz-9RxMTS3A3g5hb9_nnp8Br10D8QQYVCUpCs0dH3lRR5zt34lBKdNZunz-lngVtZ15IsMsPfvLUZsbCpk_YvEjQtHnXE3UDCzCn-pHjOF_ja-OZEmCTGjfJdt0vVrj0
+.spotify.com	TRUE	/	FALSE	1721126436	sp_key	d06588d0-91d4-4e3a-9a93-6212e1e851eb
+.spotify.com	TRUE	/	FALSE	1721222866	OptanonAlertBoxClosed	2023-07-18T13:27:46.623Z
+.spotify.com	TRUE	/	FALSE	1697118557	sp_gaid	0088fc7ced5babf7c4128347d552d4702c0277ca4553de9774895e
+.spotify.com	TRUE	/	FALSE	1697118559	sp_last_utm	%7B%22utm_campaign%22%3A%22upgrade%22%2C%22utm_medium%22%3A%22desktop%22%2C%22utm_source%22%3A%22app%22%7D
+.spotify.com	TRUE	/	FALSE	1726494557	sp_m	ph-en
+www.spotify.com	FALSE	/ph-en/premium	FALSE	17289259757580377	sss	1
+.spotify.com	TRUE	/	FALSE	1726494621	_ga_S35RN5WNT2	GS1.1.1691934559.1.1.1691934621.0.0.0
+www.spotify.com	FALSE	/ph-en/plan/individual	FALSE	17289259757580377	sss	1
+www.spotify.com	FALSE	/ph-en/purchase/offer/default-full-price-premium-carrier-billing	FALSE	17289259757580377	sss	1
+www.spotify.com	FALSE	/	FALSE	1723475843	ravelinDeviceId	rjs-56377941-1090-4e2b-8200-06173a3c09e8
+www.spotify.com	FALSE	/	FALSE	17289259757670458	ravelinSessionId	rjs-56377941-1090-4e2b-8200-06173a3c09e8:64e0caed-9691-4981-80ee-14f66fe88f01
+.accounts.spotify.com	TRUE	/	FALSE	17289259757830601	csrf_token	AQCpNPXyXfv2MWBefaGp5e-OVFmwJFQweQLD3lCGTdhD42e2l-2qIrWNR-5fWnGYuhWD4I9E7DuHS97SVw
+.accounts.spotify.com	TRUE	/	FALSE	17289259757830601	sp_sso_csrf_token	013acda71941c83e260a50b45e73e33d103951c4a631363932323738393238303538
+.spotify.com	TRUE	/	FALSE	1727616891	OptanonConsent	isIABGlobal=false&datestamp=Sat+Sep+30+2023+21%3A34%3A51+GMT%2B0800+(Singapore+Standard+Time)&version=6.26.0&hosts=&landingPath=NotLandingPage&groups=s00%3A1%2Cf00%3A1%2Cm00%3A1%2Ct00%3A1%2Ci00%3A1%2Cf11%3A1&AwaitingReconsent=false&geolocation=PH%3B11
+.spotify.com	TRUE	/	FALSE	1730640891	_ga	GA1.1.506555076.1689590424
+.spotify.com	TRUE	/	FALSE	1730640891	_ga_ZWG1NSHWD8	GS1.1.1696080891.30.0.1696080891.0.0.0
+.spotify.com	TRUE	/	FALSE	1697366423	_gcl_au	1.1.897200046.1689590423
+.spotify.com	TRUE	/	FALSE	1696167291	_gid	GA1.2.1134740732.1696080891
+.spotify.com	TRUE	/	FALSE	1727616891	sp_adid	2b11cbb8-7ea4-4f1d-8e72-dbfcb6260f68
+.spotify.com	TRUE	/	FALSE	1696167286	sp_landing	https%3A%2F%2Fopen.spotify.com%2F%3Fsp_cid%3D372e1c8c412edec54a183490d37e8c73%26device%3Ddesktop
+.spotify.com	TRUE	/	FALSE	1727616886	sp_t	372e1c8c412edec54a183490d37e8c73
+open.spotify.com	FALSE	/	FALSE	17289259759752353	sss	1
+
+
+
+====================
+BY https://t.me/redg3n // discord.gg/r3dg3n
+Plan: Student
+Trial: NO
+Member: NO
+Days Left: 8
+====================

@@ -1,0 +1,21 @@
+.spotify.com	TRUE	/	FALSE	1718161564	sp_adid	f15f69e2-a292-4440-a303-31e413f4ca0b
+accounts.spotify.com	FALSE	/	FALSE	1721490789	__Host-device_id	AQB9Fl4N_4tBPg4-j9TjzXgbAc2uKPA2_TVIDGw7pLZyGygjYaITJ1GsMzp_1W_RsSqyGnSke2-hIZ2qaZHxzlHGvib_wHTEEWM
+.accounts.spotify.com	TRUE	/	FALSE	17284119530456972	__Secure-TPASESSION	AQBVbxSifbkUimUqhlcm4ap909iDc+zjWJROxN6Kbk+zXgFuUcwqk8BSN/aSdHzm1Qrzf4T9e3u607EEiGM6VBuy+TYdilLBQKI=
+.accounts.spotify.com	TRUE	/	FALSE	17284119530466918	sp_tr	false
+.spotify.com	TRUE	/	FALSE	1721490819	sp_m	us
+accounts.spotify.com	FALSE	/	FALSE	17284119530466918	remember	25norrisd%40mcsed.net
+.spotify.com	TRUE	/	FALSE	1718467645	sp_dc	AQBGdvASARy8rwA8EwrWLdh9TA4dg7T-FlXQx_y6h0o1niydgBfVzoQwwTG3dz0dycm47BE4etb98X_B65jEMPbc8OScv1aTNU45hgZLeBZz2yBP07Rx-nCdaPYx68S_ULo6mootppeaM5dZ8ir77XIt0f-gf2tK
+.spotify.com	TRUE	/	FALSE	1718467645	sp_key	6e4c0f73-3a3c-4787-8145-f9d5e8d26528
+.accounts.spotify.com	TRUE	/	FALSE	17284119530476915	sp_sso_csrf_token	013acda71946d637c111be0730f090b00df9f487b831363836393331363435313436
+.spotify.com	TRUE	/	FALSE	1718467647	sp_t	dde4a2fe4f90414a9fdcdc08e2e7627d
+.accounts.spotify.com	TRUE	/	FALSE	17284119530698982	csrf_token	AQClBOBJkACDtw5xllIUl2M2GuvodvcXLOzDhuhkOKNs1bEanB6WnuzQBZAVulzF4soO1vHVRP7f-p-r
+
+
+
+====================
+BY https://t.me/redg3n // discord.gg/r3dg3n
+Plan: Family
+Trial: NO
+Member: YES
+Days Left: null
+====================

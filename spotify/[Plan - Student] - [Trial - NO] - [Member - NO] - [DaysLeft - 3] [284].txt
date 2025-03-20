@@ -1,0 +1,16 @@
+.spotify.com	TRUE	/	TRUE	1731659255	sp_landing	https%3A%2F%2Ftbhonest.co.uk%2F%3Fsp_cid%3D5d17c75866f14200d5ebedafdbf1fd71%26device%3Ddesktop
+accounts.spotify.com	FALSE	/	TRUE	1731839350	__Host-device_id	AQACSJ8MxAMZ4nPOVa5J5_cB0y4HpWzVHpCbKkJIAwhJ4e5iUU1RJUkuYqiPt8DNxlUQZ84iB5KpiZbqa0cZpZwzKAy-Ym0i9-U
+accounts.spotify.com	FALSE	/	TRUE	1697282973	__Host-sp_csrf_sid	7258ffda56bba8df2601f0b95db1440ea6a4f26b05a8f696f16f9893792ee248
+.spotify.com	TRUE	/	TRUE	1728815373	sp_dc	AQDLrklpunkiaG0WIRJ0omxgPQlP5L2Wk-aDACkcU4sPBH16M6hcw_8VTBkOeOathZNRhqWEcinhK2lUYMR0mk9pZ2h9urVQAzGD17wzmm0pGKwBweqFC9LMLMKsAI8egVqRVAxhZCPpvwuZy872PqGrnhC0Mv9A
+.spotify.com	TRUE	/	TRUE	1728815373	sp_key	e0927421-96da-4330-a61e-9b2c620664bb
+.spotify.com	TRUE	/	TRUE	1728815378	sp_t	5d17c75866f14200d5ebedafdbf1fd71
+
+
+
+====================
+BY https://t.me/redg3n // discord.gg/r3dg3n
+Plan: Student
+Trial: NO
+Member: NO
+Days Left: 3
+====================

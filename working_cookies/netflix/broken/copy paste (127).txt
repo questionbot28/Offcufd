@@ -1,0 +1,21 @@
+.whatsnewonnetflix.com	TRUE	/	FALSE	1672564282	__gads	ID=23e0bdab597648ba-22f13f683fcc009b:T=1638868282:RT=1638868282:S=ALNI_MY3Xb1UJneptNi9RDDtB0AN3sEQ3Q
+.whatsnewonnetflix.com	TRUE	/	FALSE	1701940280	_ga	GA1.2.506986661.1638868280
+.whatsnewonnetflix.com	TRUE	/	FALSE	1646644280	_gcl_au	1.1.932192083.1638868280
+.whatsnewonnetflix.com	TRUE	/	FALSE	1670404283	rokoAPI	%7B%22ApplicationSessionUuid%22%3A%224ea36750-a2d3-48e9-9b64-cbb5d06860b2%22%7D
+www.netflix.com	FALSE	/	FALSE	1658343951	didUserInteractWithPage	true
+.netflix.com	TRUE	/	FALSE	1704177855	dsca	anonymous
+.netflix.com	TRUE	/	FALSE	1672599961	nfvdid	BQFmAAEBEOpz-c4noTxKaIgy2x4BOJNgcfdt4_7nv-32DeM3njy7fcCuLaQHstVH7ZV2Sbl02lmRSTc6_CmfxuSF6sTmbkugtIF6BEeuhVBP0nwmILic-tiavOP0cnqcr7aVaXEKLywqiL_lmiamLv90XgTulGGX
+.netflix.com	TRUE	/	FALSE	1672781158	NetflixId	ct%3DBQAOAAEBELau0quXhmnf0rNYSyNo5b2B8Fl3M1Dq9s0oOA0QhZpiS6KViqJ5hFEv-oTpiqWYze-auiu7DZE02VuSF1M4HFkXPD-5qde95x3m5OHFBrYbZ4JhezstGNe-K5lwbeZYewp-JYlPFfgmALAhPUjAEnQgeqpANVi7QLW8CQAUde3dXeW59coWwbXx1l6QSfc90ILe7MjTSGjgDBfR8DoBW2_eghewps3nI6UqyXPm2NUNK7D60kzIAoAJKqKnRLjyfBT4goi-6CLUCFUuKj-aH02bYVKhNbDAqkJdpkYfoqEGqvp0-_qDoRSo3rK0INH1XcqF0n_qauQ4U3fXhkunKGXluCdJrtteJmaZQLJcL1KNCm3cfQGZU7tqq1orJF4MBHNT-9NcelE9Zt6fjs9bUbwDf25h2fHiNv_e2e9T7HV4JwziWwTKF4WqwLp0nWyLVaJrXPnNLGSPKELJI-iu5tiDat7TQsROPFae76aCaOUR9Wsm1FlePRu5upnwbdpj_Lh17dr4PbrdmZR-3RmzSXn6JBpOTGyc_f5mzrAkORbXYyVHPsGUBCUV0ez3-RRjnGDx2zCNwRK-5IhCWoD10wfHZa51bVwK1oPkS9JZ2o2WytQonRgqmCy9HBihsLduPXgXfU2-SuGkuSrJDv2UOviGaTTrGlL19tYcUPWgC2zvShs.%26bt%3Ddbl%26ch%3DAQEAEAABABQxk3F_rSAkbRl8dSR0X3KpmunViEHw0_U.%26v%3D2%26mac%3DAQEAEAABABQ1K7q6vxuwaRSdTgFpAk_SwbUCckW-gI4.
+.netflix.com	TRUE	/	FALSE	1672781161	OptanonConsent	isIABGlobal=false&datestamp=Mon+Jan+03+2022+22%3A26%3A01+GMT%2B0100+(Midden-Europese+standaardtijd)&version=6.6.0&consentId=30648685-b3a2-4aad-aafb-1e023492877e&interactionCount=1&landingPath=NotLandingPage&groups=C0001%3A1%2CC0002%3A1%2CC0004%3A0&hosts=H12%3A1%2CH13%3A1%2CH27%3A0%2CH28%3A0%2CH30%3A0&AwaitingReconsent=false
+.netflix.com	TRUE	/	FALSE	1672781158	SecureNetflixId	v%3D2%26mac%3DAQEAEQABABTC-2nYNIj8qY5GM6d0E9UXbctDan_kgp0.%26dt%3D1641245158973
+.netflix.com	TRUE	/	FALSE	1649021160	hasSeenCookieDisclosure	true
+.netflix.com	TRUE	/	FALSE	1672785965	memclid	d1cbf59f-510f-4ee4-af3e-10744eb5eae2
+.netflix.com	TRUE	/	FALSE	1649025965	playerPerfMetrics	%7B%22uiValue%22%3A%7B%22throughput%22%3A4875.78%2C%22throughputNiqr%22%3A0.6969796602886983%7D%2C%22mostRecentValue%22%3A%7B%22throughput%22%3A13393.8%2C%22throughputNiqr%22%3A0.7501408119807946%7D%7D
+
+====================
+BY https://t.me/redg3n // discord.gg/r3dg3n
+Email:lorenzvercoutere@hotmail.com
+Country:BE
+Plan:Premium
+ExtraMember: YES
+====================

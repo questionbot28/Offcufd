@@ -1,0 +1,22 @@
+.spotify.com	FALSE	/	FALSE	1728991788	sp_m	mx
+accounts.spotify.com	FALSE	/	FALSE	3760958638	__Host-device_id	AQCzARzh4BGy5-VtoC6UBlSKU5KHANusii7lID2WH3B_aFyIH1R42XKseu-OW0CjupIl8SeBRCt7DXMjLn_iFv8LXPbBOT5Ho2w
+.spotify.com	FALSE	/	FALSE	1714694715	sp_dc	AQA62U7TqIabxG9JlFT7Y6Nnc2BeCVe08Z2BFt9-aQGpSd07LbruHngee2zJ9lbiGmUS5hBhrTQKP9wM1SnvIkralgiNw7Ik_jNWpoVom5kPJD5NY7IyEvZ9ubHfWA0BH5JGwupP3O7gEznckqf0X1cusLXlZTgJ
+.spotify.com	TRUE	/	FALSE	1714694715	sp_key	a0e2b3bf-0636-4a74-b3ff-4db1186e4923
+.spotify.com	TRUE	/	TRUE	1691707351	_gcl_au	1.1.736104669.1683938551
+.spotify.com	TRUE	/	TRUE	1720272168	_scid	d9229020-40fb-425c-8b85-0bda0798ad21
+.spotify.com	TRUE	/	TRUE	1696181290	OptanonAlertBoxClosed	2022-10-01T19:28:10.487Z
+.spotify.com	TRUE	/	TRUE	1698623966	ki_t	1651372201307%3B1664071166305%3B1664071166305%3B22%3B29
+.spotify.com	TRUE	/	TRUE	1721953999	OptanonConsent	isIABGlobal=false&datestamp=Wed+Jul+26+2023+20%3A33%3A19+GMT-0600+(hora+est%C3%A1ndar+central)&version=6.26.0&hosts=&landingPath=NotLandingPage&groups=s00%3A1%2Cf00%3A1%2Cm00%3A1%2Ct00%3A1%2Ci00%3A1%2Cf11%3A1&AwaitingReconsent=false&geolocation=MX%3BGUA
+.spotify.com	TRUE	/	TRUE	1724978000	_ga	GA1.1.444578904.1651372193
+.spotify.com	TRUE	/	TRUE	1723383371	_scid_r	d9229020-40fb-425c-8b85-0bda0798ad21
+.spotify.com	TRUE	/	TRUE	1724979033	_ga_ZWG1NSHWD8	GS1.1.1690425200.154.1.1690426233.0.0.0
+
+
+
+====================
+BY https://t.me/redg3n // discord.gg/r3dg3n
+Plan: Family
+Trial: NO
+Member: YES
+Days Left: null
+====================

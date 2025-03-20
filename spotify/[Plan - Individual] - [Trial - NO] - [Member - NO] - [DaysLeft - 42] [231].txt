@@ -1,0 +1,31 @@
+accounts.spotify.com	TRUE	/	TRUE	1729954343	__Host-device_id	AQCLokIMifTbnJGOy1fUUHQi3QkyebBK819SSRNqNpkIEIfAOuLHdKHD87Nh72sKs2X5EacaYhSpoVXBwsB4dtzNNXu2aNcWypI
+.spotify.com	TRUE	/	FALSE	1726930690	OptanonAlertBoxClosed	2023-09-22T14:58:10.128Z
+.spotify.com	TRUE	/	TRUE	1729954813	sp_m	id-id
+.spotify.com	TRUE	/	FALSE	1729562481	_cs_c	0
+.spotify.com	TRUE	/	FALSE	1729585179	_scid	0d88f9c5-60cb-4668-afea-7425ad842525
+.spotify.com	TRUE	/	FALSE	1729585180	_sctr	1%7C1695366000000
+.spotify.com	TRUE	/	TRUE	1700582479	sp_gaid	0088fcc8adf5b21dba15c125541e4133e0ae7f8525a9a479c41aba
+.spotify.com	TRUE	/	TRUE	1700582479	sp_last_utm	%7B%22utm_campaign%22%3A%22your_account%22%2C%22utm_medium%22%3A%22menu%22%2C%22utm_source%22%3A%22spotify%22%7D
+.spotify.com	TRUE	/	FALSE	1729562481	_cs_id	ee833f8f-fdc5-a1db-f0a3-0a7facf8bf09.1695398481.1.1695398549.1695398481.1.1729562481833
+.spotify.com	TRUE	/	FALSE	1729585247	_scid_r	0d88f9c5-60cb-4668-afea-7425ad842525
+.spotify.com	TRUE	/	FALSE	1729958703	_ga_S35RN5WNT2	GS1.1.1695398481.1.1.1695398703.0.0.0
+.spotify.com	TRUE	/	TRUE	1727452920	sp_dc	AQD75egLl24Aj3fg0D7gAs7MYbHhwcn8znqm0CBXXPKw-ffBj7UK8ntjrrZthVjG2DFmw7EV8Tt5EMg1nsysGxHpw-0_xCk3dBOKoi37pdWhisJ4nHSE1z4bAFjyXWLKnudgIHkzK4L-WkK-1iPjsqujCSqJzauv
+.spotify.com	TRUE	/	TRUE	1727452920	sp_key	173f0467-c229-446a-8533-905f8f8f5609
+.spotify.com	TRUE	/	TRUE	1696455488	sp_landing	https%3A%2F%2Fopen.spotify.com%2F%3Fsp_cid%3D81aeebbc75078577d0522caa008eaadb%26device%3Ddesktop
+.spotify.com	TRUE	/	FALSE	1727909055	OptanonConsent	isIABGlobal=false&datestamp=Tue+Oct+03+2023+15%3A44%3A15+GMT-0700+(Pacific+Daylight+Time)&version=6.26.0&hosts=&landingPath=NotLandingPage&groups=s00%3A1%2Cf00%3A1%2Cm00%3A1%2Ct00%3A1%2Ci00%3A1%2Cf11%3A1&geolocation=ID%3BJK&AwaitingReconsent=false
+.spotify.com	TRUE	/	FALSE	1703170341	_gcl_au	1.1.2112535578.1695394341
+.spotify.com	TRUE	/	TRUE	1727909055	sp_adid	cb71fa06-2a8f-4181-a934-a6fed2ad58f8
+.spotify.com	TRUE	/	TRUE	1727919022	sp_t	81aeebbc75078577d0522caa008eaadb
+.spotify.com	TRUE	/	FALSE	1730943280	_ga_ZWG1NSHWD8	GS1.1.1696382868.12.1.1696383280.0.0.0
+.spotify.com	TRUE	/	FALSE	1730943304	_ga	GA1.2.1221755729.1695394342
+.spotify.com	TRUE	/	FALSE	1696469704	_gid	GA1.2.4189380.1696369094
+
+
+
+====================
+BY https://t.me/redg3n // discord.gg/r3dg3n
+Plan: Individual
+Trial: NO
+Member: NO
+Days Left: 42
+====================

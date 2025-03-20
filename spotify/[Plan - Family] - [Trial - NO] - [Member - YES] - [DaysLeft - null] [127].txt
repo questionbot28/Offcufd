@@ -1,0 +1,28 @@
+accounts.spotify.com	FALSE	/	FALSE	3807670446	__Host-device_id	AQDCfDTIAkUgshQaRNy2XVHD024y42o2IBbljjb9bwNYnyzIj6HB_mgAH5K14mIhKq-FVKsjjhXI7FaiaBVuhQoFeG1kgDYpGvo
+.spotify.com	TRUE	/	FALSE	1710585740	sp_m	ph-en
+.spotify.com	TRUE	/	FALSE	1707561834	sp_dc	AQCsN8jEz2UBABHTeYFJnMkE7mWR6QlGDJBkaz3RiQsqWGgiaeHE76gSUv_vxzsRykXiSJ43bsQI2oQAk3wo49xpsOUyo7qlktleN3OkGwpECotvbTudnju_uLcTMinBh8dc-xEc6Bbr6tjmewBXRW3TNvSCed4s
+.spotify.com	TRUE	/	FALSE	1707561834	sp_key	a82be107-3d97-4d02-9e08-a69bb99510a0
+.spotify.com	TRUE	/	FALSE	1710585884	LPVID	Y2NzY3NzM2ZmQ4OGFmNDIx
+.accounts.spotify.com	TRUE	/	FALSE	17282205929347603	sp_tr	true
+.spotify.com	TRUE	/	FALSE	1722422772	_ga_S35RN5WNT2	GS1.1.1687860710.3.1.1687862772.0.0.0
+.spotify.com	TRUE	/	FALSE	1723364445	OptanonAlertBoxClosed	2023-08-12T08:20:45.300Z
+.spotify-downloader.com	TRUE	/	FALSE	1723632784	cf_clearance	XfJOKjwx5OZRFVIzZwmO157MrxFaFdzf0HtauT6.obM-1692096819-0-1-90846a10.97ccb68c.c78535f0-0.2.1692096819
+.spotify.com	TRUE	/	FALSE	1728560429	sp_landing	https%3A%2F%2Fwww.anyonecanplayguitar.co.uk%2F%3Fsp_cid%3D03760c2b02eb43940c544c056859cce9%26device%3Ddesktop
+.spotify.com	TRUE	/	FALSE	1728097452	OptanonConsent	isIABGlobal=false&datestamp=Fri+Oct+06+2023+11%3A04%3A12+GMT%2B0800+(Singapore+Standard+Time)&version=6.26.0&hosts=&landingPath=NotLandingPage&groups=s00%3A1%2Cf00%3A1%2Cm00%3A1%2Ct00%3A1%2Ci00%3A1%2Cf11%3A0&geolocation=PH%3B00&AwaitingReconsent=false
+.spotify.com	TRUE	/	FALSE	1700276050	_gcl_au	1.1.248079846.1692500050
+.spotify.com	TRUE	/	FALSE	1728097451	sp_adid	ba47e17c-983e-4957-9613-9cef65b98106
+open.spotify.com	FALSE	/	FALSE	17282205954904129	sss	1
+.spotify.com	TRUE	/	FALSE	1731121476	_ga_ZWG1NSHWD8	GS1.1.1696561451.185.1.1696561476.0.0.0
+.spotify.com	TRUE	/	FALSE	1731121608	_ga	GA1.2.1957920389.1668514192
+.spotify.com	TRUE	/	FALSE	1696648008	_gid	GA1.2.328253029.1696561451
+.spotify.com	TRUE	/	FALSE	1728104388	sp_t	03760c2b02eb43940c544c056859cce9
+
+
+
+====================
+BY https://t.me/redg3n // discord.gg/r3dg3n
+Plan: Family
+Trial: NO
+Member: YES
+Days Left: null
+====================

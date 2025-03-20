@@ -1,0 +1,32 @@
+accounts.spotify.com	FALSE	/	FALSE	1716560161	__Host-device_id	AQDSTEAeJIijbBkEPhIfwXB8-thesD3LeXiqQYk0zPbrQlonQirHw8boMi8J1Z2XL2cEDXXxNn2SnIIyyuEiuqsmrlSBpv6KRc4
+.accounts.spotify.com	FALSE	/	FALSE	0	__Secure-TPASESSION	AQBQ+qbhNgTOk2C6cdOokLEegfNnprrqNoCpXCMA3PWnn2dyB5lwYH3Pi1FPqUmLBAwOoaVNcWBgFTKP2RkgrFvadJVDBlzUZqQ=
+.accounts.spotify.com	TRUE	/	FALSE	0	csrf_token	AQC34yq6lbgxitj38BUb9cueeoSdFp5VFmMvHOrv3thua3KIsRxuDZK5qyx3wMgalQuq0_55d5i0wLcFhgToWpCCRlFGEqB5mRosyQ6KKOJv0vIN5w
+accounts.spotify.com	TRUE	/	FALSE	0	remember	hondenissantos%40gmail.com
+.spotify.com	FALSE	/	FALSE	1713536183	sp_dc	AQAfqlShR0oFki7T8it9jH-L2Rm0GEXbxtC1igrVYou8wiZGM5B4ezMZ37Fk3UUD_rfiN1T3CmJVoZKV9ozC4CR1E3X6BFzMSeZ9SUEZPhoxgjlg0PFsTeCml16mWJFdcpKh4E7CoQDthFou-ms1Dz_yWxH0_Ok
+.spotify.com	TRUE	/	FALSE	1713536183	sp_key	f3fdf9bf-8030-4e3a-9f1b-8df5ada5653d
+.accounts.spotify.com	TRUE	/	FALSE	0	sp_sso_csrf_token	013acda7192be8a34763d7e30b8f93d72649a5120631363832303131303339303837
+.spotify.com	TRUE	/	FALSE	1713536185	sp_t	930d9ac6b31f0ab18833381f46a692e1
+accounts.spotify.com	TRUE	/	TRUE	0	sp_t	f1da238b-0527-490a-98e3-59b3dabd37d9
+.accounts.spotify.com	TRUE	/	FALSE	0	sp_tr	false
+.spotify.com	FALSE	/	FALSE	1717338118	sp_m	br-pt
+.spotify.com	TRUE	/	TRUE	1714314120	OptanonConsent	isIABGlobal=false&datestamp=Sat+Apr+29+2023+13%3A22%3A00+GMT-0300+(Hor%C3%A1rio+Padr%C3%A3o+de+Bras%C3%ADlia)&version=6.26.0&hosts=&landingPath=https%3A%2F%2Fwww.spotify.com%2Fbr-pt%2Faccount%2Foverview%2F&groups=s00%3A1%2Cf00%3A1%2Cm00%3A1%2Ct00%3A1%2Ci00%3A1%2Cf11%3A1
+.spotify.com	TRUE	/	TRUE	1716942120	_cs_c	0
+.spotify.com	TRUE	/	TRUE	1716942120	_cs_id	7a0dc3f8-eb29-ab7a-a39c-a28862ba5122.1682785320.1.1682785320.1682785320.1.1716949320729
+.spotify.com	TRUE	/	TRUE	1690554122	_fbp	fb.1.1682785320786.1070292278
+.spotify.com	TRUE	/	TRUE	1717338120	_ga	GA1.2.1772398983.1682785321
+.spotify.com	TRUE	/	TRUE	1717338125	_ga_S35RN5WNT2	GS1.1.1682785320.1.0.1682785325.0.0.0
+.spotify.com	TRUE	/	TRUE	1690554120	_gcl_au	1.1.1835241995.1682785321
+.spotify.com	TRUE	/	TRUE	1716964818	_scid	f44282a7-41ee-439c-ab84-6f13b79f0521
+.spotify.com	TRUE	/	TRUE	1716964818	_scid_r	f44282a7-41ee-439c-ab84-6f13b79f0521
+.spotify.com	TRUE	/	FALSE	1714314121	sp_adid	7ae07721-1eb0-4593-a768-ceb81200f3c4
+www.spotify.com	TRUE	/br-pt/account/overview	TRUE	0	sss	1
+
+
+
+====================
+BY https://t.me/redg3n // discord.gg/r3dg3n
+Plan: Student
+Trial: NO
+Member: NO
+Days Left: 6
+====================

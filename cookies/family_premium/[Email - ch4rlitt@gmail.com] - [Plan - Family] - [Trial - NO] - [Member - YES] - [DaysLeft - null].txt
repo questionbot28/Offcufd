@@ -1,0 +1,31 @@
+PLAN = Family Premium
+COUNTRY = AU
+AutoPay = True
+Trial = False
+Checker By: by nobody028912
+Spotify COOKIE :👇
+
+
+PLAN = Family Premium
+COUNTRY = AU
+AutoPay = True
+Trial = False
+Checker By: by nobody028912
+Spotify COOKIE :👇
+
+
+accounts.spotify.com	FALSE	/	TRUE	1743475198	__Host-device_id	AQD-2FT9960JQIHTGbJn8ksbnZwxUGPZjCubm56BvsUJ2feqM_IqjxoBmh65vkvUPTn43_Oya_IBAjEKpoA4sZKoR1nNKpoply0
+.spotify.com	TRUE	/	TRUE	1748666232	sp_m	au
+.spotify.com	TRUE	/	TRUE	1746581251	sp_dc	AQDqU9rqAeoFFMdhIIcJcGrKYzRT9HXSWH8c7ewM6p8UV8vAkCxT6DnWCXMMwMpKGH_DVIbj5O9YylYyxpz0pTPcDBvHNDR-wUg-xvSv2atrmbjzPaM2L5rPw7UkicGK1tTxaIh2vu_-NJLSJMlXkfinkVfxvqo3
+.spotify.com	TRUE	/	TRUE	1746581251	sp_key	54b64e97-d6d5-4c80-8bcf-18791d6ce994
+.spotify.com	TRUE	/	TRUE	1748752629	sp_adid	607a35aa-796b-4fba-98dd-1a97f28e1230
+.spotify.com	TRUE	/	TRUE	1752924711	sp_t	af2ad876d29daef1f5d11d97022706ad
+
+===========================================
+BY https://t.me/redg3n // https://dsc.gg/r3dg3n
+Email: ch4rlitt@gmail.com
+Plan: Family
+Trial: NO
+Member: YES
+Days Left: null
+===========================================

@@ -1,0 +1,34 @@
+.spotify.com	TRUE	/	TRUE	1687222461	_gcl_au	1.1.846761019.1679453661
+.spotify.com	TRUE	/playlist	TRUE	0	_schn	_grsrpr
+.spotify.com	TRUE	/	TRUE	1713633159	_scid	a9d2983d-7932-4f23-a61d-adf4fb948b0f
+accounts.spotify.com	FALSE	/	FALSE	1714006698	__Host-device_id	AQAJprCzMhmia70UInsR5j2HWhr79Y2ASrKp34M-_pHPOLLbgbekuvEZmR1Ax9UPNfyBznNPC7z8_YwjpjiV14DLcZbhSiGKk4Q
+.accounts.spotify.com	FALSE	/	FALSE	0	__Secure-TPASESSION	AQAb2/WKBcm6VepIDVgvrHPENh5p9Cga21EWL/udb3iecWBGhM0HxPbRchJeVPvFvy3bn+kziq2Er04vFz35IYJFt7uX6betGkg=
+.spotify.com	TRUE	/	TRUE	1713610719	_cs_c	0
+.spotify.com	TRUE	/	TRUE	1713610719	_cs_id	ca7527d5-0c0f-a6dd-8a44-fc504d2c1819.1679453919.1.1679453919.1679453919.1.1713617919020
+.spotify.com	TRUE	/	TRUE	1714006726	_ga_S35RN5WNT2	GS1.1.1679453919.1.0.1679453926.0.0.0
+.spotify.com	TRUE	/mx	TRUE	0	_schn	_1a0b1i
+.spotify.com	TRUE	/	TRUE	1713633417	_sctr	1|1679378400000
+.spotify.com	FALSE	/	FALSE	1714006717	sp_m	mx
+.accounts.spotify.com	TRUE	/	FALSE	0	sp_tr	true
+www.spotify.com	TRUE	/mx	TRUE	0	sss	1
+.spotify.com	TRUE	/	TRUE	1710982735	OptanonConsent	isIABGlobal=false&datestamp=Tue+Mar+21+2023+20%3A58%3A55+GMT-0600+(hora+est%C3%A1ndar+central)&version=6.26.0&hosts=&landingPath=NotLandingPage&groups=s00%3A1%2Cf00%3A1%2Cm00%3A1%2Ct00%3A1%2Ci00%3A1%2Cf11%3A1&AwaitingReconsent=false
+.spotify.com	TRUE	/	TRUE	1687222735	_fbp	fb.1.1679453661830.251496343
+accounts.spotify.com	TRUE	/	FALSE	0	remember	adrianhjesus%40gmail.com
+.spotify.com	TRUE	/	FALSE	1710982734	sp_adid	f3289d38-330f-426a-a70a-160eecf57aa1
+.spotify.com	FALSE	/	FALSE	1710982731	sp_dc	AQBIK5D9-fZeWHR5QiyDiDgOOGP_aStzBDj82s6S-BFIXP9pqV4lxqgTTMbLBxi02rZ3MwjQe3lfP1A1br36ejBMUwZBscJSg71Mcrt6kDktDAN66fJcny70VsGSw9zVzegTjwQKjJ0xqSq01A4TtSYa0ajp4Ka8
+.spotify.com	TRUE	/	FALSE	1710982731	sp_key	d7ce109a-7b5c-4a86-8614-255333ea1e79
+.accounts.spotify.com	TRUE	/	FALSE	0	sp_sso_csrf_token	013acda719c473a53d0e2930e5120cefaf875d8e3931363739343533393331353338
+open.spotify.com	TRUE	/playlist	TRUE	0	sss	1
+.spotify.com	TRUE	/	TRUE	1714007352	_ga	GA1.2.936044913.1679453662
+.spotify.com	TRUE	/	TRUE	1714007359	_ga_ZWG1NSHWD8	GS1.1.1679453661.1.1.1679454559.0.0.0
+.spotify.com	TRUE	/	FALSE	1710983352	sp_t	560d0da3972894556aaddcc111b903d9
+
+
+
+====================
+BY https://t.me/redg3n // discord.gg/r3dg3n
+Plan: Student
+Trial: NO
+Member: NO
+Days Left: 14
+====================

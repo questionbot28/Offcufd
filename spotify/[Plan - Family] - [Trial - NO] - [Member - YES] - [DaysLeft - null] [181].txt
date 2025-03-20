@@ -1,0 +1,21 @@
+accounts.spotify.com	FALSE	/	FALSE	1714392887	__Host-device_id	AQAn3mUQQVwR_HPL3sqgsxXVpxyuh8m8pfyrj5UXPiGfPCjTTZYCmRff01M4Zoh0VDVDrbt8nhxQ75NI7mrHhbBo1wGQLqhYG9o
+.spotify.com	TRUE	/	TRUE	1687608884	_gcl_au	1.1.1122087559.1679840084
+.spotify.com	TRUE	/	TRUE	1714019582	_scid	6729ae66-d069-459d-b91a-37102c8e741b
+.spotify.com	TRUE	/	TRUE	1711368926	OptanonConsent	isIABGlobal=false&datestamp=Sun+Mar+26+2023+11%3A15%3A26+GMT-0300+(Hor%C3%A1rio+Padr%C3%A3o+de+Bras%C3%ADlia)&version=6.26.0&hosts=&landingPath=NotLandingPage&groups=s00%3A1%2Cf00%3A1%2Cm00%3A1%2Ct00%3A1%2Ci00%3A1%2Cf11%3A1&AwaitingReconsent=false
+.spotify.com	TRUE	/	FALSE	1711368924	sp_adid	93e3de71-eb1d-4576-8c99-2eea33000921
+.spotify.com	FALSE	/	FALSE	1711368914	sp_dc	AQBOEK36ITvcOIkcU6Lj82uynsOTh0qrkk8XcKdm_AeSlv5_mZpmNasEqY6kpepmpqjNPGFnvcKRD-V_qRxEKh0Zhky77W6qj48o041VQcNg7iZ7mVrrsE0eXcxhc90KMEHXdzUeRyOGxOklbLdqra4saQzN8Lai
+.spotify.com	TRUE	/	FALSE	1711368914	sp_key	e2f688e5-e06e-41bb-a42f-1c326f23be95
+.spotify.com	TRUE	/	FALSE	1711369093	sp_t	0d39fdd62636ce1b66a43184e5ca2230
+.spotify.com	TRUE	/	TRUE	1687609164	_fbp	fb.1.1679840084870.1552663060
+.spotify.com	TRUE	/	TRUE	1714393164	_ga	GA1.2.1124443574.1679840085
+.spotify.com	TRUE	/	TRUE	1714393165	_ga_ZWG1NSHWD8	GS1.1.1679840084.1.1.1679840365.0.0.0
+
+
+
+====================
+BY https://t.me/redg3n // discord.gg/r3dg3n
+Plan: Family
+Trial: NO
+Member: YES
+Days Left: null
+====================

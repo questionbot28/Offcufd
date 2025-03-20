@@ -1,0 +1,16 @@
+.netflix.com	TRUE	/	FALSE	1700567888	dsca	anonymous
+.netflix.com	TRUE	/	FALSE	1668990014	nfvdid	BQFmAAEBELVOCSCPyD96WR6L34n10tNg5qFw0zEzZXEkJdlx6SIsHiFlLBvpSyOOHQAEdzzcBC9Z4YcyXM5N0rewRGUVgvc5iIO7TeLn5OUSCJLs1wxTqB7_cDQ86gd9ynKs954K9ZIfYqL1Xv4HYA8m_wSH9Kxk
+.netflix.com	TRUE	/	FALSE	1646252432	hasSeenCookieDisclosure	true
+.netflix.com	TRUE	/	FALSE	1670012434	OptanonConsent	isIABGlobal=false&datestamp=Thu+Dec+02+2021+21%3A20%3A34+GMT%2B0100+(heure+normale+d%E2%80%99Europe+centrale)&version=6.6.0&consentId=18c4920b-812b-4b09-b280-29b5a73c81b5&interactionCount=1&landingPath=NotLandingPage&groups=C0001%3A1%2CC0002%3A1%2CC0004%3A0&hosts=H12%3A1%2CH13%3A1%2CH27%3A0%2CH28%3A0%2CH30%3A0&AwaitingReconsent=false
+.netflix.com	TRUE	/	FALSE	1646252498	playerPerfMetrics	%7B%22uiValue%22%3A%7B%22throughput%22%3A4605.84%2C%22throughputNiqr%22%3A0.3321013440379985%7D%2C%22mostRecentValue%22%3A%7B%22throughput%22%3A4662.1%2C%22throughputNiqr%22%3A0.3321013440379985%7D%7D
+.netflix.com	TRUE	/	FALSE	1670015176	SecureNetflixId	v%3D2%26mac%3DAQEAEQABABQBTsP3Cp9eEO0I36Y-AjbsnAuav6k3lM8.%26dt%3D1638479176557
+.netflix.com	TRUE	/	FALSE	1670015176	NetflixId	v%3D2%26ct%3DBQAOAAEBEGR0PyCTO-qrbzv5tHKp1-uB0PVjVJfQ6pp3M3UQiHQ7vfKbweKV1t9iNgXpoq5segLXdH0GpJkt09u8uwbUL6t_mtZBXkMRrhEMiy2A2UC4YQ9t0QcR_zlyAmnNAuNuLGqn-XQLher4QlRlh7TtwmAYBxvhDQrbSWdHR2TbvnZxY0LGttJjYuonwXuHwQ4BGdaOyL9jqPT0ZKkA-HNyz1y0iNrmJEilz5CYNaTBEMYli6w_JFrOdM_Bs1kGXDfzlKzitpwv1pB4BgS0hB9uEWppoz32XiqbmQ0tIya_Q76MvXKJ0n-YhkfSD1e-Vy78ws8B2sE7CpFz-kw4vyM48maL-Fa71sDc3pLQMfo8h_u_215iezPy-CnMVgLtu9YOqX4uDAdgbqSdyXxCDyoS-qkxVXacZ3Gno9ugTxgR-yj8kwmip8mFCVQMywJfQNuPFjs0TjJp6jGfyHisgrPVQWV7miYdub0az0nv_c-VI9cRyu6ijCg4Q3OjX-cBa1Dk_UirFlSI65uXixeIV7QhKWYiNPjv1B6UjiUG40h6MLYteAtDaZ2tIvUIHnTFP9pRwgXEo0YGL2cgEoVizPW5-UbbCC4BckJGbP7am47B_zTefQNSbX8Gjd9XtypYiQj4KPOg%26bt%3Ddbl%26ch%3DAQEAEAABABTPlvXYZggPBUIiVfeljArFjdxMUENLHRA.%26mac%3DAQEAEAABABT4Lp9CKxBmClf9Tfh78YK2FuRDWMXHHQE.
+.netflix.com	TRUE	/	FALSE	1670032934	memclid	02680dbb-a80b-4105-a070-9aecc6a5d4e6
+
+====================
+BY https://t.me/redg3n // discord.gg/r3dg3n
+Email:kelly.randazzo.pro@gmail.com
+Country:BE
+Plan:Premium
+ExtraMember: YES
+====================

@@ -1,0 +1,22 @@
+.netflix.com	TRUE	/	FALSE	16729400935174254	clSharedContext	27282816-17c5-4b80-aa59-2cf95b503348
+www.netflix.com	FALSE	/	FALSE	1657041687	didUserInteractWithPage	true
+.netflix.com	TRUE	/	FALSE	1702875592	dsca	anonymous
+.netflix.com	TRUE	/	FALSE	16729400935184239	sawContext	true
+secured.netflix.com	FALSE	/	FALSE	1701969703	thx_guid	5174c386655e4b47b0054f938ca48f69
+.www.netflix.com	TRUE	/	FALSE	16729400941610286	cL	1641230159906%7C164122998693474112%7C164122998640038329%7C%7C20%7CXMXJJVYQLNGORIVBLLYCOGUDHU
+.netflix.com	TRUE	/	FALSE	1672766198	nfvdid	BQFmAAEBEPT1FX-JKrMlGBLOSbt_Z1Fg0L3jme_zVyByjzjfX6aEbyOpPnILScAq5V_jUhMv8xKY4PNsuYfIqt9rH_B39hcTuzmCfwJAttU7bdM90ePRv7TX2k8k3gj0w4ErDp35OcThtrwi79_USCyWL1E4BhyT
+.netflix.com	TRUE	/	FALSE	1672856806	OptanonConsent	isIABGlobal=false&datestamp=Tue+Jan+04+2022+19%3A26%3A46+GMT%2B0100+(heure+normale+d%E2%80%99Europe+centrale)&version=6.6.0&consentId=41f2a055-7a02-4d73-9336-12d949e81b66&interactionCount=1&landingPath=NotLandingPage&groups=C0001%3A1%2CC0002%3A1%2CC0004%3A0&hosts=H12%3A1%2CH13%3A1%2CH27%3A0%2CH28%3A0%2CH30%3A0&AwaitingReconsent=false
+.netflix.com	TRUE	/	FALSE	1649096805	hasSeenCookieDisclosure	true
+.netflix.com	TRUE	/	FALSE	1649096825	playerPerfMetrics	%7B%22uiValue%22%3A%7B%22throughput%22%3A904.309%7D%2C%22mostRecentValue%22%3A%7B%22throughput%22%3A3067.95%2C%22throughputNiqr%22%3A1.3834172765840975%7D%7D
+.netflix.com	TRUE	/	FALSE	1641322636	profilesNewSession	0
+.netflix.com	TRUE	/	FALSE	1672856872	NetflixId	v%3D2%26ct%3DBQAOAAEBEL_9mLClO-ksWjFvczzbFC2B0ORd-S0QO5hhVVjYR9alqRDO_oEzea60oX0EBreFM4E78e3YSrjnsUqTKfJzDcs_IaXQd6d82Zn9cutJgR-7f45moU39Tex6WR_Ei2AYKaUoJHkroqqEiPlD_nU6knqbBG1RD5aO4n4Bcgp4_r1T027CWkANhuvY3ThluSVg2CbEgQI3UfY3QwMRBlt9dVCWwEVsn3pVU7E5SZ8RitF2zzKb7ts2mZuVmyT3Xk3MO6v_3XvREkmxmPgTtbMJS2oFXKafk5nITTorsBd8YQS1us8jlXyaLDrTd8kXMfi2mmvi3jF-ufyHKgUZOEu9OyotHnVhdp6NBZ5-UI4AeL4FuXlXRh_8iyhFeStMYtg4qRuSNDbz2MfPd4cfOiDTREITxqd1LUXZRmeGezgOcbZhLM23667Q4XH2zJSJ-mMElvZsamdxjgERvJPPYE94nr-MU2PJzbnVz5tq8A7f-HkvavZxWctxGfKviBgV-GMSwvKV2-WaVCxeWprEbpQ9f9ulNOCKnahEWkNOMctpeGN3sC6WqRQutjiSyssyP-BXGi6igmVQswA-h5TLU-ll1YXdL-jFHgbIdMOXGeekPGP5gzEahy-SB8T7Mijk8cNV809o%26bt%3Ddbl%26ch%3DAQEAEAABABQYIZBAc8ND-03znnxPdZkdP8xvAnUdEKo.%26mac%3DAQEAEAABABSQX9swwYLRPOUOTzP2LKkNoZ5iq88sTGw.
+.netflix.com	TRUE	/	FALSE	1672856872	SecureNetflixId	v%3D2%26mac%3DAQEAEQABABSizsZG8YvODdYiInYNUT03XNMTliyQank.%26dt%3D1641320872510
+.netflix.com	TRUE	/	FALSE	1672856883	memclid	414837fa-8808-4e5d-b160-c4feff8c4e90
+
+====================
+BY https://t.me/redg3n // discord.gg/r3dg3n
+Email:gkrymompower@gmail.com
+Country:FR
+Plan:Standard
+ExtraMember: NO
+====================

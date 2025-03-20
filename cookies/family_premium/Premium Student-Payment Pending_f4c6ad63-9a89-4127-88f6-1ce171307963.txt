@@ -1,0 +1,18 @@
+PLAN = Student Premium
+COUNTRY = MX
+AutoPay = False
+Trial = False
+Checker By: by nobody028912
+Spotify COOKIE :👇
+
+
+.spotify.com	TRUE	/	TRUE	1737930933	sp_dc	AQC57uJROft6JJfIpDaHk2p-Kf_Qiwul-5ET3on9lZB6qPSnWXyRSLWK8nkn7jAVYAGVFQcerWPJ9oLRRItzkKdomngV3_y-ywPpu9X19WPf5MMYj9FDDgSB3yQpDM1oBOln3p7K5rPYQcw0MOtu9w_VerzvYzbN
+.spotify.com	TRUE	/	TRUE	1737930933	sp_key	f5564c63-00f7-4997-afee-13222baa82fd
+
+==============================
+ |||***By FR3AK G3N CHECKER***
+ Plan: Premium Student
+ status: Payment Pending
+ |||||||| https://discord.gg/fr3akgen |||||||||||
+ ================================================
+                         
