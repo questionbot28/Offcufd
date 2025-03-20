@@ -14,6 +14,11 @@ const db = new sqlite3.Database(dbPath, (err) => {
         db.run(`CREATE TABLE IF NOT EXISTS vouches (
             user_id TEXT PRIMARY KEY,
             vouches INTEGER DEFAULT 0,
+            negvouches INTEGER DEFAULT 0,
+            todayvouches INTEGER DEFAULT 0,
+            last3daysvouches INTEGER DEFAULT 0,
+            lastweekvouches INTEGER DEFAULT 0,
+            reasons TEXT DEFAULT '[]',
             last_updated TIMESTAMP DEFAULT CURRENT_TIMESTAMP
         )`, (createError) => {
             if (createError) {
@@ -38,7 +43,10 @@ module.exports = {
     execute: function (message, args) {
         try {
             // Enhanced role checking with detailed logging
-            const allowedRoleIDs = config.vouchManagerRoles || []; // Assuming config.vouchManagerRoles is an array of role IDs
+            const allowedRoleIDs = [
+                '1348251264336527414', // Co-owner
+                '1348251264336527416'  // Owner
+            ];
             console.log(`Checking roles for user ${message.author.tag}`);
             console.log(`Allowed roles:`, allowedRoleIDs);
             console.log(`User roles:`, message.member.roles.cache.map(r => r.id));
@@ -51,18 +59,6 @@ module.exports = {
                             .setColor('#ff0000')
                             .setTitle('Permission Denied')
                             .setDescription(`You don't have permission to manage vouches. Required roles: ${allowedRoleIDs.map(roleId => `<@&${roleId}>`).join(', ')}`)
-                    ]
-                });
-            }
-
-            // Check if the command is used in the specified vouch channel
-            if (config.vouchChannelId && message.channel.id !== config.vouchChannelId) {
-                return message.reply({
-                    embeds: [
-                        new Discord.MessageEmbed()
-                            .setColor('#ff0000')
-                            .setTitle('Wrong Channel')
-                            .setDescription(`This command can only be used in <#${config.vouchChannelId}>.`)
                     ]
                 });
             }
@@ -96,6 +92,9 @@ module.exports = {
                 });
             }
 
+            console.log(`Attempting to update vouches for user ${mentionedUser.tag}`);
+            console.log(`Vouch change requested: ${vouchChange}`);
+
             // Check if user exists in database
             db.get('SELECT * FROM vouches WHERE user_id = ?', [mentionedUser.id], (err, row) => {
                 if (err) {
@@ -112,11 +111,13 @@ module.exports = {
 
                 // If user doesn't exist, create new entry
                 if (!row) {
+                    console.log(`Creating new vouch entry for user ${mentionedUser.tag}`);
                     db.run('INSERT INTO vouches (user_id, vouches) VALUES (?, 0)', [mentionedUser.id]);
                     row = { vouches: 0 };
                 }
 
                 const newVouchCount = Math.max(0, row.vouches + vouchChange);
+                console.log(`Current vouches: ${row.vouches}, New vouch count: ${newVouchCount}`);
 
                 // Update the vouch count
                 db.run(
@@ -134,6 +135,8 @@ module.exports = {
                                 ]
                             });
                         }
+
+                        console.log(`Successfully updated vouches for ${mentionedUser.tag}`);
 
                         // Send success message
                         const vouchEmbed = new Discord.MessageEmbed()
