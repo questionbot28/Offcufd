@@ -1,0 +1,16 @@
+accounts.spotify.com	TRUE	/	TRUE	1716566193	__Host-device_id	AQClU7ZdqLA2VejGYddWyBsm6EVRjTsAOSnS1uLN8jeNAYjfvOFEVwK-aQPaFQBVlzse2ihOsuMKS_YihDg4HMe4LhRlux-ylps
+.spotify.com	TRUE	/	TRUE	1713542327	sp_dc	AQCLIum5RFw97G1Ey-tGeQuKPnUrLQ-w3RY-97WqoYm-f8cp7xxyuRyolJfOhqM7C1Q7PIZ96-qDPTcC4tZ8pPBPo3yuYravgzrZ84wal8wQKOd6CoTJsnRAQDTehp-3NZLhM6ntvnNJpZZqWzDeYNBlrkvHnSVu
+.spotify.com	TRUE	/	TRUE	1713542327	sp_key	d8fa7f5f-c02d-457c-bf3c-e29efd197051
+accounts.spotify.com	TRUE	/	TRUE	1696955459	__Host-sp_csrf_sid	172afd10da6a3a96a65e69a19ca20b1a5900ed3956f725344f7b1a0a4783a206
+.spotify.com	TRUE	/	TRUE	1697038278	sp_landing	https%3A%2F%2Fopen.spotify.com%2Fdesktop%2Fauth%2Fsuccess%3Fsp_cid%3D646293e7e2f3a3ec6d636eea8fd869a4%26device%3Ddesktop
+.spotify.com	TRUE	/	TRUE	1728487878	sp_t	646293e7e2f3a3ec6d636eea8fd869a4
+
+
+
+====================
+BY https://t.me/redg3n // discord.gg/r3dg3n
+Plan: Individual
+Trial: NO
+Member: NO
+Days Left: 249
+====================

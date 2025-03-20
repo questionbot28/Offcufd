@@ -1,0 +1,18 @@
+accounts.spotify.com	FALSE	/	TRUE	1727535024	__Host-device_id	AQB9F9ifc92fjVgpidUsw3cqczlJRgIWLinE47W5W-cElOBndz5pPCJg2GSSqhbo49uXgL1pin-HiP3AVLkidmqyC2SOqs1dzlI
+.spotify.com	TRUE	/	TRUE	1724833791	sp_dc	AQDKb9yZA6edAW1VJE9VUFv0X83Dfl0FgRFmMdvFgjO_33HTA3nvDk_n21H-nJxaXMUo7rVA2GyxAW_GY8ok056TA9OI6RmQQMni_i5FiXbY4caA7Yce8xHxg_oLpztmgjPQGP4prkhhr6CpupbY_qd-LUWb7r0
+.spotify.com	TRUE	/	TRUE	1724833791	sp_key	2ebaa3af-aafb-4f83-830a-023398e58b77
+.spotify.com	TRUE	/	TRUE	1724833796	sp_t	177bc43869bc7564e8cc1ff848616f94
+.spotify.com	TRUE	/	FALSE	1724833908	OptanonConsent	isIABGlobal=false&datestamp=Tue+Aug+29+2023+09%3A31%3A48+GMT%2B0100+(West+Africa+Standard+Time)&version=6.26.0&hosts=&landingPath=https%3A%2F%2Fwww.spotify.com%2Fng%2Faccount%2Foverview%2F%3Futm_source%3Dspotify%26utm_medium%3Dmenu%26utm_campaign%3Dyour_account&groups=s00%3A1%2Cf00%3A1%2Cm00%3A1%2Ct00%3A1%2Ci00%3A1%2Cf11%3A1
+.spotify.com	TRUE	/	TRUE	1698481906	sp_gaid	0088fc932db2d7284cb3946a9e93c1447dfd5a0cc8b474647b2bee
+.spotify.com	TRUE	/	TRUE	1698481906	sp_last_utm	%7B%22utm_campaign%22%3A%22your_account%22%2C%22utm_medium%22%3A%22menu%22%2C%22utm_source%22%3A%22spotify%22%7D
+.spotify.com	TRUE	/	TRUE	1727857905	sp_m	ng
+
+
+
+====================
+BY https://t.me/redg3n // discord.gg/r3dg3n
+Plan: Student
+Trial: NO
+Member: NO
+Days Left: 25
+====================

@@ -1,0 +1,31 @@
+accounts.spotify.com	TRUE	/	TRUE	1723631609	__Host-device_id	AQB5bsbB8uN_ZuUjEk3mP1fMtZCT0Q2sgvBx1EC-xIx_HkLfhDNy8MGwU4hgxf9UH3cmVYr9O0WYb9MWVSrAcBOJou4ybfXQzk0
+.spotify.com	FALSE	/	FALSE	1723258305	_scid	0e941625-df81-46fe-a79c-4079a77aa2e1
+.spotify.com	TRUE	/	TRUE	1689158004	sp_landing	https%3A%2F%2Fopen.spotify.com%2F%3Fsp_cid%3D3b903666382cf38259eea3056f7abed1%26device%3Ddesktop
+.spotify.com	FALSE	/	FALSE	1720607647	OptanonAlertBoxClosed	2023-07-11T10:34:07.433Z
+.spotify.com	TRUE	/	TRUE	1720607642	sp_dc	AQAX_3gZoGtJSPAd9z_02La-fVL0oWRtZrGj38KFm763xYri6qmHb5cTnd7h6v6pibFiOZj80V9BIyNzwnNSXkDstEcAwtWSQCOueIo6SuTqJibTLGG3ggARCNbd_vS0afyKQIFmIgpOmbAc2zMS5PaGe0wRuZ-Q
+.spotify.com	FALSE	/	TRUE	1720607642	sp_key	040963ef-3f91-4df5-aaf8-c93007ce8aff
+.spotify.com	FALSE	/	FALSE	1720607825	OptanonConsent	isIABGlobal=false&datestamp=Tue+Jul+11+2023+13%3A37%3A05+GMT%2B0300+(GMT%2B03%3A00)&version=6.26.0&hosts=&landingPath=NotLandingPage&groups=s00%3A1%2Cf00%3A1%2Cm00%3A1%2Ct00%3A1%2Ci00%3A1%2Cf11%3A1&AwaitingReconsent=false&geolocation=TR%3B35
+.spotify.com	FALSE	/	FALSE	1723235825	_cs_c	0
+.spotify.com	FALSE	/	FALSE	1723235825	_cs_id	f9768f39-8e37-a244-ba10-dbb9f18fc2d0.1689071825.1.1689071825.1689071825.1.1723235825666
+.spotify.com	FALSE	/	FALSE	1696847825	_fbp	fb.1.1689071607376.110819446
+.spotify.com	FALSE	/	FALSE	1723631845	_ga	GA1.2.104866445.1689071607
+.spotify.com	FALSE	/	FALSE	1723631822	_ga_ZWG1NSHWD8	GS1.1.1689071607.1.1.1689071822.0.0.0
+.spotify.com	FALSE	/	FALSE	1696847607	_gcl_au	1.1.1167310590.1689071607
+.spotify.com	FALSE	/	FALSE	1689158245	_gid	GA1.2.1575947300.1689071607
+.spotify.com	FALSE	/	FALSE	1723258523	_scid_r	0e941625-df81-46fe-a79c-4079a77aa2e1
+.spotify.com	FALSE	/	FALSE	1723258525	_sctr	1%7C1689022800000
+.spotify.com	FALSE	/	TRUE	1720607825	sp_adid	4a026912-43f6-4372-aefa-6c522b901980
+.spotify.com	FALSE	/	TRUE	1694255823	sp_gaid	0088fc3b814fc32081bfff3f992f1757d2ad230e57fd76d5ba37bb
+.spotify.com	TRUE	/	TRUE	1723631823	sp_m	tr-tr
+.spotify.com	FALSE	/	FALSE	1723669408	_ga_S35RN5WNT2	GS1.1.1689109408.2.0.1689109408.0.0.0
+.spotify.com	FALSE	/	TRUE	1720689361	sp_t	3b903666382cf38259eea3056f7abed1
+
+
+
+====================
+BY https://t.me/redg3n // discord.gg/r3dg3n
+Plan: Family
+Trial: NO
+Member: YES
+Days Left: null
+====================

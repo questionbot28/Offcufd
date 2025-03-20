@@ -1,0 +1,19 @@
+accounts.spotify.com	FALSE	/	FALSE	1713693541	__Host-device_id	AQBVzUozhYOimZ6Czb4onpoI43LE00nj0pd2bWNv5W5kChg4JLBi-XXmOOsq3fUhtoAL_RVC67XMk8qk0FhDz72gZDKzFvP6h4Q
+.accounts.spotify.com	FALSE	/	FALSE	0	__Secure-TPASESSION	AQBdsjDUa9GnsudmFShBqc3Zd0VlEJZhQMfRE5yhIMrNbZHmdCpFJNe88uLKiIxFEieXLJcm/NeExnvKFCBDeWBhYctCuniWiB8=
+.accounts.spotify.com	TRUE	/	FALSE	0	csrf_token	AQBHSjikbL0XF3amcF2bypWz9as95F8uiicvHsurcTNA7oWp2VbM1VQd6lojmyzXucnWU2RIsQLAujm0Q9KYRKGcuvL6A1fVar5PHC5LgFJQ5kwF
+.spotify.com	FALSE	/	FALSE	1710669546	sp_dc	AQBcLBE6W_MfpdSnVTAIFP8ML64DiPTUdHjNWivuNMfdSqLjS712tHSNg7ruf1QRmH6AzxsuCCqNQTTwNgLt7grwciKbzkl8soBLGvKOIGRWd9G78CyghRi3AV2MldhXFN6J9Q4L2Ww8uxhnedRhJ03oD5lK56q9kr9uyRt5hGhRiltSKqQk3NJQImaCTIeCjpEIPJ51dUxGXts0so1s9YRsGBLj
+.spotify.com	TRUE	/	FALSE	1710669546	sp_key	3c85c572-1ae4-48ce-b494-dd4501c95c37
+.accounts.spotify.com	TRUE	/	FALSE	0	sp_sso_csrf_token	013acda719d852677ce077cea70949a0250b24463c31363739313430373436363036
+.spotify.com	TRUE	/	FALSE	1710669548	sp_t	517dd273838ea51e3d990696848f7829
+accounts.spotify.com	TRUE	/	TRUE	0	sp_t	139d045d-5ee5-488a-ae14-d85c66edc501
+.accounts.spotify.com	TRUE	/	FALSE	0	sp_tr	false
+
+
+
+====================
+BY https://t.me/redg3n // discord.gg/r3dg3n
+Plan: Student
+Trial: NO
+Member: NO
+Days Left: 25
+====================

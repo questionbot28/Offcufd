@@ -1,0 +1,40 @@
+accounts.spotify.com	FALSE	/	TRUE	1711171019	__Host-device_id	AQA6Xm7oK1QTnpq_rH7YYWqQMoobe-CfvDUcGnRkJNULw7nxkxIJVXuZWmjP_Y1F9--ejezMcKvOOQOWQzsxqtGh0tuoRByT4no
+.spotify.com	TRUE	/	FALSE	1710797716	_scid	c0c971d5-6222-48f6-b326-bbd328fb266c
+.spotify.com	TRUE	/	FALSE	1708147194	OptanonAlertBoxClosed	2023-02-17T05:19:54.793Z
+.spotify.com	TRUE	/	TRUE	1708406164	_hjSessionUser_309589	eyJpZCI6ImFiZGI1ODI3LWNkNWQtNWJiYS1iYTVlLThkYWRhYmM3M2VjMyIsImNyZWF0ZWQiOjE2NzY4NzAxNjQ0NTAsImV4aXN0aW5nIjpmYWxzZX0=
+.spotify.com	TRUE	/	FALSE	1711034213	_cs_c	0
+.spotify.com	TRUE	/	FALSE	1710566213	_tt_enable_cookie	1
+.spotify.com	TRUE	/	FALSE	1710566213	_ttp	rvMBa2bMyFpNVuIN2fDtQzyb3xD
+.spotify.com	TRUE	/	FALSE	1729391770	_sctr	1%7C1695148200000
+.spotify.com	TRUE	/	TRUE	1729765068	sp_m	us
+.spotify.com	TRUE	/	TRUE	1726741259	sp_dc	AQDWjJLSrubQw01S5eKG_t-sJWPMTZEdTHIVGNSERq_o6xAn9iJvWPF2-a2hnNq12en3XkCwSpapjp0UGu2kK9KOjkaB6qGltUVa2DroKplVwVXEbbH5Ku-j6VSpia5wir7IM1qsHVyG_6isNN5oyb9ZMTyQRTX1
+.spotify.com	TRUE	/	TRUE	1726741259	sp_key	3412a715-af7a-4fa7-a430-6fd1940bd08e
+.spotify.com	TRUE	/	TRUE	1700389333	sp_gaid	0088fc20d08e1bf07d9c55a347c112b78ae85a35ad22b76c405741
+.spotify.com	TRUE	/	FALSE	1729765350	LPVID	UwMTlmM2Y1ZTUxMmNjZjBi
+.spotify.com	TRUE	/	FALSE	1711034213	_cs_id	b844f387-5708-aa29-9d46-3a6af62633c3.1676870213.3.1695205343.1695205070.1.1711034213428
+.support.spotify.com	TRUE	/	FALSE	1726741343	_derived_epik	dj0yJnU9dWRPUndwSFk5RXR2NVJwWHlHS0YtZ1hxaEEyVGItYlMmbj13R1lKSXpyTkJiS1A0SUZMUmx0RVpBJm09MSZ0PUFBQUFBR1VLeDk4JnJtPTEmcnQ9QUFBQUFHVUt4OTgmc3A9Mg
+.support.spotify.com	TRUE	/	FALSE	1726741343	_pin_unauth	dWlkPU1qSXlaVFEzTlRJdFpHWmhaQzAwWVRjMkxUZzFaamN0TWpFMVpUQmtOV0kyTURJMg
+.spotify.com	TRUE	/	FALSE	1729392041	_scid_r	c0c971d5-6222-48f6-b326-bbd328fb266c
+.spotify.com	TRUE	/	FALSE	1729765378	_ga_S0T2DJJFZM	GS1.1.1695205343.2.0.1695205378.0.0.0
+.spotify.com	TRUE	/	FALSE	1729765379	_ga_S35RN5WNT2	GS1.1.1695205069.3.1.1695205379.0.0.0
+.spotify.com	TRUE	/	FALSE	1726833645	OptanonConsent	isIABGlobal=false&datestamp=Thu+Sep+21+2023+17%3A30%3A45+GMT%2B0530+(India+Standard+Time)&version=6.26.0&hosts=&landingPath=NotLandingPage&groups=s00%3A1%2Cf00%3A1%2Cm00%3A1%2Ct00%3A1%2Ci00%3A1%2Cf11%3A1&geolocation=IN%3BGJ&AwaitingReconsent=false
+.spotify.com	TRUE	/	FALSE	1729857655	_ga_ZWG1NSHWD8	GS1.1.1695297645.20.0.1695297655.0.0.0
+.spotify.com	TRUE	/	FALSE	1702981069	_gcl_aw	GCL.1695205069.CjwKCAjwsKqoBhBPEiwALrrqiMGOXDzOVJmIPm65HI2ssZjLXrqYVqLz0RjFOXIE5U-fJUaVK6Lp9hoCmcUQAvD_BwE
+.spotify.com	TRUE	/	FALSE	1702981069	_gcl_dc	GCL.1695205069.CjwKCAjwsKqoBhBPEiwALrrqiMGOXDzOVJmIPm65HI2ssZjLXrqYVqLz0RjFOXIE5U-fJUaVK6Lp9hoCmcUQAvD_BwE
+.spotify.com	TRUE	/	TRUE	1726833645	sp_adid	93f87cf3-1f35-4aeb-aa7d-0fcebe52142c
+accounts.spotify.com	FALSE	/	TRUE	1697097196	__Host-sp_csrf_sid	e5a2b1e5f118dbe90d811c080cb61b43a7ddc366bc91254d17a822aae0aa258c
+.spotify.com	TRUE	/	FALSE	1731653598	_ga	GA1.2.1130224618.1676611018
+.spotify.com	TRUE	/	FALSE	1702981069	_gac_UA-5784146-31	1.1695205069.CjwKCAjwsKqoBhBPEiwALrrqiMGOXDzOVJmIPm65HI2ssZjLXrqYVqLz0RjFOXIE5U-fJUaVK6Lp9hoCmcUQAvD_BwE
+.spotify.com	TRUE	/	FALSE	1697179998	_gid	GA1.2.428309338.1697093599
+.spotify.com	TRUE	/	TRUE	1697180003	sp_landing	https%3A%2F%2Fopen.spotify.com%2Fdesktop%2Fauth%2Fsuccess%3Fsp_cid%3D330de9151c06770ca70754a2ca0def7f%26device%3Ddesktop
+.spotify.com	TRUE	/	TRUE	1728629603	sp_t	330de9151c06770ca70754a2ca0def7f
+
+
+
+====================
+BY https://t.me/redg3n // discord.gg/r3dg3n
+Plan: Individual
+Trial: NO
+Member: NO
+Days Left: 33
+====================

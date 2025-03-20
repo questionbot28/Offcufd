@@ -1,0 +1,28 @@
+accounts.spotify.com	FALSE	/	FALSE	1722395425	__Host-device_id	AQDjXFq510Zc-k23aYKsJ2uNNnI8w8iCvLIE9OR3AIxRl_hedyhFHh93hhr_w34xaKj8r4_P6Y4vo2vdsjWo8DzAPxicy6RES2Q
+.accounts.spotify.com	FALSE	/	FALSE	0	__Secure-TPASESSION	AQDS3w93oX3vP84sJ5wbYmX0K+FA5iQuVTTJm/JTvhh2EidwTtITdNm567v67HCJz9NRYzAbAljjkrc2HeZavyhUtElaoFGYa6Y=
+.spotify.com	TRUE	/	TRUE	1722022121	_scid	ef9b803a-3f15-4d69-8ebb-555be4a6df22
+.accounts.spotify.com	TRUE	/	FALSE	0	sp_tr	true
+.spotify.com	TRUE	/	TRUE	1719371528	OptanonAlertBoxClosed	2023-06-27T05:12:08.112Z
+.spotify.com	TRUE	/	TRUE	1719371528	OptanonConsent	isIABGlobal=false&datestamp=Mon+Jun+26+2023+23%3A12%3A08+GMT-0600+(hora+est%C3%A1ndar+central)&version=6.26.0&hosts=&landingPath=NotLandingPage&groups=s00%3A1%2Cf00%3A1%2Cm00%3A1%2Ct00%3A1%2Ci00%3A1%2Cf11%3A1&AwaitingReconsent=false
+.spotify.com	TRUE	/	TRUE	1695611528	_fbp	fb.1.1687842624285.744563400
+.spotify.com	TRUE	/	TRUE	1695611419	_gcl_au	1.1.943885798.1687842619
+.spotify.com	TRUE	/	TRUE	1722022222	_scid_r	ef9b803a-3f15-4d69-8ebb-555be4a6df22
+accounts.spotify.com	TRUE	/	FALSE	0	remember	carlosleija03%40gmail.com
+.spotify.com	TRUE	/	FALSE	1719371524	sp_adid	b0109a05-79b0-4415-ba8c-01c6d0f55737
+.spotify.com	FALSE	/	FALSE	1719371517	sp_dc	AQCjT3u0c594uT25fj43rbt70VOH3ZSQdRMHPaOm8CZS9QAt4BXGROnaFUn2n7qQ7q61J8nrRAycnAeBdIB8Zmhi1RLevvwrvoiChLl3L8clSaAk2_97PWZNvkVfY25kyaEkKL1qvAHsjDIPV9gwM5UtQxLOA0eS
+.spotify.com	TRUE	/	FALSE	1719371517	sp_key	5bcd015d-8c49-45ab-8645-2bed25ecb19b
+.accounts.spotify.com	TRUE	/	FALSE	0	sp_sso_csrf_token	013acda7194c2c4fc3d510c2e45c588d2d4e6ebfd431363837383432373137373238
+.spotify.com	TRUE	/	FALSE	1719371533	sp_t	649e8a528f7bbff688a5fe870166fcc5
+open.spotify.com	TRUE	/	TRUE	0	sss	1
+.spotify.com	TRUE	/	TRUE	1722396693	_ga	GA1.2.1297385405.1687842623
+.spotify.com	TRUE	/	TRUE	1722396695	_ga_ZWG1NSHWD8	GS1.1.1687842623.1.1.1687843895.0.0.0
+
+
+
+====================
+BY https://t.me/redg3n // discord.gg/r3dg3n
+Plan: Student
+Trial: NO
+Member: NO
+Days Left: 6
+====================

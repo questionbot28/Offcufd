@@ -1,0 +1,50 @@
+
+    ─────────────────────────────────────────────────────────────
+    PLAN       : Family
+    COUNTRY    : PL
+    AutoPay    : True
+    Trial      : False
+    Invite Link: N/A
+    Email      : N/A
+    ─────────────────────────────────────────────────────────────
+
+    PLAN = Family Premium
+COUNTRY = PL
+AutoPay = True
+Trial = False
+Checker By: by nobody028912
+Spotify COOKIE :👇
+
+
+PLAN = Family Premium
+COUNTRY = PL
+AutoPay = True
+Trial = False
+Checker By: by nobody028912
+Spotify COOKIE :👇
+
+
+accounts.spotify.com	FALSE	/	TRUE	1752568838	__Host-device_id	AQAFASbaytrzn6nnKl9SBn01S1ysrYAOGoxCzStXZ-KMMjBpQWnyxK4P8D-mjbzbOujVXlPHb7MCk50p6TB2Hf-cZqsNLOqVxHc
+.accounts.spotify.com	TRUE	/	TRUE	0	__Secure-TPASESSION	AQDmdkDn2fDhFffsQR8UGX8VkhVmV4suGK2SOMGwxMzyvHYNsU3PFnbKT86l1InS7g/Uz6Odfl1wszx9h/7cU+XWjjUegbWwBEk=
+.accounts.spotify.com	TRUE	/	TRUE	0	sp_tr	false
+accounts.spotify.com	FALSE	/	TRUE	0	remember	f.olszewski1249%40gmail.com
+.spotify.com	TRUE	/	TRUE	1751916914	sp_dc	AQCV2QEOvJnWIJCTLwxmv7KySBv1cz5M5RG9hxD9wxABxp0EQ6TN8pIfYjmNzJbfOQ9nUCViIKTTHa-B6iGo8h02PSEMqSPTCJqejHTrnDvxLmpBMGu_8dWVhLg9fV3IeehMlcFZd_qH3y1rw3dXR5cV02YUH_ZS
+.accounts.spotify.com	TRUE	/	TRUE	0	sp_sso_csrf_token	013acda719e48438de18ff1b1774ea6350ad9cdaeb31373230333830393134383733
+.spotify.com	TRUE	/	TRUE	1751916914	sp_key	350a2916-f1ea-49d6-98f4-6ad0db096a33
+.accounts.spotify.com	TRUE	/	TRUE	0	csrf_token	AQDd6nIvIVdVjicq2LzX1juKdQq1iRHCaU3SodpGOqcP5cz9CUtCUJ2btzYuJT7jAxGmdDVkRxRh9f2YNQ
+.spotify.com	TRUE	/	TRUE	1751916917	sp_t	bc650b7382be82b16f22e52b2b940096
+
+===========================================
+ // 
+Email: f.olszewski1249@gmail.com
+Plan: Individual
+Trial: NO
+Member: NO
+Days Left: 16
+===========================================
+
+    
+    ─────────────────────────────────────────────────────────────
+                    CHECKER BY ITSMEBOI
+    ─────────────────────────────────────────────────────────────
+    

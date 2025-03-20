@@ -1,0 +1,15 @@
+.netflix.com	TRUE	/	FALSE	1711617687	dsca	customer
+.netflix.com	TRUE	/	FALSE	1708593687	nfvdid	BQFmAAEBEN85RClv-ZMb9wLWm5plZVFg6bprwi0zn0nhkVKInhlqx1njG5ZuKxXIryHAmOaCYC6zn2r86OtAPoH8jhJbCT_mvkv6Bz1AL0l8fVEMjwZjp7mtaQ4GG9_rSYtDNR_fcY-4Ki0B2RnHr1AkNkoaGMJU
+.netflix.com	TRUE	/	TRUE	1709542779	NetflixId	ct%3DBQAOAAEBELGIDFHpnVgGUV7N_osVSouCYDixcyWPA7Q71ZXf_f3iF196uQh6P_InEkYPceCKske4XihxrAKt4L5oLsqsNJpXZn3vmPNBoVLu1O_-0IQjWFpTLs_s7gaCzYadrIx0HTJufnn9xYFsBiqn6IxQNr7BqjymhCdveFNgj8poZmC6QRbX5kpqAXxOgwFKs18X6ylvbiNSYtvmva3eVG_6yTYHvSCJftujx8do78cbMM0sUMZ92LwOV8hei1gKsY60MpUl610wjnunh-akSjg50a6nLyED-k69gwD-KklJF8R2_cc7gVcDMTrva_GUHFTbFKAyaWQNspTLfYLhZn7cT7TWThRP_1H9wIF1Vk1xa3gHm1-VeKBlQfq-3K9FM2ewLmhtTx9XFx2eHV0RxsPxUI866qyPHnPZwFHL0LFFgx23t7q5HFwb8Wa4ESLogqOUEkkn4cKr1TnDMpYLQ4k0Y3K3HpTVZy-0-qmQ52l7VCSqbJds61kDshukUVIuxEvVwmMa_GM_uv6fLWgfL5_uzbQb2ELfGGGpHYFUid6jXY-BhT94zdHMIhF0TCgobgo2_ESaSDe2gzCrbeccagwIjkIt91l2FcdsDlntNy690xhud78XE9_pvYrv8R6qERDYTvxlxzhA1GZzLSXhPN2ZzJwhTLJRZGatTbgE-a1vw2GoBsw-YinETA5X0ozlpkVk4pfLPfPUt7zGPAF-Hp81cVoRkggLQww5NMbQ5XpzV2nYOxdhshskMsxyocue8xuPCrS_XdFbcmIHmDOTEsFnnIqogc_KMJySoNe_J9zMrmerySbmvEW8rvcymlcN1UD-1ul5%26bt%3Ddbl%26ch%3DAQEAEAABABS_BFOJ3Zfsdcy1JkHXik8MAITmSpwfsdo.%26v%3D2%26mac%3DAQEAEAABABR9O3SU5hjxChHiqMruhk-NbTZqtKZdIQA.
+.netflix.com	TRUE	/	TRUE	1709542779	SecureNetflixId	v%3D2%26mac%3DAQEAEQABABSuwVE0q-QlFWCz2kQ52cp__lEfW_9WL0E.%26dt%3D1678006787306
+.netflix.com	TRUE	/	FALSE	1709569226	OptanonConsent	isGpcEnabled=0&datestamp=Sun+Mar+05+2023+13%3A20%3A26+GMT-0300+(Hor%C3%A1rio+Padr%C3%A3o+de+Bras%C3%ADlia)&version=202301.1.0&isIABGlobal=false&hosts=&consentId=bfd09613-5d16-46c9-89de-a24a02969b83&interactionCount=1&landingPath=NotLandingPage&groups=C0001%3A1%2CC0002%3A1%2CC0003%3A1%2CC0004%3A1&AwaitingReconsent=false
+.netflix.com	TRUE	/	FALSE	1709569228	memclid	83421983-ad4b-481b-a485-41b69e8c53fd
+.netflix.com	TRUE	/	FALSE	1685809226	pas	%7B%22supplementals%22%3A%7B%22muted%22%3Atrue%7D%7D
+
+====================
+BY https://t.me/redg3n // discord.gg/r3dg3n
+Email:wancleiafarias@gmail.com
+Country:BR
+Plan:Padro
+ExtraMember: NO
+====================

@@ -1,0 +1,18 @@
+PLAN = Duo Premium
+COUNTRY = TR
+AutoPay = True
+Trial = False
+Checker By: by nobody028912
+Spotify COOKIE :👇
+
+
+.spotify.com	TRUE	/	TRUE	1754325911	sp_dc	AQA5SExzE6OEX8Rc3iUfYlQ3MsAtX3H1gjy6ToDw6kcijPfnp5AvD3ff069cP1Hx2cZw37Tzk1vGtkJfLBtcZ_mSaYiy1FWHatMRJmumHlNELmKCx5l-KaNykNzXb9W5Y6WQAPUGHkvWUKfjLx5ln8EI3YZpjCs
+.spotify.com	TRUE	/	TRUE	1754325911	sp_key	0e4ad2e3-9e49-4846-bf4b-97d1bef91484
+
+==============================
+ |||***By FR3AK G3N CHECKER***
+ Plan: Premium Duo
+ status: Member
+ |||||||| https://discord.gg/fr3akgen |||||||||||
+ ================================================
+                         

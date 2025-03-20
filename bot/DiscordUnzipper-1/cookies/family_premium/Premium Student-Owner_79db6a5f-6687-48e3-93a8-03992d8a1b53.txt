@@ -1,0 +1,18 @@
+PLAN = Student Premium + Hulu
+COUNTRY = US
+AutoPay = True
+Trial = False
+Checker By: by nobody028912
+Spotify COOKIE :👇
+
+
+.spotify.com	TRUE	/	FALSE	1741834511	sp_dc	AQAuaRu7jrc9hwosNLTTgXKj_n1c5H-lfeT-NKxIO9W34cvb6K6v4zgkU26SaZWL46EtDYOp2kuG4J0RmegONCkj0EqMvH4Ck6W0FK5Yr3FM15NqY3X2mWlD-YwvYgiIODpOHZ0OoD0aDfMMGkJ_elCaR4YhEu5T
+.spotify.com	TRUE	/	FALSE	1741834511	sp_key	c6985e11-5186-450d-978a-973283e1ee93
+
+==============================
+ |||***By FR3AK G3N CHECKER***
+ Plan: Premium Student
+ status: Owner
+ |||||||| https://discord.gg/fr3akgen |||||||||||
+ ================================================
+                         

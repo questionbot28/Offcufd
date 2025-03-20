@@ -1,0 +1,27 @@
+accounts.spotify.com	FALSE	/	TRUE	1725107972	__Host-device_id	AQDC3eJsorBfl1I3A_Ns5QCWgGomSpTKnFWaUiQoHZLvenx4xZW4Gdzc4D4WiD6LZkxCiboglBqAM4zhYZ1-LHlbPD4uNh5uNPA
+.accounts.spotify.com	TRUE	/	TRUE	0	__Secure-TPASESSION	AQA3eM84zzAPIJDPMW2cX0svkovYnP3z5CJpGJBLEhqM6GOk8YgEF1uBunWmHjTEONVKzQUzERLc9d8MgL4SLe/yh+EACjWjzKM=
+accounts.spotify.com	FALSE	/	TRUE	0	remember	jonah.bienvenu%40gmail.com
+.spotify.com	TRUE	/	TRUE	1722084002	sp_dc	AQDKvJguD_NgeZv4X5VAaF7S5rj-oLJvvyIc_Imt8vAd8gNjNf12Qgo-8GblFwRgG3XEFNvhjSJIuFoMOlhaR6tjE_om16IFClU7CzPiH5pHO8AD-H0c8qvo3RW-JTPumuf9RMWHxNdNbuSwkvlSbQPHBIblZkBX
+.spotify.com	TRUE	/	TRUE	1722084002	sp_key	9e029e91-c927-4206-867a-6058612325e4
+.accounts.spotify.com	TRUE	/	TRUE	0	sp_tr	false
+.accounts.spotify.com	TRUE	/	TRUE	0	csrf_token	AQBr5xJgikikhF6YPn9_0kAl4r1UOxXDuBOQcJQ1l-5YQ76ksrMCf3eZ5ACIZDMJf8vhv_n-b19s98dcJA
+.accounts.spotify.com	TRUE	/	TRUE	0	sp_sso_csrf_token	013acda71914c553a07213f2c14eeb751f8582517031363931333238353732333130
+.spotify.com	TRUE	/	FALSE	1725795648	OptanonConsent	isIABGlobal=false&datestamp=Sat+Sep+09+2023+13%3A40%3A48+GMT%2B0200+(heure+d%E2%80%99%C3%A9t%C3%A9+d%E2%80%99Europe+centrale)&version=6.26.0&hosts=&landingPath=https%3A%2F%2Fopen.spotify.com%2Fintl-fr&groups=s00%3A1%2Cf00%3A1%2Cm00%3A1%2Ct00%3A1%2Ci00%3A1%2Cf11%3A1
+.spotify.com	TRUE	/	FALSE	1728819651	_ga	GA1.1.1321198836.1694259651
+.spotify.com	TRUE	/	FALSE	1728819651	_ga_ZWG1NSHWD8	GS1.1.1694259650.1.0.1694259650.0.0.0
+.spotify.com	TRUE	/	FALSE	1702035641	_gcl_au	1.1.34496693.1694259642
+.spotify.com	TRUE	/	FALSE	1694346050	_gid	GA1.2.1448387289.1694259651
+.spotify.com	TRUE	/	TRUE	1725795651	sp_adid	d37573f2-8191-4bf8-86ca-91783dc34df3
+.spotify.com	TRUE	/	TRUE	1694346037	sp_landing	https%3A%2F%2Fopen.spotify.com%2F%3Fsp_cid%3Dcc3abc9f2d62f444994f5e75acae4752%26device%3Ddesktop
+open.spotify.com	FALSE	/	FALSE	0	sss	1
+.spotify.com	TRUE	/	TRUE	1725799273	sp_t	cc3abc9f2d62f444994f5e75acae4752
+
+
+
+====================
+BY https://t.me/redg3n // discord.gg/r3dg3n
+Plan: Family
+Trial: NO
+Member: YES
+Days Left: null
+====================

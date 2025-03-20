@@ -1,0 +1,18 @@
+PLAN = Free
+COUNTRY = DE
+AutoPay = False
+Trial = False
+Checker By: by nobody028912
+Spotify COOKIE :👇
+
+
+.spotify.com	TRUE	/	TRUE	1751909909	sp_dc	AQBWkzIx-F2X1aCXdi79UMqbmC1IFly1SENDNdEN7PnoWUYL6jfSXVbKIUEFto8PSU1btKTGCjytgwGctg3EZpQ1xQUiZb_1wRiSc8z7ISV19HICylNQoHVOnTvF5czAM6Yf_loABcj3JFbqxVTOVkwbBOpJGFlR
+.spotify.com	TRUE	/	TRUE	1751909909	sp_key	35ab7d14-db59-498e-84e9-c38e338840e4
+
+==============================
+ |||***By FR3AK G3N CHECKER***
+ Plan: Premium Individual
+ status: Payment Pending
+ |||||||| https://discord.gg/fr3akgen |||||||||||
+ ================================================
+                         

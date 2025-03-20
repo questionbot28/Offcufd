@@ -1,0 +1,13 @@
+.netflix.com	TRUE	/	TRUE	1734708895	NetflixId	ct%3DBQAOAAEBEAbgDokorfqwMyxDa7yswGCCYIz6mO5QpRuxk5CvSDWAWR2vAZ-efDqtZQDmTTWVy3Km46AHNOvSK8dGR2AiBe6n02U6ML5mUsin3iTbQNeoq4gp_PYNMNH_t54KmNqee-3DThsmJgH3O26ceSSDnq0SS8bPEorEyjLK_ebtYrtA6AxBqDC5CH9tG7xJGJzvNSR5tal60vr9IPJJOuZhwG5q8NWJVEBq2VB8WUlMoRTsE4NdvLzoNZADi2UuCtehQG7FpQhPy0j9yTKKNQ8y6lj6uN2hkjUnp_7VSBE4KPx3aCKrrli3kG4AoMb0fmbktwtbiTQzN1ghg3lmEMvsiXkZe3yMIHxcIOrin0TZBnmm2j8lm3U5nbnNXlKNAUSygczz2FqggsPle-rq80HUHWNvYwQ3hnBaDkIb3G-1Y1jcgl7ijAifIIPiNsl73OzxanxKdug3qtZtzNytNlwZaWADZff84qBg4h3FTzSsD46z7KtaOOGzuJQWdyRfjVObxym8cqhp3RaVZD0pLAgJfT098u1dY-9w2G-oTnSweukA6RPH4SWt60rY6rutz3gmoZn3nBZWEKv0-i5JfC9xG25vS5u6an6nQ2BV7iTXXY_rR5YmYD_yWNBNSv0C_1_bSnlwiJijyTGb33ww6lk9NmxWkpfBEi48_M7HIqM4RK5TqHRF1Q6w2m3Bd8xM6LaMCpFGFGBD7ImlWVabyC-DkmlzxNiv92bu_A6CPQkHddbU_bPi2Vs983fJ6OfUQ_oUpF0kKR9jIg0oagCOzaaPeAlkIzVl7XQwUrmq0cqJznNMgL6mqWS5sorDQ4dEOopakfoa%26bt%3Ddbl%26ch%3DAQEAEAABABSKXr2lcoucYNTLwvzC1y_6eZg7Sq0YKiM.%26v%3D2%26mac%3DAQEAEAABABSqP__qTdkva4dSB0SYdSiH8fyQay9eOkw.
+.netflix.com	TRUE	/	TRUE	1734708895	SecureNetflixId	v%3D2%26mac%3DAQEAEQABABTCbMAhrCFpHh08m6aICWKP4UoKzlpBqZc.%26dt%3D1703172894541
+.netflix.com	TRUE	/	FALSE	1734708896	nfvdid	BQFmAAEBEMWVsx_csECsKafPEnM3yY5gl73n_F9Ay0K-Qyc_b4UoIC_SfXfo1XixyiN6hR_um2ZJuW8S8a8Y72rGXN1AD-8JsQARNnmsnL2FWve0dddgPNNsdiWaG5h66aunvypznndtTGMHyocp-v4i0P6TgYo2
+.netflix.com	TRUE	/	FALSE	0	profilesNewSession	
+.netflix.com	TRUE	/	FALSE	1734747121	OptanonConsent	isGpcEnabled=0&datestamp=Thu+Dec+21+2023+23%3A12%3A01+GMT-0300+(GMT-03%3A00)&version=202301.1.0&isIABGlobal=false&hosts=&consentId=c82fac82-f4a7-481c-ac24-316a1d5554df&interactionCount=1&landingPath=https%3A%2F%2Fwww.netflix.com%2Fbrowse&groups=C0001%3A1%2CC0002%3A1%2CC0003%3A1%2CC0004%3A1
+
+====================
+BY https://t.me/redg3n // discord.gg/r3dg3n
+Email:ericaaraujocoelho@gmail.com
+Country:BR
+Plan:Premium
+ExtraMember: YES
+====================

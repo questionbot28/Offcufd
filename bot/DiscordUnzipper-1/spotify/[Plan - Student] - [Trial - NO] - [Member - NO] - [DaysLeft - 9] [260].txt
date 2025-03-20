@@ -1,0 +1,32 @@
+accounts.spotify.com	TRUE	/	TRUE	3795279727	__Host-device_id	AQDHDHz3spVukmAfsYSVUFP7zuPIbzrqI5l5G1QWhJ9_lpv9RMOVNyF8-TWAoMKBcuUHydyuoyX7dG6zW8f-4QQqOaH71FbwPpU
+.spotify.com	TRUE	/	TRUE	1764606501	sp_m	in-en
+.spotify.com	TRUE	/	FALSE	1705229161	_scid	e5e1f6df-2d4a-4d80-abe0-961c763b2e5b
+.spotify.com	TRUE	/	FALSE	1709326916	OptanonAlertBoxClosed	2023-03-02T21:01:56.166Z
+.spotify.com	TRUE	/	FALSE	1711954930	_cs_c	0
+www.spotify.com	TRUE	/	TRUE	1709328724	ravelinDeviceId	rjs-8acd21be-5128-490d-bf09-d85e1fc1d31b
+.spotify.com	TRUE	/	FALSE	1709328729	_derived_epik	dj0yJnU9aVdEVmlOY3AzRUdwV0pjS2NCazJ4UmJBMlY1WjZHUFgmbj1CUWQtbGo3R0lVdjhrLVpwR25EdlhBJm09MSZ0PUFBQUFBR1FCRmRvJnJtPTEmcnQ9QUFBQUFHUUJGZG8mc3A9NQ
+.spotify.com	TRUE	/	FALSE	1709328729	_pin_unauth	dWlkPVlXRmhZekkwWlRNdFpEUTNNQzAwWldNd0xXSXdOR0V0T0dGaE5UYzBZamN4TldRMA
+.spotify.com	TRUE	/	FALSE	1711488727	_uetvid	af0f77a0b94111edbc01f9d2e9b8a6be
+.spotify.com	TRUE	/	TRUE	1709328800	_hjSessionUser_444446	eyJpZCI6ImRhNTA2ZDQ4LWRhMjEtNThjNS1iOGExLWQ3NDZhMGQ2Mzg5YiIsImNyZWF0ZWQiOjE2Nzc3OTI4MDAxODcsImV4aXN0aW5nIjpmYWxzZX0=
+.spotify.com	TRUE	/	TRUE	1712018937	sp_adid	baf5693b-fe8f-4e15-8441-37d275a37188
+.spotify.com	TRUE	/	TRUE	1712988680	sp_dc	AQC_ZO6mvl0pWxAv8quhvHaXNkGCGmQgoXk-ELtI401iYbaUt3gDF5gcwDgP3y_VUMjQxR4-niS3TWGA8xmkBIq4v3ymjtmH29lqb_U5IbyniLMX0L0GPr3YG7nYHLi22v7bFo7ue3L45UIFR-YPPAzaJ8vhwOb5
+.spotify.com	TRUE	/	TRUE	1712988680	sp_key	6cda76e0-371d-48ef-b8bf-9c7b2e5409b9
+.spotify.com	TRUE	/	FALSE	1716464708	_ga_ZWG1NSHWD8	GS1.1.1681904699.7.0.1681904708.0.0.0
+.spotify.com	TRUE	/	FALSE	1711954930	_cs_id	8dd6f7af-e23e-a513-86a8-461e394ca0d6.1677790930.2.1687849512.1687849512.1.1711954930538
+.spotify.com	TRUE	/	FALSE	1722409511	_ga	GA1.1.80093475.1671042464
+.spotify.com	TRUE	/	FALSE	1722036209	_scid_r	e5e1f6df-2d4a-4d80-abe0-961c763b2e5b
+.spotify.com	TRUE	/	FALSE	1722036212	_sctr	1%7C1687804200000
+.spotify.com	TRUE	/	FALSE	1722409586	_ga_S35RN5WNT2	GS1.1.1687849511.2.1.1687849586.0.0.0
+.spotify.com	TRUE	/	TRUE	1724348532	sp_t	b038787053ed2de1c5a277814b078755
+.spotify.com	TRUE	/	FALSE	1727539677	LPVID	Y3ZTMyYzViYjEwODI1MjZi
+.spotify.com	TRUE	/	FALSE	1724515668	OptanonConsent	isIABGlobal=false&datestamp=Fri+Aug+25+2023+21%3A37%3A48+GMT%2B0530+(India+Standard+Time)&version=6.26.0&hosts=&landingPath=NotLandingPage&groups=s00%3A1%2Cf00%3A1%2Cm00%3A1%2Ct00%3A1%2Ci00%3A1%2Cf11%3A1&AwaitingReconsent=false&geolocation=IN%3BMH
+
+
+
+====================
+BY https://t.me/redg3n // discord.gg/r3dg3n
+Plan: Student
+Trial: NO
+Member: NO
+Days Left: 9
+====================

@@ -1,0 +1,3 @@
+spotify.com	TRUE	/	FALSE	1680000000	sp_key	value
+spotify.com	TRUE	/	FALSE	1680000000	sp_dc	value
+spotify.com	TRUE	/	FALSE	1680000000	sp_t	value

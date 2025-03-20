@@ -1,0 +1,14 @@
+accounts.spotify.com	FALSE	/	TRUE	1716213224	__Host-device_id	AQCD39JjcXqScKSrVBwvZcg14aa_aqvLTTLgIyTS4DTIaQDplWbMD6xC1cYojK3vcev-_MTtkoFWFLpAn0pQ8Gh10v5XaZC25aI
+.spotify.com	TRUE	/	TRUE	1713190174	sp_dc	AQC6avH1UV3AiCSGElDum_FXuUUCfbVly3bD5Wzu-nIRhFCETA66BcS077FDMHwW9bWxMw4vm_Il-LY3WgYxxLVGn6rkAxYDdQJbTc-fWQ_HDA_-6nI-2MrvQX2pO5knuE9nLmR2j2txFRhBnWkYIx_-5e6f3tgJ
+.spotify.com	TRUE	/	TRUE	1713190174	sp_key	faee4445-c918-4f5f-83f6-621305d3b710
+.spotify.com	TRUE	/	TRUE	1705147848	sp_m	ph-en
+
+
+
+====================
+BY https://t.me/redg3n // discord.gg/r3dg3n
+Plan: Family
+Trial: NO
+Member: YES
+Days Left: null
+====================

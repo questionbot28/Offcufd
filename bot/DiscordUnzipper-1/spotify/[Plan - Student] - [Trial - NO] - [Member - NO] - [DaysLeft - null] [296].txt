@@ -1,0 +1,39 @@
+.spotify.com	TRUE	/	FALSE	1710020689	OptanonAlertBoxClosed	2023-03-10T21:44:49.810Z
+accounts.spotify.com	FALSE	/	FALSE	1713044691	__Host-device_id	AQAoPtxIOzObx1RPmpbKSK1tQuUyb-N0zBQKFzDi72GPrOw6Ta_veAd1PGjMJ2kDCzPYDFmmoA8kCDp0ehCZKKQUNmnvzGDcJp0
+.accounts.spotify.com	TRUE	/	FALSE	17284011400602503	__Secure-TPASESSION	AQA4MWw5bVJSEGjc6/lGAl3eTqC7IedpCJH3to1cA7CB5VMTaZFR2iYnrd7WFGhLbd057fDzcWhqKMtv8ksaneAHmHKiLELTW6A=
+.spotify.com	TRUE	/	FALSE	1686260688	_gcl_au	1.1.59551940.1678484688
+.spotify.com	TRUE	/	FALSE	17284011400612634	_schn	_oe30sv
+.spotify.com	TRUE	/	FALSE	1712671386	_scid	d689d01c-e00f-43a1-9e4e-24f7b196db99
+.spotify.com	TRUE	/	FALSE	1713044684	sp_m	ph-en
+open.spotify.com	FALSE	/	FALSE	1681076687	sp_pfhp	2c2ccb58-8a92-4713-a1c0-8b43b3090b49
+.accounts.spotify.com	TRUE	/	FALSE	17284011400622165	sp_tr	true
+accounts.spotify.com	FALSE	/	FALSE	17284011400622165	remember	ayumancreishen%40gmail.com
+.spotify.com	TRUE	/	FALSE	1710020721	sp_dc	AQDEDnhMLstSPN-4DRk4EFyWLl4Yiug7rjVWuiu_WXY3CSwaZ2m9_a7A8zV6qkiyrBjrB_EJhk-zowSYxM5FqcxJB0-bB1voUqHmIELJGnhi7nzJ0Ijgsq42efiUA7p02LZrVhf64lcrZ32i0jlXzhXIOiBSdTQ
+.spotify.com	TRUE	/	FALSE	1710020721	sp_key	eaef30d3-5322-4344-ab86-badc086a5a69
+.accounts.spotify.com	TRUE	/	FALSE	17284011400632426	sp_sso_csrf_token	013acda7196643ce3ee2051d1cb6346e0465c9486731363738343834373230393135
+.spotify.com	TRUE	/	FALSE	1684944362	sp_gaid	0088fcdbf6f71a9680cb3cbdccb007a1111fa995306a24b5ad3c93
+.spotify.com	TRUE	/	FALSE	1714141836	_cs_c	0
+.spotify.com	TRUE	/ph-en/account/overview	FALSE	17284011402610493	_schn	_n5b4e5
+.spotify.com	TRUE	/	FALSE	1714164535	_sctr	1|1679932800000
+.spotify.com	TRUE	/	FALSE	1685161834	sp_last_utm	%7B%22utm_campaign%22%3A%22your_account%22%2C%22utm_medium%22%3A%22menu%22%2C%22utm_source%22%3A%22spotify%22%7D
+.spotify.com	TRUE	/	FALSE	1711513829	sp_t	11b32df0-520d-4ade-97a0-f8a36d0a275b
+open.spotify.com	FALSE	/	FALSE	17284011402630415	sss	1
+www.spotify.com	FALSE	/ph-en/account/overview	FALSE	17284011402640409	sss	1
+.spotify.com	TRUE	/	FALSE	1714540752	_ga_ZWG1NSHWD8	GS1.1.1679980752.7.0.1679980752.0.0.0
+.spotify.com	TRUE	/	FALSE	1712307692	OptanonConsent	isIABGlobal=false&datestamp=Thu+Apr+06+2023+17%3A01%3A32+GMT%2B0800+(Singapore+Standard+Time)&version=6.26.0&hosts=&landingPath=NotLandingPage&groups=s00%3A1%2Cf00%3A1%2Cm00%3A1%2Ct00%3A1%2Ci00%3A1%2Cf11%3A1&geolocation=PH%3B07&AwaitingReconsent=false
+.spotify.com	TRUE	/	FALSE	1714141836	_cs_id	89e213d1-0abf-a317-bf2a-15dcb190068b.1679977836.3.1680771693.1680771693.1.1714141836442
+.spotify.com	TRUE	/	FALSE	1715331694	_ga	GA1.2.62944266.1678484689
+.spotify.com	TRUE	/	FALSE	1715331696	_ga_S35RN5WNT2	GS1.1.1680771693.3.0.1680771696.0.0.0
+.spotify.com	TRUE	/	FALSE	1714958391	_scid_r	d689d01c-e00f-43a1-9e4e-24f7b196db99
+.spotify.com	TRUE	/	FALSE	1712307693	sp_adid	1707da32-cf4c-489b-9d6b-886963bab8e4
+www.spotify.com	FALSE	/ph-en/account/subscription/change	FALSE	17284011402750193	sss	1
+
+
+
+====================
+BY https://t.me/redg3n // discord.gg/r3dg3n
+Plan: Student
+Trial: NO
+Member: NO
+Days Left: null
+====================

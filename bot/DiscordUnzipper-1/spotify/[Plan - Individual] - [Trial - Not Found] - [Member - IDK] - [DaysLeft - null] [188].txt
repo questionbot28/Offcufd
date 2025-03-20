@@ -1,0 +1,13 @@
+accounts.spotify.com	FALSE	/	FALSE	1722408097	__Host-device_id	AQApySh-T4EfvdWbofIPjjY9h1CW1HvBf649tFqJ-rOa-Mbo8z5FIl69Q9klRvJh8iTOV1faBewyvmb3Tu2VCX8HJSO36dDs55s
+.spotify.com	TRUE	/	FALSE	1719384111	sp_dc	AQBJAIzb7xVKbJw428HuahJ3oVITwL9Z4fY7GVMSGz0TQYW8kqvew6HNfG8V-gRgcmmZrZaYN6v8RhYwi7rC0CxFFY5BB1Hq3qULRj_H057fJL-DpmEolfj9wqp6mgjsP9kZMeyuwltLBKZHUG8UZEBdnMbJ5n_k
+.spotify.com	TRUE	/	FALSE	1719384111	sp_key	04a8b4dd-b321-495b-9bef-5246753b2c26
+
+
+
+====================
+BY https://t.me/redg3n // discord.gg/r3dg3n
+Plan: Individual
+Trial: Not Found
+Member: IDK
+Days Left: null
+====================

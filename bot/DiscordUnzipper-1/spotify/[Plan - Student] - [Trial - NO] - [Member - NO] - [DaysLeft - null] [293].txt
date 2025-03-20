@@ -1,0 +1,29 @@
+.spotify.com	TRUE	/	TRUE	1753578884	sp_m	jp
+.spotify.com	TRUE	/	FALSE	1753578893	spot	%7B%22t%22%3A1638062063%2C%22m%22%3A%22jp%22%2C%22p%22%3Anull%7D
+.spotify.com	TRUE	/	FALSE	1701134142	_ts_yjad	1638062142833
+.spotify.com	TRUE	/	FALSE	1801635940	ki_t	1643869540384%3B1643869540384%3B1643869540384%3B1%3B1
+.spotify.com	TRUE	/	FALSE	1720907265	_cs_c	0
+.spotify.com	TRUE	/	FALSE	1720929962	_scid	e049cc1d-7f3c-44f7-91ab-4e53a903ec9a
+.spotify.com	TRUE	/	FALSE	1720929966	_sctr	1%7C1686675600000
+accounts.spotify.com	FALSE	/	TRUE	1721303381	__Host-device_id	AQB9ftzTbd9d6a23UReDik-hpvsJCcQaVHcIPLBvZiMtWVAvfLFNpnwW_8isRbhtxVgxOrGuF93NjvSi_dnI_krpcn878cGNxYw
+.spotify.com	TRUE	/	TRUE	1718279403	sp_dc	AQBQWdugDM1YPrwIRCJyrcqvcCZITc94Jra-RWxvPDUSeTogSekEIhuudYZih9cwZSF-7q33GnfadoHQ2KnGcb-qSa7Ctcd30QC3X_mIQN9NgVjYx2VP4k9Nu7LhKv61FqG_SdffQebS2TBtvMCPpXLVgB1JV4I
+.spotify.com	TRUE	/	TRUE	1718279403	sp_key	5cdeea97-e60a-4d4f-9fca-9c2b88ad94e2
+.spotify.com	TRUE	/	FALSE	1718279429	OptanonAlertBoxClosed	2023-06-14T11:50:29.461Z
+.spotify.com	TRUE	/	FALSE	1718279435	OptanonConsent	isIABGlobal=false&datestamp=Wed+Jun+14+2023+18%3A50%3A35+GMT%2B0700+(Western+Indonesia+Time)&version=6.26.0&hosts=&landingPath=NotLandingPage&groups=s00%3A1%2Cf00%3A1%2Cm00%3A1%2Ct00%3A1%2Ci00%3A1%2Cf11%3A1&AwaitingReconsent=false&geolocation=ID%3B
+.spotify.com	TRUE	/	FALSE	1720907265	_cs_id	da1448b1-8442-a2d6-ab70-d3a7325dbc24.1686743265.1.1686743434.1686743265.1.1720907265047
+.spotify.com	TRUE	/	FALSE	1720930132	_scid_r	e049cc1d-7f3c-44f7-91ab-4e53a903ec9a
+.spotify.com	TRUE	/	TRUE	1718279434	sp_adid	ffd58cf1-0d7e-45b7-8abe-8b1887b73d09
+.spotify.com	TRUE	/	FALSE	1721303708	_ga	GA1.2.308250280.1638062103
+.spotify.com	TRUE	/	FALSE	1721304178	_ga_S35RN5WNT2	GS1.1.1686743263.4.1.1686744178.0.0.0
+.spotify.com	TRUE	/	TRUE	1718286370	sp_t	284fa2244812c8f46ae7f78fb0fc7a6d
+.spotify.com	TRUE	/	FALSE	1721313445	_ga_ZWG1NSHWD8	GS1.1.1686753445.4.0.1686753445.0.0.0
+
+
+
+====================
+BY https://t.me/redg3n // discord.gg/r3dg3n
+Plan: Student
+Trial: NO
+Member: NO
+Days Left: null
+====================

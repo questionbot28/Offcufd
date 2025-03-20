@@ -1,0 +1,18 @@
+PLAN = Family Premium
+COUNTRY = AU
+AutoPay = True
+Trial = False
+Checker By: by nobody028912
+Spotify COOKIE :👇
+
+
+.spotify.com	TRUE	/	TRUE	1749094310	sp_dc	AQCO-ZVsvNV-rg7ialBBHwlO2zRdlPJ3ep8qqrZURUGeecMQ5JnquZpoKV6mWGPeWc2RecC3II1Er13elG1AYryzAXYLyWzpI98RBlqS6ipPY3JSSeonpST97eJ5wr5lNw1MHI2bUjp3tCrvcISziYta9eHsmU0
+.spotify.com	TRUE	/	TRUE	1749094310	sp_key	a6078a4f-c81c-4b5d-b2fe-3c98b7c0f308
+
+==============================
+ |||***By FR3AK G3N CHECKER***
+ Plan: Premium Family
+ status: Member
+ |||||||| https://discord.gg/fr3akgen |||||||||||
+ ================================================
+                         

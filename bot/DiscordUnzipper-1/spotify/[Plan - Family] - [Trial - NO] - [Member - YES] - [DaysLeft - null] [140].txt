@@ -1,0 +1,22 @@
+accounts.spotify.com	FALSE	/	FALSE	1726678348	__Host-device_id	AQARqBGeTXN7uqPBPDb5v7bSXanh2-NXI5GX4ZyG63MFR10vboYcfHSFkjPOPPV-KTSwAXVYg4keXAY3TSRlzsb5oQxGwlnqg_c
+.spotify.com	TRUE	/	FALSE	1723654407	sp_dc	AQAqjlAX_j09q9PhePgm1oQHZEM7w-DbBB4Wc-ja0xXh19iBOUcO4f5fsIh-g6TwmkjPI39nJM4lNla8Mw9qT1b8omBZ6Z2-V--OY4aBQWhxkTJXX24gjs21t5lIsVzgaDiz6pauEPE1BoRb76wCJJVMd9-BWws
+.spotify.com	TRUE	/	FALSE	1723654407	sp_key	f77a3d4a-447e-4723-9cd9-c4c53b5e1ea9
+.spotify.com	TRUE	/	FALSE	1697316519	sp_gaid	0088fc3b3238c3945bc31b85fd7f69fa1d67181045824b914f33b9
+.spotify.com	TRUE	/	FALSE	1726692519	sp_m	de
+.spotify.com	TRUE	/	FALSE	1697317442	sp_last_utm	%7B%22utm_campaign%22%3A%22your_account%22%2C%22utm_medium%22%3A%22menu%22%2C%22utm_source%22%3A%22spotify%22%7D
+.spotify.com	TRUE	/	FALSE	1726693487	_ga	GA1.2.1893099090.1692132523
+.spotify.com	TRUE	/	FALSE	1723669487	sp_adid	24e670be-dc71-49b9-a456-36b0f6568b15
+.spotify.com	TRUE	/	FALSE	1727089955	LPVID	Y1NjRjYTRmYTYzN2Y4ZGEz
+.spotify.com	TRUE	/	FALSE	1724603892	OptanonConsent	isIABGlobal=false&datestamp=Sat+Aug+26+2023+18%3A38%3A12+GMT%2B0200+(Mitteleurop%C3%A4ische+Sommerzeit)&version=6.26.0&hosts=&consentId=bf3fc471-e159-467e-837a-90dc9f1ffcdc&interactionCount=1&landingPath=NotLandingPage&groups=s00%3A1%2Cf00%3A0%2Cm00%3A0%2Ct00%3A0%2Ci00%3A0%2CSTACK3%3A0%2CSTACK11%3A0%2CSTACK20%3A0%2Cf11%3A0%2CBG158%3A1&AwaitingReconsent=false
+.spotify.com	TRUE	/	FALSE	1700843891	_gcl_au	1.1.835852428.1693067891
+.spotify.com	TRUE	/	FALSE	1725831835	sp_t	e84c88f74166b2583e7f4d380f552431
+
+
+
+====================
+BY https://t.me/redg3n // discord.gg/r3dg3n
+Plan: Family
+Trial: NO
+Member: YES
+Days Left: null
+====================

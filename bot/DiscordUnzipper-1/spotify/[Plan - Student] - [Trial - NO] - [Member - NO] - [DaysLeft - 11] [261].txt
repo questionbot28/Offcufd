@@ -1,0 +1,19 @@
+accounts.spotify.com	FALSE	/	TRUE	1697312574	__Host-device_id	AQDi2XnkA2oQn8lOj3v5sgbsmP13eGSDsH6iQTyaS74Zpmhu5h2sbwUov4-0Kh3dE3e5X625fme654C8jiHD1vXaSSIKgYdz46Y
+.spotify.com	TRUE	/	TRUE	1697312704	sp_dc	AQBVQJFqHDtIKy4YUmoxmy_Qb5Y0IzZ1vGsBm9FqekjkYEplvoxz568zRb0hgk8ZvSzanUorPhna7JMkvTcJvAlsn7BE6QiuQBIEmxAXIJLIZrC-Vula-iVdvnwOzRaF_8DI86YGNMroKswQeKKv75hU4XfAeOc
+.spotify.com	TRUE	/	TRUE	1697312704	sp_key	c547f80f-13c9-4a5c-a577-6c4586b6e37b
+spotify.link	FALSE	/	TRUE	1697312829	_s	7Gj43YcpbcGO2cqjsT0cfoc8IrdXNmrEQ%2FstXDJAsFzY82o4hwiAg%2FTB3t1jRuN3
+.spotify.com	TRUE	/	TRUE	1687629819	sp_gaid	0088fcacab397d57c05096905b6ef4b1938636d04913f1bf7f0020
+.spotify.com	TRUE	/	TRUE	1687629819	sp_last_utm	%7B%22utm_campaign%22%3A%22your_account%22%2C%22utm_medium%22%3A%22menu%22%2C%22utm_source%22%3A%22spotify%22%7D
+.spotify.com	TRUE	/	TRUE	1697997818	sp_m	in-en
+.spotify.com	TRUE	/	FALSE	1683050665	OptanonConsent	isIABGlobal=false&datestamp=Tue+Apr+25+2023+23%3A34%3A25+GMT%2B0530+(India+Standard+Time)&version=6.26.0&hosts=&landingPath=NotLandingPage&groups=s00%3A1%2Cf00%3A1%2Cm00%3A1%2Ct00%3A1%2Ci00%3A1%2Cf11%3A1&AwaitingReconsent=false&geolocation=IN%3BKL
+.spotify.com	TRUE	/	TRUE	1698015705	sp_t	b752e783ce68b4f1c3734c64d31c073b
+
+
+
+====================
+BY https://t.me/redg3n // discord.gg/r3dg3n
+Plan: Student
+Trial: NO
+Member: NO
+Days Left: 11
+====================

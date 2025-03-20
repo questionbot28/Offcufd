@@ -1,0 +1,25 @@
+accounts.spotify.com	FALSE	/	FALSE	1713627708	__Host-device_id	AQAgRyHq8-sED-_gGAucn0jvPMbK5oK6b1PMbiar3n4jr2HRm2hwzWyDnJjZLqf530XYQwyj1ffBt8NMTxPmjYjvgdTnOoQhfYw
+.accounts.spotify.com	TRUE	/	FALSE	17296439337112850	__Secure-TPASESSION	AQDCyADFBVmbMPnFYOc5jLMuZoXixtm3gS9a4bKloQipDfRGCpYyUZ31YpdzVuJlNvqEp2RiphjIAjoanpKjUCq+4y5q5G7oeI0=
+accounts.spotify.com	FALSE	/	FALSE	17296439337112850	remember	jasonzhong09%40gmail.com
+.spotify.com	TRUE	/	FALSE	1710603719	sp_dc	AQDeYw10DuYDpHA5Kbov7HJQXFMbD6RRIqlML0r1ShjD1J731al_6sLlrVh-OZx-hZNtsf-IHs1aMX-nyM3FFSPtWdxu7R8MDhCbxD0w6FgYl8OXqtco4XqyofsuQKPQCw74Qk8izh4ZpB9AWbxi_eenrW0Ge8w
+.spotify.com	TRUE	/	FALSE	1710603719	sp_key	f03156d3-36da-47e0-94b5-0451b75042f3
+.spotify.com	TRUE	/	FALSE	1713627705	sp_m	id-id
+.accounts.spotify.com	TRUE	/	FALSE	17296439337122915	sp_sso_csrf_token	013acda719a786b0115ec0ed32a8c6a59e49b16db731363739303637373138393435
+.spotify.com	TRUE	/	FALSE	1710603725	sp_t	68765377-2b18-4d8e-82c9-057201077f88
+.accounts.spotify.com	TRUE	/	FALSE	17296439337132937	sp_tr	true
+www.spotify.com	FALSE	/	FALSE	17296439337167869	ravelinSessionId	rjs-4fe03847-f9d0-497e-bb54-44874123949d:de02b7ca-d465-496f-bf95-348db59ed05c
+.spotify.com	TRUE	/	FALSE	1710649550	OptanonConsent	isIABGlobal=false&datestamp=Sat+Mar+18+2023+11%3A25%3A50+GMT%2B0700+(Indochina+Time)&version=6.26.0&hosts=&groups=s00%3A1%2Cf00%3A1%2Cm00%3A1%2Ct00%3A1%2Ci00%3A1%2Cf11%3A1&landingPath=https%3A%2F%2Fwww.spotify.com%2Fid-id%2Fpremium%2F%3Fcheckout-offer%3Ddefault-full-price-premium-carrier-billing%26checkout-error%3Dtrue%26ref%3Dcheckout%23plans
+.spotify.com	TRUE	/	FALSE	1713673552	_ga	GA1.2.543924081.1679113550
+.spotify.com	TRUE	/	FALSE	1713673558	_ga_S35RN5WNT2	GS1.1.1679113550.1.0.1679113558.0.0.0
+.spotify.com	TRUE	/	FALSE	1710649551	sp_adid	c10b0b63-8a92-4a91-b729-6ec2aaeb4ecf
+www.spotify.com	FALSE	/id-id/premium	FALSE	17296439337182301	sss	1
+
+
+
+====================
+BY https://t.me/redg3n // discord.gg/r3dg3n
+Plan: Individual
+Trial: NO
+Member: NO
+Days Left: null
+====================

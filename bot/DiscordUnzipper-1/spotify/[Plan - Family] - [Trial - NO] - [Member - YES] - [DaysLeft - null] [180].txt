@@ -1,0 +1,31 @@
+.spotify.com	TRUE	/	TRUE	1704134353	_scid	25c0c77d-8dce-4cda-b524-24322978a0a4
+.spotify.com	FALSE	/	FALSE	1707176320	sp_m	mx
+accounts.spotify.com	FALSE	/	FALSE	1707176322	__Host-device_id	AQBLYjOvn7a9LmTmHpW8q-J5vxKI1S1vvXgDEm3BYMUE5gRQcs1_clF-qr6zT7LsWMEDNNczSgFGqqcS-pBkpBmoF78H141OSB0
+.spotify.com	TRUE	/	TRUE	1706780323	_cs_c	0
+.spotify.com	TRUE	/	TRUE	1707176323	_ts_yjad	1672623523686
+.spotify.com	TRUE	/	TRUE	1706312323	_tt_enable_cookie	1
+.spotify.com	TRUE	/	TRUE	1706312323	_ttp	9-WRcs-sOFNE8vvdK45zDJr060M
+.spotify.com	FALSE	/	FALSE	1713147180	sp_dc	AQCQfAysjMah3cH12Fbks-OkBpVCnJ37fjVbYfOlnNGEyVoS0lj-kypupXDdHpepVMkIp2hPdg29DWjSGXWUcWeahnmDJFV-buFin6z6syRf41a4Y8oEvVXJTTV1sBTyEM9fyF6ujtXz0FPUw9c1aonXfw_3iifM
+.spotify.com	TRUE	/	FALSE	1713147180	sp_key	9a9ba2a7-bf53-4ab7-aadd-11bebfadd92d
+.spotify.com	TRUE	/	TRUE	1716173246	_ga_ZWG1NSHWD8	GS1.1.1681620426.2.1.1681620446.0.0.0
+.spotify.com	TRUE	/	FALSE	1713149239	sp_t	39b725de12dc4b35ca79ad40ee65e799
+.spotify.com	TRUE	/	TRUE	1721190210	OptanonConsent	isIABGlobal=false&datestamp=Tue+Jul+18+2023+00%3A23%3A30+GMT-0600+(hora+est%C3%A1ndar+central)&version=6.26.0&hosts=&landingPath=NotLandingPage&groups=s00%3A1%2Cf00%3A1%2Cm00%3A1%2Ct00%3A1%2Ci00%3A1%2Cf11%3A1&AwaitingReconsent=false
+.spotify.com	TRUE	/	TRUE	1706780323	_cs_id	f52ea6ff-e48c-a3fb-e0b5-ebc3d523a644.1672623523.2.1689661410.1689661408.1.1706787523191
+.spotify.com	TRUE	/	TRUE	1697430211	_fbp	fb.1.1689661408307.127031995
+.spotify.com	TRUE	/	TRUE	1724214210	_ga	GA1.1.1587423890.1669954855
+.spotify.com	TRUE	/	TRUE	1697430208	_gcl_au	1.1.132095240.1689661408
+.spotify.com	TRUE	/	TRUE	1723840908	_scid_r	25c0c77d-8dce-4cda-b524-24322978a0a4
+.spotify.com	TRUE	/	TRUE	1723840910	_sctr	1%7C1689660000000
+.spotify.com	TRUE	/	FALSE	1721190210	sp_adid	c3bf2983-288e-4428-a304-24196f1bfd24
+.spotify.com	TRUE	/	FALSE	1694838205	sp_gaid	0088fcf81033fc9b5f4b460ce84a48b551909a8232a09349f7ef02
+.spotify.com	TRUE	/	TRUE	1724214338	_ga_S35RN5WNT2	GS1.1.1689661407.2.1.1689661538.0.0.0
+
+
+
+====================
+BY https://t.me/redg3n // discord.gg/r3dg3n
+Plan: Family
+Trial: NO
+Member: YES
+Days Left: null
+====================

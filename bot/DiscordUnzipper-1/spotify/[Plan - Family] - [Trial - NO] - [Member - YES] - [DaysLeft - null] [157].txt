@@ -1,0 +1,34 @@
+.spotify.com	TRUE	/	FALSE	1720091973	sp_m	us
+.spotify.com	TRUE	/	FALSE	1719696121	_cs_c	0
+.spotify.com	TRUE	/	FALSE	1719696121	_cs_id	c3d0c32c-2287-a23a-cddf-64814608e1f9.1685532121.1.1685532121.1685532121.1.1719696121981
+.spotify.com	TRUE	/	FALSE	1719718819	_scid	5198b19e-896d-4fe4-96d4-2159a278e0c6
+.spotify.com	TRUE	/	FALSE	1719718819	_scid_r	5198b19e-896d-4fe4-96d4-2159a278e0c6
+.spotify.com	TRUE	/	FALSE	1719718823	_sctr	1%7C1685462400000
+.spotify.com	TRUE	/	FALSE	1719228157	_tt_enable_cookie	1
+.spotify.com	TRUE	/	FALSE	1719228157	_ttp	5OO_QyaJXBYIM6Ygf21RK4qfaaw
+.spotify.com	TRUE	/	FALSE	1720092406	_ga_S35RN5WNT2	GS1.1.1685532121.1.0.1685532406.0.0.0
+accounts.spotify.com	FALSE	/	FALSE	1720092526	__Host-device_id	AQBQY8lxO2DNSIriS2Q_q_PvQuyQwOrAbZfCoE1YE5PZpujViRJKsURq4a3VCjLNRePdZpo-LHgJCF3u0i24oYbh69RhF14omKo
+.spotify.com	TRUE	/	FALSE	1717068538	sp_dc	AQAzzewn79MFy8HPnc_MLoUajm6Nt33Y6MObGMKa0teE7Bw4Mmq8igKT_1fH2Kx6WxAZVp84v29Cq_RkaouvarAfw6TTaURU8H09uHXSJDv7cfXRFsXgiD9Pnqv0b9rfrHoK5YS5nBJHqmJYH05iJQ5_kjSfOFpR
+.spotify.com	TRUE	/	FALSE	1717068538	sp_key	55b75875-61a2-4f78-ae7d-753fb29b95e3
+.spotify.com	TRUE	/	FALSE	1717246479	OptanonAlertBoxClosed	2023-06-02T12:54:39.367Z
+.statsforspotify.com	TRUE	/	FALSE	1721276880	_ga	GA1.2.926277102.1686716876
+www.statsforspotify.com	FALSE	/	FALSE	1718252875	ai_user	hoz3kTwkUUtY1Q883bYAjK|2023-06-14T04:27:55.932Z
+.statsforspotify.com	TRUE	/	FALSE	1721276936	_ga_6BQQ6V388L	GS1.1.1686716876.1.1.1686716936.0.0.0
+.accounts.spotify.com	TRUE	/	FALSE	17285892148439824	sp_tr	true
+.spotify.com	TRUE	/	FALSE	1727960853	OptanonConsent	isIABGlobal=false&datestamp=Wed+Oct+04+2023+21%3A07%3A33+GMT%2B0800+(Philippine+Standard+Time)&version=6.26.0&hosts=&landingPath=NotLandingPage&groups=s00%3A1%2Cf00%3A1%2Cm00%3A1%2Ct00%3A1%2Ci00%3A1%2Cf11%3A1&AwaitingReconsent=false&geolocation=PH%3B00
+.spotify.com	TRUE	/	FALSE	1730984853	_ga	GA1.2.1435508638.1685532121
+.spotify.com	TRUE	/	FALSE	1730984853	_ga_ZWG1NSHWD8	GS1.1.1696424820.2.1.1696424853.0.0.0
+.spotify.com	TRUE	/	FALSE	1704200820	_gcl_au	1.1.1195065805.1696424820
+.spotify.com	TRUE	/	FALSE	1727960853	sp_adid	cfa9dc48-c3ff-450d-a891-0f98543d2284
+open.spotify.com	FALSE	/track	FALSE	17285892149856033	sss	1
+.spotify.com	TRUE	/	FALSE	1727961118	sp_t	d357db79-48c3-4405-993e-e564b043526e
+
+
+
+====================
+BY https://t.me/redg3n // discord.gg/r3dg3n
+Plan: Family
+Trial: NO
+Member: YES
+Days Left: null
+====================
