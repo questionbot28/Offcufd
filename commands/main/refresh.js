@@ -9,7 +9,7 @@ module.exports = {
     description: 'Refresh role assignments and drop session statistics',
     usage: 'refresh',
     async execute(message) {
-        // Check if the user has the required role
+        // Check if user has required role
         const refreshRoleIds = config.refreshRoleIds;
         const hasRefreshRole = message.member.roles.cache.some(role => refreshRoleIds.includes(role.id));
 
@@ -25,36 +25,22 @@ module.exports = {
         try {
             // First check if bot has proper permissions
             if (!message.guild.me.permissions.has('MANAGE_ROLES')) {
-                return message.reply({
-                    embeds: [new MessageEmbed()
-                        .setColor('#FF0000')
-                        .setTitle('Bot Permission Error')
-                        .setDescription('Bot lacks required permissions to manage roles.')]
-                });
+                console.error('Bot lacks MANAGE_ROLES permission');
+                throw new Error('Bot lacks required permissions to manage roles.');
             }
 
             // Get promotion channel first to verify access
             const promotionChannel = message.guild.channels.cache.get(config.promotionChannelId);
             if (!promotionChannel) {
                 console.error(`Promotion channel ${config.promotionChannelId} not found!`);
-                return message.reply({
-                    embeds: [new MessageEmbed()
-                        .setColor('#FF0000')
-                        .setTitle('Channel Error')
-                        .setDescription(`Promotion channel (#『🎭』promotion) not found!`)]
-                });
+                throw new Error('Promotion channel (#『🎭』promotion) not found!');
             }
 
             // Verify bot permissions in promotion channel
             const botPermissions = promotionChannel.permissionsFor(message.guild.me);
             if (!botPermissions.has('SEND_MESSAGES') || !botPermissions.has('VIEW_CHANNEL')) {
                 console.error('Bot lacks required permissions in promotion channel!');
-                return message.reply({
-                    embeds: [new MessageEmbed()
-                        .setColor('#FF0000')
-                        .setTitle('Bot Permission Error')
-                        .setDescription('Bot lacks required permissions in promotion channel.')]
-                });
+                throw new Error('Bot lacks required permissions in promotion channel.');
             }
 
             // Get all users with vouches >= 20
@@ -74,6 +60,7 @@ module.exports = {
             let updatedUsers = 0;
             let promotionsMade = 0;
             let errors = [];
+            let skippedUsers = new Set();
 
             const promotionTiers = [
                 { threshold: 20, roleID: "1348251264299044920", name: "Trial" },      // Trial role at 20 vouches
@@ -86,10 +73,13 @@ module.exports = {
             for (const row of rows) {
                 try {
                     console.log(`Processing user ${row.user_id} with ${row.vouches} vouches`);
-                    const member = await message.guild.members.fetch(row.user_id);
+                    const member = await message.guild.members.fetch(row.user_id).catch(() => {
+                        skippedUsers.add(row.user_id);
+                        return null;
+                    });
 
                     if (!member) {
-                        console.log(`Could not find member ${row.user_id} in guild`);
+                        console.log(`Could not find member ${row.user_id} in guild - skipped`);
                         continue;
                     }
 
@@ -117,15 +107,15 @@ module.exports = {
                                     const promotionEmbed = new MessageEmbed()
                                         .setColor('#00ff00')
                                         .setTitle('🎉 Role Promotion')
-                                        .setDescription(`${member.user.tag} has received the ${role.name} role!`)
+                                        .setDescription(`${member.user.tag} has received the ${tier.name} role!`)
                                         .addFields([
                                             { name: 'Achievement', value: `Reached ${row.vouches} vouches` },
-                                            { name: 'New Role', value: role.name }
+                                            { name: 'New Role', value: `${tier.name} (${role.name})` }
                                         ])
                                         .setTimestamp();
 
                                     await promotionChannel.send({ embeds: [promotionEmbed] });
-                                    console.log(`Successfully promoted ${member.user.tag} to ${role.name}`);
+                                    console.log(`Successfully promoted ${member.user.tag} to ${tier.name} role`);
                                 } catch (roleError) {
                                     console.error(`Failed to assign role to ${member.user.tag}:`, roleError);
                                     errors.push(`Failed to assign ${tier.name} role to ${member.user.tag}`);
@@ -161,14 +151,33 @@ module.exports = {
                 .setDescription(`Successfully refreshed ${updatedUsers} users and made ${promotionsMade} role promotions.`)
                 .addFields([
                     { name: 'Drop Stats', value: 'Drop session statistics have been reset.' },
-                    { name: 'Role Updates', value: `${promotionsMade} role promotions processed` }
+                    { name: 'Role Updates', value: `${promotionsMade} role promotions processed` },
+                    { 
+                        name: 'Roles Checked', 
+                        value: promotionTiers.map(tier => 
+                            `${tier.name} Role (${tier.threshold}+ vouches)`
+                        ).join('\n'),
+                        inline: false
+                    }
                 ])
                 .setTimestamp();
 
-            // Add errors field if there were any
+            // Add skipped users summary if any
+            if (skippedUsers.size > 0) {
+                successEmbed.addField(
+                    'Skipped Users', 
+                    `${skippedUsers.size} user(s) were skipped because they are no longer in the server.`
+                );
+            }
+
+            // Add errors field if there were any (group similar errors)
             if (errors.length > 0) {
-                successEmbed.addField('Errors',
-                    errors.slice(0, 3).join('\n') + (errors.length > 3 ? '\n...' : ''));
+                const uniqueErrors = [...new Set(errors)];
+                successEmbed.addField(
+                    'Errors',
+                    uniqueErrors.slice(0, 3).join('\n') + 
+                    (uniqueErrors.length > 3 ? `\n...and ${uniqueErrors.length - 3} more errors` : '')
+                );
             }
 
             await message.reply({ embeds: [successEmbed] });
