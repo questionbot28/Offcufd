@@ -26,6 +26,7 @@ BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 debug_print(f"BASE_DIR: {BASE_DIR}")
 COOKIES_DIR = os.path.join(BASE_DIR, "cookies")
 WORKING_COOKIES_DIR = os.path.join(BASE_DIR, "working_cookies")
+SPOTIFY_DIR = os.path.join(BASE_DIR, "spotify")
 
 # Maximum limits to prevent hanging
 MAX_FILES_TO_PROCESS = 1000   # Maximum number of files to process
