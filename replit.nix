@@ -1,5 +1,6 @@
 {pkgs}: {
   deps = [
+    pkgs.geckodriver
     pkgs.postgresql
     pkgs.unrar
     pkgs.libarchive

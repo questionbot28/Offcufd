@@ -84,7 +84,7 @@ module.exports = {
             
             // Run the Python script to check cookies with a timeout
             console.log(`Starting Python process to check: ${filePath}`);
-            const pythonProcess = spawn('/home/runner/workspace/.pythonlibs/bin/python', ['spotify_cookie_checker.py', filePath]);
+            const pythonProcess = spawn('/nix/store/wqhkxzzlaswkj3gimqign99sshvllcg6-python-wrapped-0.1.0/bin/python', ['spotify_cookie_checker.py', filePath]);
             
             // Add a timeout to prevent hanging
             const timeoutMs = 300000; // 5 minutes
