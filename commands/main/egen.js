@@ -187,7 +187,7 @@ module.exports = {
                                 .setDescription(
                                     `Check your private messages, ${message.author}! If you do not receive the message, please unlock your private messages.`
                                 )
-                                .setImage(config.gif) // Use the URL from config.json
+                                .setImage('https://media.discordapp.net/attachments/1188677532426457118/1197818799597031518/350kb.gif?ex=67dd2230&is=67dbd0b0&hm=02593046885c2a27e65da012b7e103a4a300e9a03b636117a3f64137cdf0234c&width=585&height=75&') // Use the URL from config.json
                                 .setFooter({ text: message.author.tag, iconURL: message.author.displayAvatarURL({ dynamic: true, size: 64 }) })
                                 .setTimestamp()]
                         });
