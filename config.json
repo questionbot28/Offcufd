@@ -178,5 +178,31 @@
   ],
   "eventCategory": "1351852294974472193",
   "codeCategory": "1351852299344941158",
-  "supportCategory": "1351852301475778612"
+  "supportCategory": "1351852301475778612",
+  "inviteRoleTiers": [
+    {
+      "invites": 5,
+      "roleID": "1348251264299044916",
+      "name": "Basic Gen",
+      "cooldown": 0
+    },
+    {
+      "invites": 15,
+      "roleID": "1348251264299044917",
+      "name": "Premium",
+      "cooldown": 30
+    },
+    {
+      "invites": 25,
+      "roleID": "1348251264299044918",
+      "name": "Cookie",
+      "cooldown": 60
+    },
+    {
+      "invites": 45,
+      "roleID": "1348251264299044919",
+      "name": "Extreme",
+      "cooldown": 120
+    }
+  ]
 }

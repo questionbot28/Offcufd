@@ -170,6 +170,8 @@ client.on('guildMemberAdd', async (member) => {
                                 // Send welcome message with new count after database is updated
                                 try {
                                     await welcomeChannel.send(`${member.user} **joined**; invited by **${inviter.username}** (**${newTotalInvites}** invites)`);
+                                    // Check for role assignments
+                                    await checkAndAssignRoles(inviter.id, newTotalInvites, member.guild);
                                 } catch (sendError) {
                                     console.error('Error sending welcome message:', sendError);
                                 }
@@ -187,6 +189,8 @@ client.on('guildMemberAdd', async (member) => {
                                 // Send welcome message with new count after database is updated
                                 try {
                                     await welcomeChannel.send(`${member.user} **joined**; invited by **${inviter.username}** (**${newTotalInvites}** invites)`);
+                                    // Check for role assignments
+                                    await checkAndAssignRoles(inviter.id, newTotalInvites, member.guild);
                                 } catch (sendError) {
                                     console.error('Error sending welcome message:', sendError);
                                 }
@@ -318,6 +322,133 @@ async function removeVerifiedUser(username) {
         return true;
     } catch (error) {
         console.error('Error removing verified user:', error);
+        return false;
+    }
+}
+
+// Function to check and assign roles based on invite count
+async function checkAndAssignRoles(userId, inviteCount, guild) {
+    try {
+        // Check if guild is available
+        if (!guild) {
+            console.error('Guild not provided to checkAndAssignRoles');
+            return false;
+        }
+
+        // Get member from guild
+        const member = await guild.members.fetch(userId).catch(err => {
+            console.error(`Error fetching member ${userId}:`, err);
+            return null;
+        });
+
+        if (!member) {
+            console.error(`Member ${userId} not found in guild`);
+            return false;
+        }
+
+        // Check if inviteRoleTiers exists in config
+        if (!config.inviteRoleTiers || !Array.isArray(config.inviteRoleTiers)) {
+            console.error('No invite role tiers defined in config');
+            return false;
+        }
+
+        // Get current cooldowns from database
+        const cooldowns = await new Promise((resolve, reject) => {
+            client.db.get('SELECT role_cooldowns FROM invites WHERE user_id = ?', [userId], (err, row) => {
+                if (err) {
+                    console.error('Error getting role cooldowns:', err);
+                    resolve({});
+                } else {
+                    try {
+                        resolve(row && row.role_cooldowns ? JSON.parse(row.role_cooldowns) : {});
+                    } catch (e) {
+                        console.error('Error parsing role cooldowns:', e);
+                        resolve({});
+                    }
+                }
+            });
+        });
+
+        let assignedRoles = false;
+        const promotionChannel = guild.channels.cache.get(config.promotionChannelId);
+        const now = Date.now();
+        
+        // Sort tiers by invite requirement (highest first) to assign highest eligible role
+        const sortedTiers = [...config.inviteRoleTiers].sort((a, b) => b.invites - a.invites);
+        
+        for (const tier of sortedTiers) {
+            // Check if member has enough invites for this tier
+            if (inviteCount >= tier.invites) {
+                // Get role from guild
+                const role = guild.roles.cache.get(tier.roleID);
+                if (!role) {
+                    console.error(`Role ${tier.roleID} (${tier.name}) not found!`);
+                    continue;
+                }
+
+                // Check cooldown (if applicable)
+                const cooldownMinutes = tier.cooldown || 0;
+                const lastAssigned = cooldowns[tier.roleID] || 0;
+                const cooldownMs = cooldownMinutes * 60 * 1000;
+                
+                if (cooldownMinutes > 0 && lastAssigned + cooldownMs > now) {
+                    const timeLeft = Math.ceil((lastAssigned + cooldownMs - now) / 60000);
+                    console.log(`Role ${tier.name} is on cooldown for user ${member.user.tag}. ${timeLeft} minutes remaining.`);
+                    continue;
+                }
+
+                // Check if user already has the role
+                if (!member.roles.cache.has(tier.roleID)) {
+                    try {
+                        // Assign role
+                        await member.roles.add(role);
+                        console.log(`Assigned ${tier.name} role to ${member.user.tag} (${inviteCount} invites)`);
+                        
+                        // Update cooldown
+                        cooldowns[tier.roleID] = now;
+                        await new Promise((resolve, reject) => {
+                            client.db.run(
+                                'UPDATE invites SET role_cooldowns = ? WHERE user_id = ?',
+                                [JSON.stringify(cooldowns), userId],
+                                (err) => {
+                                    if (err) {
+                                        console.error('Error updating role cooldowns:', err);
+                                    }
+                                    resolve();
+                                }
+                            );
+                        });
+                        
+                        // Send promotion announcement
+                        if (promotionChannel) {
+                            const promotionEmbed = new Discord.MessageEmbed()
+                                .setColor('#00ff00')
+                                .setTitle('🎉 Invite Milestone Reached!')
+                                .setDescription(`${member.user.tag} has received the ${tier.name} role!`)
+                                .addFields([
+                                    { name: 'Achievement', value: `Reached ${inviteCount} invites` },
+                                    { name: 'New Role', value: tier.name }
+                                ])
+                                .setTimestamp();
+
+                            await promotionChannel.send({ embeds: [promotionEmbed] });
+                        }
+                        
+                        assignedRoles = true;
+                        break; // Only assign the highest tier role
+                    } catch (roleError) {
+                        console.error(`Failed to assign role to ${member.user.tag}:`, roleError);
+                    }
+                } else {
+                    console.log(`User ${member.user.tag} already has ${tier.name} role`);
+                    break; // User already has this or higher role
+                }
+            }
+        }
+
+        return assignedRoles;
+    } catch (error) {
+        console.error('Error in checkAndAssignRoles:', error);
         return false;
     }
 }
