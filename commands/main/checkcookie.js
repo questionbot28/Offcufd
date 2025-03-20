@@ -210,8 +210,25 @@ async function checkSpotifyCookies(updateStatus) {
         // Now run the actual checker script to validate working cookies
         updateStatus('Cookie Verification Process', `Removed ${results.duplicatesRemoved} duplicate Spotify cookies.\nNow validating remaining cookies...`);
         
+        // Set up a status update interval while the Python script runs
+        const statusUpdateInterval = setInterval(async () => {
+            // Try to read progress from logs or temp file
+            try {
+                const logLines = stdout ? stdout.split('\n') : [];
+                const progressLine = logLines.find(line => line.includes('Progress:'));
+                if (progressLine) {
+                    await updateStatus('Spotify Cookie Validation Progress', progressLine);
+                }
+            } catch (e) {
+                // Ignore errors in status updates
+                console.error('Error updating status:', e);
+            }
+        }, 500); // Update every 500ms
+        
         const scriptPath = path.join(__dirname, '../../spotify_cookie_checker.py');
-        exec(`python3 ${scriptPath} --all_cookies`, async (error, stdout, stderr) => {
+        const childProcess = exec(`python3 ${scriptPath} --all_cookies`, async (error, stdout, stderr) => {
+            // Clear the status update interval
+            clearInterval(statusUpdateInterval);
             if (error) {
                 console.error(`Error running Spotify cookie checker: ${error}`);
                 if (stderr) console.error(`stderr: ${stderr}`);
@@ -342,8 +359,25 @@ async function checkNetflixCookies(updateStatus) {
         // Now run the actual checker script to validate working cookies
         updateStatus('Cookie Verification Process', `Removed ${results.duplicatesRemoved} duplicate Netflix cookies.\nNow validating remaining cookies...`);
         
+        // Set up a status update interval while the Python script runs
+        const statusUpdateInterval = setInterval(async () => {
+            // Try to read progress from logs or temp file
+            try {
+                const logLines = stdout ? stdout.split('\n') : [];
+                const progressLine = logLines.find(line => line.includes('Progress:'));
+                if (progressLine) {
+                    await updateStatus('Netflix Cookie Validation Progress', progressLine);
+                }
+            } catch (e) {
+                // Ignore errors in status updates
+                console.error('Error updating status:', e);
+            }
+        }, 500); // Update every 500ms
+        
         const scriptPath = path.join(__dirname, '../../netflix_cookie_checker.py');
-        exec(`python3 ${scriptPath} --all_cookies`, async (error, stdout, stderr) => {
+        const childProcess = exec(`python3 ${scriptPath} --all_cookies`, async (error, stdout, stderr) => {
+            // Clear the status update interval
+            clearInterval(statusUpdateInterval);
             if (error) {
                 console.error(`Error running Netflix cookie checker: ${error}`);
                 if (stderr) console.error(`stderr: ${stderr}`);

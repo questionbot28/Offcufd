@@ -13,6 +13,7 @@ import time
 import argparse
 import queue
 import concurrent.futures
+from datetime import datetime
 from termcolor import colored
 
 # Set up debugging
@@ -23,6 +24,11 @@ def debug_print(message):
         sys.stdout.flush()
 
 debug_print("Script started")
+
+# Global tracking variables for progress updates
+last_update_time = time.time()
+start_time = time.time()
+update_interval = 0.001  # Update progress every millisecond
 
 # Directory structure
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
@@ -400,7 +406,10 @@ def process_directory(directory, base_file_name, valid_cookies, errors):
 # Worker thread function to process cookie files in parallel
 def worker(task_queue, valid_cookies, errors):
     """Worker thread to process cookie files."""
+    global last_update_time, start_time, results
+    
     while True:
+        task = None
         try:
             # Get a task from the queue (non-blocking with timeout)
             task = task_queue.get(block=False)
@@ -412,6 +421,19 @@ def worker(task_queue, valid_cookies, errors):
             
             # Process the cookie file
             cookie_path, message = process_file_for_cookies(file_path, file_name)
+            
+            # Update progress in milliseconds
+            with lock:
+                current_time = time.time()
+                if current_time - last_update_time > update_interval:
+                    last_update_time = current_time
+                    elapsed_time = current_time - start_time
+                    total_checked = results['hits'] + results['bad'] + results['errors']
+                    checking_speed = total_checked / elapsed_time if elapsed_time > 0 else 0
+                    
+                    # Show detailed status with millisecond precision
+                    ts = datetime.now().strftime('%H:%M:%S.%f')[:-3]
+                    print(f"[{ts}] Progress: Checked {total_checked} cookies | Valid: {results['hits']} ({results['premium']} Premium, {results['family']} Family, {results['student']} Student) | Failed: {results['bad']} | Errors: {results['errors']} | Speed: {checking_speed:.2f} cookies/sec | Elapsed: {elapsed_time:.3f}s")
             
             # Store results with thread safety
             with lock:
@@ -537,7 +559,11 @@ def process_file(file_path, filename):
 # Main function to check cookies
 def check_cookies(input_file):
     debug_print(f"check_cookies called with input_file: {input_file}")
+    global start_time, last_update_time
+    
+    # Reset timers for this run
     start_time = time.time()
+    last_update_time = time.time()
     
     # Reset results
     for key in results:

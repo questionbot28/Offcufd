@@ -24,6 +24,7 @@ total_broken = 0
 lock = threading.Lock()
 last_update_time = time.time()  # Track time for progress updates
 update_interval = 0.001  # Update progress every millisecond (1/1000 of a second)
+start_time = time.time()  # Track overall start time for speed calculations
 
 # Maximum limits
 MAX_THREADS = 1000  # Maximum number of threads for cookie checking
@@ -486,8 +487,9 @@ def process_cookie_file(cookie_file):
 
 def worker(task_queue, results):
     """Worker thread to process Netflix cookie files using a queue system."""
-    global last_update_time
+    global last_update_time, start_time
     while True:
+        cookie_file = None
         try:
             # Get a task from the queue (non-blocking with timeout)
             cookie_file = task_queue.get(block=False)
@@ -501,12 +503,15 @@ def worker(task_queue, results):
             with lock:
                 results.append(result)
                 
-                # Check if it's time to print a progress update
+                # Real-time millisecond progress updates
                 current_time = time.time()
                 if current_time - last_update_time > update_interval:
                     last_update_time = current_time
-                    checking_speed = total_checked / (current_time - start_time) if current_time > start_time else 0
-                    print(f"Progress: Checked {total_checked} cookies | Valid: {total_working} | Failed: {total_fails} | Speed: {checking_speed:.2f} cookies/sec")
+                    elapsed_time = current_time - start_time
+                    checking_speed = total_checked / elapsed_time if elapsed_time > 0 else 0
+                    
+                    # Detailed status message with millisecond precision
+                    print(f"[{datetime.now().strftime('%H:%M:%S.%f')[:-3]}] Progress: Checked {total_checked} cookies | Valid: {total_working} | Failed: {total_fails} | Unsubscribed: {total_unsubscribed} | Broken: {total_broken} | Speed: {checking_speed:.2f} cookies/sec | Elapsed: {elapsed_time:.3f}s")
                 
             # Mark task as complete
             task_queue.task_done()
