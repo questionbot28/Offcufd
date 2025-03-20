@@ -20,13 +20,21 @@ module.exports = {
       const boosterCount = await countTotalItems(`${__dirname}/../../bstock/`);
       const basicCount = await countTotalItems(`${__dirname}/../../basicstock/`);
       
+      // Function to format stock entries with total count
+      const formatStockField = (title, count, stockItems) => {
+        const stockText = stockItems.length > 0 ? `\n${stockItems.join('\n')}` : '';
+        return { name: title, value: `Total Items: ${count}${stockText}`, inline: true };
+      };
+      
       const embed = new MessageEmbed()
         .setColor(config.color.default)
         .setTitle(`${message.guild.name} Service Stock`)
-        .addField('FREE STOCK', `Total Items: ${freeCount}\n${freeStock.join('\n') || 'No services'}`, true)
-        .addField('PREMIUM STOCK', `Total Items: ${premiumCount}\n${premiumStock.join('\n') || 'No services'}`, true)
-        .addField('BOOSTER STOCK', `Total Items: ${boosterCount}\n${boosterStock.join('\n') || 'No services'}`, true)
-        .addField('BASIC STOCK', `Total Items: ${basicCount}\n${basicStock.join('\n') || 'No services'}`, true);
+        .addFields([
+          formatStockField('FREE STOCK', freeCount, freeStock),
+          formatStockField('PREMIUM STOCK', premiumCount, premiumStock),
+          formatStockField('BOOSTER STOCK', boosterCount, boosterStock),
+          formatStockField('BASIC STOCK', basicCount, basicStock)
+        ]);
 
       await message.channel.send({ embeds: [embed] });
     } catch (error) {
@@ -55,5 +63,30 @@ async function readDirectory(directoryPath) {
   } catch (error) {
     console.error(`Unable to read directory ${directoryPath}:`, error);
     return [];
+  }
+}
+
+/**
+ * Count the total number of non-empty lines across all .txt files in a directory
+ * @param {string} directoryPath - Path to the directory containing .txt files
+ * @returns {number} - Total count of items
+ */
+async function countTotalItems(directoryPath) {
+  try {
+    const files = await fs.readdir(directoryPath);
+    let totalCount = 0;
+
+    for (const file of files) {
+      if (file.endsWith('.txt')) {
+        const content = await fs.readFile(`${directoryPath}/${file}`, 'utf-8');
+        const lines = content.split(/\r?\n/).filter(Boolean);
+        totalCount += lines.length;
+      }
+    }
+
+    return totalCount;
+  } catch (error) {
+    console.error(`Unable to count items in directory ${directoryPath}:`, error);
+    return 0;
   }
 }

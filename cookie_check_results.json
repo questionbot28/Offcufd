@@ -1,21 +1,38 @@
 {
-  "status": "error",
-  "error_message": "[Errno 21] Is a directory: '/home/runner/workspace/spotify'",
-  "traceback": "Traceback (most recent call last):\n  File \"/home/runner/workspace/spotify_cookie_checker.py\", line 469, in check_cookies\n    with open(input_file, 'rb') as src, open(temp_file_path, 'wb') as dst:\n         ^^^^^^^^^^^^^^^^^^^^^^\nIsADirectoryError: [Errno 21] Is a directory: '/home/runner/workspace/spotify'\n",
-  "total_checked": 0,
-  "valid": 0,
-  "invalid": 0,
-  "errors": 1,
+  "status": "completed",
+  "total_checked": 10,
+  "valid": 8,
+  "invalid": 2,
+  "errors": 0,
   "premium": 0,
-  "family": 0,
+  "family": 8,
   "duo": 0,
   "student": 0,
   "free": 0,
   "unknown": 0,
-  "files_processed": 0,
-  "archives_processed": 0,
-  "valid_cookies": [],
+  "files_processed": 10,
+  "archives_processed": 1,
+  "valid_cookies": [
+    "/home/runner/workspace/spotify/Family_[AR] - benjajulian512gmail.com - [Premium Family] - [Member] - [Daysleft - None].txt.txt",
+    "/home/runner/workspace/spotify/Family_[AR] - fac.agus.schgmail.com - [Premium Family] - [Member] - [Daysleft - None].txt.txt",
+    "/home/runner/workspace/spotify/Family_[AR] - joaquinschrohyahoo.com.ar - [Premium Family] - [Member] - [Daysleft - None].txt.txt",
+    "/home/runner/workspace/spotify/Family_[AR] - marcosramos642yahoo.com - [Premium Family] - [Owner] - [Daysleft - 20].txt.txt",
+    "/home/runner/workspace/spotify/Family_[AT] - 123hahahahahahaha123gmail.com - [Premium Family] - [Member] - [Daysleft - None].txt.txt",
+    "/home/runner/workspace/spotify/Family_[AT] - robihat100pinggmail.com - [Premium Family] - [Member] - [Daysleft - None].txt.txt",
+    "/home/runner/workspace/spotify/Family_[AU] - ch4rlittgmail.com - [Premium Family] - [Member] - [Daysleft - None].txt.txt",
+    "/home/runner/workspace/spotify/Family_[AU] - cjwatt9gmail.com - [Premium Family] - [Member] - [Daysleft - None].txt.txt"
+  ],
   "messages": [
-    "\u26a0 Processing error: [Errno 21] Is a directory: '/home/runner/workspace/spotify'"
-  ]
+    "\u2714 Login successful: Delta/[AR] - benjajulian512gmail.com - [Premium Family] - [Member] - [Daysleft - None].txt (Family)",
+    "\u2714 Login successful: Delta/[AR] - fac.agus.schgmail.com - [Premium Family] - [Member] - [Daysleft - None].txt (Family)",
+    "\u2714 Login successful: Delta/[AR] - joaquinschrohyahoo.com.ar - [Premium Family] - [Member] - [Daysleft - None].txt (Family)",
+    "\u2714 Login successful: Delta/[AR] - marcosramos642yahoo.com - [Premium Family] - [Owner] - [Daysleft - 20].txt (Family)",
+    "\u2714 Login successful: Delta/[AT] - 123hahahahahahaha123gmail.com - [Premium Family] - [Member] - [Daysleft - None].txt (Family)",
+    "\u2714 Login successful: Delta/[AT] - robihat100pinggmail.com - [Premium Family] - [Member] - [Daysleft - None].txt (Family)",
+    "\u2714 Login successful: Delta/[AU] - ch4rlittgmail.com - [Premium Family] - [Member] - [Daysleft - None].txt (Family)",
+    "\u2714 Login successful: Delta/[AU] - cjwatt9gmail.com - [Premium Family] - [Member] - [Daysleft - None].txt (Family)",
+    "\u2718 Login failed: Delta/[AR] - manoncanos28gmail.com - [Premium Family] - [Member] - [Daysleft - None].txt (Status: 401)",
+    "\u2718 Login failed: Delta/[AT] - pauli.deisergmail.com - [Premium Family] - [Member] - [Daysleft - None].txt (Status: 401)"
+  ],
+  "processing_time_seconds": 3.3801276683807373
 }

@@ -83,7 +83,8 @@ module.exports = {
             const fileExtension = fileExt;
             
             // Run the Python script to check the uploaded file
-            const pythonProcess = spawn('/nix/store/wqhkxzzlaswkj3gimqign99sshvllcg6-python-wrapped-0.1.0/bin/python', ['netflix_cookie_checker.py', filePath]);
+            const scriptPath = path.join(__dirname, '../../netflix_cookie_checker.py');
+            const pythonProcess = spawn('/nix/store/wqhkxzzlaswkj3gimqign99sshvllcg6-python-wrapped-0.1.0/bin/python', [scriptPath, filePath]);
 
             let outputData = '';
             let errorData = '';

@@ -391,12 +391,20 @@ async function checkSpotifyCookies(filePath, message, statusMessage) {
                 // Check for duplicates and prevent adding them
                 let duplicateCount = 0;
                 if (results.valid > 0 && results.valid_cookies.length > 0) {
+                    // Define spotify directory path
+                    const spotifyDir = path.join(__dirname, '../../spotify');
+                    
+                    // Create spotify directory if it doesn't exist
+                    if (!fsSync.existsSync(spotifyDir)) {
+                        fsSync.mkdirSync(spotifyDir, { recursive: true });
+                    }
+                    
                     // Track existing cookies by identifier
                     const uniqueIdentifiers = new Set();
-                    const existingFiles = fsSync.readdirSync(spotifyDir).filter(file => 
+                    const existingFiles = fsSync.existsSync(spotifyDir) ? fsSync.readdirSync(spotifyDir).filter(file => 
                         !file.startsWith('.') && 
                         !fsSync.statSync(path.join(spotifyDir, file)).isDirectory()
-                    );
+                    ) : [];
                     
                     // First, collect identifiers from existing cookies
                     existingFiles.forEach(file => {
