@@ -14,13 +14,19 @@ module.exports = {
       const boosterStock = await readDirectory(`${__dirname}/../../bstock/`);
       const basicStock = await readDirectory(`${__dirname}/../../basicstock/`);
 
+      // Count total items in each stock category
+      const freeCount = await countTotalItems(`${__dirname}/../../fstock/`);
+      const premiumCount = await countTotalItems(`${__dirname}/../../stock/`);
+      const boosterCount = await countTotalItems(`${__dirname}/../../bstock/`);
+      const basicCount = await countTotalItems(`${__dirname}/../../basicstock/`);
+      
       const embed = new MessageEmbed()
         .setColor(config.color.default)
         .setTitle(`${message.guild.name} Service Stock`)
-        .addField('FREE STOCK', freeStock.join('\n') || 'No services', true)
-        .addField('PREMIUM STOCK', premiumStock.join('\n') || 'No services', true)
-        .addField('BOOSTER STOCK', boosterStock.join('\n') || 'No services', true)
-        .addField('BASIC STOCK', basicStock.join('\n') || 'No services', true);
+        .addField('FREE STOCK', `Total Items: ${freeCount}\n${freeStock.join('\n') || 'No services'}`, true)
+        .addField('PREMIUM STOCK', `Total Items: ${premiumCount}\n${premiumStock.join('\n') || 'No services'}`, true)
+        .addField('BOOSTER STOCK', `Total Items: ${boosterCount}\n${boosterStock.join('\n') || 'No services'}`, true)
+        .addField('BASIC STOCK', `Total Items: ${basicCount}\n${basicStock.join('\n') || 'No services'}`, true);
 
       await message.channel.send({ embeds: [embed] });
     } catch (error) {

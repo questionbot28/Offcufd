@@ -266,11 +266,32 @@ client.on('guildMemberRemove', async (member) => {
             if (rows.length > 0) {
                 const inviterId = rows[0].user_id;
                 // Update leaves count and decrease total_invites by 1
-                client.db.run('UPDATE invites SET leaves = leaves + 1, total_invites = total_invites - 1 WHERE user_id = ?', [inviterId], (dbError) => {
+                client.db.run('UPDATE invites SET leaves = leaves + 1, total_invites = total_invites - 1 WHERE user_id = ?', [inviterId], async (dbError) => {
                     if (dbError) {
                         console.error('Error updating inviter stats for leaving member:', dbError);
                     } else {
                         console.log(`Updated invites for user ${inviterId}: incremented leaves count and decremented total invites`);
+                        
+                        // Get the updated invite count for the inviter
+                        client.db.get('SELECT total_invites FROM invites WHERE user_id = ?', [inviterId], async (err, row) => {
+                            if (err) {
+                                console.error('Error getting inviter info after leave:', err);
+                                return;
+                            }
+                            
+                            if (row) {
+                                const currentInviteCount = row.total_invites;
+                                const inviter = await member.guild.members.fetch(inviterId).catch(err => {
+                                    console.error(`Error fetching inviter ${inviterId}:`, err);
+                                    return null;
+                                });
+                                
+                                if (inviter) {
+                                    // Check and adjust roles based on new invite count
+                                    await handleInviteRoleAdjustment(inviterId, currentInviteCount, member.guild);
+                                }
+                            }
+                        });
                     }
                 });
             }
@@ -354,6 +375,107 @@ async function removeVerifiedUser(username) {
         return true;
     } catch (error) {
         console.error('Error removing verified user:', error);
+        return false;
+    }
+}
+
+// Function to handle role adjustment when invite count changes
+async function handleInviteRoleAdjustment(userId, inviteCount, guild) {
+    try {
+        // Check if guild is available
+        if (!guild) {
+            console.error('Guild not provided to handleInviteRoleAdjustment');
+            return false;
+        }
+
+        // Get member from guild
+        const member = await guild.members.fetch(userId).catch(err => {
+            console.error(`Error fetching member ${userId}:`, err);
+            return null;
+        });
+
+        if (!member) {
+            console.error(`Member ${userId} not found in guild`);
+            return false;
+        }
+
+        // Check if inviteRoleTiers exists in config
+        if (!config.inviteRoleTiers || !Array.isArray(config.inviteRoleTiers)) {
+            console.error('No invite role tiers defined in config');
+            return false;
+        }
+
+        // Sort tiers by invite requirement (highest first)
+        const sortedTiers = [...config.inviteRoleTiers].sort((a, b) => b.invites - a.invites);
+        
+        // Find the highest tier the user qualifies for
+        let highestQualifiedTier = null;
+        for (const tier of sortedTiers) {
+            if (inviteCount >= tier.invites) {
+                highestQualifiedTier = tier;
+                break; // Found the highest tier
+            }
+        }
+        
+        // Remove roles that the user no longer qualifies for
+        const rolesToRemove = [];
+        const rolesToKeep = [];
+        
+        for (const tier of config.inviteRoleTiers) {
+            const role = guild.roles.cache.get(tier.roleID);
+            if (!role) continue;
+            
+            if (member.roles.cache.has(tier.roleID)) {
+                if (highestQualifiedTier && tier.invites <= highestQualifiedTier.invites) {
+                    rolesToKeep.push(role);
+                } else {
+                    rolesToRemove.push(role);
+                }
+            }
+        }
+        
+        // Remove roles that are no longer qualified for
+        if (rolesToRemove.length > 0) {
+            try {
+                await member.roles.remove(rolesToRemove);
+                console.log(`Removed roles from ${member.user.tag} due to invite count change: ${rolesToRemove.map(r => r.name).join(', ')}`);
+                
+                // Send demotion notification
+                const promotionChannel = guild.channels.cache.get(config.promotionChannelId);
+                if (promotionChannel) {
+                    const demotionEmbed = new Discord.MessageEmbed()
+                        .setColor('#ff6666')
+                        .setTitle('⬇️ Invite Roles Updated')
+                        .setDescription(`${member.user.tag}'s roles have been adjusted due to invite count change.`)
+                        .addFields([
+                            { name: 'Current Invites', value: inviteCount.toString() },
+                            { name: 'Removed Roles', value: rolesToRemove.map(r => r.name).join(', ') || 'None' }
+                        ])
+                        .setTimestamp();
+
+                    await promotionChannel.send({ embeds: [demotionEmbed] });
+                }
+            } catch (error) {
+                console.error(`Error removing roles from ${member.user.tag}:`, error);
+            }
+        }
+        
+        // If the user doesn't have the highest role they qualify for, add it
+        if (highestQualifiedTier) {
+            const highestRole = guild.roles.cache.get(highestQualifiedTier.roleID);
+            if (highestRole && !member.roles.cache.has(highestQualifiedTier.roleID)) {
+                try {
+                    await member.roles.add(highestRole);
+                    console.log(`Added role ${highestRole.name} to ${member.user.tag} after invite count adjustment`);
+                } catch (error) {
+                    console.error(`Error adding highest qualified role to ${member.user.tag}:`, error);
+                }
+            }
+        }
+        
+        return true;
+    } catch (error) {
+        console.error('Error in handleInviteRoleAdjustment:', error);
         return false;
     }
 }

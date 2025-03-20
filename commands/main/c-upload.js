@@ -158,7 +158,8 @@ async function checkNetflixCookies(filePath, message, statusMessage) {
         }
         
         // Run the Python script to check the uploaded file
-        const pythonProcess = spawn('/nix/store/wqhkxzzlaswkj3gimqign99sshvllcg6-python-wrapped-0.1.0/bin/python', ['netflix_cookie_checker.py', filePath]);
+        const scriptPath = path.join(__dirname, '../../netflix_cookie_checker.py');
+        const pythonProcess = spawn('/nix/store/wqhkxzzlaswkj3gimqign99sshvllcg6-python-wrapped-0.1.0/bin/python', [scriptPath, filePath]);
 
         let outputData = '';
         let errorData = '';
@@ -302,7 +303,8 @@ async function checkSpotifyCookies(filePath, message, statusMessage) {
     try {
         // Run the Python script to check cookies
         console.log(`Starting Python process to check: ${filePath}`);
-        const pythonProcess = spawn('/nix/store/wqhkxzzlaswkj3gimqign99sshvllcg6-python-wrapped-0.1.0/bin/python', ['spotify_cookie_checker.py', filePath]);
+        const scriptPath = path.join(__dirname, '../../spotify_cookie_checker.py');
+        const pythonProcess = spawn('/nix/store/wqhkxzzlaswkj3gimqign99sshvllcg6-python-wrapped-0.1.0/bin/python', [scriptPath, filePath]);
         
         // Add a timeout to prevent hanging
         const timeoutMs = 300000; // 5 minutes
