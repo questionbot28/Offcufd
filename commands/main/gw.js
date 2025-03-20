@@ -5,6 +5,9 @@ const path = require('path');
 const crypto = require('crypto');
 const config = require('../../config.json');
 
+// Extract giveaway channel IDs from config
+const GIVEAWAY_CHANNEL_IDS = Object.values(config.giveawayChannels);
+
 // Ensure giveaways directory exists
 const GIVEAWAYS_DIR = path.join(__dirname, '../../giveaways');
 if (!fs.existsSync(GIVEAWAYS_DIR)) {
@@ -181,21 +184,32 @@ module.exports = {
             // Check if we're in one of the dedicated giveaway channels
             const currentChannelId = message.channel.id;
             
-            // Check all the giveaway channels
-            if (config.giveawayChannels) {
-                // Use the current channel if it's one of our dedicated giveaway channels
-                if (Object.values(config.giveawayChannels).includes(currentChannelId)) {
-                    giveawayChannel = message.channel;
-                } 
-                // If we're not in a giveaway channel, use the default or channel 1
-                else if (config.giveawayChannelId) {
-                    giveawayChannel = message.guild.channels.cache.get(config.giveawayChannelId);
+            // Check if the current channel is one of our designated giveaway channels
+            if (GIVEAWAY_CHANNEL_IDS.includes(currentChannelId)) {
+                giveawayChannel = message.channel;
+            } 
+            // If we're not in a giveaway channel, randomly select one from our list
+            else {
+                // Get a random channel ID from our list
+                const randomChannelId = GIVEAWAY_CHANNEL_IDS[Math.floor(Math.random() * GIVEAWAY_CHANNEL_IDS.length)];
+                giveawayChannel = message.guild.channels.cache.get(randomChannelId);
+                
+                // If for some reason the channel isn't found, use the first available giveaway channel
+                if (!giveawayChannel) {
+                    for (const channelId of GIVEAWAY_CHANNEL_IDS) {
+                        const channel = message.guild.channels.cache.get(channelId);
+                        if (channel) {
+                            giveawayChannel = channel;
+                            break;
+                        }
+                    }
                 }
             }
             
             // Fallback to the current channel if no giveaway channel is found
             if (!giveawayChannel) {
                 giveawayChannel = message.channel;
+                console.warn('No giveaway channel found. Using the current channel as fallback.');
             }
             
             const giveawayMessage = await giveawayChannel.send({

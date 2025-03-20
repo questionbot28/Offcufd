@@ -29,6 +29,11 @@ module.exports = {
                 '6. The winner receives a claim code via DM\n' +
                 '7. The winner can claim their prize with `.claim`'
             )
+            .addField('Giveaway Channels',
+                'Giveaways will be automatically posted in the dedicated giveaway channels.\n' +
+                'If you run the command in one of these channels, it will use that channel.\n' +
+                'Otherwise, it will randomly select one of the dedicated giveaway channels.'
+            )
             .setFooter({ text: message.author.tag, iconURL: message.author.displayAvatarURL({ dynamic: true }) })
             .setTimestamp();
             
