@@ -5,6 +5,7 @@ const fetch = require('node-fetch/lib/index.js');
 const { spawn } = require('child_process');
 const { MessageEmbed, MessageAttachment } = require('discord.js');
 const config = require('../../config.json');
+const progressUtils = require('../../utils/progressBar');
 
 module.exports = {
     name: 'c-upload',
@@ -200,33 +201,55 @@ async function checkNetflixCookies(filePath, message, statusMessage, threadCount
             try {
                 const lines = output.split('\n');
                 for (const line of lines) {
-                    if (line.includes('Progress:')) {
-                        // Extract metrics from the line
-                        const progressInfo = line.trim();
-                        const elapsedTime = ((Date.now() - processStartTime) / 1000).toFixed(2);
+                    if (line.includes('Progress:') || line.includes('PROGRESS REPORT')) {
+                        // Parse the progress information
+                        const progressData = {
+                            current: 0,
+                            total: 0,
+                            valid: 0,
+                            invalid: 0,
+                            speed: 0,
+                            threads: threadCount,
+                            stage: processingStage
+                        };
                         
-                        // Extract speed information if available
-                        const speedMatch = progressInfo.match(/Speed: ([\d.]+) cookies\/sec/);
-                        const speed = speedMatch ? speedMatch[1] : '0.00';
+                        // Try to extract progress values using regex
+                        const progressMatch = line.match(/Progress: (\d+)\/(\d+)/) || outputData.match(/Checked: (\d+) cookies/);
+                        if (progressMatch) {
+                            progressData.current = parseInt(progressMatch[1]) || 0;
+                            if (progressMatch[2]) {
+                                progressData.total = parseInt(progressMatch[2]) || 100;
+                            } else {
+                                // If total not found in current line, try to find it elsewhere in output
+                                const totalMatch = outputData.match(/Found (\d+) Netflix cookie files/);
+                                progressData.total = totalMatch ? parseInt(totalMatch[1]) : 100;
+                            }
+                        }
                         
-                        // Create detailed progress description
-                        const progressDescription = [
-                            `${progressInfo}`,
-                            `Processing Time: ${elapsedTime}s`,
-                            `Performance: ${speed} cookies/sec`,
-                            `Thread Count: ${threadCount}`
-                        ].join('\n');
+                        // Extract valid count
+                        const validMatch = line.match(/Valid: (\d+)/) || outputData.match(/Working cookies: (\d+)/);
+                        progressData.valid = validMatch ? parseInt(validMatch[1]) : 0;
                         
-                        statusMessage.edit({
-                            embeds: [
-                                new MessageEmbed()
-                                    .setColor(config.color?.blue || '#0099ff')
-                                    .setTitle('Netflix Cookie Checker - Live Progress')
-                                    .setDescription(progressDescription)
-                                    .setFooter({ text: message.author.tag, iconURL: message.author.displayAvatarURL({ dynamic: true }) })
-                                    .setTimestamp()
-                            ]
-                        }).catch(error => console.error('Error updating progress message:', error));
+                        // Extract invalid count
+                        const invalidMatch = line.match(/Failed: (\d+)/) || outputData.match(/Failed cookies: (\d+)/);
+                        progressData.invalid = invalidMatch ? parseInt(invalidMatch[1]) : 0;
+                        
+                        // Extract speed
+                        const speedMatch = line.match(/Speed: ([\d.]+)/) || outputData.match(/Speed: ([\d.]+)/);
+                        progressData.speed = speedMatch ? parseFloat(speedMatch[1]) : 0;
+                        
+                        // Create enhanced embed with visual progress bar
+                        const embed = progressUtils.createProgressEmbed(progressData, processStartTime, 'Netflix', config);
+                        
+                        // Add author to footer
+                        embed.setFooter({ 
+                            text: `${message.author.tag} • Processing stage: ${processingStage}`, 
+                            iconURL: message.author.displayAvatarURL({ dynamic: true }) 
+                        });
+                        
+                        statusMessage.edit({ embeds: [embed] }).catch(error => 
+                            console.error('Error updating progress message:', error)
+                        );
                         break;
                     }
                 }
@@ -340,24 +363,31 @@ async function checkNetflixCookies(filePath, message, statusMessage, threadCount
                 stats.speed = cookiesPerSecond.toFixed(2);
                 stats.elapsedTime = elapsedSeconds.toFixed(2);
 
-                // Create success embed with results
-                const resultsEmbed = new MessageEmbed()
-                    .setColor(config.color?.green || '#00ff00')
-                    .setTitle('Netflix Cookie Checker - Results')
-                    .setDescription(`Check completed! Here are the results:`)
-                    .addFields([
-                        { name: 'Total Checked', value: stats.total, inline: true },
-                        { name: 'Working Cookies', value: stats.working, inline: true },
-                        { name: 'Unsubscribed', value: stats.unsubscribed, inline: true },
-                        { name: 'Failed Cookies', value: stats.failed, inline: true },
-                        { name: 'Broken Cookies', value: stats.broken, inline: true }
-                    ])
-                    .addFields([
-                        { name: 'Speed', value: `${stats.speed} cookies/sec`, inline: true },
-                        { name: 'Processing Time', value: `${stats.elapsedTime} seconds`, inline: true }
-                    ])
-                    .setFooter({ text: message.author.tag, iconURL: message.author.displayAvatarURL({ dynamic: true }) })
-                    .setTimestamp();
+                // Create enhanced results data for our utility function
+                const resultsData = {
+                    total: parseInt(stats.total) || 0,
+                    valid: parseInt(stats.working) || 0,
+                    invalid: parseInt(stats.failed) || 0,
+                    premium: parseInt(stats.working) || 0,
+                    unsubscribed: parseInt(stats.unsubscribed) || 0,
+                    broken: parseInt(stats.broken) || 0,
+                    speed: parseFloat(stats.speed) || 0
+                };
+                
+                // Use our utility to create a nicely formatted results embed
+                const resultsEmbed = progressUtils.createResultsEmbed(resultsData, startTime, 'Netflix', config);
+                
+                // Add additional fields for more detailed statistics
+                resultsEmbed.addFields([
+                    { name: 'Broken Cookies', value: stats.broken || '0', inline: true },
+                    { name: 'Processing Time', value: `${stats.elapsedTime} seconds`, inline: true }
+                ]);
+                
+                // Add author to footer
+                resultsEmbed.setFooter({
+                    text: `${message.author.tag} • All working cookies have been saved`,
+                    iconURL: message.author.displayAvatarURL({ dynamic: true })
+                });
                 
                 // Update the status message with the results
                 await statusMessage.edit({ embeds: [resultsEmbed] });
@@ -432,32 +462,63 @@ async function checkSpotifyCookies(filePath, message, statusMessage, threadCount
             try {
                 const lines = output.split('\n');
                 for (const line of lines) {
-                    if (line.includes('Progress:')) {
-                        // Extract metrics from the line
-                        const progressInfo = line.trim();
-                        const elapsedTime = ((Date.now() - startTime) / 1000).toFixed(2);
+                    if (line.includes('Progress:') || line.includes('SPOTIFY PROGRESS REPORT')) {
+                        // Parse the progress information 
+                        const progressData = {
+                            current: 0,
+                            total: 0,
+                            valid: 0,
+                            invalid: 0,
+                            speed: 0,
+                            threads: threadCount,
+                            stage: 'processing'
+                        };
                         
-                        // Extract speed information if available
-                        const speedMatch = progressInfo.match(/Speed: ([\d.]+) cookies\/sec/);
-                        const speed = speedMatch ? speedMatch[1] : '0.00';
+                        // Extract current progress
+                        const progressMatch = line.match(/Progress: (\d+)\/(\d+)/) || line.match(/Processed: (\d+)\/(\d+)/) || stdoutData.match(/Checked: (\d+) cookies/);
+                        if (progressMatch) {
+                            progressData.current = parseInt(progressMatch[1]) || 0;
+                            if (progressMatch[2]) {
+                                progressData.total = parseInt(progressMatch[2]) || 100;
+                            } else {
+                                // If we don't have total, try to find it elsewhere
+                                const totalMatch = stdoutData.match(/Found (\d+) Spotify cookie files/);
+                                progressData.total = totalMatch ? parseInt(totalMatch[1]) : 100;
+                            }
+                        }
                         
-                        // Create enhanced progress description with performance metrics
-                        const progressDescription = [
-                            `${progressInfo}`,
-                            `Processing Time: ${elapsedTime}s`,
-                            `Performance: ${speed} cookies/sec`
-                        ].join('\n');
+                        // Extract valid count
+                        const validMatch = line.match(/Valid: (\d+)/) || stdoutData.match(/hits: (\d+)/) || 
+                                           stdoutData.match(/Working cookies: (\d+)/);
+                        progressData.valid = validMatch ? parseInt(validMatch[1]) : 0;
                         
-                        statusMessage.edit({
-                            embeds: [
-                                new MessageEmbed()
-                                    .setColor(config.color?.blue || '#0099ff')
-                                    .setTitle('Spotify Cookie Checker - Live Progress')
-                                    .setDescription(progressDescription)
-                                    .setFooter({ text: message.author.tag, iconURL: message.author.displayAvatarURL({ dynamic: true }) })
-                                    .setTimestamp()
-                            ]
-                        }).catch(error => console.error('Error updating progress message:', error));
+                        // Extract invalid count
+                        const invalidMatch = line.match(/Failed: (\d+)/) || stdoutData.match(/bad: (\d+)/) ||
+                                             stdoutData.match(/Failed cookies: (\d+)/);
+                        progressData.invalid = invalidMatch ? parseInt(invalidMatch[1]) : 0;
+                        
+                        // Extract speed
+                        const speedMatch = line.match(/Speed: ([\d.]+)/) || stdoutData.match(/Speed: ([\d.]+)/);
+                        progressData.speed = speedMatch ? parseFloat(speedMatch[1]) : 0;
+                        
+                        // Extract thread count (if available)
+                        const threadMatch = line.match(/Threads: (\d+)/);
+                        if (threadMatch) {
+                            progressData.threads = parseInt(threadMatch[1]);
+                        }
+                        
+                        // Create enhanced embed with visual progress bar
+                        const embed = progressUtils.createProgressEmbed(progressData, startTime, 'Spotify', config);
+                        
+                        // Add author to footer
+                        embed.setFooter({ 
+                            text: `${message.author.tag} • Processing file: ${path.basename(filePath)}`, 
+                            iconURL: message.author.displayAvatarURL({ dynamic: true }) 
+                        });
+                        
+                        statusMessage.edit({ embeds: [embed] }).catch(error => 
+                            console.error('Error updating progress message:', error)
+                        );
                         break;
                     }
                 }
@@ -638,34 +699,39 @@ async function checkSpotifyCookies(filePath, message, statusMessage, threadCount
                     results.valid = results.valid_cookies.length;
                 }
                 
-                // Create results embed
-                const resultsEmbed = new MessageEmbed()
-                    .setColor(config.color?.green || '#00ff00')
-                    .setTitle('Spotify Cookie Check Results')
-                    .setDescription(`Results for file: \`${path.basename(filePath)}\``)
-                    .addFields([
-                        { name: 'Total Checked', value: results.total_checked.toString(), inline: true },
-                        { name: 'Valid Accounts', value: results.valid.toString(), inline: true },
-                        { name: 'Invalid Accounts', value: results.invalid.toString(), inline: true },
-                        { name: 'Duplicates Found', value: (results.duplicates || 0).toString(), inline: true },
-                        { name: 'Errors', value: results.errors.toString(), inline: true },
-                        { name: 'Files Processed', value: results.files_processed.toString(), inline: true },
-                        { name: 'Archives Processed', value: results.archives_processed.toString(), inline: true }
-                    ])
-                    .addFields([
-                        { name: 'Premium', value: results.premium.toString(), inline: true },
-                        { name: 'Family', value: results.family.toString(), inline: true },
-                        { name: 'Duo', value: results.duo.toString(), inline: true },
-                        { name: 'Student', value: results.student.toString(), inline: true },
-                        { name: 'Free', value: results.free.toString(), inline: true },
-                        { name: 'Unknown', value: results.unknown.toString(), inline: true }
-                    ])
-                    .addFields([
-                        { name: 'Speed', value: `${results.speed} cookies/sec`, inline: true },
-                        { name: 'Processing Time', value: `${results.elapsedTime} seconds`, inline: true }
-                    ])
-                    .setFooter({ text: message.author.tag, iconURL: message.author.displayAvatarURL({ dynamic: true }) })
-                    .setTimestamp();
+                // Create enhanced results data for our utility function
+                const resultsData = {
+                    total: parseInt(results.total_checked) || 0,
+                    valid: parseInt(results.valid) || 0,
+                    invalid: parseInt(results.invalid) || 0,
+                    premium: parseInt(results.premium) || 0,
+                    family: parseInt(results.family) || 0,
+                    duo: parseInt(results.duo) || 0,
+                    student: parseInt(results.student) || 0,
+                    free: parseInt(results.free) || 0,
+                    duplicates: parseInt(results.duplicates) || 0,
+                    speed: parseFloat(results.speed) || 0
+                };
+                
+                // Use our utility to create a nicely formatted results embed
+                const resultsEmbed = progressUtils.createResultsEmbed(resultsData, startTime, 'Spotify', config);
+                
+                // Add additional fields for more detailed statistics
+                resultsEmbed.addFields([
+                    { name: 'Duplicates Found', value: (results.duplicates || 0).toString(), inline: true },
+                    { name: 'Errors', value: results.errors.toString(), inline: true },
+                    { name: 'Files Processed', value: results.files_processed.toString(), inline: true },
+                    { name: 'Archives Processed', value: results.archives_processed.toString(), inline: true }
+                ]);
+                
+                // Keep the original file name in the description
+                resultsEmbed.setDescription(`${resultsEmbed.description}\n\nResults for file: \`${path.basename(filePath)}\``);
+                
+                // Add author to footer
+                resultsEmbed.setFooter({ 
+                    text: `${message.author.tag} • All working cookies have been saved`, 
+                    iconURL: message.author.displayAvatarURL({ dynamic: true }) 
+                });
                 
                 await statusMessage.edit({ embeds: [resultsEmbed] });
                 
