@@ -23,11 +23,15 @@ const helmet = require('helmet');
 const morgan = require('morgan');
 const cookieParser = require('cookie-parser');
 const path = require('path');
+const crypto = require('crypto');
 
 // Load configuration early so it's available throughout the application
 require('dotenv').config();
 const config = require('./config.json');
 const token = process.env.DISCORD_BOT_TOKEN || config.token;
+
+// Load security module
+const security = require('./utils/security');
 
 // File system operations
 const fsPromises = fs.promises;
