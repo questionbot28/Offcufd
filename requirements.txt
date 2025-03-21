@@ -42,3 +42,8 @@ aiohttp
 orjson
 aiohttp
 orjson
+colorama
+console
+minecraft-python
+termcolor
+pysocks
