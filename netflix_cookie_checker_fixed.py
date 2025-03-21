@@ -691,6 +691,18 @@ def print_statistics():
     print(f"Time Elapsed: {elapsed:.2f} seconds")
     print(f"Processing Speed: {speed:.2f} cookies/second")
     print("===========================")
+    
+    # Additional output in a format that's easy for the JS script to parse
+    print("\nDISCORD_STATS_BEGIN")
+    print(f"Working cookies: {total_working}")
+    print(f"Failed cookies: {total_fails}")
+    print(f"Unsubscribed accounts: {total_unsubscribed}")
+    print(f"Broken cookies: {total_broken}")
+    print(f"Total checked: {total_checked}")
+    print(f"Success rate: {success_rate:.2f}%")
+    print(f"Processing time: {elapsed:.2f}s")
+    print(f"Processing speed: {speed:.2f} cookies/sec")
+    print("DISCORD_STATS_END")
 
 def check_cookie(cookie_content):
     """Check a single Netflix cookie string."""
@@ -713,7 +725,7 @@ def check_cookie(cookie_content):
 
 def command_main():
     """Main function for command-line usage"""
-    global total_working, total_fails, total_unsubscribed, total_checked, total_broken
+    global total_working, total_fails, total_unsubscribed, total_checked, total_broken, start_time
     
     # Initialize colorama for cross-platform colored output
     colorama.init()
@@ -724,6 +736,7 @@ def command_main():
     parser.add_argument('input_file', nargs='?', help='File or directory to check')
     parser.add_argument('--all_cookies', action='store_true', help='Check all cookies in netflix directory')
     parser.add_argument('--threads', type=int, default=MAX_THREADS, help=f'Number of threads to use (1-{MAX_THREADS}, default: {MAX_THREADS})')
+    parser.add_argument('--discord', action='store_true', help='Format output for Discord bot integration')
     args = parser.parse_args()
     
     # Validate and set thread count
@@ -733,6 +746,14 @@ def command_main():
         args.threads = MAX_THREADS
     
     debug_print(f"Using {args.threads} threads for processing")
+    
+    # Reset global counters
+    total_working = 0
+    total_fails = 0
+    total_unsubscribed = 0
+    total_checked = 0
+    total_broken = 0
+    start_time = time.time()
     
     # Setup directories
     setup_directories()

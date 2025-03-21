@@ -183,8 +183,9 @@ async function checkNetflixCookies(filePath, message, statusMessage, threadCount
         // Run the Python script to check the uploaded file
         const scriptPath = path.join(__dirname, '../../netflix_cookie_checker_fixed.py');
         console.log(`Starting Netflix cookie check with ${threadCount} threads`);
+        // Pass the command line argument to indicate this is being run from Discord
         const pythonProcess = spawn('/nix/store/wqhkxzzlaswkj3gimqign99sshvllcg6-python-wrapped-0.1.0/bin/python', 
-            [scriptPath, filePath, '--threads', threadCount.toString()]);
+            [scriptPath, filePath, '--threads', threadCount.toString(), '--discord']);
 
         let outputData = '';
         let errorData = '';
@@ -361,14 +362,33 @@ async function checkNetflixCookies(filePath, message, statusMessage, threadCount
                     return;
                 }
 
-                // Try to gather statistics from the output
-                const stats = {
-                    total: (outputData.match(/Total checked: (\d+)/i) || [])[1] || '0',
-                    working: (outputData.match(/Working cookies: (\d+)/i) || [])[1] || '0',
-                    unsubscribed: (outputData.match(/Unsubscribed accounts: (\d+)/i) || [])[1] || '0',
-                    failed: (outputData.match(/Failed cookies: (\d+)/i) || [])[1] || '0',
-                    broken: (outputData.match(/Broken cookies: (\d+)/i) || [])[1] || '0'
+                // Try to gather statistics from the output - look for our special formatted section
+                let stats = {
+                    total: '0',
+                    working: '0',
+                    unsubscribed: '0',
+                    failed: '0',
+                    broken: '0'
                 };
+                
+                // Check if our special Discord format data is present
+                if (outputData.includes('DISCORD_STATS_BEGIN') && outputData.includes('DISCORD_STATS_END')) {
+                    const statsBlock = outputData.split('DISCORD_STATS_BEGIN')[1].split('DISCORD_STATS_END')[0];
+                    
+                    // Extract all stats from the formatted block
+                    stats.total = (statsBlock.match(/Total checked: (\d+)/i) || [])[1] || '0';
+                    stats.working = (statsBlock.match(/Working cookies: (\d+)/i) || [])[1] || '0';
+                    stats.unsubscribed = (statsBlock.match(/Unsubscribed accounts: (\d+)/i) || [])[1] || '0';
+                    stats.failed = (statsBlock.match(/Failed cookies: (\d+)/i) || [])[1] || '0';
+                    stats.broken = (statsBlock.match(/Broken cookies: (\d+)/i) || [])[1] || '0';
+                } else {
+                    // Fallback to looking throughout the complete output
+                    stats.total = (outputData.match(/Total [Cc]hecked: (\d+)/i) || [])[1] || '0';
+                    stats.working = (outputData.match(/Total Working: (\d+)/i) || [])[1] || '0';
+                    stats.unsubscribed = (outputData.match(/Total Unsubscribed: (\d+)/i) || [])[1] || '0';
+                    stats.failed = (outputData.match(/Total Failed: (\d+)/i) || [])[1] || '0';
+                    stats.broken = (outputData.match(/Total Broken\/Invalid: (\d+)/i) || [])[1] || '0';
+                }
                 
                 // Get speed metrics (cookies per second)
                 const endTime = Date.now();
