@@ -6,6 +6,7 @@ const { spawn } = require('child_process');
 const { MessageEmbed, MessageAttachment } = require('discord.js');
 const config = require('../../config.json');
 const progressUtils = require('../../utils/progressBar');
+const security = require('../../utils/security');
 
 module.exports = {
     name: 'c-upload',
@@ -348,6 +349,10 @@ async function checkNetflixCookies(filePath, message, statusMessage, threadCount
 
                 if (code !== 0 || errorData.includes('Error')) {
                     console.error(`Netflix cookie checker exited with code ${code}`);
+                    
+                    // Track failed cookie upload in the security system
+                    security.recordFailedCookieUpload(message.author.id);
+                    
                     await statusMessage.edit({
                         embeds: [
                             new MessageEmbed()
@@ -597,6 +602,10 @@ async function checkSpotifyCookies(filePath, message, statusMessage, threadCount
                 
                 if (code !== 0) {
                     // Script failed
+                    
+                    // Track failed cookie upload in the security system
+                    security.recordFailedCookieUpload(message.author.id);
+                    
                     await statusMessage.edit({
                         embeds: [
                             new MessageEmbed()
