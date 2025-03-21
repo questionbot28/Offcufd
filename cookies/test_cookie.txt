@@ -1,0 +1,5 @@
+# Netscape HTTP Cookie File
+.spotify.com	TRUE	/	FALSE	0	SP_DC	AQDLZmT1LxA9QJNOXxdKvFZXbk9geFjNLpHvavfJMOV8_lJOWOCJdA5Q4PN9IEXIIImHmwgSVV8KZSSNnqKoH9CLrVl9YrZuGrD05LPKIxzWLKa8wvCx03tBvpvLvQvW46eFGx_QkDnq5e-qnudvbfuP5kZnA5KLvEMcjzgaJQx-QTQdEaXd3NnzaQ
+.spotify.com	TRUE	/	FALSE	1800	sp_landing	https%3A%2F%2Fopen.spotify.com%2F
+.spotify.com	TRUE	/	FALSE	31536000	sp_t	1e96bab9cafd40ceba71e296c4c3b57f
+.spotify.com	TRUE	/	FALSE	0	sp_key	f9eaa33269d8446e8af7c702a7a25dd9

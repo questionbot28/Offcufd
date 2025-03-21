@@ -1,0 +1,50 @@
+
+    ─────────────────────────────────────────────────────────────
+    PLAN       : Family
+    COUNTRY    : TH
+    AutoPay    : True
+    Trial      : False
+    Invite Link: N/A
+    Email      : N/A
+    ─────────────────────────────────────────────────────────────
+
+    PLAN = Family Premium
+COUNTRY = TH
+AutoPay = True
+Trial = False
+Checker By: by nobody028912
+Spotify COOKIE :👇
+
+
+PLAN = Family Premium
+COUNTRY = TH
+AutoPay = True
+Trial = False
+Checker By: by nobody028912
+Spotify COOKIE :👇
+
+
+.spotify.com	TRUE	/	FALSE	1750337762	OptanonAlertBoxClosed	2024-06-19T12:56:02.952Z
+accounts.spotify.com	FALSE	/	FALSE	1753361740	__Host-device_id	AQAAlLogXiK-GkmLxB4MI-Xn4r5FG-yVnV2gJX9TvKdWbsSsB0eSJSN0K8en4J-ZHqGB3oO0TLlD4427Icg1laNSy_QiwMI3Vwo
+.spotify.com	TRUE	/	FALSE	1750337743	sp_dc	AQASkcQJPJ9N_1yUGMwSd1W6r_fEKMLWObs2LIIwIdMknMKvSW-ar2qWA4ImmnJlA9YfzWT1ZWLzAKC8xdngd8QxZATSJ5mN1Tj59xT8aid5QRDqTStP0PB792aIz7KK91XtOtRFApPXc53i2BXe80oUBYM70tfdxlOQ1oygsoUmQrqNBZ1NUXBo66-wZhI1ziL9TF_pBkC-GxvO6eYtno_-_pFf
+.spotify.com	TRUE	/	FALSE	1723985743	sp_gaid	0088fc7829225921dbb6a01288b2f99db0500abb93a341a59f5157
+.spotify.com	TRUE	/	FALSE	1750337743	sp_key	5a2faef1-28a2-46cc-ad04-90bb9edfbdeb
+.spotify.com	TRUE	/	FALSE	1725189047	sp_last_utm	%7B%22utm_campaign%22%3A%22your_account%22%2C%22utm_medium%22%3A%22menu%22%2C%22utm_source%22%3A%22spotify%22%7D
+.spotify.com	TRUE	/	FALSE	1754565047	sp_m	th-th
+.spotify.com	TRUE	/	FALSE	1751620391	OptanonConsent	isGpcEnabled=0&datestamp=Thu+Jul+04+2024+16%3A13%3A11+GMT%2B0700+(Indochina+Time)&version=202405.2.0&browserGpcFlag=0&isIABGlobal=false&hosts=&landingPath=NotLandingPage&groups=s00%3A1%2Cf00%3A1%2Cm00%3A1%2Ct00%3A1%2Ci00%3A1%2Cf11%3A1%2Cm03%3A1&AwaitingReconsent=false&geolocation=TH%3B10
+.spotify.com	TRUE	/	FALSE	1751620390	sp_t	ff011abad09549f1e4a56b5ba3d136b7
+
+===========================================
+ // 
+Email: luigi00030+spotify@gmail.com
+Plan: Family
+Trial: NO
+Member: NO
+Days Left: 22
+===========================================
+
+    
+    ─────────────────────────────────────────────────────────────
+                    CHECKER BY ITSMEBOI
+    ─────────────────────────────────────────────────────────────
+    

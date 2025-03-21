@@ -1,0 +1,72 @@
+
+    ─────────────────────────────────────────────────────────────
+    PLAN       : Family
+    COUNTRY    : PL
+    AutoPay    : True
+    Trial      : False
+    Invite Link: N/A
+    Email      : N/A
+    ─────────────────────────────────────────────────────────────
+
+    PLAN = Family Premium
+COUNTRY = PL
+AutoPay = True
+Trial = False
+Checker By: by nobody028912
+Spotify COOKIE :👇
+
+
+PLAN = Family Premium
+COUNTRY = PL
+AutoPay = True
+Trial = False
+Checker By: by nobody028912
+Spotify COOKIE :👇
+
+
+.spotify.com	TRUE	/	FALSE	1748978253	OptanonAlertBoxClosed	2024-06-03T19:17:33.287Z
+.spotify.com	TRUE	/	FALSE	1748978253	eupubconsent-v2	CP_oTHAP_oTHAAcABBENA3EgAP_AAAAAAAYgKMtV_H__bX1r8X73aftkeY1X9_j77sQxBhfJk-4FyDvW_JwXn2EyNA26tqYKmRIEuzZBIQNkHJDURVCgSogVrzDMYkGcoTNIJ6BkgFMRa2dYCFxvmwtjMQIY5vr993d52T-9_dv83dziz4FnvzQ5v2clUICdA58tDfl_bROb-5IOd-58v4v09N_rE2_eTVk_tevp7D9-csu7_XX-9_YAAS9Ll9-mAAAAwJBPAAQAAuACgAKgAcAA8ACCAF4AagA8ACIAEwAKoAbwA9AB-AEJAIYAiQBHACWAE0AMAAYcAygDLAGyAOeAdwB3wD2APiAfYB-wD_AQCAi4CMAEagJEAksBPwFBgKgAq4BcwC9AGKANoAbgA4kCPQJFATsAocBR4CkQFsALkAXeAvMBgwDDYGRgZIAycBmYDOYGrgayA28BuoDggHJgOXAeOA_4CCYEGAIQwQtBC4CHMEPQQ_gj6CP4EigJIQSYBJkCWYEtwJfATAAmYBM4CbgQBMAA4AEgARwBOAEHAI4AX0BKwCbQFIQKfAqEBXICwgFiALcAXkAv8BiADFgGQgNGAamA2gBtwDdIHkgeVA-QD5QH7gQEAgYBBECFYEPAIpgSpAmKBM0Cag4CMAAiABwAHgAXABIAD8AI4AUAA0ACOAHIAQCAg4CEAERAI4AVAA6QCRQErAJiATKAm0BSYCoQFSgK5AWIAtQBbgC6AF_gMEAYgAxYBkIDJgGjANTAa8A2gBtwDdAHHgOWAc-A8oB8QD5QH2wP2A_cCAgEDwIIgQbAhWBDwCKYEYAI3gSEAkbBJEEkgJUgS4Al2BMECYYEzQJqATYAm2OgwgALgAoACoAHAAQQAuADUAHgARAAmABVgC4ALoAYgA3gB6AD9AIYAiQBLACaAE4AKMAYAAwwBlADRAGyAOeAdwB3gD2gH2AfoA_4CLAIxAR0BJYCfgKDAVEBVwCxAFzgLyAvQBigDaAG4AOIAdQA-wCL4EegSIAmQBOwCh4FHgUgApoBYoC2AFugLgAXIAu0Bd4C8wF9AMGAYaAx6BkYGSAMnAZUAywBmYDOQGmgNVgauBrADbwG6gOLAcmA5cB44DyQH1gPuAgCBBgCFsEOQQ6Ah7BH0EfwJFASQAkyBLMCXQEvgJgATMAmcBNwCbwE4SACYABAADwA0ADkAI4AWIAvoCbQFJgKlAVyAsQBeQDBAGeANGAamA24BugDlgHPwPJA8oB8QD9gICAQPAg2BCsCGYEUwIwARpAjfBJEEkgJhgTNAmwBNshAqAAWABQAFwANQAmABVAC4AGIAN4AegBHADAAHPAO4A7wB_gEpAKDAVEBVwC5gGKANoAdQBHoCmgFigLRAXAAuQBkYDJwGcgNVAeOBBgCFAELQIdAQ9AkUBJACXQEziUDAABAACwAKAAcABgADwAIgATAAqgBcADFAIYAiQBHACjAGAANkAd4A_ICogKuAXMAxQB1AETAIvgR6BIgCjwFNALFAWwAvOBkYGSAMnAZyA1gBt4EAQIHgQYAhCBD0CRQEkAJdAS-AmYBM4CbgE4SQB0AC4ARwB3AEAAIOARwAqACRQErAJiATaApMBbgC_wGLAMsAZ4A3IBugDlgHlAP3AgIBBECGYEYAJJATNAm2UAcgAKAAuACQAFwARwBHACcAHIAO4AfYBAACDgFiALqAa8A7YB_wEigJiATaAp-BUgFSgLcAXQAvIBggDFgGTAM8AaMA1MBrwDdAHLAPKAfEA-UB9sD9gP3AgIBAwCB4EGwIVgQ8AimBGACPYEjYJIgkkBKkCXYEzQJqATYAm2BOEpBOAAXABQAFQAOAAggBgAGoAPAAiABMACkAFUAMQAfoBDAESAKMAYAAygBogDZAHOAO-AfgB-gEWAIxAR0BJQCgwFRAVcAuYBeQDFAG0ANwAdQA9oB9gETAIvgR6BIgCdgFDgKQAU0AsUBbAC4AFyALtAXmAvoBhsDIwMkAZOAywBnMDWANZAbeA3UBwQDkwHigPHAf8BBMCDAEIQIWgQzghyCHUEfQR_AkUBJCCTAJMgSzAl0BL4CYAEzAJnATeLQDAAagCOAGAAO4AvQB9gFNAMzAeOBD0CZgE3CwA4AZYBHAEegJiATaArkBowDUwG6AOWAgIBGACZoE2AA.f_gAAAAAAAAA
+accounts.spotify.com	FALSE	/	TRUE	1752002260	__Host-device_id	AQDlAqce1aDmuCUP0AU3uRP0-Mgb_UFtJn6F3yAPQ2htDBGDFvnc4N72VufAEY6X9d9sGbcIEtSUR8r6XiNliiulZ8dgjJmPHb4
+.accounts.spotify.com	TRUE	/	TRUE	0	__Secure-TPASESSION	AQCq/gE593joGfukCQMdIvSM8SpNDeBQ4qiqsa4AphvMUorhzr4aZw9sHFilGsuQwhe+JNVcufprt7AhGEt4/Va2W2roTtPyXOw=
+.accounts.spotify.com	TRUE	/	TRUE	0	sp_tr	true
+.spotify.com	TRUE	/	TRUE	1752866342	sp_m	pl
+accounts.spotify.com	FALSE	/	TRUE	0	remember	dawidhaleczko%40gmail.com
+.spotify.com	TRUE	/	TRUE	1749937250	sp_dc	AQDxGTc4Qp4GTOcC_F2dKECIeK-MPk4yl8WYF_Njxiuq2ucpWaIEVq0knWv50ZAeqyqCYEF43075rPj0ZX8rSj5LerowI5fOFX4cvIHV3dFXYVFOQjhzySiYuuoGk0_ps_AT13W6KsJZ05XSVrgk6Sn2fgsn5DL6
+.accounts.spotify.com	TRUE	/	TRUE	0	sp_sso_csrf_token	013acda719f6ce73eea3db994e08945e2961ed83e031373138343031323532363830
+.spotify.com	TRUE	/	TRUE	1749937250	sp_key	c0cf3138-00d9-4e29-82fd-917ba7522bc3
+.spotify.com	TRUE	/	FALSE	1754288415	_cs_c	0
+.spotify.com	TRUE	/	FALSE	1754311113	_scid	01356397-c551-4b8b-a3fa-2a1780ce9370
+.spotify.com	TRUE	/	FALSE	1754311139	_scid_r	01356397-c551-4b8b-a3fa-2a1780ce9370
+.spotify.com	TRUE	/	TRUE	1725308414	sp_gaid	0088fc70dec2fcf01915da3a13235cc98dc6ea02ea5bc08ce190ae
+.spotify.com	TRUE	/	TRUE	1725308442	sp_last_utm	%7B%22utm_campaign%22%3A%22your_account%22%2C%22utm_medium%22%3A%22menu%22%2C%22utm_source%22%3A%22spotify%22%7D
+open.spotify.com	FALSE	/playlist	FALSE	0	sss	1
+open.spotify.com	FALSE	/	FALSE	1758655843	muxData	mux_viewer_id=46489e3b-4d0d-4cb0-870a-4b6452975a2e&msn=0.9255254418591605&sid=568fce2b-bc84-4da1-8e7f-04e6d9e45dd6&sst=1724094512801.9&sex=1724097343053.9
+.spotify.com	TRUE	/	FALSE	1754288415	_cs_id	f2492e0c-335b-a67b-ce43-72911446af8e.1720124415.2.1724099078.1724099078.1.1754288415686.1
+.spotify.com	TRUE	/	FALSE	1758659080	_ga_S35RN5WNT2	GS1.1.1724099077.2.1.1724099080.0.0.0
+.spotify.com	TRUE	/	FALSE	1758176678	_hp5_event_props.4043975597	%7B%7D
+.spotify.com	TRUE	/	FALSE	1758176678	_hp5_meta.4043975597	%7B%22setPath%22%3A%7B%7D%2C%22userId%22%3A%22200543204372775%22%2C%22sessionId%22%3A%225875167637515099%22%2C%22lastEventTime%22%3A1724099078166%2C%22sessionProperties%22%3A%7B%22time%22%3A1724099078166%2C%22referrer%22%3A%22https%3A%2F%2Fopen.spotify.com%2F%22%2C%22id%22%3A%225875167637515099%22%2C%22search_keyword%22%3A%22%22%2C%22utm%22%3A%7B%22source%22%3A%22%22%2C%22medium%22%3A%22%22%2C%22term%22%3A%22%22%2C%22content%22%3A%22%22%2C%22campaign%22%3A%22%22%7D%2C%22initial_pageview_info%22%3A%7B%22time%22%3A1724099078166%2C%22id%22%3A%224642348160807161%22%2C%22title%22%3A%22Odtwarzaj%20na%20kom%C3%B3rce%20za%20darmo%20%E2%80%93%20Spotify%20-%20Spotify%20(PL)%22%2C%22url%22%3A%7B%22domain%22%3A%22www.spotify.com%22%2C%22path%22%3A%22%2Fpl%2Ffree%2F%22%2C%22query%22%3A%22%22%2C%22hash%22%3A%22%22%7D%2C%22source_properties%22%3A%7B%22screen_height%22%3A936%2C%22screen_width%22%3A1879%7D%2C%22properties%22%3A%7B%22market%22%3A%22pl%22%2C%22loggedIn%22%3A%22true%22%2C%22language%22%3A%22pl-PL%22%7D%7D%7D%7D
+www.spotify.com	FALSE	/	TRUE	1724185477	spref2	spotifycom_footer_free
+.spotify.com	TRUE	/	FALSE	1755714511	OptanonConsent	isGpcEnabled=0&datestamp=Tue+Aug+20+2024+20%3A28%3A31+GMT%2B0200+(czas+%C5%9Brodkowoeuropejski+letni)&version=202405.2.0&browserGpcFlag=0&isIABGlobal=false&hosts=&consentId=93ea20d9-1b57-43bf-bf0d-005f811cc8bb&interactionCount=1&landingPath=NotLandingPage&groups=s00%3A1%2Cf00%3A1%2Cm00%3A1%2Ct00%3A1%2Cf11%3A1%2Ci00%3A1%2CV2STACK3%3A1%2CV2STACK11%3A1%2CV2STACK20%3A1%2Cm03%3A1&geolocation=PL%3B12&AwaitingReconsent=false&isAnonUser=1
+.spotify.com	TRUE	/	FALSE	1724790087	_gcl_au	1.1.1818120238.1717014087
+.spotify.com	TRUE	/	TRUE	1755714511	sp_adid	6ec6777f-be47-40f3-8682-ddcf68cb4ceb
+.spotify.com	TRUE	/	TRUE	1724264908	sp_landing	https%3A%2F%2Fopen.spotify.com%2F%3Fsp_cid%3D48f4a2bc8ac67cb4ace550f1763a1db2%26device%3Ddesktop
+.spotify.com	TRUE	/	TRUE	1755714508	sp_t	48f4a2bc8ac67cb4ace550f1763a1db2
+.spotify.com	TRUE	/	FALSE	1758738531	_ga	GA1.2.1795851737.1717442253
+.spotify.com	TRUE	/	FALSE	1758738531	_ga_BMC5VGR8YS	GS1.2.1724178511.25.1.1724178530.41.0.0
+.spotify.com	TRUE	/	FALSE	1758738535	_ga_ZWG1NSHWD8	GS1.1.1724178511.32.1.1724178534.0.0.0
+.spotify.com	TRUE	/	FALSE	1724264930	_gid	GA1.2.1250329054.1724091842
+
+===========================================
+ // 
+Email: dawidhaleczko@gmail.com
+Plan: Family
+Trial: NO
+Member: YES
+Days Left: null
+===========================================
+
+    
+    ─────────────────────────────────────────────────────────────
+                    CHECKER BY ITSMEBOI
+    ─────────────────────────────────────────────────────────────
+    

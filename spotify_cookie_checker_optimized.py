@@ -187,7 +187,7 @@ def extract_cookies_from_file(file_path):
         debug_print(f"Error reading file {file_path}: {e}")
         return None
 
-# Fast cookie parsing from content
+# Fast cookie parsing from content - supports multiple formats
 def parse_cookies_from_content(cookie_content):
     if not cookie_content or not cookie_content.strip():
         return None
@@ -199,6 +199,9 @@ def parse_cookies_from_content(cookie_content):
     if not ('SP_DC' in cookie_content or 'sp_dc' in cookie_content):
         return None
         
+    # Determine if this is Netscape format
+    is_netscape = '# Netscape HTTP Cookie File' in cookie_content[:50]
+    
     # Fast single-pass parsing - process only lines that likely contain cookies
     start = 0
     while True:
@@ -212,8 +215,43 @@ def parse_cookies_from_content(cookie_content):
             process_line = True
             start = end + 1
         
-        # Only process lines that might contain cookie data
-        if process_line and '\t' in line and ('sp_' in line.lower() or 'SP_' in line or 'spotify' in line.lower()):
+        # Skip empty lines and comments (except for Netscape header)
+        if not line or (line.startswith('#') and not '# Netscape HTTP Cookie File' in line):
+            if end == -1:  # last line
+                break
+            continue
+        
+        # Handle Netscape format
+        if is_netscape and ('spotify.com' in line) and not line.startswith('#'):
+            try:
+                # Netscape format can be tab or space separated
+                if '\t' in line:
+                    parts = line.strip().split('\t')
+                else:
+                    parts = line.strip().split()
+                
+                if len(parts) >= 6:
+                    # Netscape format: domain path secure expiry name value
+                    name = parts[5]
+                    value = parts[6] if len(parts) > 6 else ""
+                    
+                    # Only store essential Spotify cookies
+                    if name.lower().startswith(('sp_')) or name.lower() == 'spotify':
+                        cookies_dict[name] = value
+            except Exception:
+                # Try alternative parsing in case of format issues
+                try:
+                    # Look for name=value pattern within the line
+                    for part in line.split():
+                        if '=' in part and ('sp_' in part.lower() or 'SP_' in part):
+                            name, value = part.split('=', 1)
+                            if name.lower().startswith(('sp_')) or name.lower() == 'spotify':
+                                cookies_dict[name] = value
+                except:
+                    pass  # Skip problematic lines
+        
+        # Handle standard tab-delimited format
+        elif process_line and '\t' in line and ('sp_' in line.lower() or 'SP_' in line or 'spotify' in line.lower()):
             try:
                 # Ultra-fast split with fixed indexes to avoid regex and repeated splitting
                 parts = line.strip().split('\t')
@@ -222,10 +260,20 @@ def parse_cookies_from_content(cookie_content):
                     name, value = parts[5], parts[6]
                     
                     # Only store essential Spotify cookies
-                    if name.lower().startswith('sp_') or name == 'spotify':
+                    if name.lower().startswith(('sp_')) or name.lower() == 'spotify':
                         cookies_dict[name] = value
             except:
                 # Skip problematic lines silently for speed
+                pass
+                
+        # Handle key=value format (common in cookie exports)
+        elif '=' in line and ('sp_' in line.lower() or 'SP_' in line):
+            try:
+                name, value = line.split('=', 1)
+                name = name.strip()
+                if name.lower().startswith(('sp_')) or name.lower() == 'spotify':
+                    cookies_dict[name] = value.strip()
+            except:
                 pass
         
         # Exit when we've processed the last line
@@ -233,7 +281,14 @@ def parse_cookies_from_content(cookie_content):
             break
 
     # Quick validation - key check without additional processing
-    if not ('SP_DC' in cookies_dict or 'sp_dc' in cookies_dict):
+    # SP_DC is the critical cookie needed for authentication
+    has_sp_dc = False
+    for key in cookies_dict:
+        if key.lower() == 'sp_dc':
+            has_sp_dc = True
+            break
+    
+    if not has_sp_dc:
         return None
         
     return cookies_dict
@@ -245,9 +300,14 @@ async def check_cookie_async(cookie_content, filename, session):
 
     try:
         # Parse cookies from content
+        debug_print(f"Parsing cookies from file: {filename}")
         cookies_dict = parse_cookies_from_content(cookie_content)
+        
         if not cookies_dict:
+            debug_print(f"No valid cookies found in {filename}")
             return None, f"⚠ Missing required Spotify authentication cookies in {filename}"
+            
+        debug_print(f"Found {len(cookies_dict)} cookies in {filename}: {list(cookies_dict.keys())}")
 
         # Prepare optimized request data
         headers = {
@@ -374,7 +434,9 @@ async def process_batch_async(batch_files, semaphore, progress_callback=None):
                     # Create a task for this file
                     async def process_file(file_path, file_name, cookie_content):
                         async with semaphore:  # Control concurrency
+                            debug_print(f"Processing file in task: {file_name}")
                             result, message = await check_cookie_async(cookie_content, file_name, session)
+                            debug_print(f"Result for {file_name}: success={result is not None}, message={message}")
                             return file_path, file_name, result, message
                     
                     task = asyncio.create_task(process_file(file_path, file_name, cookie_content))
@@ -407,10 +469,16 @@ async def process_batch_async(batch_files, semaphore, progress_callback=None):
                     else:
                         local_results['unknown'] += 1
                 else:
+                    # Capture error messages for debugging
+                    debug_print(f"Error processing cookie {file_name}: {message}")
                     errors.append(message)
-                    if "failed" in message.lower():
+                    
+                    # Categorize errors
+                    if "login failed" in message.lower() or "(status: 401)" in message.lower():
+                        debug_print(f"Bad cookie: {file_name}")
                         local_results['bad'] += 1
                     else:
+                        debug_print(f"Error with cookie: {file_name}")
                         local_results['errors'] += 1
                 
                 # Update progress in batches

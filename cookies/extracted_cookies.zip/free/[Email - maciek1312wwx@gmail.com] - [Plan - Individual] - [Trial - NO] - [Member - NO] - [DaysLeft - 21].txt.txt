@@ -1,0 +1,59 @@
+
+    ─────────────────────────────────────────────────────────────
+    PLAN       : Free
+    COUNTRY    : PL
+    AutoPay    : False
+    Trial      : False
+    Invite Link: N/A
+    Email      : N/A
+    ─────────────────────────────────────────────────────────────
+
+    PLAN = Free
+COUNTRY = PL
+AutoPay = False
+Trial = False
+Checker By: by nobody028912
+Spotify COOKIE :👇
+
+
+PLAN = Free
+COUNTRY = PL
+AutoPay = False
+Trial = False
+Checker By: by nobody028912
+Spotify COOKIE :👇
+
+
+.spotify.com	TRUE	/	FALSE	1752441739	OptanonAlertBoxClosed	2024-07-13T21:22:19.844Z
+.spotify.com	TRUE	/	FALSE	1752441749	OptanonConsent	isGpcEnabled=0&datestamp=Sat+Jul+13+2024+23%3A22%3A29+GMT%2B0200+(czas+%C5%9Brodkowoeuropejski+letni)&version=202405.2.0&browserGpcFlag=0&isIABGlobal=false&hosts=&consentId=ffa3f596-c796-4ea3-997c-cb8383d0c864&interactionCount=1&isAnonUser=1&landingPath=NotLandingPage&groups=s00%3A1%2Cf00%3A1%2Cm00%3A1%2Ct00%3A1%2Cf11%3A1%2Ci00%3A1%2CV2STACK3%3A1%2CV2STACK11%3A1%2CV2STACK20%3A1%2Cm03%3A1&intType=1&geolocation=PL%3B24&AwaitingReconsent=false
+accounts.spotify.com	FALSE	/	TRUE	1755466208	__Host-device_id	AQDOQtooGqwnBHpl4UNH0ZkLpqCXimrfz8OiDMyKzFDIBty8i7JwbF9Y3uTeNPMcNY8zrr2I2UOvxW8y2DNGqcROfpamUJL6WIs
+.spotify.com	TRUE	/	FALSE	1755069749	_cs_c	0
+.spotify.com	TRUE	/	FALSE	1755069749	_cs_id	6c801ea1-5878-a432-c4cd-a84c5d82b80d.1720905749.1.1720905749.1720905749.1.1755069749766.1
+.spotify.com	TRUE	/	FALSE	1755534493	_ga	GA1.2.1331009242.1720905740
+.spotify.com	TRUE	/	FALSE	1755465750	_ga_BMC5VGR8YS	GS1.2.1720905740.1.1.1720905749.51.0.0
+.spotify.com	TRUE	/	FALSE	1755534493	_ga_S35RN5WNT2	GS1.1.1720974473.2.1.1720974492.0.0.0
+.spotify.com	TRUE	/	FALSE	1755465745	_ga_ZWG1NSHWD8	GS1.1.1720905740.1.0.1720905744.0.0.0
+.spotify.com	TRUE	/	FALSE	1728681732	_gcl_au	1.1.1344265274.1720905732
+.spotify.com	TRUE	/	FALSE	1755092447	_scid	14dd947f-cd06-49e4-8f50-e5836f7b9f72
+.spotify.com	TRUE	/	FALSE	1755092447	_scid_r	14dd947f-cd06-49e4-8f50-e5836f7b9f72
+.spotify.com	TRUE	/	FALSE	1752441739	eupubconsent-v2	CQBsInAQBsInAAcABBPLA7EwAP_AAAAAAAYgJwtV_G__bXlr8Xr3aftkeY1X99h77sQxBhfJk-4FyDvW_JwXn2EyNA26tqYKmRIEuzZBIQFkHJDURVCgSogVrzDMYkGcgTNIJ6BkgFMRa2dYCFxvmQtjMQIY5vp9d3d52R-9_dv83dziz4FnvzQ5P2clUICdA58tDfl_bRKb-5IOd-58v4v09N_rE2_eTVk_tevp7B8ucsu7_XV-9_YAAADAkE8ABAAC4AKAAqABwADwAIIAXgBqADwAIgATAAqgBvAD0AH4AQkAhgCJAEcAJYATQAwABhwDKAMsAbIA54B3AHfAPYA-IB9gH7AP8BAICLgIwARqAkQCSwE_AUGAqACrgFzAL0AYoA2gBuADiQI9AkUBOwChwFHgKRAWwAuQBd4C8wGDAMNgZGBkgDJwGZgM5gauBrIDbwG6gOCAcmA5cB44D_gIJgQYAhDBC0ELgIcwQ9BD-CPoI_gSKAkhBJgEmQJZgS3Al8BMACZgEzgJuBAE4ADgASABHAE4AQcAjgBfQErAJlATaApCBT4FQgK5AWEAsQBbgC8gF_gMQAYsAyEBowDUwG0ANuAbpA8kDyoHyAfKA_cCAgEDAIIgQrAh4BFMCVIExQJmgTUHARQAEQAOAA8AC4AJAAfgBHADQAI4AcgBAICDgIQAREAjgBUADpAJFASsAmIBMoCbQFJgKhAVKArkBYgC1AFuALoAX-AwQBiADFgGQgMmAaMA1MBrwDaAG3AN0AceA5YBz4DygHxAPlAfbA_YD9wICAQPAgiBBsCFYEPAIpgRgAjeBIQCRsEkQSSAlSBLgCXYEwQJhgTNAmoBNgCbY6DCAAuACgAKgAcABBAC4ANQAeABEACYAFWALgAugBiADeAHoAP0AhgCJAEsAJoATgAowBgADDAGUANEAbIA54B3AHeAPaAfYB-gD_gIsAjEBHQElgJ-AoMBUQFXALEAXOAvIC9AGKANoAbgA4gB1AD7AIvgR6BIgCZAE7AKHgUeBSACmgFigLYAW6AuABcgC7QF3gLzAX0AwYBhoDHoGRgZIAycBlQDLAGZgM5AaaA1WBq4GsANvAbqA4sByYDlwHjgPJAfWA-4CAIEGAIWwQ5BDoCHsEfQR_AkUBJACTIEswJdAS-AmABMwCZwE3AJvAThIAJgAEAAPADQAOQAjgBYgC-gJtAUmAqUBXICxAF5AMEAZ4A0YBqYDbgG6AOWAc_A8kDygHxAP2AgIBA8CDYEKwIZgRTAjABGkCN8EkQSSAmGBM0CbAE2yECoABYAFAAXAA1ACYAFUALgAYgA3gB6AEcAMAAc8A7gDvAH-ASkAoMBUQFXALmAYoA2gB1AEegKaAWKAtEBcAC5AGRgMnAZyA1UB44EGAIUAQtAh0BD0CRQEkAJdATOJQLwAEAALAAoABwAHgARAAmABVAC4AGKAQwBEgCOAFGAMAAbIA7wB-QFRAVcAuYBigDqAImARfAj0CRAFHgKaAWKAtgBecDIwMkAZOAzkBrADbwIAgQPAgwBCECHoEigJIAS6Al8BMwCZwE3AJwkgDoAFwAjgDuAIAAQcAjgBUAEigJWATEAm0BSYC3AF_gMWAZYAzwBuQDdAHLAPKAfuBAQCCIEMwIwASSAmaBNsoA5AAUABcAEgALgAjgCOAE4AOQAdwA-wCAAEHALEAXUA14B2wD_gJFATEAm0BT8CpAKlAW4AugBeQDBAGLAMmAZ4A0YBqYDXgG6AOWAeUA-IB8oD7YH7AfuBAQCBgEDwINgQrAh4BFMCMAEewJGwSRBJICVIEuwJmgTUAmwBNsCcJSCcAAuACgAKgAcABBADIANQAeABEACYAFIAKoAYgA_QCGAIkAUYAwABlADRAGyAOcAd8A_AD9AIsARiAjoCSgFBgKiAq4BcwC8gGKANoAbgA6gB7QD7AImARfAj0CRAE7AKHAUgApoBYoC2AFwALkAXaAvMBfQDDYGRgZIAycBlgDOYGsAayA28BuoDggHJgPFAeOA_4CCYEGAIQgQtAhnBDkEOoI-gj-BIoCSEEmASZAlmBLoCXwEwAJmATOAm8WgGAA1AEcAMAAdwBegD7AKaAZmA8cCHoEzAJuFgBwAywCOAI9ATEAm0BXIDRgGpgN0AcsBAQCMAEzQJsAA.f_gAAAAAAAAA
+.spotify.com	TRUE	/	TRUE	1752441750	sp_adid	b013d14e-2ce4-4b6c-ab61-33ad68de4c5c
+.spotify.com	TRUE	/	TRUE	1752510493	sp_dc	AQDHN6SoazlgA97Y_SkrwrZVV0hYSQ8DGwpZybNPRjVNsEsd6YosPx1TZOcpr1-ML7uFGComdCZ3m4fM6TzaTvoT41iWRDUFSB1ain4pWqgOszXMTo4HJzgyboyr7PwsxNAcAjLHGCrQhbSmvFBi-R6WyDkNuO_v
+.spotify.com	TRUE	/	TRUE	1752510493	sp_key	358bdd85-3e68-40c1-aa81-10f28ba1df4a
+.spotify.com	TRUE	/	TRUE	1755465749	sp_m	pl
+.spotify.com	TRUE	/	TRUE	1752510496	sp_t	d14c16aa93d0e3d7a76f6840eb3c4ce9
+
+===========================================
+ // 
+Email: maciek1312wwx@gmail.com
+Plan: Individual
+Trial: NO
+Member: NO
+Days Left: 21
+===========================================
+
+    
+    ─────────────────────────────────────────────────────────────
+                    CHECKER BY ITSMEBOI
+    ─────────────────────────────────────────────────────────────
+    
