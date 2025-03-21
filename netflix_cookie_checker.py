@@ -8,7 +8,6 @@ import json
 import time
 import traceback
 import zipfile
-import rarfile
 import argparse
 import sys
 import queue
@@ -306,35 +305,58 @@ def make_request_with_cookies(cookies):
         return ""
 
 def extract_info(response_text):
-    """Extract relevant information from the Netflix account page."""
-    patterns = {
+    """Extract relevant information from the Netflix account page using optimized patterns."""
+    # Quick check for login success before doing any regex
+    if '"countryOfSignup":' not in response_text or '"membershipStatus":' not in response_text:
+        raise ValueError("Missing critical login data, likely not a valid login")
+    
+    # Only extract the minimal fields we actually need for speed
+    essential_patterns = {
         'countryOfSignup': r'"countryOfSignup":\s*"([^"]+)"',
+        'membershipStatus': r'"membershipStatus":\s*"([^"]+)"'
+    }
+    
+    # Non-essential patterns that we'll only check if we have a valid login
+    optional_patterns = {
         'memberSince': r'"memberSince":\s*"([^"]+)"',
-        'userGuid': r'"userGuid":\s*"([^"]+)"',
-        'showExtraMemberSection': r'"showExtraMemberSection":\s*\{\s*"fieldType":\s*"Boolean",\s*"value":\s*(true|false)',
-        'membershipStatus': r'"membershipStatus":\s*"([^"]+)"',
         'maxStreams': r'maxStreams\":\{\"fieldType\":\"Numeric\",\"value\":([^,]+),',
         'localizedPlanName': r'localizedPlanName\":\{\"fieldType\":\"String\",\"value\":\"([^"]+)\"'
     }
     
-    extracted_info = {}
-    for key, pattern in patterns.items():
+    # First extract only essential data quickly
+    extracted_info = {
+        'userGuid': None,
+        'showExtraMemberSection': 'False'  # Default value
+    }
+    
+    # Check essential patterns first
+    for key, pattern in essential_patterns.items():
         match = re.search(pattern, response_text)
         extracted_info[key] = match.group(1) if match else None
     
-    # Additional processing for special fields
-    if extracted_info['localizedPlanName']:
-        extracted_info['localizedPlanName'] = extracted_info['localizedPlanName'].replace('x28', '').replace('\\', ' ').replace('x20', '').replace('x29', '')
-    
-    if extracted_info['memberSince']:
-        extracted_info['memberSince'] = extracted_info['memberSince'].replace("\\x20", " ")
-    
-    if extracted_info['showExtraMemberSection']:
-        extracted_info['showExtraMemberSection'] = extracted_info['showExtraMemberSection'].capitalize()
-    
-    # Check if we have critical fields
+    # Only proceed if we have a valid login
     if not extracted_info['countryOfSignup'] or extracted_info['countryOfSignup'] == "null":
         raise ValueError("Could not extract country of signup, likely not a valid login")
+    
+    # Only if we have a valid login, extract optional data
+    if extracted_info['membershipStatus'] == "CURRENT_MEMBER":
+        # Now get the optional data if we need it
+        for key, pattern in optional_patterns.items():
+            match = re.search(pattern, response_text)
+            extracted_info[key] = match.group(1) if match else None
+        
+        # Extra member section is optional, only check if we need it
+        if "showExtraMemberSection" in response_text:
+            extra_match = re.search(r'"showExtraMemberSection":\s*\{\s*"fieldType":\s*"Boolean",\s*"value":\s*(true|false)', response_text)
+            if extra_match:
+                extracted_info['showExtraMemberSection'] = extra_match.group(1).capitalize()
+            
+        # Fast processing for special fields - only if they exist
+        if extracted_info.get('localizedPlanName'):
+            extracted_info['localizedPlanName'] = extracted_info['localizedPlanName'].replace('x28', '').replace('\\', ' ').replace('x20', '').replace('x29', '')
+    
+        if extracted_info.get('memberSince'):
+            extracted_info['memberSince'] = extracted_info['memberSince'].replace("\\x20", " ")
     
     return extracted_info
 

@@ -6,7 +6,6 @@ import json
 import threading
 import sys
 import zipfile
-import rarfile
 import re
 import traceback
 import time
@@ -17,7 +16,6 @@ import concurrent.futures
 import multiprocessing
 from multiprocessing import Manager, Pool, Process, Value, Lock
 from datetime import datetime
-from termcolor import colored
 
 # Set up debugging
 DEBUG = True
@@ -168,17 +166,29 @@ def check_single_cookie(cookie_content, filename):
 
     try:
         # Skip debug print for speed
-        # Parse cookies quickly
+        # Ultra-fast cookie parsing with minimal processing
         cookies_dict = {}
-        for line in cookie_content.splitlines():
-            try:
-                parts = line.strip().split('\t')
-                if len(parts) >= 7:
-                    _, _, _, _, _, name, value = parts[:7]
-                    cookies_dict[name] = value
-            except:
-                # Skip problematic lines rather than fail the whole cookie
-                continue
+        
+        # Fast check for SP_DC and SP_KEY which are the most critical cookies
+        if 'SP_DC' in cookie_content and ('sp_dc' in cookie_content.lower() or 'SP_DC' in cookie_content):
+            # Only process the cookie content if it likely contains what we need
+            for line in cookie_content.splitlines():
+                if not line.strip() or '\t' not in line:
+                    continue
+                    
+                try:
+                    # Faster split with maxsplit to avoid unnecessary processing
+                    parts = line.strip().split('\t', 7)
+                    if len(parts) >= 7:
+                        # Only extract name and value, skip the rest
+                        name, value = parts[5:7]
+                        
+                        # Only store essential Spotify cookies for faster request
+                        if name.startswith('sp_') or name.startswith('SP_') or name == 'spotify':
+                            cookies_dict[name] = value
+                except:
+                    # Skip problematic lines silently for speed
+                    continue
 
         # Check if we have any valid cookies
         if not cookies_dict:
