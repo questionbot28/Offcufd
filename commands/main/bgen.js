@@ -2,6 +2,7 @@ const { MessageEmbed } = require('discord.js');
 const fs = require('fs');
 const config = require('../../config.json');
 const stockMonitor = require('../../utils/stockMonitor');
+const security = require('../../utils/security');
 
 const generated = new Set();
 
@@ -30,6 +31,15 @@ module.exports = {
         }
 
         if (message.channel.id === config.basichannelid) {
+            // Check if user is rate limited or blocked by security system
+            const rateLimitInfo = security.isRateLimited(message.author.id, 'bgen');
+            if (rateLimitInfo) {
+                return message.channel.send({
+                    embeds: [security.generateRateLimitEmbed(rateLimitInfo)]
+                });
+            }
+            
+            // Check legacy cooldown system
             if (generated.has(message.author.id)) {
                 return message.channel.send({
                     embeds: [

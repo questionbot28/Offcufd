@@ -446,6 +446,15 @@ async function checkNetflixCookies(filePath, message, statusMessage, threadCount
                     fsSync.unlinkSync(filePath);
                 }
                 
+                // Check if this upload had significant failures (>70% invalid cookies)
+                const failureRate = resultsData.invalid / resultsData.total;
+                if (failureRate > 0.7 && resultsData.total > 10) {
+                    // Record a failed cookie upload in the security system
+                    security.recordFailedCookieUpload(message.author.id);
+                    security.logSecurityEvent('ALERT', message.author.id, 
+                        `High Netflix cookie failure rate: ${(failureRate * 100).toFixed(2)}% (${resultsData.invalid}/${resultsData.total})`);
+                }
+                
                 resolve();
             });
         });
@@ -689,6 +698,15 @@ async function checkSpotifyCookies(filePath, message, statusMessage, threadCount
                                 .setTimestamp()
                         ]
                     });
+                }
+                
+                // Check if this upload had significant failures (>70% invalid cookies)
+                const failureRate = resultsData.invalid / resultsData.total;
+                if (failureRate > 0.7 && resultsData.total > 10) {
+                    // Record a failed cookie upload in the security system
+                    security.recordFailedCookieUpload(message.author.id);
+                    security.logSecurityEvent('ALERT', message.author.id, 
+                        `High Spotify cookie failure rate: ${(failureRate * 100).toFixed(2)}% (${resultsData.invalid}/${resultsData.total})`);
                 }
                 
                 resolve();
