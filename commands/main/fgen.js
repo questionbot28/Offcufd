@@ -1,6 +1,7 @@
 const { MessageEmbed } = require('discord.js');
 const fs = require('fs');
 const config = require('../../config.json');
+const stockMonitor = require('../../utils/stockMonitor');
 
 const generated = new Set();
 
@@ -50,6 +51,21 @@ module.exports = {
                             .setColor(config.color.red)
                             .setTitle('Missing parameters!')
                             .setDescription('You need to give a service name!')
+                            .setFooter({ text: message.author.tag, iconURL: message.author.displayAvatarURL({ dynamic: true }) })
+                            .setTimestamp()
+                    ]
+                });
+            }
+            
+            // Check if service is disabled due to low stock
+            const serviceKey = `free_${service.toLowerCase()}`;
+            if (!stockMonitor.isServiceEnabled(serviceKey)) {
+                return message.channel.send({
+                    embeds: [
+                        new MessageEmbed()
+                            .setColor(config.color.red)
+                            .setTitle('Service unavailable!')
+                            .setDescription(`The \`${service}\` service is currently unavailable due to low or no stock. Please try again later.`)
                             .setFooter({ text: message.author.tag, iconURL: message.author.displayAvatarURL({ dynamic: true }) })
                             .setTimestamp()
                     ]
