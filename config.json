@@ -205,5 +205,35 @@
       "name": "Extreme",
       "cooldown": 120
     }
-  ]
+  ],
+  "stockMonitoring": {
+    "enabled": true,
+    "alertChannelId": "1348251266312306822",
+    "stockCheckInterval": 300000,
+    "ownerId": "796284109349322752",
+    "coOwnerId": "1101479028906541167",
+    "alertThresholds": [20, 10, 5],
+    "services": {
+      "netflix": {
+        "maxStock": 100,
+        "lowStockThreshold": 10
+      },
+      "spotify": {
+        "maxStock": 100,
+        "lowStockThreshold": 10
+      },
+      "disney+": {
+        "maxStock": 100,
+        "lowStockThreshold": 10
+      },
+      "crunchyroll": {
+        "maxStock": 100,
+        "lowStockThreshold": 10
+      },
+      "valorant": {
+        "maxStock": 100,
+        "lowStockThreshold": 10
+      }
+    }
+  }
 }

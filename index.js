@@ -13,6 +13,7 @@ const Discord = require('discord.js');
 const fs = require('fs');
 const express = require('express');
 const sqlite3 = require('sqlite3').verbose();
+const stockMonitor = require('./utils/stockMonitor');
 const session = require('express-session');
 const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
@@ -152,6 +153,14 @@ client.on('ready', async () => {
         }
     } else {
         console.error(`Welcome channel not found with ID: ${config.welcomeChannelId}`);
+    }
+    
+    // Initialize stock monitoring system
+    if (config.stockMonitoring && config.stockMonitoring.enabled) {
+        stockMonitor.initializeStockMonitoring(client, config.stockMonitoring);
+        console.log('Stock monitoring system initialized');
+    } else {
+        console.log('Stock monitoring disabled in config');
     }
 
     // Cache all guild invites
