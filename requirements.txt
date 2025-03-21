@@ -40,3 +40,5 @@ orjson
 aiohttp
 aiohttp
 orjson
+aiohttp
+orjson
