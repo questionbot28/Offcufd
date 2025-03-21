@@ -33,3 +33,5 @@ termcolor
 aiohttp
 asyncio
 orjson
+aiohttp
+orjson

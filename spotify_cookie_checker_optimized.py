@@ -4,9 +4,11 @@ import os
 import sys
 import json
 import time
-import json  # Using standard json module since orjson is optional
+import json
+import orjson  # For faster JSON parsing
 import zipfile
 import asyncio
+import aiohttp  # For async HTTP requests
 import argparse
 import traceback
 import threading
@@ -390,7 +392,13 @@ async def process_batch_async(batch_files, semaphore, progress_callback=None):
                 out_f.write(formatted_cookie)
         except Exception as save_err:
             debug_print(f"Error saving cookie: {save_err}")
-            errors.append(f"⚠ Error saving cookie {filename}: {str(save_err)}")
+            try:
+                # Use the filename if it's defined, otherwise a default message
+                cookie_id = filename if 'filename' in locals() else "unknown"
+                errors.append(f"⚠ Error saving cookie {cookie_id}: {str(save_err)}")
+            except:
+                # Ultimate fallback if something goes wrong with the error handling itself
+                errors.append(f"⚠ Error saving cookie: {str(save_err)}")
             local_results['errors'] += 1
     
     # Return batch results
@@ -547,7 +555,8 @@ async def check_cookies_async(input_file, thread_count=MAX_THREADS):
         
         # Create progress tracking function
         async def update_progress():
-            nonlocal results
+            # Use global results variable
+            global results
             last_time = time.time()
             processed = 0
             
