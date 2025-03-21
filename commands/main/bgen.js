@@ -165,6 +165,10 @@ module.exports = {
                                     ]
                                 });
 
+                                // Record this usage in the security system
+                                security.markCommandUsage(message.author.id, 'bgen');
+                                
+                                // Legacy cooldown system
                                 generated.add(message.author.id);
                                 setTimeout(() => {
                                     generated.delete(message.author.id);

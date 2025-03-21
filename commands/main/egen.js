@@ -2,6 +2,7 @@ const { MessageEmbed } = require('discord.js');
 const fs = require('fs');
 const config = require('../../config.json');
 const stockMonitor = require('../../utils/stockMonitor');
+const security = require('../../utils/security');
 
 const egenChannel = config.egenChannel; // Add your egenChannel ID in the config.json file
 const extremechannelId = config.extremechannelId; // Add your extreme server channel ID in the config.json file
@@ -45,6 +46,14 @@ module.exports = {
                     .setDescription(`You cannot use the \`egen\` command in this channel! Try it in <#${egenChannel}>!`)
                     .setFooter({ text: message.author.tag, iconURL: message.author.displayAvatarURL({ dynamic: true, size: 64 }) })
                     .setTimestamp()]
+            });
+        }
+        
+        // Check if user is rate limited or blocked by security system
+        const rateLimitInfo = security.isRateLimited(message.author.id, 'egen');
+        if (rateLimitInfo) {
+            return message.channel.send({
+                embeds: [security.generateRateLimitEmbed(rateLimitInfo)]
             });
         }
 
@@ -205,6 +214,9 @@ module.exports = {
                                 .setFooter({ text: message.author.tag, iconURL: message.author.displayAvatarURL({ dynamic: true, size: 64 }) })
                                 .setTimestamp()]
                         });
+                        
+                        // Record this usage in the security system
+                        security.markCommandUsage(message.author.id, 'egen');
 
                         generated.add(message.author.id);
                     });
