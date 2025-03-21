@@ -6,6 +6,7 @@ const { spawn } = require('child_process');
 const { MessageEmbed, MessageAttachment } = require('discord.js');
 const config = require('../../config.json');
 const progressUtils = require('../../utils/progressBar');
+const security = require('../../utils/security');
 
 module.exports = {
     name: 'c-upload',

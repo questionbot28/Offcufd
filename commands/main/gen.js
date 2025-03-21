@@ -31,6 +31,15 @@ module.exports = {
         }
 
         if (message.channel.id === config.genChannel) {
+            // Check if user is rate limited or blocked by security system
+            const rateLimitInfo = security.isRateLimited(message.author.id, 'gen');
+            if (rateLimitInfo) {
+                return message.channel.send({
+                    embeds: [security.generateRateLimitEmbed(rateLimitInfo)]
+                });
+            }
+            
+            // Check legacy cooldown system
             if (generated.has(message.author.id)) {
                 return message.channel.send({
                     embeds: [
@@ -156,6 +165,10 @@ module.exports = {
                                     ]
                                 });
 
+                                // Record this usage in the security system
+                                security.markCommandUsage(message.author.id, 'gen');
+                                
+                                // Legacy cooldown system
                                 generated.add(message.author.id);
                                 setTimeout(() => {
                                     generated.delete(message.author.id);
