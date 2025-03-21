@@ -10,7 +10,33 @@
     
     ─────────────────────────────────────────────────────────────
 
-    .spotify.com	TRUE	/	FALSE	1748978253	OptanonAlertBoxClosed	2024-06-03T19:17:33.287Z
+    
+    ─────────────────────────────────────────────────────────────
+    PLAN       : Family
+    COUNTRY    : PL
+    AutoPay    : True
+    Trial      : False
+    Invite Link: N/A
+    Email      : N/A
+    ─────────────────────────────────────────────────────────────
+
+    PLAN = Family Premium
+COUNTRY = PL
+AutoPay = True
+Trial = False
+Checker By: by nobody028912
+Spotify COOKIE :👇
+
+
+PLAN = Family Premium
+COUNTRY = PL
+AutoPay = True
+Trial = False
+Checker By: by nobody028912
+Spotify COOKIE :👇
+
+
+.spotify.com	TRUE	/	FALSE	1748978253	OptanonAlertBoxClosed	2024-06-03T19:17:33.287Z
 .spotify.com	TRUE	/	FALSE	1748978253	eupubconsent-v2	CP_oTHAP_oTHAAcABBENA3EgAP_AAAAAAAYgKMtV_H__bX1r8X73aftkeY1X9_j77sQxBhfJk-4FyDvW_JwXn2EyNA26tqYKmRIEuzZBIQNkHJDURVCgSogVrzDMYkGcoTNIJ6BkgFMRa2dYCFxvmwtjMQIY5vr993d52T-9_dv83dziz4FnvzQ5v2clUICdA58tDfl_bROb-5IOd-58v4v09N_rE2_eTVk_tevp7D9-csu7_XX-9_YAAS9Ll9-mAAAAwJBPAAQAAuACgAKgAcAA8ACCAF4AagA8ACIAEwAKoAbwA9AB-AEJAIYAiQBHACWAE0AMAAYcAygDLAGyAOeAdwB3wD2APiAfYB-wD_AQCAi4CMAEagJEAksBPwFBgKgAq4BcwC9AGKANoAbgA4kCPQJFATsAocBR4CkQFsALkAXeAvMBgwDDYGRgZIAycBmYDOYGrgayA28BuoDggHJgOXAeOA_4CCYEGAIQwQtBC4CHMEPQQ_gj6CP4EigJIQSYBJkCWYEtwJfATAAmYBM4CbgQBMAA4AEgARwBOAEHAI4AX0BKwCbQFIQKfAqEBXICwgFiALcAXkAv8BiADFgGQgNGAamA2gBtwDdIHkgeVA-QD5QH7gQEAgYBBECFYEPAIpgSpAmKBM0Cag4CMAAiABwAHgAXABIAD8AI4AUAA0ACOAHIAQCAg4CEAERAI4AVAA6QCRQErAJiATKAm0BSYCoQFSgK5AWIAtQBbgC6AF_gMEAYgAxYBkIDJgGjANTAa8A2gBtwDdAHHgOWAc-A8oB8QD5QH2wP2A_cCAgEDwIIgQbAhWBDwCKYEYAI3gSEAkbBJEEkgJUgS4Al2BMECYYEzQJqATYAm2OgwgALgAoACoAHAAQQAuADUAHgARAAmABVgC4ALoAYgA3gB6AD9AIYAiQBLACaAE4AKMAYAAwwBlADRAGyAOeAdwB3gD2gH2AfoA_4CLAIxAR0BJYCfgKDAVEBVwCxAFzgLyAvQBigDaAG4AOIAdQA-wCL4EegSIAmQBOwCh4FHgUgApoBYoC2AFugLgAXIAu0Bd4C8wF9AMGAYaAx6BkYGSAMnAZUAywBmYDOQGmgNVgauBrADbwG6gOLAcmA5cB44DyQH1gPuAgCBBgCFsEOQQ6Ah7BH0EfwJFASQAkyBLMCXQEvgJgATMAmcBNwCbwE4SACYABAADwA0ADkAI4AWIAvoCbQFJgKlAVyAsQBeQDBAGeANGAamA24BugDlgHPwPJA8oB8QD9gICAQPAg2BCsCGYEUwIwARpAjfBJEEkgJhgTNAmwBNshAqAAWABQAFwANQAmABVAC4AGIAN4AegBHADAAHPAO4A7wB_gEpAKDAVEBVwC5gGKANoAdQBHoCmgFigLRAXAAuQBkYDJwGcgNVAeOBBgCFAELQIdAQ9AkUBJACXQEziUDAABAACwAKAAcABgADwAIgATAAqgBcADFAIYAiQBHACjAGAANkAd4A_ICogKuAXMAxQB1AETAIvgR6BIgCjwFNALFAWwAvOBkYGSAMnAZyA1gBt4EAQIHgQYAhCBD0CRQEkAJdAS-AmYBM4CbgE4SQB0AC4ARwB3AEAAIOARwAqACRQErAJiATaApMBbgC_wGLAMsAZ4A3IBugDlgHlAP3AgIBBECGYEYAJJATNAm2UAcgAKAAuACQAFwARwBHACcAHIAO4AfYBAACDgFiALqAa8A7YB_wEigJiATaAp-BUgFSgLcAXQAvIBggDFgGTAM8AaMA1MBrwDdAHLAPKAfEA-UB9sD9gP3AgIBAwCB4EGwIVgQ8AimBGACPYEjYJIgkkBKkCXYEzQJqATYAm2BOEpBOAAXABQAFQAOAAggBgAGoAPAAiABMACkAFUAMQAfoBDAESAKMAYAAygBogDZAHOAO-AfgB-gEWAIxAR0BJQCgwFRAVcAuYBeQDFAG0ANwAdQA9oB9gETAIvgR6BIgCdgFDgKQAU0AsUBbAC4AFyALtAXmAvoBhsDIwMkAZOAywBnMDWANZAbeA3UBwQDkwHigPHAf8BBMCDAEIQIWgQzghyCHUEfQR_AkUBJCCTAJMgSzAl0BL4CYAEzAJnATeLQDAAagCOAGAAO4AvQB9gFNAMzAeOBD0CZgE3CwA4AZYBHAEegJiATaArkBowDUwG6AOWAgIBGACZoE2AA.f_gAAAAAAAAA
 accounts.spotify.com	FALSE	/	TRUE	1752002260	__Host-device_id	AQDlAqce1aDmuCUP0AU3uRP0-Mgb_UFtJn6F3yAPQ2htDBGDFvnc4N72VufAEY6X9d9sGbcIEtSUR8r6XiNliiulZ8dgjJmPHb4
 .accounts.spotify.com	TRUE	/	TRUE	0	__Secure-TPASESSION	AQCq/gE593joGfukCQMdIvSM8SpNDeBQ4qiqsa4AphvMUorhzr4aZw9sHFilGsuQwhe+JNVcufprt7AhGEt4/Va2W2roTtPyXOw=
@@ -41,6 +67,21 @@ www.spotify.com	FALSE	/	TRUE	1724185477	spref2	spotifycom_footer_free
 .spotify.com	TRUE	/	FALSE	1758738531	_ga_BMC5VGR8YS	GS1.2.1724178511.25.1.1724178530.41.0.0
 .spotify.com	TRUE	/	FALSE	1758738535	_ga_ZWG1NSHWD8	GS1.1.1724178511.32.1.1724178534.0.0.0
 .spotify.com	TRUE	/	FALSE	1724264930	_gid	GA1.2.1250329054.1724091842
+
+===========================================
+ // 
+Email: dawidhaleczko@gmail.com
+Plan: Family
+Trial: NO
+Member: YES
+Days Left: null
+===========================================
+
+    
+    ─────────────────────────────────────────────────────────────
+                    CHECKER BY ITSMEBOI
+    ─────────────────────────────────────────────────────────────
+    
     
     ─────────────────────────────────────────────────────────────
                     CHECKER BY ITSMEBOI

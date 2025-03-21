@@ -10,7 +10,33 @@
     
     ─────────────────────────────────────────────────────────────
 
-    www.spotify.com	FALSE	/pl/premium	FALSE	1750781651	sp_t	7bc41ac5-c052-4096-98ba-3277632c90da
+    
+    ─────────────────────────────────────────────────────────────
+    PLAN       : Family
+    COUNTRY    : PL
+    AutoPay    : True
+    Trial      : False
+    Invite Link: N/A
+    Email      : N/A
+    ─────────────────────────────────────────────────────────────
+
+    PLAN = Family Premium
+COUNTRY = PL
+AutoPay = True
+Trial = False
+Checker By: by nobody028912
+Spotify COOKIE :👇
+
+
+PLAN = Family Premium
+COUNTRY = PL
+AutoPay = True
+Trial = False
+Checker By: by nobody028912
+Spotify COOKIE :👇
+
+
+www.spotify.com	FALSE	/pl/premium	FALSE	1750781651	sp_t	7bc41ac5-c052-4096-98ba-3277632c90da
 .spotify.com	TRUE	/	TRUE	1753719251	sp_m	pl
 .spotify.com	TRUE	/	TRUE	1724343251	sp_last_utm	%7B%22utm_campaign%22%3A%22alwayson_europe_pl_performancemarketing_core_brand%2Bcontextual%2Btext%2Bpl%2Bgoogle%22%2C%22utm_medium%22%3A%22paidsearch%22%2C%22utm_source%22%3A%22pl-pl_brand_contextual_text%22%7D
 www.spotify.com	FALSE	/pl/premium	FALSE	0	sss	1
@@ -38,6 +64,21 @@ accounts.spotify.com	FALSE	/	TRUE	0	remember	filipekkoniecz%40gmail.com
 .spotify.com	TRUE	/	TRUE	1750695369	sp_key	ef3201fb-e4f1-412e-8f7e-6ba2760805f0
 .accounts.spotify.com	TRUE	/	TRUE	0	csrf_token	AQAiXYsfhqfPW8mQzNg0IntD4Dl5A_Li81GZy81tM1prPtikncv1t_-wekxpobPFb6INPd_ZwDp01rCd0w
 .spotify.com	TRUE	/	TRUE	1722357113	sp_landing	https%3A%2F%2Fdiscord.com%2F%3Fsp_cid%3Da9260963-3edf-406c-80dc-2d2415ffca4f%26device%3Ddesktop
+
+===========================================
+ // 
+Email: filipekkoniecz@gmail.com
+Plan: Family
+Trial: NO
+Member: YES
+Days Left: null
+===========================================
+
+    
+    ─────────────────────────────────────────────────────────────
+                    CHECKER BY ITSMEBOI
+    ─────────────────────────────────────────────────────────────
+    
     
     ─────────────────────────────────────────────────────────────
                     CHECKER BY ITSMEBOI

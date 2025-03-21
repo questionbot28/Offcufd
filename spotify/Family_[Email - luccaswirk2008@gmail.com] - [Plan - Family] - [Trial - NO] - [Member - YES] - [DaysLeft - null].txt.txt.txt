@@ -10,7 +10,33 @@
     
     ─────────────────────────────────────────────────────────────
 
-    accounts.spotify.com	FALSE	/	FALSE	1742937311	__Host-device_id	AQCzCnt7Wav-7tH67RSHn3kHylJVJ1Nw3VzuqTpmMcuksIWZ8vBcXpoYNbGPiElKDcqaXyCF99h_BVAerGeVzeFfWfX_RBu_8XQ
+    
+    ─────────────────────────────────────────────────────────────
+    PLAN       : Family
+    COUNTRY    : BR
+    AutoPay    : False
+    Trial      : False
+    Invite Link: N/A
+    Email      : N/A
+    ─────────────────────────────────────────────────────────────
+
+    PLAN = Family Premium
+COUNTRY = BR
+AutoPay = False
+Trial = False
+Checker By: by nobody028912
+Spotify COOKIE :👇
+
+
+PLAN = Family Premium
+COUNTRY = BR
+AutoPay = False
+Trial = False
+Checker By: by nobody028912
+Spotify COOKIE :👇
+
+
+accounts.spotify.com	FALSE	/	FALSE	1742937311	__Host-device_id	AQCzCnt7Wav-7tH67RSHn3kHylJVJ1Nw3VzuqTpmMcuksIWZ8vBcXpoYNbGPiElKDcqaXyCF99h_BVAerGeVzeFfWfX_RBu_8XQ
 .accounts.spotify.com	TRUE	/	FALSE	17558956874977000	__Secure-TPASESSION	AQDnuPF9o58XbnL2R9UbyJmKpOUUv7gTSokZmvEC/xXvarvl0m81XJNAKa9/v2tZresacVqN4e+nXZuOqtRvsQfqroc7ii5tSL4=
 .spotify.com	TRUE	/	FALSE	1747022935	sp_m	br-pt
 .spotify.com	TRUE	/	FALSE	1724889649	sp_last_utm	%7B%22utm_campaign%22%3A%22your_account%22%2C%22utm_medium%22%3A%22menu%22%2C%22utm_source%22%3A%22spotify%22%7D
@@ -30,6 +56,21 @@ accounts.spotify.com	FALSE	/	FALSE	17558956880952678	remember	luccaswirk2008%40g
 .accounts.spotify.com	TRUE	/	FALSE	17558956881032460	csrf_token	AQCqns7Y7xfhwioHfDGgU_EG1Iwt81fWOLhZ3KX2iOOJGVCaMFKqzvINGzUmp1dGesJ0ue0H9gWmlS81NtDGXC9LnQ6T0Rh3k4PluWO85rQUEQiDxw
 .spotify.com	TRUE	/	FALSE	1722215680	sp_landing	https%3A%2F%2Fopen.spotify.com%2Fdesktop%2Fauth%2Fsuccess%3Fsp_cid%3D8ad8b848470214ea1b782eae3105f8c2%26device%3Ddesktop
 .spotify.com	TRUE	/	FALSE	1753665280	sp_t	8ad8b848470214ea1b782eae3105f8c2
+
+===========================================
+ // 
+Email: luccaswirk2008@gmail.com
+Plan: Family
+Trial: NO
+Member: YES
+Days Left: null
+===========================================
+
+    
+    ─────────────────────────────────────────────────────────────
+                    CHECKER BY ITSMEBOI
+    ─────────────────────────────────────────────────────────────
+    
     
     ─────────────────────────────────────────────────────────────
                     CHECKER BY ITSMEBOI

@@ -10,7 +10,33 @@
     
     ─────────────────────────────────────────────────────────────
 
-    .spotify.com	TRUE	/	FALSE	1753798260	OptanonAlertBoxClosed	2024-07-29T14:11:00.763Z
+    
+    ─────────────────────────────────────────────────────────────
+    PLAN       : Duo
+    COUNTRY    : PL
+    AutoPay    : True
+    Trial      : False
+    Invite Link: N/A
+    Email      : N/A
+    ─────────────────────────────────────────────────────────────
+
+    PLAN = Duo Premium
+COUNTRY = PL
+AutoPay = True
+Trial = False
+Checker By: by nobody028912
+Spotify COOKIE :👇
+
+
+PLAN = Duo Premium
+COUNTRY = PL
+AutoPay = True
+Trial = False
+Checker By: by nobody028912
+Spotify COOKIE :👇
+
+
+.spotify.com	TRUE	/	FALSE	1753798260	OptanonAlertBoxClosed	2024-07-29T14:11:00.763Z
 .spotify.com	TRUE	/	FALSE	1753798265	OptanonConsent	isGpcEnabled=0&datestamp=Mon+Jul+29+2024+16%3A11%3A05+GMT%2B0200+(czas+%C5%9Brodkowoeuropejski+letni)&version=202405.2.0&browserGpcFlag=0&isIABGlobal=false&hosts=&consentId=1dffcddc-0b10-48a8-93d6-d25f8c898b8f&interactionCount=2&isAnonUser=1&landingPath=NotLandingPage&groups=s00%3A1%2Cf00%3A1%2Cm00%3A1%2Ct00%3A1%2Cf11%3A1%2Ci00%3A1%2CV2STACK3%3A1%2CV2STACK11%3A1%2CV2STACK20%3A1%2Cm03%3A1&intType=1&geolocation=PL%3B12&AwaitingReconsent=false
 .spotify.com	TRUE	/	FALSE	1756426261	_cs_c	0
 .spotify.com	TRUE	/	FALSE	1756426261	_cs_id	1a030453-335b-a148-b60d-13b2ca992687.1722262261.1.1722262265.1722262261.1.1756426261008.1
@@ -41,6 +67,21 @@ accounts.spotify.com	FALSE	/	TRUE	1722266181	__Host-sp_csrf_sid	18d6a37585ff2bab
 .spotify.com	TRUE	/	TRUE	1727446570	sp_gaid	0088fc4790a880dbb4bc241ec7f32e9708429c23446b7fc204dea9
 .accounts.spotify.com	TRUE	/	TRUE	0	sp_sso_csrf_token	013acda7192434de935b7e96b0d74ebb6a7df980f231373232323632353830363631
 .spotify.com	TRUE	/	TRUE	1753798583	sp_t	ed011902-218c-4011-8362-9cbdf8b6bcd9
+
+===========================================
+ // 
+Email: kiwi30491@gmail.com
+Plan: Duo
+Trial: NO
+Member: YES
+Days Left: null
+===========================================
+
+    
+    ─────────────────────────────────────────────────────────────
+                    CHECKER BY ITSMEBOI
+    ─────────────────────────────────────────────────────────────
+    
     
     ─────────────────────────────────────────────────────────────
                     CHECKER BY ITSMEBOI

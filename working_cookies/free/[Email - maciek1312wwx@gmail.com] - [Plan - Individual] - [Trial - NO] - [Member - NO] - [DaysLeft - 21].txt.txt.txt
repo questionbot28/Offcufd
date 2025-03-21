@@ -10,7 +10,33 @@
     
     ─────────────────────────────────────────────────────────────
 
-    .spotify.com	TRUE	/	FALSE	1752441739	OptanonAlertBoxClosed	2024-07-13T21:22:19.844Z
+    
+    ─────────────────────────────────────────────────────────────
+    PLAN       : Free
+    COUNTRY    : PL
+    AutoPay    : False
+    Trial      : False
+    Invite Link: N/A
+    Email      : N/A
+    ─────────────────────────────────────────────────────────────
+
+    PLAN = Free
+COUNTRY = PL
+AutoPay = False
+Trial = False
+Checker By: by nobody028912
+Spotify COOKIE :👇
+
+
+PLAN = Free
+COUNTRY = PL
+AutoPay = False
+Trial = False
+Checker By: by nobody028912
+Spotify COOKIE :👇
+
+
+.spotify.com	TRUE	/	FALSE	1752441739	OptanonAlertBoxClosed	2024-07-13T21:22:19.844Z
 .spotify.com	TRUE	/	FALSE	1752441749	OptanonConsent	isGpcEnabled=0&datestamp=Sat+Jul+13+2024+23%3A22%3A29+GMT%2B0200+(czas+%C5%9Brodkowoeuropejski+letni)&version=202405.2.0&browserGpcFlag=0&isIABGlobal=false&hosts=&consentId=ffa3f596-c796-4ea3-997c-cb8383d0c864&interactionCount=1&isAnonUser=1&landingPath=NotLandingPage&groups=s00%3A1%2Cf00%3A1%2Cm00%3A1%2Ct00%3A1%2Cf11%3A1%2Ci00%3A1%2CV2STACK3%3A1%2CV2STACK11%3A1%2CV2STACK20%3A1%2Cm03%3A1&intType=1&geolocation=PL%3B24&AwaitingReconsent=false
 accounts.spotify.com	FALSE	/	TRUE	1755466208	__Host-device_id	AQDOQtooGqwnBHpl4UNH0ZkLpqCXimrfz8OiDMyKzFDIBty8i7JwbF9Y3uTeNPMcNY8zrr2I2UOvxW8y2DNGqcROfpamUJL6WIs
 .spotify.com	TRUE	/	FALSE	1755069749	_cs_c	0
@@ -28,6 +54,21 @@ accounts.spotify.com	FALSE	/	TRUE	1755466208	__Host-device_id	AQDOQtooGqwnBHpl4U
 .spotify.com	TRUE	/	TRUE	1752510493	sp_key	358bdd85-3e68-40c1-aa81-10f28ba1df4a
 .spotify.com	TRUE	/	TRUE	1755465749	sp_m	pl
 .spotify.com	TRUE	/	TRUE	1752510496	sp_t	d14c16aa93d0e3d7a76f6840eb3c4ce9
+
+===========================================
+ // 
+Email: maciek1312wwx@gmail.com
+Plan: Individual
+Trial: NO
+Member: NO
+Days Left: 21
+===========================================
+
+    
+    ─────────────────────────────────────────────────────────────
+                    CHECKER BY ITSMEBOI
+    ─────────────────────────────────────────────────────────────
+    
     
     ─────────────────────────────────────────────────────────────
                     CHECKER BY ITSMEBOI

@@ -10,7 +10,33 @@
     
     ─────────────────────────────────────────────────────────────
 
-    .spotify.com	TRUE	/	TRUE	1728256209	sp_landing	https%3A%2F%2Flos40.com%2F%3Fsp_cid%3D09f66ef70b842af45f6404ccc5417be7%26device%3Ddesktop
+    
+    ─────────────────────────────────────────────────────────────
+    PLAN       : Free
+    COUNTRY    : ES
+    AutoPay    : False
+    Trial      : False
+    Invite Link: N/A
+    Email      : N/A
+    ─────────────────────────────────────────────────────────────
+
+    PLAN = Free
+COUNTRY = ES
+AutoPay = False
+Trial = False
+Checker By: by nobody028912
+Spotify COOKIE :👇
+
+
+PLAN = Free
+COUNTRY = ES
+AutoPay = False
+Trial = False
+Checker By: by nobody028912
+Spotify COOKIE :👇
+
+
+.spotify.com	TRUE	/	TRUE	1728256209	sp_landing	https%3A%2F%2Flos40.com%2F%3Fsp_cid%3D09f66ef70b842af45f6404ccc5417be7%26device%3Ddesktop
 accounts.spotify.com	FALSE	/	TRUE	1751839451	__Host-device_id	AQDYfvuU7c2_6oBJoDf2xAi4kJwpr07Z4HioWhJ2dihmeWWZspl68FGxF3Wyb_xi1tVvgkzRhkAmzs9Dr2R3dLtSlz_7tc-r3Og
 .spotify.com	TRUE	/	TRUE	1748815595	sp_dc	AQD4xNAEQEIbq1brxfcZeXwePzY4Uam_r7a8j2c-tKRl0u7sMkx6IkUK62JGHSXAiJssNM-RgUqxcuPkE12nSX9_spt_GSrFeJYWrWb4Lc0DbBsw1X5DY1h7wn08YR3KLyv3r9BR6EeOVqml1XNcA8Wz90Pwmqzp
 .spotify.com	TRUE	/	TRUE	1748815595	sp_key	e8864b59-eea0-4a43-b328-918e55ec2038
@@ -23,6 +49,21 @@ accounts.spotify.com	FALSE	/	TRUE	1751839451	__Host-device_id	AQDYfvuU7c2_6oBJoD
 .spotify.com	TRUE	/	FALSE	1725055450	_gcl_au	1.1.1419576478.1717279450
 .spotify.com	TRUE	/	TRUE	1753695251	sp_adid	6c8998cf-522d-4870-bcee-c4dc5256966a
 .spotify.com	TRUE	/	TRUE	1753695244	sp_t	09f66ef70b842af45f6404ccc5417be7
+
+===========================================
+ // 
+Email: damenper@iesichasagua.com
+Plan: Student
+Trial: NO
+Member: NO
+Days Left: 5
+===========================================
+
+    
+    ─────────────────────────────────────────────────────────────
+                    CHECKER BY ITSMEBOI
+    ─────────────────────────────────────────────────────────────
+    
     
     ─────────────────────────────────────────────────────────────
                     CHECKER BY ITSMEBOI

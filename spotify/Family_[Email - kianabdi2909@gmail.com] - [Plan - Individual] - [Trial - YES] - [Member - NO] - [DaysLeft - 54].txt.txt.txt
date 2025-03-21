@@ -10,7 +10,33 @@
     
     ─────────────────────────────────────────────────────────────
 
-    .spotify.com	TRUE	/	TRUE	1750320961	sp_adid	7dc3e314-98fc-4f59-b7a0-8b6390cf2767
+    
+    ─────────────────────────────────────────────────────────────
+    PLAN       : Free
+    COUNTRY    : AU
+    AutoPay    : False
+    Trial      : False
+    Invite Link: N/A
+    Email      : N/A
+    ─────────────────────────────────────────────────────────────
+
+    PLAN = Free
+COUNTRY = AU
+AutoPay = False
+Trial = False
+Checker By: by nobody028912
+Spotify COOKIE :👇
+
+
+PLAN = Free
+COUNTRY = AU
+AutoPay = False
+Trial = False
+Checker By: by nobody028912
+Spotify COOKIE :👇
+
+
+.spotify.com	TRUE	/	TRUE	1750320961	sp_adid	7dc3e314-98fc-4f59-b7a0-8b6390cf2767
 accounts.spotify.com	FALSE	/	TRUE	1735198603	__Host-device_id	AQBOJdm3kFmQUqsNGYnJeq-U1i2IB12o6STlQujism4Cr3kbOvfszHSO98g0F_R-D5DdLhu13U25Fp7hfe0rKLnK8gKzRW3rzn0
 .spotify.com	TRUE	/	TRUE	1735955889	sp_m	us
 .accounts.spotify.com	TRUE	/	TRUE	0	__Secure-TPASESSION	AQAsyCfYdTB+Z/i3afk7OOT4CcevYVGmw8nyQwb7dOC+m1QwlRJgHNzv+n+dRL6lZLxy4NBlD4nAZO3Wtt4NIr1+yRvhJ3pM9RA=
@@ -22,6 +48,21 @@ accounts.spotify.com	FALSE	/	TRUE	0	remember	kianabdi2909%40gmail.com
 .accounts.spotify.com	TRUE	/	TRUE	0	sp_sso_csrf_token	013acda71962a5910d9116e087dcdae4e8d08ebde931373138363034353530383739
 .accounts.spotify.com	TRUE	/	TRUE	0	csrf_token	AQBMtNjntnXBtcVal4G4tQp_xvJa7YHNbSB7ETw7v9ttBGAMH9_RPuF1IChnI8MCAlCFZLXA8b2CNt3rDA
 .spotify.com	TRUE	/	TRUE	1754473103	sp_t	5b2d32394313cf322dcc2b04b148157d
+
+===========================================
+ // 
+Email: kianabdi2909@gmail.com
+Plan: Individual
+Trial: YES
+Member: NO
+Days Left: 54
+===========================================
+
+    
+    ─────────────────────────────────────────────────────────────
+                    CHECKER BY ITSMEBOI
+    ─────────────────────────────────────────────────────────────
+    
     
     ─────────────────────────────────────────────────────────────
                     CHECKER BY ITSMEBOI

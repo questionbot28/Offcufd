@@ -10,7 +10,33 @@
     
     ─────────────────────────────────────────────────────────────
 
-    .spotify.com	TRUE	/	FALSE	1733022904	OptanonAlertBoxClosed	2023-12-02T03:15:04.871Z
+    
+    ─────────────────────────────────────────────────────────────
+    PLAN       : Premium
+    COUNTRY    : CZ
+    AutoPay    : True
+    Trial      : False
+    Invite Link: N/A
+    Email      : N/A
+    ─────────────────────────────────────────────────────────────
+
+    PLAN = Premium
+COUNTRY = CZ
+AutoPay = True
+Trial = False
+Checker By: by nobody028912
+Spotify COOKIE :👇
+
+
+PLAN = Premium
+COUNTRY = CZ
+AutoPay = True
+Trial = False
+Checker By: by nobody028912
+Spotify COOKIE :👇
+
+
+.spotify.com	TRUE	/	FALSE	1733022904	OptanonAlertBoxClosed	2023-12-02T03:15:04.871Z
 .spotify.com	TRUE	/	FALSE	1733022904	eupubconsent-v2	CP2J_ZgP2J_ZgAcABBENAcEgAP_AAAAAAAYgg1NX_H__bX9r8Xr36ft0eY1f99j77uQxBhfJk-4FyLvW_JwX32EyNA26tqYKmRIEuzZBIQFlHJHURVigSogVrzHsYkGchTNKJ6BkgFMRY2dYCF5vmYtjeQKY5_p_d3f52T-9_dv83dzzz8lnv3f5P2clcKCdQ58tDfn_bRKb-5IO9-78v4v09t_rk2_eTVn_tevr7B-uft-7_XV-9_fAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAABgSCqAAgABcAFAAVAA5AB4AIAAYQAyADUAHgARAAmABVADMAG8APQAfgBCQCGAIkARwAlgBNAClAGAAMOAZQBlgDZAHPAO4A74B7AHxAPsA_YB_gIBARcBGACNQEiASUAlMBPwFBgKgAq4BcwC9AGKANoAbgA4kCPQJFATsAocBR4CkQFNgLYAXIAu8BeYDBgGGwMjAyQBk4DMwGcwNXA1kBt4DdQHBAOTAcuA8cB9IEEwIMAQhghaCFwEOYIegh-BHGCPoI_gSKAkhBJgEmQJYASzAluBL4CYAEzAJnATcCALAAHAAkACOAJwAg4BHACdgF9ASsAmUBNoCkIFPgVCArkBYQCxAFuALyAX-AxABiwDIYGjAaOA1MBtADbgG6QPJA8qB8gHygP3AgIBAwCCIEKwIYgQ8AimBHQCRoEqQJigTNAmoEGocBNAARAA4ADwALgAkAB-AEcAKAAaABHADkAIBAQcBCACIgEcAJ2AVAA44B0gEigJWATEAmUBNoCkwFQgKlAVUArkBYgC1AFuALoAX-AwQBiADFgGQgMmgaMBo4DUwGvANoAbcA3QBx4DlgHPgOsAeUA-IB8oD7YH7AfuBAQCB4EEQINgQrAhiBDwCKYEYAI3gR0AkIBI2CSIJJgSpAlwBLsCYIEwwJmgTUAmwBNsINQ6DaAAuACgAKgAcgA-AEAALoAYABqADwAIgATAAqwBcAF0AMQAZgA3gB6AD9AIYAiQBLACaAE4AKMAUoAwABhgDKAGiANkAc8A7gDvAHtAPsA_QB_wEWARiAjoCSgEpgJ-AoMBUQFXALEAXOAvIC9AGKANoAbgA4gB1AD7AIvgR6BIgCVAEyAJ2AUPAo8CkIFNAU2AsUBZQC2AFugLgAXIAu0Bd4C8wF9AMGAYaAx6BkYGSAMnAZUAywBmYDOQGiANNAarA1cDWAG3gN1AcWA5MBy4DxwHkgPpAfWA-4CAIEGAIWwQ5BDoCHoEcQI7QR9BH8CRQEkAJMgSoAlgBLMCXQEvgJgATMAmcBNwCbwE4SACkABAADwA0ADkAI4AWIAvoCbQFJgKlAVyAsQBeQDBAGeANGAamA24BugDlgHPwPJA8oB8QD9gICAQPAg2BCsCGYEUwIwARpAjeBHQCRsEkQSTAlQBMMCZoE2AJtkIGgACwAKAAuABiADUAJgAUwAqgBcADEAG8APQAjgBSgDAAHPAO4A7wB_gEpAKDAVEBVwC5gGKANoAdQBHoCVAFNALFAWUAtEBcAC5AGRgMnAZyA0QBqoDgAHjgPpAgwBCgCFoEOgIegRxAkUBJACTIEugJnEoGwACAAFgAUAA4AB-AGAAYgA8ACIAEwAKoAXAAxQCGAIkARwAowBgADZAHeAPyAqICrgFzAMUAdQBEwCL4EegSIAo8BTQCxQFlALYAXnAyMDJAGTgM5AawA28BwAD6QIAgQPAgwBCECHoEcQJFASQAkyBLoCXwEzAJnATcAnCSAPAAXACOAO4AgABBwCOAFQASKAlYBMQCbQFJgLcAX-AxYBlgDPIG5AboA5YB5QD9wICAQRAhmBGACRoEkgJUATNAm2UAdgAKAAuACQAFwARwBHACcAHIAO4AfYBAACDgFiALqAa8A7YB_wEigJiATaAp-BUgFSgLcAXQAvIBggDFgGTAM8gaIBo4DUwGvAN0AcsA8oB8QD5QH2wP2A_cCAgEDAIHgQbAhWBDwCKYEYAI1gR0Aj2BI2CSIJJwSoBKkCXYEzQJqATYAm2BOEpBUAAXABQAFQAOQAfACCAGAAagA8ACIAEwAKQAVQAxABmAD9AIYAiQBRgClAGAAMoAaIA2QBzgDvgH4AfoBFgCMQEdASUAlIBQYCogKuAXMAvIBigDaAG4AOoAe0A-wCJgEXwI9AkQBOwChwFIQKaApsBYoC2AFwALkAXaAvMBfQDDYGRgZIAycBlgDOYGsAayA28BuoDggHJgOXAeKA8cB9IEEwIMAQhAhaBDOCHIIdARxAjtBH0EfwJFASQgkwCTIEswJdAS-AmABMwCZwE3i0A4AGoAjgBgADuAL0AfYBTQDMwHjgPpAh6BJkCZgE3CwBAAZYBHADaAI9ATEAm0BXIDRgGpgN0AcsBAQCMAEjQJmgTYAAA.f_gAAAAAAAAA
 .spotify.com	TRUE	/	TRUE	1739285794	sp_m	cz
 accounts.spotify.com	FALSE	/	TRUE	1744034932	__Host-device_id	AQCr4eFV2JLO3NYWYmDij5VlBHLBZntjF2ogHcDVcL3YgdNRDPhgMrsNmXIgqEB_bOlD2BcP-RX2BTa9KYO1WvpKR9DwoPhtl0w
@@ -30,6 +56,21 @@ accounts.spotify.com	FALSE	/	TRUE	1744034932	__Host-device_id	AQCr4eFV2JLO3NYWYm
 .spotify.com	TRUE	/	FALSE	1758417067	_ga_ZWG1NSHWD8	GS1.1.1723856890.7.1.1723857066.0.0.0
 .spotify.com	TRUE	/	FALSE	1723857123	_gat_UA-5784146-31	1
 .spotify.com	TRUE	/	FALSE	1723943463	_gid	GA1.2.1813805856.1723856890
+
+===========================================
+ // 
+Email: petrminarik666@gmail.com
+Plan: Student
+Trial: NO
+Member: NO
+Days Left: null
+===========================================
+
+    
+    ─────────────────────────────────────────────────────────────
+                    CHECKER BY ITSMEBOI
+    ─────────────────────────────────────────────────────────────
+    
     
     ─────────────────────────────────────────────────────────────
                     CHECKER BY ITSMEBOI

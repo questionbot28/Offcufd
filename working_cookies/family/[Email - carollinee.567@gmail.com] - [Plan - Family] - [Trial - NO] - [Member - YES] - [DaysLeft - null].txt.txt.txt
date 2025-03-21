@@ -10,7 +10,33 @@
     
     ─────────────────────────────────────────────────────────────
 
-    accounts.spotify.com	FALSE	/	TRUE	1755310408	__Host-device_id	AQAvDOe0E0V6Iefn3pZRqhXmqkprPyJSUF7gTRU-4s7oQnQdD_CxgvBAzt3VMzmpZV30nDpADGpqTrEzbmKB3gr92ToTfw8jId8
+    
+    ─────────────────────────────────────────────────────────────
+    PLAN       : Family
+    COUNTRY    : PL
+    AutoPay    : True
+    Trial      : False
+    Invite Link: N/A
+    Email      : N/A
+    ─────────────────────────────────────────────────────────────
+
+    PLAN = Family Premium
+COUNTRY = PL
+AutoPay = True
+Trial = False
+Checker By: by nobody028912
+Spotify COOKIE :👇
+
+
+PLAN = Family Premium
+COUNTRY = PL
+AutoPay = True
+Trial = False
+Checker By: by nobody028912
+Spotify COOKIE :👇
+
+
+accounts.spotify.com	FALSE	/	TRUE	1755310408	__Host-device_id	AQAvDOe0E0V6Iefn3pZRqhXmqkprPyJSUF7gTRU-4s7oQnQdD_CxgvBAzt3VMzmpZV30nDpADGpqTrEzbmKB3gr92ToTfw8jId8
 .accounts.spotify.com	TRUE	/	TRUE	0	__Secure-TPASESSION	AQCgj2jnAdDetowVoPhJlNx/qm+/CXM00rw8CU5jfpLEfgc+ATU78cpSa1leTx5pabHaSQ2SPY2i4F/2DqlPaqMCaBY8Z8T8H/s=
 www.statsforspotify.com	FALSE	/	TRUE	1752286407	ai_user	YxxG+PidPuxUGE654sQQrE|2024-07-12T02:13:26.997Z
 .spotify.com	TRUE	/	TRUE	1755310440	sp_m	pl
@@ -51,6 +77,21 @@ www.statsforspotify.com	FALSE	/	TRUE	1720752562	ai_session	uDTlvPPOClOQNmpaqWDjS
 .spotify.com	TRUE	/	FALSE	1756238858	_ga_ZWG1NSHWD8	GS1.1.1721678838.1.0.1721678857.0.0.0
 .spotify.com	TRUE	/	TRUE	1723666271	sp_landing	https%3A%2F%2Fopen.spotify.com%2Fplaylist%2F7zfCgyOaXBF2sxdwsNHJ97%3Fsp_cid%3D9824e6bb-253b-490a-9ab9-8704a26bf55b%26device%3Ddesktop%26si%3D69b23764bba44e58
 .spotify.com	TRUE	/	TRUE	1755115872	sp_t	9824e6bb-253b-490a-9ab9-8704a26bf55b
+
+===========================================
+ // 
+Email: carollinee.567@gmail.com
+Plan: Family
+Trial: NO
+Member: YES
+Days Left: null
+===========================================
+
+    
+    ─────────────────────────────────────────────────────────────
+                    CHECKER BY ITSMEBOI
+    ─────────────────────────────────────────────────────────────
+    
     
     ─────────────────────────────────────────────────────────────
                     CHECKER BY ITSMEBOI

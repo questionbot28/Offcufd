@@ -10,7 +10,33 @@
     
     ─────────────────────────────────────────────────────────────
 
-    accounts.spotify.com	FALSE	/	TRUE	1755634922	__Host-device_id	AQAb9u2gK0LqCvo-HHVWSqlV5-bpy3KaT2nQJB2qUVWRFWSEnStfk9BafrFCJGwKTkih6nT7QFUKytPnicuK4tKQ_Q6xHpznf30
+    
+    ─────────────────────────────────────────────────────────────
+    PLAN       : Family
+    COUNTRY    : BG
+    AutoPay    : True
+    Trial      : False
+    Invite Link: N/A
+    Email      : N/A
+    ─────────────────────────────────────────────────────────────
+
+    PLAN = Family Premium
+COUNTRY = BG
+AutoPay = True
+Trial = False
+Checker By: by nobody028912
+Spotify COOKIE :👇
+
+
+PLAN = Family Premium
+COUNTRY = BG
+AutoPay = True
+Trial = False
+Checker By: by nobody028912
+Spotify COOKIE :👇
+
+
+accounts.spotify.com	FALSE	/	TRUE	1755634922	__Host-device_id	AQAb9u2gK0LqCvo-HHVWSqlV5-bpy3KaT2nQJB2qUVWRFWSEnStfk9BafrFCJGwKTkih6nT7QFUKytPnicuK4tKQ_Q6xHpznf30
 .spotify.com	TRUE	/	TRUE	1752610930	sp_adid	865ee79a-4ee1-4c44-bcd3-8a6aa52b193b
 .spotify.com	TRUE	/	TRUE	1726258928	sp_gaid	0088fca0676f95ed35314296a1564fb91e807e8ec6c4e2345faf46
 .spotify.com	TRUE	/	TRUE	1755634928	sp_m	bg-bg
@@ -29,6 +55,21 @@
 .spotify.com	TRUE	/	TRUE	1755602054	sp_key	28c44db9-708c-4641-be60-b746f2b7be24
 .spotify.com	TRUE	/	TRUE	1724152470	sp_landing	https%3A%2F%2Fopen.spotify.com%2Fdesktop%2Fauth%2Fsuccess%3Fsp_cid%3D9c042ae4-c51f-4f4a-9453-7ac88110a5d2%26device%3Ddesktop
 .spotify.com	TRUE	/	TRUE	1755602070	sp_t	9c042ae4-c51f-4f4a-9453-7ac88110a5d2
+
+===========================================
+ // 
+Email: kirilkirev06@gmail.com
+Plan: Family
+Trial: NO
+Member: NO
+Days Left: 10
+===========================================
+
+    
+    ─────────────────────────────────────────────────────────────
+                    CHECKER BY ITSMEBOI
+    ─────────────────────────────────────────────────────────────
+    
     
     ─────────────────────────────────────────────────────────────
                     CHECKER BY ITSMEBOI

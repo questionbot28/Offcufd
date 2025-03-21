@@ -10,7 +10,33 @@
     
     ─────────────────────────────────────────────────────────────
 
-    .spotify.com	TRUE	/	FALSE	1738960628	OptanonAlertBoxClosed	2024-02-08T20:37:08.454Z
+    
+    ─────────────────────────────────────────────────────────────
+    PLAN       : Family
+    COUNTRY    : ZA
+    AutoPay    : True
+    Trial      : False
+    Invite Link: N/A
+    Email      : N/A
+    ─────────────────────────────────────────────────────────────
+
+    PLAN = Family Premium
+COUNTRY = ZA
+AutoPay = True
+Trial = False
+Checker By: by nobody028912
+Spotify COOKIE :👇
+
+
+PLAN = Family Premium
+COUNTRY = ZA
+AutoPay = True
+Trial = False
+Checker By: by nobody028912
+Spotify COOKIE :👇
+
+
+.spotify.com	TRUE	/	FALSE	1738960628	OptanonAlertBoxClosed	2024-02-08T20:37:08.454Z
 .spotify.com	TRUE	/	FALSE	1738960628	eupubconsent-v2	CP5qHJgP5qHJgAcABBENAmEgAP_AAAAAAAYgg1NV_H__bX9r8Xr3aft0eY1X99j77sQxBhfJk-4FyDvW_JwXn2EyNA36tqYKmRIEuzbBIQFkHJHUTVigSogVrzDMYkGcgTNIJ6BkiFMRY2dYCFxvmQtjMQIY5_p9d3f52T-9_dv83dziz8FnvzU5Pme1eICdA58tDft_bRKb-9IPd-78v4v0_N_rk2_eTVk_tevr7B-ufs-7_XV-9_bff4AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAABgSCkAAgABcAFAAVAA4AB4AEEALwAwgBkAGoAPAAiABMACqAGYAN4AegA_ACEgEMARIAjgBLACaAGAAMOAZQBlgDZAHPAO4A74B7AHxAPsA_YB_gIBARcBGACNQEiASUAlMBPwFBgKgAq4BcwC9AGKANoAbgA4kCPQJFATsAocBR4CkQFsALkAXeAvMBgwDDYGRgZIAycBmYDOYGrgayA28BuoDggHJgOXAeOBBMCDAEIYIWghcBDmCHoIfwR9BH8CRQEkIJMAkyBLACWYEtwJfATAAmYBM4CbgQBWAA4AEgARwBOAEHAI4ATsAvoCVgEygJtAUhAp8CoQFcgLCAWIAtwBeQC_wGIAMWAZCA0YBqYDaAG3AN0geSB5UD5APlAfuBAQCBgEEQIVgQ8AimBHQCRoEqQJigTNAmoEGocBLAARAA4ADwALgAkAB-AEcAKAAaABHADkAIBAQcBCACIgEcAJ2AVAA44B0gEigJWATEAmUBNoCkwFQgKlAVUArkBYgC1AFuALoAX-AwQBiADFgGQgMmAaMA1MBrwDaAG3AN0AceA5YBz4DygHxAPlAfbA_YD9wICAQPAgiBBsCFYEPAIpgRgAjeBHQCQgEjYJIgkkBKkCXAEuwJggTDAmaBNQCbAE2wg1DoM4AC4AKAAqABwAEEALgA1AB4AEQAJgAVYAuAC6AGIAMwAbwA9AB-gEMARIAlgBNACcAFGAMAAYYAygBogDZAHPAO4A7wB7QD7AP0Af8BFgEYgI6AkoBKYCfgKDAVEBVwCxAFzgLyAvQBigDaAG4AOIAdQA-wCL4EegSIAmQBOwCh4FHgUgApoBYoCygFsALdAXAAuQBdoC7wF5gL6AYMAw0Bj0DIwMkAZOAyoBlgDMwGcgNEAaaA1WBq4GsANvAbqA4sByYDlwHjgPJAfWA-4CAIEGAIWwQ5BDoCHsEfQR_AkUBJACTIEqAJYASzAl0BL4CYAEzAJnATcAm8BOEgAoAAQAA8ANAA5ACOAFiAL6Am0BSYCpQFcgLEAXkAwQBngDRgGpgNuAboA5YBz8DyQPKAfEA_YCAgEDwINgQrAhmBFMCMAEaQI3gR0gkiCSQEqAJhgTNAmwBNshAuAAWABQAFwAMQAagBMACqAFwAMQAbwA9ACOAGAAOeAdwB3gD_AJSAUGAqICrgFzAMUAbQA6gCPQFNALFAWUAtEBcAC5AGRgMnAZyA0QBqoDxwIMAQoAhaBDoCHoEigJIASZAl0BM4lAyAAQAAsACgAHIAYABiADwAIgATAAqgBcADFAIYAiQBHACjAGAANkAd4A_ICogKuAXMAxQB1AETAIvgR6BIgCjwFNALFAWUAtgBecDIwMkAZOAzkBrADbwIAgQPAgwBCECHoEigJIASZAl0BL4CZgEzgJuAThJAHQALgBHAHcAQAAg4BHACoAJFASsAmIBNoCkwFuAL_AYsAywBngDdAHLAPKAfuBAQCCIEMwIwASSAlQBM0CbZQB0AAoAC4AJAAXABHAEcAJwAcgA7gB9gEAAIOAWIAuoBrwDtgH_ASKAmIBNoCn4FSAVKAtwBdAC8gGCAMWAZMAzyBogGjANTAa8A3QBywDygHxAPlAfbA_YD9wICAQMAgeBBsCFYEPAIpgRgAjoBHsCRsEkQSSglQCVIEuwJmgTUAmwBNsCcJSCeAAuACgAKgAcABBADAANQAeABEACYAFIAKoAYgAzAB-gEMARIAowBgADKAGiANkAc4A74B-AH6ARYAjEBHQElAJSAUGAqICrgFzALyAYoA2gBuADqAHtAPsAiYBF8CPQJEATsAocBSACmgFigLYAXAAuQBdoC8wF9AMNgZGBkgDJwGWAM5gawBrIDbwG6gOCAcmA8UB44EEwIMAQhAhaBDOCHIIdQR9BH8CRQEkIJMAkyBLMCXQEvgJgATMAmcBN4tANABqAI4AYAA7gC9AH2AU0AzMB44EPQJMgTMAm4WAHADLAI4Aj0BMQCbQFcgNGAamA3QBywEBAIwATNAmwAAA.f_gAAAAAAAAA
 accounts.spotify.com	FALSE	/	TRUE	1741988460	__Host-device_id	AQD3N11QMx9SfaDrMJnEcRRKB3cwFW65OT7srVRP4Pjjeum-JIH0Xi6VeOg63Xp3-FkoatsIUxfuNpuJnQ4e3qDJJ4uH3F-u2VE
 .spotify.com	TRUE	/	FALSE	1746237840	_scid	a67d8c4a-2861-4618-bafb-9657f91680e3
@@ -47,7 +73,23 @@ accounts.spotify.com	FALSE	/	TRUE	0	remember	victorvanremoortere%40gmail.com
 .accounts.spotify.com	TRUE	/	TRUE	0	csrf_token	AQC6WKFA_ISqON_F6kNFDwOXsKX0X8T-LcIebPvYkTjwAAXGf7rGbisIwkN3yPbdPdhmUe4HvjANoFDPTCDlVKh_atfEgviwT5VIRoSWkl_a9tQ
 .spotify.com	TRUE	/	FALSE	1755853763	_ga	GA1.2.244757149.1707424629
 .spotify.com	TRUE	/	FALSE	1755853776	_ga_BG468LZHZ5	GS1.1.1721293680.6.1.1721293776.0.0.0
+artists.spotify.com	FALSE	/	FALSE	1755853763	ki_s
 artists.spotify.com	FALSE	/	FALSE	1755853763	ki_t	1715509355824%3B1721293681133%3B1721293762745%3B6%3B285
+
+===========================================
+ // 
+Email: taniavanr@gmail.com
+Plan: Family
+Trial: NO
+Member: NO
+Days Left: 22
+===========================================
+
+    
+    ─────────────────────────────────────────────────────────────
+                    CHECKER BY ITSMEBOI
+    ─────────────────────────────────────────────────────────────
+    
     
     ─────────────────────────────────────────────────────────────
                     CHECKER BY ITSMEBOI

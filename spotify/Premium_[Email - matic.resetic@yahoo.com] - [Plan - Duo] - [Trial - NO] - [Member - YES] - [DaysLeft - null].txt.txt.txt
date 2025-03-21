@@ -10,7 +10,33 @@
     
     ─────────────────────────────────────────────────────────────
 
-    accounts.spotify.com	FALSE	/	TRUE	1755503494	__Host-device_id	AQDBQeRPEXnGjc092KjxjRI92H6qKV98KOvgL0BX9fs68kegDF5S5U7aFyZakEOs_uyYyr8YOJOTqf1-h14WO0jojVot9it3mMI
+    
+    ─────────────────────────────────────────────────────────────
+    PLAN       : Premium
+    COUNTRY    : SI
+    AutoPay    : True
+    Trial      : False
+    Invite Link: N/A
+    Email      : N/A
+    ─────────────────────────────────────────────────────────────
+
+    PLAN = Family Premium
+COUNTRY = SI
+AutoPay = True
+Trial = False
+Checker By: by nobody028912
+Spotify COOKIE :👇
+
+
+PLAN = Family Premium
+COUNTRY = SI
+AutoPay = True
+Trial = False
+Checker By: by nobody028912
+Spotify COOKIE :👇
+
+
+accounts.spotify.com	FALSE	/	TRUE	1755503494	__Host-device_id	AQDBQeRPEXnGjc092KjxjRI92H6qKV98KOvgL0BX9fs68kegDF5S5U7aFyZakEOs_uyYyr8YOJOTqf1-h14WO0jojVot9it3mMI
 .spotify.com	TRUE	/	FALSE	1752479518	OptanonAlertBoxClosed	2024-07-14T07:51:58.932Z
 .spotify.com	TRUE	/	FALSE	1752479519	eupubconsent-v2	CQBvbjAQBvbjAAcABBSLA7EwAP_AAAAAAAYgJwtV_G__bXlr8Xr3aftkeY1X99h77sQxBhfJk-4FyDvW_JwXn2EyNA26tqYKmRIEuzZBIQFkHJDURVCgSogVrzDMYkGcgTNIJ6BkgFMRa2dYCFxvmQtjMQIY5vp9d3d52R-9_dv83dziz4FnvzQ5P2clUICdA58tDfl_bRKb-5IOd-58v4v09N_rE2_eTVk_tevp7B8ucsu7_XV-9_YAAADAkE8ABAAC4AKAAqABwADwAIIAXgBqADwAIgATAAqgBvAD0AH4AQkAhgCJAEcAJYATQAwABhwDKAMsAbIA54B3AHfAPYA-IB9gH7AP8BAICLgIwARqAkQCSwE_AUGAqACrgFzAL0AYoA2gBuADiQI9AkUBOwChwFHgKRAWwAuQBd4C8wGDAMNgZGBkgDJwGZgM5gauBrIDbwG6gOCAcmA5cB44D_gIJgQYAhDBC0ELgIcwQ9BD-CPoI_gSKAkhBJgEmQJZgS3Al8BMACZgEzgJuBAE4ADgASABHAE4AQcAjgBfQErAJlATaApCBT4FQgK5AWEAsQBbgC8gF_gMQAYsAyEBowDUwG0ANuAbpA8kDyoHyAfKA_cCAgEDAIIgQrAh4BFMCVIExQJmgTUHARQAEQAOAA8AC4AJAAfgBHADQAI4AcgBAICDgIQAREAjgBUADpAJFASsAmIBMoCbQFJgKhAVKArkBYgC1AFuALoAX-AwQBiADFgGQgMmAaMA1MBrwDaAG3AN0AceA5YBz4DygHxAPlAfbA_YD9wICAQPAgiBBsCFYEPAIpgRgAjeBIQCRsEkQSSAlSBLgCXYEwQJhgTNAmoBNgCbY6DCAAuACgAKgAcABBAC4ANQAeABEACYAFWALgAugBiADeAHoAP0AhgCJAEsAJoATgAowBgADDAGUANEAbIA54B3AHeAPaAfYB-gD_gIsAjEBHQElgJ-AoMBUQFXALEAXOAvIC9AGKANoAbgA4gB1AD7AIvgR6BIgCZAE7AKHgUeBSACmgFigLYAW6AuABcgC7QF3gLzAX0AwYBhoDHoGRgZIAycBlQDLAGZgM5AaaA1WBq4GsANvAbqA4sByYDlwHjgPJAfWA-4CAIEGAIWwQ5BDoCHsEfQR_AkUBJACTIEswJdAS-AmABMwCZwE3AJvAThIAJgAEAAPADQAOQAjgBYgC-gJtAUmAqUBXICxAF5AMEAZ4A0YBqYDbgG6AOWAc_A8kDygHxAP2AgIBA8CDYEKwIZgRTAjABGkCN8EkQSSAmGBM0CbAE2yECoABYAFAAXAA1ACYAFUALgAYgA3gB6AEcAMAAc8A7gDvAH-ASkAoMBUQFXALmAYoA2gB1AEegKaAWKAtEBcAC5AGRgMnAZyA1UB44EGAIUAQtAh0BD0CRQEkAJdATOJQLwAEAALAAoABwAHgARAAmABVAC4AGKAQwBEgCOAFGAMAAbIA7wB-QFRAVcAuYBigDqAImARfAj0CRAFHgKaAWKAtgBecDIwMkAZOAzkBrADbwIAgQPAgwBCECHoEigJIAS6Al8BMwCZwE3AJwkgDoAFwAjgDuAIAAQcAjgBUAEigJWATEAm0BSYC3AF_gMWAZYAzwBuQDdAHLAPKAfuBAQCCIEMwIwASSAmaBNsoA5AAUABcAEgALgAjgCOAE4AOQAdwA-wCAAEHALEAXUA14B2wD_gJFATEAm0BT8CpAKlAW4AugBeQDBAGLAMmAZ4A0YBqYDXgG6AOWAeUA-IB8oD7YH7AfuBAQCBgEDwINgQrAh4BFMCMAEewJGwSRBJICVIEuwJmgTUAmwBNsCcJSCcAAuACgAKgAcABBADIANQAeABEACYAFIAKoAYgA_QCGAIkAUYAwABlADRAGyAOcAd8A_AD9AIsARiAjoCSgFBgKiAq4BcwC8gGKANoAbgA6gB7QD7AImARfAj0CRAE7AKHAUgApoBYoC2AFwALkAXaAvMBfQDDYGRgZIAycBlgDOYGsAayA28BuoDggHJgPFAeOA_4CCYEGAIQgQtAhnBDkEOoI-gj-BIoCSEEmASZAlmBLoCXwEwAJmATOAm8WgGAA1AEcAMAAdwBegD7AKaAZmA8cCHoEzAJuFgBwAywCOAI9ATEAm0BXIDRgGpgN0AcsBAQCMAEzQJsAA.f_gAAAAAAAAA
 .spotify.com	TRUE	/	FALSE	1758189068	_ga_S35RN5WNT2	GS1.1.1723629052.10.1.1723629067.0.0.0
@@ -27,6 +53,21 @@
 .spotify.com	TRUE	/	FALSE	1758367405	_ga_ZWG1NSHWD8	GS1.1.1723805870.54.1.1723807404.0.0.0
 .spotify.com	TRUE	/	FALSE	1723807462	_gat_UA-5784146-31	1
 .spotify.com	TRUE	/	FALSE	1723893802	_gid	GA1.2.1659201072.1723805872
+
+===========================================
+ // 
+Email: matic.resetic@yahoo.com
+Plan: Duo
+Trial: NO
+Member: YES
+Days Left: null
+===========================================
+
+    
+    ─────────────────────────────────────────────────────────────
+                    CHECKER BY ITSMEBOI
+    ─────────────────────────────────────────────────────────────
+    
     
     ─────────────────────────────────────────────────────────────
                     CHECKER BY ITSMEBOI

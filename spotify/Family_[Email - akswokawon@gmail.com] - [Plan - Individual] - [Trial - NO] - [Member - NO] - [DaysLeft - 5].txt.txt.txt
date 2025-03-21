@@ -10,7 +10,33 @@
     
     ─────────────────────────────────────────────────────────────
 
-    .spotify.com	TRUE	/	FALSE	1748248389	sp_t	3d3d0147-0385-4d2f-88a8-209c4033aa0c
+    
+    ─────────────────────────────────────────────────────────────
+    PLAN       : Family
+    COUNTRY    : PL
+    AutoPay    : True
+    Trial      : False
+    Invite Link: N/A
+    Email      : N/A
+    ─────────────────────────────────────────────────────────────
+
+    PLAN = Family Premium
+COUNTRY = PL
+AutoPay = True
+Trial = False
+Checker By: by nobody028912
+Spotify COOKIE :👇
+
+
+PLAN = Family Premium
+COUNTRY = PL
+AutoPay = True
+Trial = False
+Checker By: by nobody028912
+Spotify COOKIE :👇
+
+
+.spotify.com	TRUE	/	FALSE	1748248389	sp_t	3d3d0147-0385-4d2f-88a8-209c4033aa0c
 .spotify.com	TRUE	/	FALSE	1748021418	sp_adid	459cfdcc-c9d6-4c23-8fd5-d7d37f26d582
 .accounts.spotify.com	FALSE	/	FALSE	0	__Secure-TPASESSION	AQDikrTPyiHggKuzhT7KTDB55UCnn2paEc4UUgZ/foYBMGOM6ghvz8+oQ9ENRqJWtrEQcm9K+gLB5+8sjbxiceuH+1ik9Qyk/38=
 .accounts.spotify.com	TRUE	/	FALSE	0	sp_tr	true
@@ -42,6 +68,21 @@ www.spotify.com	TRUE	/pl/premium	TRUE	0	sss	1
 .spotify.com	TRUE	/	TRUE	1751059290	_ga_ZWG1NSHWD8	GS1.1.1716506490.15.0.1716506490.0.0.0
 .accounts.spotify.com	TRUE	/	FALSE	0	sp_sso_csrf_token	013acda71969c0cb7eeded3e94b3c534876fde731c31373136373139353833353733
 .accounts.spotify.com	TRUE	/	FALSE	0	csrf_token	AQBdig3EJ7SvIhOOJtybhyY5o1FVeyWdURI_Y8bTVR7yEJqRgyVQjHek9GJIvaAbp4HTsWv0E2kNc48oAg
+
+===========================================
+ // 
+Email: akswokawon@gmail.com
+Plan: Individual
+Trial: NO
+Member: NO
+Days Left: 5
+===========================================
+
+    
+    ─────────────────────────────────────────────────────────────
+                    CHECKER BY ITSMEBOI
+    ─────────────────────────────────────────────────────────────
+    
     
     ─────────────────────────────────────────────────────────────
                     CHECKER BY ITSMEBOI

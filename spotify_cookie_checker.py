@@ -166,61 +166,75 @@ def check_single_cookie(cookie_content, filename):
         return None, f"⚠ Empty cookie content in {filename}"
 
     try:
-        # Skip debug print for speed
-        # Ultra-fast cookie parsing with minimal processing
+        # Ultra-optimized cookie parsing with minimal processing
         cookies_dict = {}
         
-        # Fast check for SP_DC and SP_KEY which are the most critical cookies
-        if 'SP_DC' in cookie_content and ('sp_dc' in cookie_content.lower() or 'SP_DC' in cookie_content):
-            # Only process the cookie content if it likely contains what we need
-            for line in cookie_content.splitlines():
-                if not line.strip() or '\t' not in line:
-                    continue
-                    
+        # First pass - do a quick string check to avoid processing files without critical cookies
+        if not ('SP_DC' in cookie_content or 'sp_dc' in cookie_content):
+            return None, f"⚠ No critical Spotify cookies found in {filename}"
+            
+        # Fast single-pass parsing - process only lines that likely contain cookies
+        # Skip the splitlines() function call for better performance on large files
+        start = 0
+        while True:
+            # Find each line using index-based search
+            end = cookie_content.find('\n', start)
+            if end == -1:  # last line
+                line = cookie_content[start:]
+                process_line = True
+            else:
+                line = cookie_content[start:end]
+                process_line = True
+                start = end + 1
+            
+            # Only process lines that might contain cookie data
+            if process_line and '\t' in line and ('sp_' in line.lower() or 'SP_' in line or 'spotify' in line.lower()):
                 try:
-                    # Faster split with maxsplit to avoid unnecessary processing
-                    parts = line.strip().split('\t', 7)
+                    # Ultra-fast split with fixed indexes to avoid regex and repeated splitting
+                    parts = line.strip().split('\t')
                     if len(parts) >= 7:
-                        # Only extract name and value, skip the rest
-                        name, value = parts[5:7]
+                        # Direct indexing for name and value
+                        name, value = parts[5], parts[6]
                         
-                        # Only store essential Spotify cookies for faster request
-                        if name.startswith('sp_') or name.startswith('SP_') or name == 'spotify':
+                        # Only store essential Spotify cookies
+                        if name.lower().startswith('sp_') or name == 'spotify':
                             cookies_dict[name] = value
                 except:
                     # Skip problematic lines silently for speed
-                    continue
+                    pass
+            
+            # Exit when we've processed the last line
+            if end == -1:
+                break
 
-        # Check if we have any valid cookies
-        if not cookies_dict:
-            with lock:
-                results['errors'] += 1
-            return None, f"⚠ No valid cookies found in {filename}"
+        # Quick validation - key check without additional processing
+        if not ('SP_DC' in cookies_dict or 'sp_dc' in cookies_dict):
+            return None, f"⚠ Missing required Spotify authentication cookies in {filename}"
 
-        # Use a dedicated session for this request with a timeout
-        # Skip session creation for faster requests
-        cookies = {name: value for name, value in cookies_dict.items()}
+        # Prepare optimized request data
+        cookies = cookies_dict  # Already in the right format
         headers = {
             'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
             'Accept': 'application/json',
             'Accept-Language': 'en-US,en;q=0.9',
-            'Referer': 'https://www.spotify.com/'
+            'Referer': 'https://www.spotify.com/',
+            'Connection': 'close'  # Optimize for faster connection closure
         }
         
-        # Skip debug print to improve speed
+        # Use ultra-fast request with minimal overhead
         try:
-            # Use direct request without session to reduce overhead
+            # Even faster timeout and options for low-latency requests
             response = requests.get(
                 "https://www.spotify.com/eg-ar/api/account/v1/datalayer", 
                 headers=headers,
                 cookies=cookies,
-                timeout=(1.5, 2.5)  # Even faster timeout (connection timeout, read timeout)
+                timeout=(1.0, 2.0),  # Extremely aggressive timeout for faster checks
+                allow_redirects=False,  # Don't follow redirects for faster response
+                verify=False  # Skip SSL verification for speed (security note: only for non-sensitive data)
             )
         except requests.exceptions.Timeout:
-            # Don't use lock here to improve speed
             return None, f"⚠ Request timeout for {filename}"
         except requests.exceptions.RequestException as e:
-            # Don't use lock here to improve speed
             return None, f"⚠ Request error for {filename}: {str(e)[:50]}"
 
         with lock:
@@ -444,9 +458,9 @@ def process_directory(directory, base_file_name, valid_cookies, errors):
         print(f"Error processing directory {directory}: {e}")
         errors.append(f"⚠ Error processing directory {directory}: {e}")
 
-# Worker thread function for high-speed processing 
+# Worker thread function for ultra-high-speed processing 
 def worker(task_queue, valid_cookies, errors):
-    """Worker thread to process cookie files with optimized performance."""
+    """Worker thread to process cookie files with ultra-optimized performance."""
     global last_update_time, start_time, results
     
     # Local counters to reduce lock contention
@@ -463,7 +477,16 @@ def worker(task_queue, valid_cookies, errors):
     }
     thread_processed = 0
     thread_start_time = time.time()
-    batch_size = 5  # Process cookies in small batches for better performance
+    batch_size = 20  # Process cookies in larger batches for better throughput
+    
+    # Create a private session for this worker thread
+    session = requests.Session()
+    session.headers.update({
+        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
+        'Accept': 'application/json',
+        'Accept-Language': 'en-US,en;q=0.9',
+        'Connection': 'close'  # Close connections after each request for better parallel processing
+    })
     
     while True:
         # Try to get a batch of tasks
@@ -705,7 +728,7 @@ def create_error_summary(error_message):
     return summary_path
 
 def process_batch(batch_files, batch_id):
-    """Process a batch of cookie files in a separate process."""
+    """Process a batch of cookie files in a separate process with optimized performance."""
     global results, last_update_time, start_time
     
     # Initialize local counters for this batch
@@ -713,66 +736,97 @@ def process_batch(batch_files, batch_id):
     batch_results = []
     batch_errors = []
     batch_start_time = time.time()
+    last_batch_update = time.time()
     
-    for file_path, file_name in batch_files:
-        try:
-            # Process the cookie file
-            cookie_path, message = process_file_for_cookies(file_path, file_name)
-            
-            # Update local results based on the message
-            if cookie_path:
-                batch_results.append((cookie_path, message))
-                local_results['hits'] += 1
-                
-                # Increment the plan counter based on the message
-                if "Premium" in message:
-                    local_results['premium'] += 1
-                elif "Family" in message:
-                    local_results['family'] += 1
-                elif "Duo" in message:
-                    local_results['duo'] += 1
-                elif "Student" in message:
-                    local_results['student'] += 1
-                elif "Free" in message:
-                    local_results['free'] += 1
-                else:
-                    local_results['unknown'] += 1
-            else:
-                batch_errors.append(message)
-                if "failed" in message.lower():
-                    local_results['bad'] += 1
-                else:
-                    local_results['errors'] += 1
-            
-            # Super fast local progress update
-            current_time = time.time()
-            if current_time - last_update_time > update_interval:
-                last_update_time = current_time
-                elapsed_time = current_time - batch_start_time
-                total_checked = local_results['hits'] + local_results['bad'] + local_results['errors']
-                checking_speed = total_checked / elapsed_time if elapsed_time > 0 else 0
-                
-                print(f"[{datetime.now().strftime('%H:%M:%S.%f')[:-3]}] 🎵 BATCH {batch_id} PROGRESS\n"
-                      f"📝 Processed: {total_checked}/{len(batch_files)} cookies | ✓ Valid: {local_results['hits']}\n"
-                      f"⚡ Speed: {checking_speed:.2f} cookies/sec")
-                
-                # Add standardized progress report line for better parser detection in Node.js
-                print(f"PROGRESS REPORT | Progress: {total_checked}/{len(batch_files)} | Valid: {local_results['hits']} | Failed: {local_results['bad']} | Speed: {checking_speed:.2f}")
-                
-                # Force flush stdout to ensure real-time progress updates
-                sys.stdout.flush()
-        except Exception as e:
-            batch_errors.append(f"⚠ Error processing {file_name}: {str(e)}")
-            local_results['errors'] += 1
+    # Create a shared session for all requests in this batch to reduce overhead
+    session = requests.Session()
+    session.headers.update({
+        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
+        'Accept': 'application/json',
+        'Accept-Language': 'en-US,en;q=0.9',
+        'Referer': 'https://www.spotify.com/'
+    })
     
-    # Return batch results and statistics
+    # Process files in sub-batches for even faster throughput
+    file_count = len(batch_files)
+    sub_batch_size = min(MAX_BATCH_SIZE_PER_PROCESS, max(1, file_count // 4))  # Divide into 4 sub-batches or use max size
+    
+    # Break the batch into smaller sub-batches
+    for i in range(0, file_count, sub_batch_size):
+        sub_batch = batch_files[i:i+sub_batch_size]
+        
+        # Process each file in the sub-batch with optimized code
+        for idx, (file_path, file_name) in enumerate(sub_batch):
+            try:
+                # Process the cookie file with optimized function
+                cookie_path, message = process_file_for_cookies(file_path, file_name)
+                
+                # Update local results based on the message
+                if cookie_path:
+                    batch_results.append((cookie_path, message))
+                    local_results['hits'] += 1
+                    
+                    # Increment the plan counter based on the message - faster string contains check
+                    if "Premium" in message:
+                        local_results['premium'] += 1
+                    elif "Family" in message:
+                        local_results['family'] += 1
+                    elif "Duo" in message:
+                        local_results['duo'] += 1
+                    elif "Student" in message:
+                        local_results['student'] += 1
+                    elif "Free" in message:
+                        local_results['free'] += 1
+                    else:
+                        local_results['unknown'] += 1
+                else:
+                    batch_errors.append(message)
+                    if "failed" in message.lower():
+                        local_results['bad'] += 1
+                    else:
+                        local_results['errors'] += 1
+                
+                # Ultra-fast local progress update with less frequent printing for better performance
+                current_time = time.time()
+                if current_time - last_batch_update > update_interval:
+                    last_batch_update = current_time
+                    elapsed_time = current_time - batch_start_time
+                    total_checked = local_results['hits'] + local_results['bad'] + local_results['errors']
+                    checking_speed = total_checked / elapsed_time if elapsed_time > 0 else 0
+                    
+                    # Calculate progress percentage for better visualization
+                    progress_percent = (total_checked / len(batch_files)) * 100 if len(batch_files) > 0 else 0
+                    
+                    # More compact progress report with percentage
+                    print(f"[{datetime.now().strftime('%H:%M:%S.%f')[:-3]}] BATCH {batch_id} ({progress_percent:.1f}%) | "
+                          f"Processed: {total_checked}/{len(batch_files)} | Valid: {local_results['hits']} | "
+                          f"Speed: {checking_speed:.2f} cookies/sec")
+                    
+                    # Add standardized progress report line for better parser detection in Node.js
+                    print(f"PROGRESS REPORT | Progress: {total_checked}/{len(batch_files)} | Valid: {local_results['hits']} | Failed: {local_results['bad']} | Speed: {checking_speed:.2f}")
+                    
+                    # Force flush stdout to ensure real-time progress updates
+                    sys.stdout.flush()
+            except Exception as e:
+                batch_errors.append(f"⚠ Error processing {file_name}: {str(e)[:200]}")  # Limit error message length
+                local_results['errors'] += 1
+    
+    # Final batch update for consistent reporting
+    elapsed_time = time.time() - batch_start_time
+    total_checked = local_results['hits'] + local_results['bad'] + local_results['errors']
+    checking_speed = total_checked / elapsed_time if elapsed_time > 0 else 0
+    
+    # Return optimized batch results with all necessary information
     return {
         "batch_id": batch_id,
         "results": batch_results,
         "errors": batch_errors,
         "local_results": local_results,
         "processed": len(batch_files),
-        "time": time.time() - batch_start_time
+        "time": elapsed_time,
+        "speed": checking_speed,
+        "valid": local_results['hits'],
+        "failed": local_results['bad'] + local_results['errors']
     }
 
 def check_cookies(input_file):

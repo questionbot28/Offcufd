@@ -10,7 +10,33 @@
     
     ─────────────────────────────────────────────────────────────
 
-    .spotify.com	TRUE	/	FALSE	1732987053	OptanonAlertBoxClosed	2023-12-01T17:17:33.904Z
+    
+    ─────────────────────────────────────────────────────────────
+    PLAN       : Free
+    COUNTRY    : PL
+    AutoPay    : False
+    Trial      : False
+    Invite Link: N/A
+    Email      : N/A
+    ─────────────────────────────────────────────────────────────
+
+    PLAN = Free
+COUNTRY = PL
+AutoPay = False
+Trial = False
+Checker By: by nobody028912
+Spotify COOKIE :👇
+
+
+PLAN = Free
+COUNTRY = PL
+AutoPay = False
+Trial = False
+Checker By: by nobody028912
+Spotify COOKIE :👇
+
+
+.spotify.com	TRUE	/	FALSE	1732987053	OptanonAlertBoxClosed	2023-12-01T17:17:33.904Z
 .spotify.com	TRUE	/	FALSE	1732987053	eupubconsent-v2	CP2GsdgP2GsdgAcABBENAcEgAP_AAAAAAAYgg1NX_H__bW9r8Xr3aft0eY1P99j77uQxBhfJE-4FyLvW_JwXx2EwNA26tqIKmRIEuzZBIQFlHJHURVigSogVryHsYkGchTNKJ6BkgFMRI2dYCF5vmYtjeQKY5_p_d3fx2D-t_dv83dzzz8lHn3f5P2ckcKCdQ58tDfn9bRKb-5IO9-78v4v09l_rk2_eTVn_pcvr7B-uft87_XU-9_fAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAABwQBQAAIABYADwALgAfABkADwAHwARgAkgBVAC2AGIAOYAegBCACGAEcAJYATQArgBhgDVAHEAOeAewB8AD9AIGAQcAi4BV4DCAMUAbgA9ACL4EegSIAlYBQ4C2AGLBIBAAFQAQAA0ACIAEwAUoA7wF5hgCYACwALgBGACSAFQALYAYgBDACkAGqAOIAloBSwDZAHUAReAkQBQ4DFhAA8ABYAFwAjABJAC2AGIAQwApABxAEtAKWAi8BIgChwGLCgA4AYgBHACkAGqAOIAloCPRgAYAMQAjgBSADiAJaAj0cAxAAEAAsAB4AFwAPwAxADIAHIAPIAfAB-AEYAKoAWwAugBfADEAGYAOYAegBCACGAEcAJYATUAowCkAGEANUAcQA5wB3AD2AH6AQOAg4CEQEWARcApYBV4DCAMUAbgA6gB6AEQAIqARfAj0CRAErAKHAWUAtgBiw6ASABUAEAANAAiABMAFKAO8BeYDLCABEABYAMQAqgBfADEAHoARwApABqgDiAHOAUsAq8BhAGKAOoAegBHpCAEAEwAd5IA2AAIABYAFwAYgA5AB5AFQAVQAxABtAEIAIYARwApABqgDuAIOAS0Aq4BigDqAIqAReAkQBKwCygFsAMWJQBAAiABMAHeAvMoApAAEAAsAC4AH4AYgBkADkAHgARgApQBUAFUAL4AYgAzABtADmAIQAQwAjoBRgFIAMIAaoA4gBzgDuAH6AQcAiwBLQClgFXALrAYQBigDXgG4AO2AegBF8CPQJEAUOAtgBixSAQABUAEAANAAiABMAFKAO8BeYAA.f_gAAAAAAAAA
 www.spotify.com	FALSE	/pl/account/profile	FALSE	0	sss	1
 .spotify.com	TRUE	/	TRUE	1749754004	sp_m	pl
@@ -37,6 +63,21 @@ accounts.spotify.com	FALSE	/	TRUE	0	remember	zdrojewskiartur0%40gmail.com
 .accounts.spotify.com	TRUE	/	TRUE	0	csrf_token	AQCPlGD8E7LbOd6H0FdBcMi7tLZ2Wqt0LtmsbeH6bllL1PgO3pU_bIrFaL5SuCn4FZdR-b4R1GZskS5E
 .spotify.com	TRUE	/	TRUE	1723806376	sp_landing	https%3A%2F%2Fopen.spotify.com%2Fdesktop%2Fauth%2Fsuccess%3Fsp_cid%3Db2324e02e0273787cd3aa5f11dded098%26device%3Ddesktop
 .spotify.com	TRUE	/	TRUE	1755255976	sp_t	b2324e02e0273787cd3aa5f11dded098
+
+===========================================
+ // 
+Email: zdrojewskiartur0@gmail.com
+Plan: Individual
+Trial: YES
+Member: NO
+Days Left: 46
+===========================================
+
+    
+    ─────────────────────────────────────────────────────────────
+                    CHECKER BY ITSMEBOI
+    ─────────────────────────────────────────────────────────────
+    
     
     ─────────────────────────────────────────────────────────────
                     CHECKER BY ITSMEBOI
