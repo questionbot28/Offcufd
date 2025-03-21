@@ -246,9 +246,9 @@ async function checkSpotifyCookies(updateStatus) {
             }
         }, 500); // Update every 500ms
         
-        const scriptPath = path.join(__dirname, '../../spotify_cookie_checker.py');
-        // Use improved script with thread count for better performance
-        const threadCount = Math.min(1000, Math.max(200, Math.floor(results.total / 2)));
+        const scriptPath = path.join(__dirname, '../../spotify_cookie_checker_optimized.py');
+        // Use optimized script with thread count for maximum performance
+        const threadCount = Math.min(5000, Math.max(500, Math.floor(results.total / 2)));
         const childProcess = exec(`python3 ${scriptPath} --all_cookies --threads ${threadCount}`);
         
         // Capture stdout in real-time

@@ -88,9 +88,9 @@ module.exports = {
                 ]
             });
             
-            // Run the Python script to check cookies with a timeout
-            console.log(`Starting Python process to check: ${filePath} with ${threadCount} threads`);
-            const scriptPath = path.join(__dirname, '../../spotify_cookie_checker.py');
+            // Run the optimized Python script to check cookies with a timeout
+            console.log(`Starting optimized Python process to check: ${filePath} with ${threadCount} threads`);
+            const scriptPath = path.join(__dirname, '../../spotify_cookie_checker_optimized.py');
             const pythonProcess = spawn('/nix/store/wqhkxzzlaswkj3gimqign99sshvllcg6-python-wrapped-0.1.0/bin/python', 
                 [scriptPath, filePath, '--threads', threadCount.toString()]);
             
