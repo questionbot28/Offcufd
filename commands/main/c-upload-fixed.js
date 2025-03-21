@@ -181,7 +181,7 @@ async function checkNetflixCookies(filePath, message, statusMessage, threadCount
         }
         
         // Run the Python script to check the uploaded file
-        const scriptPath = path.join(__dirname, '../../netflix_cookie_checker.py');
+        const scriptPath = path.join(__dirname, '../../netflix_cookie_checker_fixed.py');
         console.log(`Starting Netflix cookie check with ${threadCount} threads`);
         const pythonProcess = spawn('/nix/store/wqhkxzzlaswkj3gimqign99sshvllcg6-python-wrapped-0.1.0/bin/python', 
             [scriptPath, filePath, '--threads', threadCount.toString()]);

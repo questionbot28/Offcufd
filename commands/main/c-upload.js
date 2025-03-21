@@ -382,12 +382,16 @@ async function checkNetflixCookies(filePath, message, statusMessage, threadCount
 
                 // Try to gather statistics from the output
                 const stats = {
-                    total: (outputData.match(/Total checked: (\d+)/i) || [])[1] || '0',
-                    working: (outputData.match(/Working cookies: (\d+)/i) || [])[1] || '0',
-                    unsubscribed: (outputData.match(/Unsubscribed accounts: (\d+)/i) || [])[1] || '0',
-                    failed: (outputData.match(/Failed cookies: (\d+)/i) || [])[1] || '0',
-                    broken: (outputData.match(/Broken cookies: (\d+)/i) || [])[1] || '0'
+                    total: (outputData.match(/Total Checked: (\d+)/i) || outputData.match(/Total checked: (\d+)/i) || [])[1] || '0',
+                    working: (outputData.match(/Total Working: (\d+)/i) || outputData.match(/Working cookies: (\d+)/i) || [])[1] || '0',
+                    unsubscribed: (outputData.match(/Total Unsubscribed: (\d+)/i) || outputData.match(/Unsubscribed accounts: (\d+)/i) || [])[1] || '0',
+                    failed: (outputData.match(/Total Failed: (\d+)/i) || outputData.match(/Failed cookies: (\d+)/i) || [])[1] || '0',
+                    broken: (outputData.match(/Total Broken\/Invalid: (\d+)/i) || outputData.match(/Broken cookies: (\d+)/i) || [])[1] || '0'
                 };
+                
+                // Log all the output to help troubleshoot
+                console.log("COOKIE CHECKER OUTPUT:");
+                console.log(outputData);
                 
                 // Get speed metrics (cookies per second)
                 const endTime = Date.now();
