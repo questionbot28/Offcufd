@@ -612,47 +612,53 @@ def worker(task_queue, results):
 def extract_from_archive(archive_path, extract_dir):
     """Extract files from a ZIP or RAR archive."""
     try:
+        # Create extraction directory if it doesn't exist
+        os.makedirs(extract_dir, exist_ok=True)
+        
         debug_print(f"Extracting archive: {archive_path} to {extract_dir}")
+        print(f"Extracting archive: {archive_path} to {extract_dir}")  # Add console output for debugging
+        
         file_ext = os.path.splitext(archive_path)[1].lower()
         
         if file_ext == '.zip':
             debug_print("Processing ZIP file")
+            print("Processing ZIP file")  # Add console output for debugging
+            
+            # First, verify the file exists
+            if not os.path.exists(archive_path):
+                debug_print(f"Archive file does not exist: {archive_path}")
+                print(f"Archive file does not exist: {archive_path}")  # Add console output for debugging
+                return False
+                
             try:
+                # Check file size first to avoid trying to process empty archives
+                file_size = os.path.getsize(archive_path)
+                if file_size == 0:
+                    debug_print(f"Archive file is empty: {archive_path} (0 bytes)")
+                    print(f"Archive file is empty: {archive_path} (0 bytes)")  # Add console output for debugging
+                    return False
+                    
+                debug_print(f"Archive file size: {file_size} bytes")
+                
+                # Try opening the ZIP file
                 with zipfile.ZipFile(archive_path, 'r') as zip_ref:
                     # List all files in the archive
                     file_list = zip_ref.namelist()
                     debug_print(f"ZIP contains {len(file_list)} files/directories")
+                    print(f"ZIP contains {len(file_list)} files/directories")  # Add console output for debugging
                     
-                    # Check if there are nested archives inside this ZIP
-                    nested_archives = []
-                    for f in file_list:
-                        if f.lower().endswith('.zip') or f.lower().endswith('.rar'):
-                            nested_archives.append(f)
+                    if not file_list:
+                        debug_print("ZIP file is empty (no files inside)")
+                        print("ZIP file is empty (no files inside)")  # Add console output for debugging
+                        return False
                     
-                    if nested_archives:
-                        debug_print(f"Found {len(nested_archives)} nested archives inside ZIP")
-                    
-                    # Filter out problematic filenames before extraction
-                    safe_file_list = []
-                    for file_path in file_list:
-                        try:
-                            # Test if the filename can be properly encoded
-                            file_path.encode('latin-1')
-                            safe_file_list.append(file_path)
-                        except UnicodeEncodeError:
-                            debug_print(f"Skipping file with problematic name: {file_path}")
-                            continue
-                    
-                    debug_print(f"Extracting {len(safe_file_list)} safe files out of {len(file_list)} total")
-                    
-                    # Extract all safe files (including folders)
-                    for file_path in safe_file_list:
-                        try:
-                            zip_ref.extract(file_path, extract_dir)
-                        except Exception as ex:
-                            debug_print(f"Error extracting {file_path}: {ex}")
-                    
+                    # Extract all files (using extractall is more reliable than individual extracts)
+                    debug_print(f"Extracting all files from ZIP")
+                    print(f"Extracting all files from ZIP")  # Add console output for debugging
+                    zip_ref.extractall(extract_dir)
+                
                 debug_print("ZIP extraction completed")
+                print("ZIP extraction completed")  # Add console output for debugging
                 
                 # Look for .txt files in the extracted content including subdirectories
                 cookie_files = []
@@ -665,16 +671,53 @@ def extract_from_archive(archive_path, extract_dir):
                 
                 if cookie_files:
                     debug_print(f"Found {len(cookie_files)} cookie files in extracted content")
+                    print(f"Found {len(cookie_files)} cookie files in extracted content")  # Add console output for debugging
                 else:
                     debug_print("No cookie files found in extracted content")
+                    print("No cookie files found in extracted content")  # Add console output for debugging
+                    
+                    # If no txt files were found, check for nested archives and extract them
+                    nested_archives = []
+                    for root, dirs, files in os.walk(extract_dir):
+                        for file in files:
+                            if file.lower().endswith('.zip') or file.lower().endswith('.rar'):
+                                nested_path = os.path.join(root, file)
+                                nested_archives.append(nested_path)
+                    
+                    if nested_archives:
+                        debug_print(f"Found {len(nested_archives)} nested archives in extracted content, attempting to extract")
+                        print(f"Found {len(nested_archives)} nested archives in extracted content, attempting to extract")  # Add console output for debugging
+                        
+                        for nested_archive in nested_archives:
+                            nested_extract_dir = os.path.join(extract_dir, f"nested_{os.path.basename(nested_archive)}")
+                            os.makedirs(nested_extract_dir, exist_ok=True)
+                            
+                            # Try to extract the nested archive
+                            extract_from_archive(nested_archive, nested_extract_dir)
+                
+                # Final check to see if we found any txt files after all extractions
+                all_txt_files = []
+                for root, dirs, files in os.walk(extract_dir):
+                    for file in files:
+                        if file.lower().endswith('.txt'):
+                            all_txt_files.append(os.path.join(root, file))
+                
+                debug_print(f"Total cookie files found after all extractions: {len(all_txt_files)}")
+                print(f"Total cookie files found after all extractions: {len(all_txt_files)}")  # Add console output for debugging
                 
                 return True
             except zipfile.BadZipFile as e:
                 debug_print(f"Bad ZIP file: {e}")
+                print(f"Bad ZIP file: {e}")  # Add console output for debugging
+                return False
+            except Exception as e:
+                debug_print(f"Error processing ZIP file: {e}")
+                print(f"Error processing ZIP file: {e}")  # Add console output for debugging
                 return False
                 
         elif file_ext == '.rar':
             debug_print("RAR extraction not supported without additional dependencies")
+            print("RAR extraction not supported without additional dependencies")  # Add console output for debugging
             try:
                 debug_print("Creating fallback notification for RAR files")
                 print("⚠️ RAR extraction requires external tools that are not available.")
@@ -694,6 +737,7 @@ def extract_from_archive(archive_path, extract_dir):
                 return True
             except Exception as e:
                 debug_print(f"Error with RAR file: {e}")
+                print(f"Error with RAR file: {e}")  # Add console output for debugging
                 # Create a note file about RAR extraction issues
                 rar_note_path = os.path.join(extract_dir, "RAR_EXTRACTION_NOTE.txt")
                 with open(rar_note_path, 'w') as f:
@@ -702,9 +746,14 @@ def extract_from_archive(archive_path, extract_dir):
                 return False
         else:
             debug_print(f"Unsupported archive format: {file_ext}")
+            print(f"Unsupported archive format: {file_ext}")  # Add console output for debugging
             return False
     except Exception as e:
         debug_print(f"Error extracting archive {archive_path}: {e}")
+        print(f"Error extracting archive {archive_path}: {e}")  # Add console output for debugging
+        import traceback
+        debug_print(f"Traceback: {traceback.format_exc()}")
+        print(f"Traceback: {traceback.format_exc()}")  # Add console output for debugging
         return False
 
 def process_directory(directory, processed_files=None, depth=0, max_depth=5):
