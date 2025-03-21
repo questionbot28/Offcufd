@@ -275,7 +275,7 @@ async function checkNetflixCookies(filePath, message, statusMessage, threadCount
             console.error(`[Netflix Checker Error] ${data.toString().trim()}`);
         });
         
-        // Update status periodically (every 500ms for near real-time updates)
+        // Update status periodically (every 200ms for near real-time updates)
         const updateInterval = setInterval(async () => {
             const elapsedTime = Math.floor((Date.now() - startTime) / 1000);
             let statusDescription = 'Checking your Netflix cookies...';
@@ -331,7 +331,7 @@ async function checkNetflixCookies(filePath, message, statusMessage, threadCount
                         .setTimestamp()
                 ]
             }).catch(error => console.error('Error updating status message:', error));
-        }, 500);
+        }, 200);
 
         // Handle process completion
         return new Promise((resolve, reject) => {

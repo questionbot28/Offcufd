@@ -776,7 +776,7 @@ def process_batch(batch_files, batch_id):
                 
             local_checked += 1
             
-            # Super fast local progress update
+            # More frequent progress updates for better real-time visibility
             current_time = time.time()
             if current_time - last_update_time > update_interval:
                 last_update_time = current_time
@@ -786,6 +786,12 @@ def process_batch(batch_files, batch_id):
                 print(f"[{datetime.now().strftime('%H:%M:%S.%f')[:-3]}] 🔄 BATCH {batch_id} PROGRESS\n"
                       f"📝 Processed: {local_checked}/{len(batch_files)} cookies | ✓ Valid: {local_working}\n"
                       f"⚡ Speed: {checking_speed:.2f} cookies/sec")
+                
+                # Add standardized progress report line for better parser detection in Node.js
+                print(f"PROGRESS REPORT | Progress: {local_checked}/{len(batch_files)} | Valid: {local_working} | Failed: {local_fails} | Speed: {checking_speed:.2f}")
+                
+                # Force flush to ensure real-time progress updates
+                sys.stdout.flush()
         except Exception as e:
             batch_results.append(f"Error processing {cookie_file}: {str(e)}")
             local_broken += 1
