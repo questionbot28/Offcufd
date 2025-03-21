@@ -674,57 +674,22 @@ def extract_from_archive(archive_path, extract_dir):
                 return False
                 
         elif file_ext == '.rar':
-            debug_print("Processing RAR file")
+            debug_print("RAR extraction not supported without additional dependencies")
             try:
-                with rarfile.RarFile(archive_path) as rar_ref:
-                    # List all files in the archive
-                    file_list = rar_ref.namelist()
-                    debug_print(f"RAR contains {len(file_list)} files/directories")
-                    
-                    # Check if there are nested archives inside this RAR
-                    nested_archives = []
-                    for f in file_list:
-                        if f.lower().endswith('.zip') or f.lower().endswith('.rar'):
-                            nested_archives.append(f)
-                    
-                    if nested_archives:
-                        debug_print(f"Found {len(nested_archives)} nested archives inside RAR")
-                    
-                    # Filter out problematic filenames
-                    safe_file_list = []
-                    for file_path in file_list:
-                        try:
-                            # Test if the filename can be properly encoded
-                            file_path.encode('latin-1')
-                            safe_file_list.append(file_path)
-                        except UnicodeEncodeError:
-                            debug_print(f"Skipping file with problematic name: {file_path}")
-                            continue
-                    
-                    debug_print(f"Extracting {len(safe_file_list)} safe files out of {len(file_list)} total")
-                    
-                    # Extract only safe files (including folders)
-                    for file_path in safe_file_list:
-                        try:
-                            rar_ref.extract(file_path, extract_dir)
-                        except Exception as ex:
-                            debug_print(f"Error extracting {file_path}: {ex}")
-                    
-                debug_print("RAR extraction completed")
+                debug_print("Creating fallback notification for RAR files")
+                print("⚠️ RAR extraction requires external tools that are not available.")
+                print("Please extract the RAR file manually and upload the extracted files instead.")
                 
-                # Look for .txt files in the extracted content including subdirectories
-                cookie_files = []
-                for root, dirs, files in os.walk(extract_dir):
-                    for file in files:
-                        if file.lower().endswith('.txt'):
-                            file_path = os.path.join(root, file)
-                            debug_print(f"Found cookie file in extraction: {file_path}")
-                            cookie_files.append(file_path)
+                # Create a temporary directory for the notification
+                os.makedirs(extract_dir, exist_ok=True)
                 
-                if cookie_files:
-                    debug_print(f"Found {len(cookie_files)} cookie files in extracted content")
-                else:
-                    debug_print("No cookie files found in extracted content")
+                # Create a notice file
+                notice_path = os.path.join(extract_dir, "RAR_NOT_SUPPORTED.txt")
+                with open(notice_path, 'w') as notice_file:
+                    notice_file.write("RAR files are not supported in this environment.\n")
+                    notice_file.write("Please extract the RAR file manually and upload the contents as ZIP files.\n")
+                
+                debug_print("Created notification file for RAR limitation")
                 
                 return True
             except Exception as e:
