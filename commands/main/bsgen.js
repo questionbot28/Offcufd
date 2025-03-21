@@ -1,6 +1,8 @@
 const { MessageEmbed } = require('discord.js');
 const fs = require('fs');
 const config = require('../../config.json');
+const security = require('../../utils/security');
+const stockMonitor = require('../../utils/stockMonitor');
 
 const generated = new Set();
 
