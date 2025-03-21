@@ -323,6 +323,7 @@ function initializeForecasting() {
 }
 
 module.exports = {
+    // Core functions
     initializeForecasting,
     recordUsageData,
     generateForecast,
@@ -331,5 +332,10 @@ module.exports = {
     createForecastEmbed,
     checkAndSendForecasts,
     saveForecastingData,
-    loadForecastingData
+    loadForecastingData,
+    
+    // Expose data structures for testing
+    usageHistory,
+    lastStockLevels,
+    trackingStartTime
 };
