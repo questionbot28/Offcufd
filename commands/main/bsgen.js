@@ -34,6 +34,13 @@ module.exports = {
     }
 
     if (message.channel.id === config.bgenChannel) {
+      // Security check - rate limiting
+      const rateLimited = security.isRateLimited(message.author.id, 'bsgen');
+      if (rateLimited) {
+        const embed = security.generateRateLimitEmbed(rateLimited);
+        return message.channel.send({ embeds: [embed] });
+      }
+      
       if (generated.has(message.author.id)) {
         return message.channel.send({
           embeds: [new MessageEmbed()
@@ -58,6 +65,18 @@ module.exports = {
         }
 
         const filePath = `${__dirname}/../../bstock/${args[0]}.txt`;
+        
+        // Check if service is enabled (has enough stock)
+        if (!stockMonitor.isServiceEnabled(`bstock/${args[0]}`)) {
+          return message.channel.send({
+            embeds: [new MessageEmbed()
+              .setColor(config.color.red)
+              .setTitle('Service Unavailable')
+              .setDescription(`The \`${args[0]}\` service is currently unavailable due to low stock. Please try again later.`)
+              .setFooter({ text: message.author.tag, iconURL: message.author.displayAvatarURL({ dynamic: true, size: 64 }) })
+              .setTimestamp()]
+          });
+        }
 
         fs.readFile(filePath, function (error, data) {
           if (!error) {
@@ -114,6 +133,9 @@ module.exports = {
                     .setFooter({ text: message.author.tag, iconURL: message.author.displayAvatarURL({ dynamic: true, size: 64 }) })
                     .setTimestamp()]
                 });
+                
+                // Track command usage in security system
+                security.markCommandUsage(message.author.id, 'bsgen');
 
                 generated.add(message.author.id);
 

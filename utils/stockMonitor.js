@@ -1,10 +1,12 @@
 /**
  * Stock Monitoring System for Discord Bot
  * Automatically monitors stock levels and sends alerts when stocks are running low
+ * Integrated with AI-powered stock forecasting system
  */
 const fs = require('fs');
 const path = require('path');
 const Discord = require('discord.js');
+const stockForecasting = require('./stockForecasting');
 
 // Cache for storing current stock levels to avoid unnecessary notifications
 const stockCache = new Map();
@@ -251,6 +253,10 @@ async function monitorStockLevels(client, config) {
                 // Update cache with current stock
                 stockCache.set(serviceKey, currentStock);
                 
+                // Initialize and update AI forecasting system
+                stockForecasting.initializeForecasting(serviceKey, filePath, currentStock);
+                stockForecasting.recordUsageData(serviceKey, filePath, currentStock);
+                
                 // Check if we need to send alerts
                 const thresholds = [20, 10, 5];
                 for (const threshold of thresholds) {
@@ -287,6 +293,10 @@ function initializeStockMonitoring(client, config) {
     // Set a default check interval (every 5 minutes)
     const checkInterval = config.stockCheckInterval || 5 * 60 * 1000;
     
+    // Initialize AI-powered forecasting system
+    stockForecasting.initializeForecasting();
+    console.log('AI-powered stock forecasting system initialized');
+    
     // Initial stock check after bot is ready
     setTimeout(() => {
         monitorStockLevels(client, config);
@@ -297,7 +307,13 @@ function initializeStockMonitoring(client, config) {
         monitorStockLevels(client, config);
     }, checkInterval);
     
+    // Set up regular forecast checks (every 6 hours)
+    setInterval(() => {
+        stockForecasting.checkAndSendForecasts(client, config);
+    }, 6 * 60 * 60 * 1000); // Every 6 hours
+    
     console.log(`Stock monitoring initialized: checking every ${checkInterval / 60000} minutes`);
+    console.log('Stock forecasts will be sent every 6 hours if depletion is predicted');
 }
 
 module.exports = {
