@@ -1,0 +1,19 @@
+
+    ─────────────────────────────────────────────────────────────
+    PLAN       : Premium
+    COUNTRY    : NZ
+    AutoPay    : True
+    Trial      : False
+    Invite Link: N/A
+    Email      : N/A
+    checker by : ITSMEBOI
+    
+    ─────────────────────────────────────────────────────────────
+
+    .spotify.com	TRUE	/	TRUE	1748161766	sp_dc	AQAm2zFqyyng6v7FcBjss7VOd6NaGL9n3pVvteVwDuXwU-7KLXhuECjrq0b0HBZgWpT3Bm1BUSqss-hqctECGnpoc1YQmZjFjjjF1mqmcVweIV-QcoE72F9R12fYwJ_Dibl-1093YrUYj7rzKyRFGWa1b11LyBsc
+.spotify.com	TRUE	/	TRUE	1748161766	sp_key	7d2c48ae-735d-40ca-8ec6-ff11bca56f0b
+    
+    ─────────────────────────────────────────────────────────────
+                    CHECKER BY ITSMEBOI
+    ─────────────────────────────────────────────────────────────
+    
