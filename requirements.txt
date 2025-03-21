@@ -47,3 +47,4 @@ console
 minecraft-python
 termcolor
 pysocks
+urllib3
