@@ -307,12 +307,19 @@ async function checkNetflixCookies(filePath, message, statusMessage, threadCount
                     statusDescription = `Found ${fileCount} cookie files to check. Processing... (${elapsedTime}s elapsed)${speedInfo}`;
                     break;
                 case 'processing':
-                    // Try to extract progress info for more detailed status
-                    const progressMatch = outputData.match(/Progress: (\d+)\/(\d+)/);
+                    // Try to extract progress info for more detailed status - match new format
+                    const progressMatch = outputData.match(/PROGRESS REPORT \| Progress: (\d+)\/(\d+)/);
                     if (progressMatch) {
                         const [_, current, total] = progressMatch;
                         const percent = Math.floor((parseInt(current) / parseInt(total)) * 100);
-                        statusDescription = `Checking Netflix cookies: ${current}/${total} (${percent}%)\nElapsed time: ${elapsedTime}s${speedInfo}`;
+                        const validMatch = outputData.match(/PROGRESS REPORT \| Progress: \d+\/\d+ \| Valid: (\d+)/);
+                        const valid = validMatch ? parseInt(validMatch[1]) : 0;
+                        const speedMatch = outputData.match(/PROGRESS REPORT \| Progress: \d+\/\d+ \| Valid: \d+ \| Failed: \d+ \| Speed: ([\d.]+)/);
+                        const speed = speedMatch ? parseFloat(speedMatch[1]).toFixed(2) : '0.00';
+                        
+                        statusDescription = `Checking Netflix cookies: ${current}/${total} (${percent}%)\n` +
+                            `Valid: ${valid} | Speed: ${speed} cookies/sec\n` +
+                            `Elapsed time: ${elapsedTime}s | Threads: ${threadCount}`;
                     } else {
                         statusDescription = `Checking Netflix cookies... This might take a few minutes. (${elapsedTime}s elapsed)${speedInfo}`;
                     }
@@ -481,8 +488,11 @@ async function checkSpotifyCookies(filePath, message, statusMessage, threadCount
                             stage: 'processing'
                         };
                         
-                        // Extract current progress
-                        const progressMatch = line.match(/Progress: (\d+)\/(\d+)/) || line.match(/Processed: (\d+)\/(\d+)/) || stdoutData.match(/Checked: (\d+) cookies/);
+                        // Extract current progress - prioritize the standardized format
+                        const progressMatch = line.match(/PROGRESS REPORT \| Progress: (\d+)\/(\d+)/) || 
+                                           line.match(/Progress: (\d+)\/(\d+)/) || 
+                                           line.match(/Processed: (\d+)\/(\d+)/) || 
+                                           stdoutData.match(/Checked: (\d+) cookies/);
                         if (progressMatch) {
                             progressData.current = parseInt(progressMatch[1]) || 0;
                             if (progressMatch[2]) {
