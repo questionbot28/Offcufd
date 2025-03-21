@@ -225,30 +225,56 @@ async function checkNetflixCookies(filePath, message, statusMessage, threadCount
                             stage: processingStage
                         };
                         
-                        // Try to extract progress values using regex
-                        const progressMatch = line.match(/Progress: (\d+)\/(\d+)/) || outputData.match(/Checked: (\d+) cookies/);
-                        if (progressMatch) {
-                            progressData.current = parseInt(progressMatch[1]) || 0;
-                            if (progressMatch[2]) {
-                                progressData.total = parseInt(progressMatch[2]) || 100;
-                            } else {
-                                // If total not found in current line, try to find it elsewhere in output
-                                const totalMatch = outputData.match(/Found (\d+) Netflix cookie files/);
-                                progressData.total = totalMatch ? parseInt(totalMatch[1]) : 100;
+                        // Check for standardized progress report format first
+                        if (line.includes('PROGRESS REPORT')) {
+                            // PROGRESS REPORT | Progress: 50/100 | Valid: 20 | Failed: 30 | Speed: 15.42
+                            const progressParts = line.split('|').map(part => part.trim());
+                            
+                            for (const part of progressParts) {
+                                if (part.startsWith('Progress:')) {
+                                    const progressMatch = part.match(/Progress:\s*(\d+)\/(\d+)/);
+                                    if (progressMatch) {
+                                        progressData.current = parseInt(progressMatch[1]) || 0;
+                                        progressData.total = parseInt(progressMatch[2]) || 100;
+                                    }
+                                } else if (part.startsWith('Valid:')) {
+                                    const validMatch = part.match(/Valid:\s*(\d+)/);
+                                    progressData.valid = validMatch ? parseInt(validMatch[1]) : 0;
+                                } else if (part.startsWith('Failed:')) {
+                                    const failedMatch = part.match(/Failed:\s*(\d+)/);
+                                    progressData.invalid = failedMatch ? parseInt(failedMatch[1]) : 0;
+                                } else if (part.startsWith('Speed:')) {
+                                    const speedMatch = part.match(/Speed:\s*([\d.]+)/);
+                                    progressData.speed = speedMatch ? parseFloat(speedMatch[1]) : 0;
+                                }
                             }
+                        } else {
+                            // Fallback to older format parsing
+                            // Try to extract progress values using regex
+                            const progressMatch = line.match(/Progress: (\d+)\/(\d+)/) || outputData.match(/Checked: (\d+) cookies/);
+                            if (progressMatch) {
+                                progressData.current = parseInt(progressMatch[1]) || 0;
+                                if (progressMatch[2]) {
+                                    progressData.total = parseInt(progressMatch[2]) || 100;
+                                } else {
+                                    // If total not found in current line, try to find it elsewhere in output
+                                    const totalMatch = outputData.match(/Found (\d+) Netflix cookie files/);
+                                    progressData.total = totalMatch ? parseInt(totalMatch[1]) : 100;
+                                }
+                            }
+                            
+                            // Extract valid count
+                            const validMatch = line.match(/Valid: (\d+)/) || outputData.match(/Working cookies: (\d+)/);
+                            progressData.valid = validMatch ? parseInt(validMatch[1]) : 0;
+                            
+                            // Extract invalid count
+                            const invalidMatch = line.match(/Failed: (\d+)/) || outputData.match(/Failed cookies: (\d+)/);
+                            progressData.invalid = invalidMatch ? parseInt(invalidMatch[1]) : 0;
+                            
+                            // Extract speed
+                            const speedMatch = line.match(/Speed: ([\d.]+)/) || outputData.match(/Speed: ([\d.]+)/);
+                            progressData.speed = speedMatch ? parseFloat(speedMatch[1]) : 0;
                         }
-                        
-                        // Extract valid count
-                        const validMatch = line.match(/Valid: (\d+)/) || outputData.match(/Working cookies: (\d+)/);
-                        progressData.valid = validMatch ? parseInt(validMatch[1]) : 0;
-                        
-                        // Extract invalid count
-                        const invalidMatch = line.match(/Failed: (\d+)/) || outputData.match(/Failed cookies: (\d+)/);
-                        progressData.invalid = invalidMatch ? parseInt(invalidMatch[1]) : 0;
-                        
-                        // Extract speed
-                        const speedMatch = line.match(/Speed: ([\d.]+)/) || outputData.match(/Speed: ([\d.]+)/);
-                        progressData.speed = speedMatch ? parseFloat(speedMatch[1]) : 0;
                         
                         // Create enhanced embed with visual progress bar
                         const embed = progressUtils.createProgressEmbed(progressData, processStartTime, 'Netflix', config);
@@ -481,32 +507,58 @@ async function checkSpotifyCookies(filePath, message, statusMessage, threadCount
                             stage: 'processing'
                         };
                         
-                        // Extract current progress
-                        const progressMatch = line.match(/Progress: (\d+)\/(\d+)/) || line.match(/Processed: (\d+)\/(\d+)/) || stdoutData.match(/Checked: (\d+) cookies/);
-                        if (progressMatch) {
-                            progressData.current = parseInt(progressMatch[1]) || 0;
-                            if (progressMatch[2]) {
-                                progressData.total = parseInt(progressMatch[2]) || 100;
-                            } else {
-                                // If we don't have total, try to find it elsewhere
-                                const totalMatch = stdoutData.match(/Found (\d+) Spotify cookie files/);
-                                progressData.total = totalMatch ? parseInt(totalMatch[1]) : 100;
+                        // Check for standardized progress report format first
+                        if (line.includes('SPOTIFY PROGRESS REPORT')) {
+                            // SPOTIFY PROGRESS REPORT | Progress: 50/100 | Valid: 20 | Failed: 30 | Speed: 15.42
+                            const progressParts = line.split('|').map(part => part.trim());
+                            
+                            for (const part of progressParts) {
+                                if (part.startsWith('Progress:')) {
+                                    const progressMatch = part.match(/Progress:\s*(\d+)\/(\d+)/);
+                                    if (progressMatch) {
+                                        progressData.current = parseInt(progressMatch[1]) || 0;
+                                        progressData.total = parseInt(progressMatch[2]) || 100;
+                                    }
+                                } else if (part.startsWith('Valid:')) {
+                                    const validMatch = part.match(/Valid:\s*(\d+)/);
+                                    progressData.valid = validMatch ? parseInt(validMatch[1]) : 0;
+                                } else if (part.startsWith('Failed:')) {
+                                    const failedMatch = part.match(/Failed:\s*(\d+)/);
+                                    progressData.invalid = failedMatch ? parseInt(failedMatch[1]) : 0;
+                                } else if (part.startsWith('Speed:')) {
+                                    const speedMatch = part.match(/Speed:\s*([\d.]+)/);
+                                    progressData.speed = speedMatch ? parseFloat(speedMatch[1]) : 0;
+                                }
                             }
+                        } else {
+                            // Fallback to older format parsing
+                            // Extract current progress
+                            const progressMatch = line.match(/Progress: (\d+)\/(\d+)/) || line.match(/Processed: (\d+)\/(\d+)/) || stdoutData.match(/Checked: (\d+) cookies/);
+                            if (progressMatch) {
+                                progressData.current = parseInt(progressMatch[1]) || 0;
+                                if (progressMatch[2]) {
+                                    progressData.total = parseInt(progressMatch[2]) || 100;
+                                } else {
+                                    // If we don't have total, try to find it elsewhere
+                                    const totalMatch = stdoutData.match(/Found (\d+) Spotify cookie files/);
+                                    progressData.total = totalMatch ? parseInt(totalMatch[1]) : 100;
+                                }
+                            }
+                            
+                            // Extract valid count
+                            const validMatch = line.match(/Valid: (\d+)/) || stdoutData.match(/hits: (\d+)/) || 
+                                           stdoutData.match(/Working cookies: (\d+)/);
+                            progressData.valid = validMatch ? parseInt(validMatch[1]) : 0;
+                            
+                            // Extract invalid count
+                            const invalidMatch = line.match(/Failed: (\d+)/) || stdoutData.match(/bad: (\d+)/) ||
+                                             stdoutData.match(/Failed cookies: (\d+)/);
+                            progressData.invalid = invalidMatch ? parseInt(invalidMatch[1]) : 0;
+                            
+                            // Extract speed
+                            const speedMatch = line.match(/Speed: ([\d.]+)/) || stdoutData.match(/Speed: ([\d.]+)/);
+                            progressData.speed = speedMatch ? parseFloat(speedMatch[1]) : 0;
                         }
-                        
-                        // Extract valid count
-                        const validMatch = line.match(/Valid: (\d+)/) || stdoutData.match(/hits: (\d+)/) || 
-                                       stdoutData.match(/Working cookies: (\d+)/);
-                        progressData.valid = validMatch ? parseInt(validMatch[1]) : 0;
-                        
-                        // Extract invalid count
-                        const invalidMatch = line.match(/Failed: (\d+)/) || stdoutData.match(/bad: (\d+)/) ||
-                                         stdoutData.match(/Failed cookies: (\d+)/);
-                        progressData.invalid = invalidMatch ? parseInt(invalidMatch[1]) : 0;
-                        
-                        // Extract speed
-                        const speedMatch = line.match(/Speed: ([\d.]+)/) || stdoutData.match(/Speed: ([\d.]+)/);
-                        progressData.speed = speedMatch ? parseFloat(speedMatch[1]) : 0;
                         
                         // Extract thread count (if available)
                         const threadMatch = line.match(/Threads: (\d+)/);

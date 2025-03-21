@@ -647,6 +647,12 @@ def process_batch(batch_files, batch_id):
                 print(f"[{datetime.now().strftime('%H:%M:%S.%f')[:-3]}] 🎵 BATCH {batch_id} PROGRESS\n"
                       f"📝 Processed: {total_checked}/{len(batch_files)} cookies | ✓ Valid: {local_results['hits']}\n"
                       f"⚡ Speed: {checking_speed:.2f} cookies/sec")
+                
+                # Add standardized progress report line for better parser detection in Node.js
+                print(f"SPOTIFY PROGRESS REPORT | Progress: {total_checked}/{len(batch_files)} | Valid: {local_results['hits']} | Failed: {local_results['bad']} | Speed: {checking_speed:.2f}")
+                
+                # Force flush stdout to ensure real-time progress updates
+                sys.stdout.flush()
         except Exception as e:
             batch_errors.append(f"⚠ Error processing {file_name}: {str(e)}")
             local_results['errors'] += 1
