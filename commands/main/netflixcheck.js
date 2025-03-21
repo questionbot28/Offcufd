@@ -3,6 +3,7 @@ const { spawn } = require('child_process');
 const fs = require('fs');
 const path = require('path');
 const config = require('../../config.json');
+const progressUtils = require('../../utils/progressBar');
 
 module.exports = {
     name: 'netflixcheck',
@@ -108,34 +109,55 @@ module.exports = {
                 try {
                     const lines = output.split('\n');
                     for (const line of lines) {
-                        if (line.includes('Progress:')) {
-                            // Extract metrics from the line
-                            const progressInfo = line.trim();
-                            const elapsedTime = ((Date.now() - processStartTime) / 1000).toFixed(2);
+                        if (line.includes('Progress:') || line.includes('PROGRESS REPORT')) {
+                            // Parse the progress information
+                            const progressData = {
+                                current: 0,
+                                total: 0,
+                                valid: 0,
+                                invalid: 0,
+                                speed: 0,
+                                threads: threadCount,
+                                stage: processingStage
+                            };
                             
-                            // Extract speed information if available
-                            const speedMatch = progressInfo.match(/Speed: ([\d.]+) cookies\/sec/);
-                            const speed = speedMatch ? speedMatch[1] : '0.00';
+                            // Extract progress values using regex
+                            const progressMatch = line.match(/Progress: (\d+)\/(\d+)/) || outputData.match(/Checked: (\d+) cookies/);
+                            if (progressMatch) {
+                                progressData.current = parseInt(progressMatch[1]) || 0;
+                                if (progressMatch[2]) {
+                                    progressData.total = parseInt(progressMatch[2]) || 100;
+                                } else {
+                                    // If total not found in current line, try to find it elsewhere in output
+                                    const totalMatch = outputData.match(/Found (\d+) Netflix cookie files/);
+                                    progressData.total = totalMatch ? parseInt(totalMatch[1]) : 100;
+                                }
+                            }
                             
-                            // Create detailed progress description
-                            const progressDescription = [
-                                `${progressInfo}`,
-                                `Processing Time: ${elapsedTime}s`,
-                                `Performance: ${speed} cookies/sec`,
-                                `Thread Count: ${threadCount}`
-                            ].join('\n');
+                            // Extract valid count
+                            const validMatch = line.match(/Valid: (\d+)/) || outputData.match(/Working cookies: (\d+)/);
+                            progressData.valid = validMatch ? parseInt(validMatch[1]) : 0;
                             
-                            // Update status message with real-time progress
-                            statusMessage.edit({
-                                embeds: [
-                                    new MessageEmbed()
-                                        .setColor(config.color.blue)
-                                        .setTitle('Netflix Cookie Checker - Live Progress')
-                                        .setDescription(progressDescription)
-                                        .setFooter({ text: message.author.tag, iconURL: message.author.displayAvatarURL({ dynamic: true }) })
-                                        .setTimestamp()
-                                ]
-                            }).catch(error => console.error('Error updating progress message:', error));
+                            // Extract invalid count
+                            const invalidMatch = line.match(/Failed: (\d+)/) || outputData.match(/Failed cookies: (\d+)/);
+                            progressData.invalid = invalidMatch ? parseInt(invalidMatch[1]) : 0;
+                            
+                            // Extract speed
+                            const speedMatch = line.match(/Speed: ([\d.]+)/) || outputData.match(/Speed: ([\d.]+)/);
+                            progressData.speed = speedMatch ? parseFloat(speedMatch[1]) : 0;
+                            
+                            // Create enhanced embed with visual progress bar
+                            const embed = progressUtils.createProgressEmbed(progressData, processStartTime, 'Netflix', config);
+                            
+                            // Add author to footer
+                            embed.setFooter({ 
+                                text: `${message.author.tag} • Processing stage: ${processingStage || 'Analyzing'}`, 
+                                iconURL: message.author.displayAvatarURL({ dynamic: true }) 
+                            });
+                            
+                            statusMessage.edit({ embeds: [embed] }).catch(error => 
+                                console.error('Error updating progress message:', error)
+                            );
                             break;
                         }
                     }
@@ -313,22 +335,43 @@ module.exports = {
                     }
                 }
                 
-                // Create success embed with results
-                const resultsEmbed = new MessageEmbed()
-                    .setColor(config.color?.green || '#00ff00')
-                    .setTitle('Netflix Cookie Checker - Results')
-                    .setDescription(`Check completed! Here are the results:`)
-                    .addFields([
-                        { name: 'Total Checked', value: stats.total, inline: true },
-                        { name: 'Working Cookies', value: stats.working, inline: true },
-                        { name: 'Unsubscribed', value: stats.unsubscribed, inline: true },
-                        { name: 'Failed Cookies', value: stats.failed, inline: true },
-                        { name: 'Broken Cookies', value: stats.broken, inline: true },
-                        { name: 'Duplicates Found', value: String(duplicateCount), inline: true }
-                    ])
-                    .setImage('https://cdn.discordapp.com/attachments/1263458101886193725/1349031252216250503/350kb.gif')
-                    .setFooter({ text: message.author.tag, iconURL: message.author.displayAvatarURL({ dynamic: true }) })
-                    .setTimestamp();
+                // Calculate total processing time and metrics
+                const endTime = Date.now();
+                const elapsedSeconds = (endTime - processStartTime) / 1000;
+                const cookiesPerSecond = parseInt(stats.total) / elapsedSeconds;
+                stats.speed = cookiesPerSecond.toFixed(2);
+                stats.elapsedTime = elapsedSeconds.toFixed(2);
+
+                // Create enhanced results data for our utility function
+                const resultsData = {
+                    total: parseInt(stats.total) || 0,
+                    valid: parseInt(stats.working) || 0,
+                    invalid: parseInt(stats.failed) || 0,
+                    premium: parseInt(stats.working) || 0,
+                    unsubscribed: parseInt(stats.unsubscribed) || 0,
+                    broken: parseInt(stats.broken) || 0,
+                    speed: parseFloat(stats.speed) || 0,
+                    duplicates: duplicateCount || 0
+                };
+                
+                // Use our utility to create a nicely formatted results embed
+                const resultsEmbed = progressUtils.createResultsEmbed(resultsData, processStartTime, 'Netflix', config);
+                
+                // Add additional fields for more detailed statistics
+                resultsEmbed.addFields([
+                    { name: 'Broken Cookies', value: stats.broken || '0', inline: true },
+                    { name: 'Duplicates Found', value: String(duplicateCount), inline: true },
+                    { name: 'Processing Time', value: `${stats.elapsedTime} seconds`, inline: true }
+                ]);
+                
+                // Add Netflix branding image
+                resultsEmbed.setImage('https://cdn.discordapp.com/attachments/1263458101886193725/1349031252216250503/350kb.gif');
+                
+                // Add author to footer
+                resultsEmbed.setFooter({
+                    text: `${message.author.tag} • File: ${fileName}`,
+                    iconURL: message.author.displayAvatarURL({ dynamic: true })
+                });
                 
                 // Update the status message with the results
                 await statusMessage.edit({ embeds: [resultsEmbed] });

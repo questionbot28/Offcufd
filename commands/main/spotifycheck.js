@@ -6,6 +6,7 @@ const { spawn } = require('child_process');
 const config = require('../../config.json');
 const https = require('https');
 const { createWriteStream } = require('fs');
+const progressUtils = require('../../utils/progressBar');
 
 module.exports = {
     name: 'spotifycheck',
@@ -125,32 +126,74 @@ module.exports = {
                 try {
                     const lines = output.split('\n');
                     for (const line of lines) {
-                        if (line.includes('Progress:')) {
-                            // Extract metrics from the line
-                            const progressInfo = line.trim();
-                            const elapsedTime = ((Date.now() - startTime) / 1000).toFixed(2);
+                        if (line.includes('Progress:') || line.includes('SPOTIFY PROGRESS REPORT')) {
+                            // Parse the progress information 
+                            const progressData = {
+                                current: 0,
+                                total: 0,
+                                valid: 0,
+                                invalid: 0,
+                                speed: 0,
+                                threads: threadCount,
+                                stage: 'processing'
+                            };
                             
-                            // Extract speed information if available
-                            const speedMatch = progressInfo.match(/Speed: ([\d.]+) cookies\/sec/);
-                            const speed = speedMatch ? speedMatch[1] : '0.00';
+                            // Extract current progress
+                            const progressMatch = line.match(/Progress: (\d+)\/(\d+)/) || line.match(/Processed: (\d+)\/(\d+)/) || stdoutData.match(/Checked: (\d+) cookies/);
+                            if (progressMatch) {
+                                progressData.current = parseInt(progressMatch[1]) || 0;
+                                if (progressMatch[2]) {
+                                    progressData.total = parseInt(progressMatch[2]) || 100;
+                                } else {
+                                    // If we don't have total, try to find it elsewhere
+                                    const totalMatch = stdoutData.match(/Found (\d+) Spotify cookie files/);
+                                    progressData.total = totalMatch ? parseInt(totalMatch[1]) : 100;
+                                }
+                            }
                             
-                            // Create detailed progress description
-                            const progressDescription = [
-                                `${progressInfo}`,
-                                `Processing Time: ${elapsedTime}s`,
-                                `Performance: ${speed} cookies/sec`
-                            ].join('\n');
+                            // Extract valid count
+                            const validMatch = line.match(/Valid: (\d+)/) || stdoutData.match(/hits: (\d+)/) || 
+                                           stdoutData.match(/Working cookies: (\d+)/);
+                            progressData.valid = validMatch ? parseInt(validMatch[1]) : 0;
                             
-                            processingMessage.edit({
-                                embeds: [
-                                    new MessageEmbed()
-                                        .setColor(config.color.blue)
-                                        .setTitle('Spotify Cookie Checker - Live Progress')
-                                        .setDescription(progressDescription)
-                                        .setFooter({ text: message.author.tag, iconURL: message.author.displayAvatarURL({ dynamic: true }) })
-                                        .setTimestamp()
-                                ]
-                            }).catch(error => console.error('Error updating progress message:', error));
+                            // Extract invalid count
+                            const invalidMatch = line.match(/Failed: (\d+)/) || stdoutData.match(/bad: (\d+)/) ||
+                                             stdoutData.match(/Failed cookies: (\d+)/);
+                            progressData.invalid = invalidMatch ? parseInt(invalidMatch[1]) : 0;
+                            
+                            // Extract speed
+                            const speedMatch = line.match(/Speed: ([\d.]+)/) || stdoutData.match(/Speed: ([\d.]+)/);
+                            progressData.speed = speedMatch ? parseFloat(speedMatch[1]) : 0;
+                            
+                            // Extract thread count (if available)
+                            const threadMatch = line.match(/Threads: (\d+)/);
+                            if (threadMatch) {
+                                progressData.threads = parseInt(threadMatch[1]);
+                            }
+                            
+                            // Determine processing stage
+                            let processingStage = 'analyzing';
+                            if (stdoutData.includes('Extracting archive')) {
+                                processingStage = 'extracting';
+                            } else if (stdoutData.includes('Found') && stdoutData.includes('cookie files')) {
+                                processingStage = 'processing_files';
+                            } else if (line.includes('Progress:')) {
+                                processingStage = 'checking_cookies';
+                            }
+                            progressData.stage = processingStage;
+                            
+                            // Create enhanced embed with visual progress bar
+                            const embed = progressUtils.createProgressEmbed(progressData, startTime, 'Spotify', config);
+                            
+                            // Add author to footer
+                            embed.setFooter({ 
+                                text: `${message.author.tag} • Processing file: ${path.basename(filePath)}`, 
+                                iconURL: message.author.displayAvatarURL({ dynamic: true }) 
+                            });
+                            
+                            processingMessage.edit({ embeds: [embed] }).catch(error => 
+                                console.error('Error updating progress message:', error)
+                            );
                             break;
                         }
                     }
