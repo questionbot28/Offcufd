@@ -1103,8 +1103,6 @@ if __name__ == "__main__":
                 extract_dir = os.path.join(os.path.dirname(filepath), f"temp_extracted_{os.path.basename(filepath)}")
                 os.makedirs(extract_dir, exist_ok=True)
                 
-                global total_working, total_fails, total_unsubscribed, total_checked, total_broken
-                
                 if extract_from_archive(filepath, extract_dir):
                     # Process all extracted cookie files
                     cookie_files = process_directory(extract_dir)
