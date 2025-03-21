@@ -86,6 +86,18 @@ client.db = new sqlite3.Database('vouches.db', (err) => {
                 role_cooldowns TEXT DEFAULT '{}'
             )`);
             
+            // Security and anti-abuse system table
+            client.db.run(`CREATE TABLE IF NOT EXISTS security (
+                user_id TEXT PRIMARY KEY,
+                suspicious_activity TEXT DEFAULT '{}',
+                rate_limit_violations INTEGER DEFAULT 0,
+                cookie_failures INTEGER DEFAULT 0,
+                invite_surges INTEGER DEFAULT 0,
+                blocked_until DATETIME,
+                block_reason TEXT,
+                last_updated DATETIME DEFAULT CURRENT_TIMESTAMP
+            )`);
+            
             // Ensure the role_cooldowns column exists (for compatibility with existing databases)
             client.db.all(`PRAGMA table_info(invites)`, [], (err, rows) => {
                 if (err) {
@@ -193,7 +205,29 @@ client.on('guildMemberAdd', async (member) => {
                     }
 
                     // Calculate the new total invite count
-                    const newTotalInvites = row ? row.total_invites + 1 : 1;
+                    const previousInvites = row ? row.total_invites : 0;
+                    const newTotalInvites = previousInvites + 1;
+                    
+                    // Check for suspicious invite activity
+                    if (previousInvites > 0 && (newTotalInvites - previousInvites) > 20) {
+                        security.logSecurityEvent('ALERT', inviter.id, `Possible invite abuse: ${previousInvites} → ${newTotalInvites}`);
+                        security.markSuspiciousActivity(inviter.id, 'sudden_invite_spike');
+                        
+                        // Record in database
+                        client.db.get('SELECT * FROM security WHERE user_id = ?', [inviter.id], (secErr, secRow) => {
+                            if (secErr) {
+                                console.error('Error checking security record:', secErr);
+                            } else {
+                                if (secRow) {
+                                    client.db.run('UPDATE security SET invite_surges = invite_surges + 1, last_updated = CURRENT_TIMESTAMP WHERE user_id = ?', 
+                                        [inviter.id]);
+                                } else {
+                                    client.db.run('INSERT INTO security (user_id, invite_surges, last_updated) VALUES (?, 1, CURRENT_TIMESTAMP)', 
+                                        [inviter.id]);
+                                }
+                            }
+                        });
+                    }
 
                     // Update database first
                     if (!row) {
