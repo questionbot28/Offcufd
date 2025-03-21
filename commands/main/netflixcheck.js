@@ -4,74 +4,121 @@ const fs = require('fs');
 const path = require('path');
 const config = require('../../config.json');
 const progressUtils = require('../../utils/progressBar');
+const axios = require('axios');
 
 module.exports = {
     name: 'netflixcheck',
-    description: 'Check Netflix cookies',
-    usage: 'netflixcheck [threads]',
+    description: 'Check Netflix cookies with optimized performance',
+    usage: 'netflixcheck [URL or file attachment] [threads]',
     async execute(message, args) {
-        // Check if user specified a thread count
-        let threadCount = 500; // Default to 500 threads for optimal performance
-        if (args.length > 0 && !isNaN(args[0])) {
-            threadCount = Math.min(2000, Math.max(1, parseInt(args[0]))); // Limit between 1-2000
+        // Process arguments
+        let threadCount = 2000; // Default to 2000 threads for maximum performance with optimized version
+        let url = null;
+        let filePath = null;
+        
+        // Parse arguments to handle both URL and thread count
+        for (const arg of args) {
+            if (!isNaN(arg)) {
+                // This is a number, treat as thread count
+                threadCount = Math.min(5000, Math.max(1, parseInt(arg))); // Limit between 1-5000
+            } else if (arg.startsWith('http://') || arg.startsWith('https://')) {
+                // This is a URL
+                url = arg;
+            }
         }
+        
         // Check if the user has permission to use this command
-        const allowedRoleIDs = config.cookieCheckRoles || []; // Use a specific role setting or an empty array if not set
+        const allowedRoleIDs = config.cookieCheckRoles || config.commandAccess?.netflixcheck || []; 
         const userRoles = message.member.roles.cache.map(role => role.id);
+        const isAdmin = message.member.roles.cache.some(role => 
+            role.name.toLowerCase() === 'owner' || 
+            role.name.toLowerCase() === 'admin');
 
         // If the user doesn't have the required roles, deny permission
-        if (!userRoles.some(role => allowedRoleIDs.includes(role))) {
+        if (!isAdmin && !userRoles.some(role => allowedRoleIDs.includes(role))) {
             return message.reply('You do not have permission to use this command.');
         }
 
-        // Check if a file was attached to the message
+        // Get cookie file from message attachment or URL
         const attachment = message.attachments.first();
-        if (!attachment) {
-            return message.reply('Please attach a file containing Netflix cookies to check.');
+        if (attachment) {
+            url = attachment.url;
+        } else if (!url) {
+            return message.reply('Please attach a file or provide a URL containing Netflix cookies to check.');
         }
 
-        // Make sure the netflix directory exists
+        // Make sure directories exist
         const netflixDir = path.join(__dirname, '..', '..', 'netflix');
-        if (!fs.existsSync(netflixDir)) {
-            fs.mkdirSync(netflixDir, { recursive: true });
-        }
+        const cookiesDir = path.join(__dirname, '..', '..', 'cookies');
+        const tempDir = path.join(netflixDir, 'temp');
+        
+        [netflixDir, cookiesDir, tempDir].forEach(dir => {
+            if (!fs.existsSync(dir)) {
+                fs.mkdirSync(dir, { recursive: true });
+            }
+        });
 
         // Create a status embed
         const statusEmbed = new MessageEmbed()
             .setColor(config.color?.blue || '#0099ff')
-            .setTitle('Netflix Cookie Checker')
+            .setTitle('Netflix Cookie Checker (Optimized)')
             .setDescription('Processing your Netflix cookies...')
+            .addField('Thread Count', `${threadCount} threads`, true)
+            .addField('Optimization Level', 'Ultra-High Speed', true)
             .setFooter({ text: message.author.tag, iconURL: message.author.displayAvatarURL({ dynamic: true }) })
             .setTimestamp();
 
         const statusMessage = await message.channel.send({ embeds: [statusEmbed] });
 
         try {
-            // Download the file
-            const fileName = attachment.name;
-            const filePath = path.join(netflixDir, fileName);
-
-            // Create a write stream to save the file
-            const writeStream = fs.createWriteStream(filePath);
-            
-            // Fetch the file content and pipe it to the write stream
-            const response = await fetch(attachment.url);
-            if (!response.ok) {
-                throw new Error(`Failed to download file: ${response.statusText}`);
+            // Generate a file name if it's a URL without a clear filename
+            let fileName;
+            if (attachment) {
+                fileName = attachment.name;
+            } else {
+                // Extract filename from URL or generate one
+                const urlParts = url.split('/');
+                fileName = urlParts[urlParts.length - 1] || `netflix_cookies_${Date.now()}.txt`;
+                
+                // Ensure it has a .txt extension for consistency
+                if (!fileName.endsWith('.txt') && !fileName.endsWith('.zip')) {
+                    fileName += '.txt';
+                }
             }
             
-            const fileStream = response.body;
-            const streamPipeline = require('util').promisify(require('stream').pipeline);
-            await streamPipeline(fileStream, writeStream);
-
-            // Update status
+            // Set file path where we'll save the downloaded content
+            filePath = path.join(cookiesDir, fileName);
+            
+            // Download the file
             await statusMessage.edit({
                 embeds: [
                     statusEmbed
-                        .setDescription('File downloaded successfully. Starting cookie check process...')
+                        .setDescription(`Downloading file from ${url}...`)
                 ]
             });
-
+            
+            try {
+                await downloadFile(url, filePath);
+                
+                await statusMessage.edit({
+                    embeds: [
+                        statusEmbed
+                            .setDescription('File downloaded successfully. Starting Netflix cookie check...')
+                    ]
+                });
+            } catch (error) {
+                console.error('Error downloading file:', error);
+                return statusMessage.edit({
+                    embeds: [
+                        new MessageEmbed()
+                            .setColor(config.color?.red || '#ff0000')
+                            .setTitle('Netflix Cookie Checker - Error')
+                            .setDescription(`Failed to download file: ${error.message}`)
+                            .setFooter({ text: message.author.tag, iconURL: message.author.displayAvatarURL({ dynamic: true }) })
+                    ]
+                });
+            }
+            
             // Update status with file extension information
             const fileExt = path.extname(fileName).toLowerCase();
             
@@ -80,19 +127,16 @@ module.exports = {
                 await statusMessage.edit({
                     embeds: [
                         statusEmbed
-                            .setDescription(`File downloaded successfully. ${fileExt.toUpperCase()} archive detected. Extracting and checking Netflix cookies... This may take longer.`)
+                            .setDescription(`File downloaded successfully. ${fileExt.toUpperCase()} archive detected. Using optimized archive handling...`)
                     ]
                 });
             }
             
-            // Store for later use
-            const fileExtension = fileExt;
-            
-            // Run the Python script to check the uploaded file
-            const scriptPath = path.join(__dirname, '../../netflix_cookie_checker.py');
-            console.log(`Starting Netflix cookie check with ${threadCount} threads`);
-            const pythonProcess = spawn('/nix/store/wqhkxzzlaswkj3gimqign99sshvllcg6-python-wrapped-0.1.0/bin/python', 
-                [scriptPath, filePath, '--threads', threadCount.toString()]);
+            // Run the optimized Python script to check the uploaded file
+            const scriptPath = path.join(__dirname, '../../netflix_cookie_checker_optimized.py');
+            console.log(`Starting Netflix cookie check with ${threadCount} threads using optimized checker`);
+            const pythonProcess = spawn('python3', 
+                [scriptPath, '--check', filePath, '--threads', threadCount.toString()]);
 
             let outputData = '';
             let errorData = '';
@@ -218,8 +262,30 @@ module.exports = {
                 await statusMessage.edit({ embeds: [updatedEmbed] });
             }, 5000); // Update every 5 seconds for more responsive updates
 
+            // Look for JSON result data
+            let jsonResultData = null;
+            
+            // Process JSON output when the process exits
             pythonProcess.on('close', async (code) => {
                 clearInterval(updateInterval);
+                
+                // Look for any JSON results in the output
+                try {
+                    // Try to extract JSON data from the output
+                    const resultMatch = outputData.match(/Result: ({.*})/);
+                    if (resultMatch && resultMatch[1]) {
+                        try {
+                            // Convert single quotes to double quotes for JSON parsing
+                            const resultText = resultMatch[1].replace(/'/g, '"');
+                            jsonResultData = JSON.parse(resultText);
+                            console.log("Parsed JSON result:", jsonResultData);
+                        } catch (jsonError) {
+                            console.error("Error parsing JSON result:", jsonError);
+                        }
+                    }
+                } catch (error) {
+                    console.error("Error extracting JSON result:", error);
+                }
 
                 if (code !== 0 || errorData.includes('Error')) {
                     console.error(`Netflix cookie checker exited with code ${code}`);
@@ -235,15 +301,41 @@ module.exports = {
                     });
                     return;
                 }
-
-                // Try to gather statistics from the output
+                
+                // First try to get stats from JSON result which is more accurate
                 const stats = {
-                    total: (outputData.match(/Total checked: (\d+)/i) || [])[1] || '0',
-                    working: (outputData.match(/Working cookies: (\d+)/i) || [])[1] || '0',
-                    unsubscribed: (outputData.match(/Unsubscribed accounts: (\d+)/i) || [])[1] || '0',
-                    failed: (outputData.match(/Failed cookies: (\d+)/i) || [])[1] || '0',
-                    broken: (outputData.match(/Broken cookies: (\d+)/i) || [])[1] || '0'
+                    total: jsonResultData?.stats?.total || 0,
+                    working: jsonResultData?.stats?.valid || 0,
+                    unsubscribed: jsonResultData?.stats?.unsubscribed || 0,
+                    failed: jsonResultData?.stats?.invalid || 0,
+                    broken: jsonResultData?.stats?.errors || 0,
+                    premium: jsonResultData?.stats?.premium || 0,
+                    standard: jsonResultData?.stats?.standard || 0,
+                    basic: jsonResultData?.stats?.basic || 0,
+                    speed: jsonResultData?.stats?.speed || 0,
                 };
+                
+                // If JSON data wasn't found, try to extract from text output
+                if (!jsonResultData) {
+                    stats.total = parseInt((outputData.match(/Total checked: (\d+)/i) || [])[1] || '0');
+                    stats.working = parseInt((outputData.match(/Working cookies: (\d+)/i) || [])[1] || '0');
+                    stats.unsubscribed = parseInt((outputData.match(/Unsubscribed accounts: (\d+)/i) || [])[1] || '0');
+                    stats.failed = parseInt((outputData.match(/Failed cookies: (\d+)/i) || [])[1] || '0');
+                    stats.broken = parseInt((outputData.match(/Broken cookies: (\d+)/i) || [])[1] || '0');
+                    
+                    // Try to extract plan stats if available
+                    const premiumMatch = outputData.match(/Premium: (\d+)/i);
+                    const standardMatch = outputData.match(/Standard: (\d+)/i);
+                    const basicMatch = outputData.match(/Basic: (\d+)/i);
+                    
+                    if (premiumMatch) stats.premium = parseInt(premiumMatch[1]);
+                    if (standardMatch) stats.standard = parseInt(standardMatch[1]);
+                    if (basicMatch) stats.basic = parseInt(basicMatch[1]);
+                    
+                    // Try to extract speed
+                    const speedMatch = outputData.match(/Speed: ([\d.]+) cookies\/sec/i);
+                    if (speedMatch) stats.speed = parseFloat(speedMatch[1]);
+                }
 
                 // Check if working cookies directory exists and has premium cookies
                 const workingDir = path.join(__dirname, '..', '..', 'working_cookies', 'netflix', 'premium');
@@ -410,3 +502,24 @@ module.exports = {
         }
     },
 };
+
+// Helper function to download a file from a URL
+async function downloadFile(url, filePath) {
+    return new Promise(async (resolve, reject) => {
+        try {
+            const response = await axios({
+                method: 'GET',
+                url: url,
+                responseType: 'stream'
+            });
+            
+            const writer = fs.createWriteStream(filePath);
+            response.data.pipe(writer);
+            
+            writer.on('finish', () => resolve(filePath));
+            writer.on('error', reject);
+        } catch (error) {
+            reject(error);
+        }
+    });
+}
