@@ -784,6 +784,20 @@ async def check_cookies_async(input_file, thread_count=MAX_THREADS):
         # Wait for all batches to complete
         batch_results = await asyncio.gather(*batch_tasks)
         
+        # Add direct batch results to ensure counts are accurate
+        debug_print("Processing batch results directly")
+        for batch_result in batch_results:
+            if 'local_results' in batch_result:
+                local_results = batch_result['local_results']
+                debug_print(f"Batch results: hits={local_results.get('hits', 0)}, bad={local_results.get('bad', 0)}, errors={local_results.get('errors', 0)}")
+                # Directly aggregate results
+                for key in local_results:
+                    if key in results:
+                        results[key] += local_results[key]
+        
+        # Log complete status of results dict
+        debug_print(f"Final aggregated results: {results}")
+        
         # Cancel progress tracker
         progress_task.cancel()
         try:

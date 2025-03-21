@@ -1,0 +1,60 @@
+
+    ─────────────────────────────────────────────────────────────
+    PLAN       : Free
+    COUNTRY    : GB
+    AutoPay    : False
+    Trial      : False
+    Invite Link: N/A
+    Email      : N/A
+    ─────────────────────────────────────────────────────────────
+
+    PLAN = Free
+COUNTRY = GB
+AutoPay = False
+Trial = False
+Checker By: by nobody028912
+Spotify COOKIE :👇
+
+
+PLAN = Free
+COUNTRY = GB
+AutoPay = False
+Trial = False
+Checker By: by nobody028912
+Spotify COOKIE :👇
+
+
+.spotify.com	TRUE	/	FALSE	1746543526	OptanonAlertBoxClosed	2024-05-06T14:58:46.437Z
+.spotify.com	TRUE	/	FALSE	1746543526	eupubconsent-v2	CP-MJpgP-MJpgAcABBENAzEgAP_AAAAAAAYgKKtV_H__bX1r8X73aft0eY1X9_j77sQxBhfJk-4FyDvW_JwXn2EyNA26tqYKmRIEuzZBIQNkHJDURVCgSogVrzDMYkGcoTNIJ6BkgFMRa2dYCFxvmwtjMQIY5vr993d52T-9_dv83dziz4FnvzQ5v2clUICdA58tDfl_bROb-5IOd-58v4v09N_rE2_eTVk_tevp7D9-cs-7_XX-9_YAAS9Ll9-gAAAMCQUQAEAALgAoACoAHAAPAAggBeAGoAPAAiABMACqAGYAN4AegA_ACEgEMARIAjgBLACaAGAAMOAZQBlgDZAHPAO4A74B7AHxAPsA_YB_gIBARcBGACNQEiASWAn4CgwFQAVcAuYBegDFAG0ANwAcSBHoEigJ2AUOAo8BSIC2AFyALvAXmAwYBhsDIwMkAZOAzMBnMDVwNZAbeA3UBwQDkwHLgPHAf8BBMCDAEIYIWghcBDmCHoIfwR9BH8CRQEkIJMAkyBLACWYEtwJfATAAmYBM4CbgQBOAA4AEgARwBOAEHAI4AX0BKwCbQFIQKfAqEBXICwgFiALcAXkAv8BiADFgGQgNGAamA2gBtwDdIHkgeVA-QD5QH7gQEAgYBBECFYEPAIpgR0AlSBMUCZoE1BwEcABEADgAPAAuACQAH4ARwAoABoAEcAOQAgEBBwEIAIiARwAqAB0gEigJWATEAmUBNoCkwFQgKlAVyAsQBagC3AF0AL_AYIAxABiwDIQGTANGAamA14BtADbgG6AOPAcsA58B5QD4gHygPtgfsB-4EBAIHgQRAg2BCsCHgEUwIwARvAjoBIQCRsEkQSSAlSBLgCXYEwQJhgTNAmoBNgCbY6DGAAuACgAKgAcABBAC4ANQAeABEACYAFWALgAugBiADMAG8APQAfoBDAESAJYATQAnABRgDAAGGAMoAaIA2QBzwDuAO8Ae0A-wD9AH_ARYBGICOgJLAT8BQYCogKuAWIAucBeQF6AMUAbQA3ABxADqAH2ARfAj0CRAEyAJ2AUPAo8CkAFNALFAWwAt0BcAC5AF2gLvAXmAvoBgwDDQGPQMjAyQBk4DKgGWAMzAZyA00BqsDVwNYAbeA3UBxYDkwHLgPHAeSA-sB9wEAQIMAQtghyCHQEPYI-gj-BIoCSAEmQJYASzAl0BL4CYAEzAJnATcAm8BOEgAnAAQAA8ANAA5ACOAFiAL6Am0BSYCpQFcgLEAXkAwQBngDRgGpgNuAboA5YBz8DyQPKAfEA_YCAgEDwINgQrAhmBFMCMAEaQI3gR0gkiCSQEwwJmgTYAm2QgVgALAAoAC4AGoATAAqgBcADEAG8APQAjgBgADngHcAd4A_wCUgFBgKiAq4BcwDFAG0AOoAj0BTQCxQFogLgAXIAyMBk4DOQGqgPHAgwBCgCFoEOgIegSKAkgBJkCXQEziUDEABAACwAKAAcABgADwAIgATAAqgBcADFAIYAiQBHACjAGAANkAd4A_ICogKuAXMAxQB1AETAIvgR6BIgCjwFNALFAWwAvOBkYGSAMnAZyA1gBt4EAQIHgQYAhCBD0CRQEkAJMgS6Al8BMwCZwE3AJwkgDoAFwAjgDuAIAAQcAjgBUAEigJWATEAm0BSYC3AF_gMWAZYAzwBuQDdAHLAPKAfuBAQCCIEMwIwASSAmaBNsoA6AAUABcAEgALgAjgCOAE4AOQAdwA-wCAAEHALEAXUA14B2wD_gJFATEAm0BT8CpAKlAW4AugBeQDBAGLAMmAZ4A0YBqYDXgG6AOWAeUA-IB8oD7YH7AfuBAQCBgEDwINgQrAh4BFMCMAEdAI9gSNgkiCSQEqQJdgTNAmoBNgCbYE4SkE8ABcAFAAVAA4ACCAGAAagA8ACIAEwAKQAVQAxABmAD9AIYAiQBRgDAAGUANEAbIA5wB3wD8AP0AiwBGICOgJKAUGAqICrgFzALyAYoA2gBuADqAHtAPsAiYBF8CPQJEATsAocBSACmgFigLYAXAAuQBdoC8wF9AMNgZGBkgDJwGWAM5gawBrIDbwG6gOCAcmA8UB44D_gIJgQYAhCBC0CGcEOQQ6gj6CP4EigJIQSYBJkCWYEugJfATAAmYBM4CbxaAaADUARwAwAB3AF6APsApoBmYDxwIegSZAmYBNwsAOAGWARwBHoCYgE2gK5AaMA1MBugDlgICARgAmaBNg.f_gAAAAAAAAA
+accounts.spotify.com	FALSE	/	TRUE	1749567529	__Host-device_id	AQAux7oJXc_RbPLZ0-euug14GkFY4DALX7vp0mfyfqSu8cRSG7RQTfsJIWhHa87rZLKQrWjefcGXF-Iz82fYZrFbd5YWjJ2SIyQ
+.spotify.com	TRUE	/	TRUE	1749567835	sp_m	uk
+.spotify.com	TRUE	/	FALSE	1749171839	_cs_c	0
+.spotify.com	TRUE	/	FALSE	1749171839	_cs_id	50a85438-8e36-a319-b4ad-129d12a89703.1715007839.1.1715007839.1715007839.1.1749171839922.1
+.spotify.com	TRUE	/	FALSE	1749194539	_scid	739ff1d8-a447-4b27-b3ad-e8c794af232c
+.spotify.com	TRUE	/	FALSE	1749194539	_scid_r	739ff1d8-a447-4b27-b3ad-e8c794af232c
+.spotify.com	TRUE	/	FALSE	1756460882	_ga_S35RN5WNT2	GS1.1.1721900546.2.1.1721900881.0.0.0
+.spotify.com	TRUE	/	TRUE	1753436882	sp_dc	AQAA0wDRR_mNBlnIlFJeLzArkbXetZmbzlMUAZpMM_OUSPV9AGCzxWJiQwPWYnphAqAXRAn7CHGkQlG_llYgIGoOOOdt0-kFnwqZqSl_5KFcSFje9VzzxTOju1DxzaEbVxpwKMbd3_Da7Qs2RQE6IEgMWNTzLEM
+.spotify.com	TRUE	/	TRUE	1753436882	sp_key	996647af-a1cc-4034-a649-437a88a3f260
+.spotify.com	TRUE	/	FALSE	1755220978	OptanonConsent	isGpcEnabled=0&datestamp=Thu+Aug+15+2024+02%3A22%3A58+GMT%2B0100+(British+Summer+Time)&version=202405.2.0&browserGpcFlag=0&isIABGlobal=false&hosts=&consentId=6bdb9e92-23c1-45d3-a462-45d32e17d644&interactionCount=1&landingPath=NotLandingPage&groups=s00%3A1%2Cf00%3A1%2Cm00%3A1%2Ct00%3A1%2Cf11%3A1%2Ci00%3A1%2CV2STACK3%3A1%2CV2STACK11%3A1%2CV2STACK20%3A1%2Cm03%3A1&geolocation=GB%3BENG&AwaitingReconsent=false&isAnonUser=1
+.spotify.com	TRUE	/	FALSE	1731460978	_gcl_au	1.1.1656871737.1723684978
+.open.spotify.com	TRUE	/	FALSE	1755220979	_pin_unauth	dWlkPU16azFNREJsTldFdFlUY3pNaTAwTlRSakxXSmxZVGt0TkRjek56ZGtOelF3TjJGaQ
+.spotify.com	TRUE	/	TRUE	1755220978	sp_adid	89b22693-cf18-4047-9ba2-8c515ca92a98
+.spotify.com	TRUE	/	TRUE	1755224281	sp_t	ce52722ec48e4f2f250322cbf0282085
+.spotify.com	TRUE	/	FALSE	1758248902	_ga	GA1.2.967016475.1715007527
+.spotify.com	TRUE	/	FALSE	1758248903	_ga_BMC5VGR8YS	GS1.2.1723684978.2.1.1723688902.60.0.0
+.spotify.com	TRUE	/	FALSE	1758248903	_ga_ZWG1NSHWD8	GS1.1.1723684978.4.1.1723688902.0.0.0
+
+===========================================
+ // 
+Email: wronagabriel308@gmail.com
+Plan: Individual
+Trial: NO
+Member: NO
+Days Left: null
+===========================================
+
+    
+    ─────────────────────────────────────────────────────────────
+                    CHECKER BY ITSMEBOI
+    ─────────────────────────────────────────────────────────────
+    

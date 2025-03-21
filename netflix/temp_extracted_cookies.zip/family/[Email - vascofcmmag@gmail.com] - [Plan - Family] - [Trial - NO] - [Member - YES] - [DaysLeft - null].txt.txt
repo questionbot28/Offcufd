@@ -1,0 +1,53 @@
+
+    ─────────────────────────────────────────────────────────────
+    PLAN       : Family
+    COUNTRY    : PT
+    AutoPay    : True
+    Trial      : False
+    Invite Link: N/A
+    Email      : N/A
+    ─────────────────────────────────────────────────────────────
+
+    PLAN = Family Premium
+COUNTRY = PT
+AutoPay = True
+Trial = False
+Checker By: by nobody028912
+Spotify COOKIE :👇
+
+
+PLAN = Family Premium
+COUNTRY = PT
+AutoPay = True
+Trial = False
+Checker By: by nobody028912
+Spotify COOKIE :👇
+
+
+accounts.spotify.com	FALSE	/	TRUE	1758494317	__Host-device_id	AQBhlJk10YXU9bN539-MSDcUo0elggLvVVe0tj9CM5O_sjhw0wHFTSkZPcPe5aoViY6P4QKjD4EvfseXtK5AgR08yIM5XVotrGM
+.accounts.spotify.com	TRUE	/	TRUE	0	__Secure-TPASESSION	AQBwmFz/U3m7oDh9ksjA1m8PlHr3Nup9SzWQSBncE5JclcxP/gr/bPtOn5c/oWxEeIirYQxx0jEREKFg/rGlzrTT0+xW3RKLLiE=
+accounts.spotify.com	FALSE	/	FALSE	0	sp_t	43c0b1b2-7126-42d0-a14b-0a62c3c88695
+.accounts.spotify.com	TRUE	/	TRUE	0	sp_tr	false
+.spotify.com	TRUE	/	TRUE	1758494424	sp_m	pt-pt
+accounts.spotify.com	FALSE	/	TRUE	1723938083	__Host-sp_csrf_sid	3155ee0763db818eb193790177f1c9aa8b202eff0047473221612b9c7b85004c
+.accounts.spotify.com	TRUE	/	TRUE	0	csrf_token	AQBXYqqv0dXDdnq38Rcl6VU-AjGaGhvxMFe9pWRN_TmMaOE2UIuCyXe24l_pbu8EUtMpsifgFmARXL4O3cMy6MbttbM2VedSWR8OnCsNt8TYurGSiw
+accounts.spotify.com	FALSE	/	TRUE	0	remember	vascofcmmag%40gmail.com
+.spotify.com	TRUE	/	TRUE	1755470483	sp_dc	AQDphSAnNs6z_rT6at6LqRn8zeyDuEmtJ9VoaO5b6MOry0L1ye81wNoVUg7RyYopxptKYNd8hJijOsflpCudNHtU_3PoFXVMWYXnifrvQdlOEgbnEE0p4YMOq2Ipl2rrzJn00Vygbta9qO01G5Jce4S6ZpjMyy0Y
+.spotify.com	TRUE	/	TRUE	1755470483	sp_key	f99f22fe-e70d-4222-8f9f-60141082c4e6
+.spotify.com	TRUE	/	TRUE	1724020886	sp_landing	https%3A%2F%2Fopen.spotify.com%2Fdesktop%2Fauth%2Fsuccess%3Fsp_cid%3Dac741c529a07cb9134ead19d545a5b98%26device%3Ddesktop
+.accounts.spotify.com	TRUE	/	TRUE	0	sp_sso_csrf_token	013acda719977191aa4de7f9437f051d790e7acefb31373233393334343738363430
+
+===========================================
+ // 
+Email: vascofcmmag@gmail.com
+Plan: Family
+Trial: NO
+Member: YES
+Days Left: null
+===========================================
+
+    
+    ─────────────────────────────────────────────────────────────
+                    CHECKER BY ITSMEBOI
+    ─────────────────────────────────────────────────────────────
+    
