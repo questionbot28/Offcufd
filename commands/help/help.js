@@ -65,10 +65,16 @@ module.exports = {
 \`\`=cookie\`\`: Show cookie help`
                 },
                 {
+                    name: 'Account Checking',
+                    value: `\`\`.mscheck\`\`: Check Microsoft accounts for Minecraft, Xbox Game Pass, etc.
+\`\`=mshelp\`\`: Show Microsoft account checker help`
+                },
+                {
                     name: 'Help Commands', 
                     value: `\`\`=help\`\`: Display this command list
 \`\`=spotifyhelp\`\`: Show Spotify checker help
 \`\`=netflixhelp\`\`: Show Netflix checker help
+\`\`=mshelp\`\`: Show Microsoft account checker help
 \`\`=allhelp\`\`: Show detailed help for all commands`
                 }
             )
