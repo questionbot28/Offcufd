@@ -464,22 +464,30 @@ def extract_from_archive(archive_path, extract_dir):
             
         elif file_ext == '.rar':
             # Handle RAR files
+            has_rarfile = False
             try:
                 import rarfile
-                with rarfile.RarFile(archive_path, 'r') as rar_ref:
-                    rar_ref.extractall(extract_dir)
-                debug_print(f"Successfully extracted RAR archive {archive_path}")
-                return True
+                has_rarfile = True
             except ImportError:
                 debug_print("RAR support not available, trying to use system unrar")
+                
+            if has_rarfile:
                 try:
-                    # Try using system unrar as fallback
-                    os.system(f"unrar x -y \"{archive_path}\" \"{extract_dir}\"")
-                    debug_print(f"Extracted RAR with system unrar: {archive_path}")
+                    with rarfile.RarFile(archive_path, 'r') as rar_ref:
+                        rar_ref.extractall(extract_dir)
+                    debug_print(f"Successfully extracted RAR archive {archive_path}")
                     return True
                 except Exception as e:
-                    debug_print(f"Failed to extract RAR using system commands: {str(e)}")
-                    return False
+                    debug_print(f"Failed to extract with rarfile: {str(e)}, trying system unrar")
+            
+            # Try using system unrar as fallback
+            try:
+                os.system(f"unrar x -y \"{archive_path}\" \"{extract_dir}\"")
+                debug_print(f"Extracted RAR with system unrar: {archive_path}")
+                return True
+            except Exception as e:
+                debug_print(f"Failed to extract RAR using system commands: {str(e)}")
+                return False
         
         debug_print(f"Unsupported archive format: {file_ext}")
         return False
@@ -705,6 +713,8 @@ def check_cookie(cookie_content):
 
 def command_main():
     """Main function for command-line usage"""
+    global total_working, total_fails, total_unsubscribed, total_checked, total_broken
+    
     # Initialize colorama for cross-platform colored output
     colorama.init()
     print_banner()
