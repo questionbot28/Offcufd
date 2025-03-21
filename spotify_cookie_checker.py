@@ -29,14 +29,15 @@ debug_print("Script started")
 # Global tracking variables for progress updates
 last_update_time = time.time()
 start_time = time.time()
-update_interval = 0.2  # Update progress every 200ms for real-time visualization
+update_interval = 0.1  # Update progress every 100ms for real-time visualization
 
 # Performance optimization constants
 MAX_THREADS = 1000  # Optimized for performance and stability
 CPU_COUNT = min(multiprocessing.cpu_count(), 8)  # Cap CPU usage to avoid system overload
-BATCH_SIZE = 500  # Process cookies in batches for better performance
-CONNECTION_TIMEOUT = 8  # Connection timeout in seconds
-READ_TIMEOUT = 12  # Read timeout in seconds
+BATCH_SIZE = 1000  # Increased batch size for better throughput
+CONNECTION_TIMEOUT = 2  # Reduced connection timeout for faster processing
+READ_TIMEOUT = 3  # Reduced read timeout for faster processing
+MAX_BATCH_SIZE_PER_PROCESS = 200  # Maximum cookies per batch within a process
 
 # Directory structure
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
