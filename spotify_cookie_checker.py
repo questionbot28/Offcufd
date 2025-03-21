@@ -30,7 +30,14 @@ debug_print("Script started")
 # Global tracking variables for progress updates
 last_update_time = time.time()
 start_time = time.time()
-update_interval = 0.0005  # Update progress every half millisecond
+update_interval = 0.2  # Update progress every 200ms for real-time visualization
+
+# Performance optimization constants
+MAX_THREADS = 1000  # Optimized for performance and stability
+CPU_COUNT = min(multiprocessing.cpu_count(), 8)  # Cap CPU usage to avoid system overload
+BATCH_SIZE = 500  # Process cookies in batches for better performance
+CONNECTION_TIMEOUT = 8  # Connection timeout in seconds
+READ_TIMEOUT = 12  # Read timeout in seconds
 
 # Directory structure
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
@@ -40,11 +47,9 @@ WORKING_COOKIES_DIR = os.path.join(BASE_DIR, "working_cookies")
 SPOTIFY_DIR = os.path.join(BASE_DIR, "spotify")
 
 # Maximum limits to prevent hanging
-MAX_FILES_TO_PROCESS = 2000   # Increased maximum files
-MAX_ARCHIVES_TO_PROCESS = 100  # Increased maximum archives
+MAX_FILES_TO_PROCESS = 5000   # Increased maximum files
+MAX_ARCHIVES_TO_PROCESS = 200  # Increased maximum archives
 MAX_RECURSION_DEPTH = 5       # Maximum recursion depth for nested archives
-MAX_THREADS = 2000            # Increased maximum threads
-CPU_COUNT = multiprocessing.cpu_count()  # Get CPU core count
 
 debug_print(f"Configuration: MAX_FILES={MAX_FILES_TO_PROCESS}, MAX_ARCHIVES={MAX_ARCHIVES_TO_PROCESS}, MAX_DEPTH={MAX_RECURSION_DEPTH}, MAX_THREADS={MAX_THREADS}, CPU_CORES={CPU_COUNT}")
 
@@ -152,7 +157,7 @@ global_session.headers.update({
     'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36',
     'Accept-Language': 'en-US,en;q=0.9'
 })
-REQUEST_TIMEOUT = 5  # 5 seconds timeout for requests
+REQUEST_TIMEOUT = (CONNECTION_TIMEOUT, READ_TIMEOUT)  # Connection timeout, read timeout in seconds
 
 # Check single cookie - optimized for speed
 def check_single_cookie(cookie_content, filename):
@@ -447,6 +452,15 @@ def worker(task_queue, valid_cookies, errors):
                           f"🔰 Premium: {results['premium']} | 👨‍👩‍👧‍👦 Family: {results['family']} | 👥 Duo: {results['duo']}\n"
                           f"⚡ Speed: {checking_speed:.2f} cookies/sec | 🧵 Threads: {threading.active_count()}\n"
                           f"📊 Cookies/thread: {cookies_per_thread:.2f}/sec | ⏱️ Elapsed: {elapsed_time:.3f}s")
+                    
+                    # Add standardized progress report format for Node.js parser
+                    # Include remaining cookies in queue to estimate total progress
+                    remaining = task_queue.qsize()
+                    total = total_checked + remaining
+                    print(f"PROGRESS REPORT | Progress: {total_checked}/{total} | Valid: {results['hits']} | Failed: {results['bad']} | Speed: {checking_speed:.2f}")
+                    
+                    # Force flush stdout for real-time updates
+                    sys.stdout.flush()
             
             # Store results with thread safety but minimize lock time
             with lock:
