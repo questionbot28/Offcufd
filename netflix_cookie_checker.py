@@ -1109,12 +1109,55 @@ if __name__ == "__main__":
                     
                     if cookie_files:
                         debug_print(f"Processing {len(cookie_files)} cookie files from archive")
+                        print(f"Processing {len(cookie_files)} cookie files from archive")
                         
                         # Process each cookie file
                         results = []
+                        valid_count = 0
+                        invalid_count = 0
+                        
+                        # Process each cookie manually and update global counters
+                        global total_working, total_fails, total_unsubscribed, total_checked, total_broken
+                        
                         for cookie_file in cookie_files:
-                            result = process_cookie_file(cookie_file)
-                            results.append(result)
+                            try:
+                                # Load cookies and check if valid
+                                cookies = load_cookies_from_file(cookie_file)
+                                
+                                if not cookies:
+                                    total_broken += 1
+                                    continue
+                                    
+                                # Make request with cookies
+                                response_text = make_request_with_cookies(cookies)
+                                
+                                if not response_text:
+                                    total_fails += 1
+                                    total_checked += 1
+                                    continue
+                                    
+                                # Extract info from response
+                                try:
+                                    info = extract_info(response_text)
+                                    is_subscribed = info.get('membershipStatus') == "CURRENT_MEMBER"
+                                    
+                                    if is_subscribed:
+                                        total_working += 1
+                                        # Handle the working cookie
+                                        handle_successful_login(cookie_file, info, is_subscribed)
+                                    else:
+                                        total_unsubscribed += 1
+                                        
+                                    total_checked += 1
+                                    
+                                except Exception as e:
+                                    debug_print(f"Error extracting info from cookie file {cookie_file}: {e}")
+                                    total_fails += 1
+                                    total_checked += 1
+                                
+                            except Exception as e:
+                                debug_print(f"Error processing cookie file {cookie_file}: {e}")
+                                total_broken += 1
                         
                         # Print statistics
                         print_statistics()
