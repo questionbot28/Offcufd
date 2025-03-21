@@ -65,21 +65,25 @@ function createProgressEmbed(progressData, startTime, serviceType, config) {
     const emoji = serviceType.toLowerCase() === 'netflix' ? '🎬' : '🎵';
     const color = serviceType.toLowerCase() === 'netflix' ? (config.color?.red || '#E50914') : (config.color?.green || '#1DB954');
     
-    // Create detailed progress description
+    // Calculate percentage
+    const percentComplete = total > 0 ? Math.floor((current / total) * 100) : 0;
+    
+    // Create detailed progress description with more visual elements
     const progressDescription = [
-        `${progressBar}`,
-        `${emoji} Processed: **${current}/${total}** cookies`,
-        `✅ Valid: **${valid}** | ❌ Invalid: **${invalid}**`,
-        `⏱️ Elapsed: **${elapsedTime}s** | ⏳ Remaining: **~${remaining}**`,
-        `⚡ Speed: **${speed.toFixed(2)}** cookies/sec | 🧵 Threads: **${progressData.threads || 'N/A'}**`
+        `${progressBar} **${percentComplete}%**`,
+        `${emoji} **Processed:** ${current}/${total} cookies`,
+        `✅ **Valid:** ${valid} | ❌ **Invalid:** ${invalid} | 📊 **Ratio:** ${total > 0 ? ((valid / total) * 100).toFixed(1) : 0}%`,
+        `⏱️ **Elapsed:** ${elapsedTime}s | ⏳ **Remaining:** ~${remaining}`,
+        `⚡ **Speed:** ${speed.toFixed(2)} cookies/sec | 🧵 **Threads:** ${progressData.threads || 'N/A'}`
     ].join('\n');
     
+    // Create embed with more visually engaging layout
     return new MessageEmbed()
         .setColor(color)
         .setTitle(`${serviceType} Cookie Checker - Live Progress`)
         .setDescription(progressDescription)
         .setFooter({ 
-            text: `Processing stage: ${progressData.stage || 'Analyzing'}`
+            text: `Processing stage: ${progressData.stage || 'Analyzing'} • Updated: ${new Date().toLocaleTimeString()}`
         })
         .setTimestamp();
 }
@@ -102,35 +106,48 @@ function createResultsEmbed(results, startTime, serviceType, config) {
         ? (config.color?.green || '#00ff00') 
         : (config.color?.red || '#ff0000');
     
+    // Calculate success ratio
+    const successRatio = results.total > 0 ? ((results.valid / results.total) * 100).toFixed(1) : 0;
+    
+    // Create a mini progress bar for visual representation
+    const miniBar = createProgressBar(results.valid, results.total, 10);
+    
+    // Build enhanced description with more visual elements
     let description = [
-        `${emoji} **Processing Complete**`,
-        `✅ Valid cookies: **${results.valid}**`,
-        `❌ Invalid cookies: **${results.invalid}**`,
-        `📂 Total processed: **${results.total}**`,
-        `⏱️ Processing time: **${elapsedTime}s**`,
-        `⚡ Average speed: **${speed}** cookies/sec`
+        `${emoji} **Processing Complete** ${emoji}`,
+        '',
+        `${miniBar} **${successRatio}%** success rate`,
+        '',
+        `✅ **Valid cookies:** ${results.valid}`,
+        `❌ **Invalid cookies:** ${results.invalid}`,
+        `📂 **Total processed:** ${results.total}`,
+        `⏱️ **Processing time:** ${elapsedTime}s`,
+        `⚡ **Average speed:** ${speed} cookies/sec`
     ];
     
-    // Add service-specific stats if available
+    // Add service-specific section with better formatting
     if (serviceType.toLowerCase() === 'netflix' && results.premium !== undefined) {
-        description.push(`🔰 Premium accounts: **${results.premium}**`);
+        description.push('', '**📊 Netflix Account Types:**');
+        description.push(`🔰 **Premium accounts:** ${results.premium}`);
         if (results.unsubscribed !== undefined) {
-            description.push(`⚠️ Unsubscribed accounts: **${results.unsubscribed}**`);
+            description.push(`⚠️ **Unsubscribed accounts:** ${results.unsubscribed}`);
         }
     } else if (serviceType.toLowerCase() === 'spotify') {
-        if (results.premium !== undefined) description.push(`🔰 Premium: **${results.premium}**`);
-        if (results.family !== undefined) description.push(`👨‍👩‍👧‍👦 Family: **${results.family}**`);
-        if (results.duo !== undefined) description.push(`👥 Duo: **${results.duo}**`);
-        if (results.student !== undefined) description.push(`🎓 Student: **${results.student}**`);
-        if (results.free !== undefined) description.push(`🆓 Free: **${results.free}**`);
+        description.push('', '**📊 Spotify Account Types:**');
+        if (results.premium !== undefined) description.push(`🔰 **Premium:** ${results.premium}`);
+        if (results.family !== undefined) description.push(`👨‍👩‍👧‍👦 **Family:** ${results.family}`);
+        if (results.duo !== undefined) description.push(`👥 **Duo:** ${results.duo}`);
+        if (results.student !== undefined) description.push(`🎓 **Student:** ${results.student}`);
+        if (results.free !== undefined) description.push(`🆓 **Free:** ${results.free}`);
     }
     
+    // Create a more detailed and visual embed
     return new MessageEmbed()
         .setColor(color)
         .setTitle(`${serviceType} Cookie Checker - Results`)
         .setDescription(description.join('\n'))
         .setFooter({ 
-            text: `All working cookies have been saved and are ready to use!`
+            text: `${results.valid > 0 ? 'All working cookies have been saved and are ready to use!' : 'No valid cookies found.'}`
         })
         .setTimestamp();
 }

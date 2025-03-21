@@ -25,12 +25,15 @@ total_checked = 0
 total_broken = 0
 lock = threading.Lock()
 last_update_time = time.time()  # Track time for progress updates
-update_interval = 0.0005  # Update progress every half millisecond
+update_interval = 0.2  # Update progress every 200ms for real-time visualization
 start_time = time.time()  # Track overall start time for speed calculations
 
-# Maximum limits
-MAX_THREADS = 2000  # Increased maximum number of threads
-CPU_COUNT = multiprocessing.cpu_count()  # Get number of CPU cores
+# Performance optimization constants
+MAX_THREADS = 1000  # Optimized for performance and stability
+CPU_COUNT = min(multiprocessing.cpu_count(), 8)  # Cap CPU usage to avoid system overload
+BATCH_SIZE = 500  # Process cookies in batches for better performance
+CONNECTION_TIMEOUT = 10  # Connection timeout in seconds
+READ_TIMEOUT = 15  # Read timeout in seconds
 
 # Global paths
 working_cookies_dir = "working_cookies"
@@ -297,8 +300,12 @@ def make_request_with_cookies(cookies):
     }
     
     try:
-        # Add more comprehensive exception handling
-        response = session.get("https://www.netflix.com/YourAccount", headers=headers, timeout=10)
+        # Use optimized timeout values for faster checking
+        response = session.get(
+            "https://www.netflix.com/YourAccount", 
+            headers=headers, 
+            timeout=(CONNECTION_TIMEOUT, READ_TIMEOUT)
+        )
         return response.text
     except requests.exceptions.RequestException as e:
         debug_print(f"Request error: {str(e)}")
@@ -520,6 +527,12 @@ def worker(task_queue, results):
                           f"⚠️ Unsubscribed: {total_unsubscribed} | 🔧 Broken: {total_broken}\n"
                           f"⚡ Speed: {checking_speed:.2f} cookies/sec | 🧵 Threads: {threading.active_count()-1}\n"
                           f"📊 Cookies/thread: {cookies_per_thread:.2f}/sec | ⏱️ Elapsed: {elapsed_time:.3f}s")
+                    
+                    # Add standardized progress report format for Node.js parser
+                    print(f"PROGRESS REPORT | Progress: {total_checked}/{total_checked+task_queue.qsize()} | Valid: {total_working} | Failed: {total_fails} | Speed: {checking_speed:.2f}")
+                    
+                    # Force flush stdout for real-time updates
+                    sys.stdout.flush()
                 
             # Mark task as complete
             task_queue.task_done()
