@@ -11,10 +11,26 @@ const { MessageEmbed } = require('discord.js');
  * @returns {string} Text-based progress bar
  */
 function createProgressBar(current, total, length = 20) {
-    const progress = Math.floor((current / total) * length);
-    const filled = '█'.repeat(progress);
-    const empty = '░'.repeat(length - progress);
-    return `${filled}${empty} ${Math.floor((current / total) * 100)}%`;
+    // Ensure total is valid to prevent division by zero and NaN/Infinity results
+    if (!total || total <= 0) {
+        total = 1; // Avoid division by zero
+    }
+    
+    // Ensure current is valid and within range
+    current = Math.max(0, Math.min(current || 0, total));
+    
+    // Calculate progress with bounds checking
+    const progressRatio = current / total;
+    const progress = Math.min(length, Math.max(0, Math.floor(progressRatio * length)));
+    
+    // Create the bar segments with safety checks
+    const filled = '█'.repeat(Math.min(progress, 1000)); // Cap at 1000 to prevent excessive memory usage
+    const empty = '░'.repeat(Math.min(length - progress, 1000)); // Cap at 1000 to prevent excessive memory usage
+    
+    // Calculate percentage with bounds check
+    const percentage = Math.min(100, Math.max(0, Math.floor(progressRatio * 100)));
+    
+    return `${filled}${empty} ${percentage}%`;
 }
 
 /**

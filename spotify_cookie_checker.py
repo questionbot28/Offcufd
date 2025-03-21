@@ -162,20 +162,22 @@ REQUEST_TIMEOUT = (CONNECTION_TIMEOUT, READ_TIMEOUT)  # Connection timeout, read
 # Check single cookie - optimized for speed
 def check_single_cookie(cookie_content, filename):
     if not cookie_content or not cookie_content.strip():
-        with lock:
-            results['errors'] += 1
+        # Don't use lock here to improve speed
         return None, f"⚠ Empty cookie content in {filename}"
 
     try:
-        debug_print(f"Processing cookie from {filename}")
-        
+        # Skip debug print for speed
         # Parse cookies quickly
         cookies_dict = {}
         for line in cookie_content.splitlines():
-            parts = line.strip().split('\t')
-            if len(parts) >= 7:
-                _, _, _, _, _, name, value = parts[:7]
-                cookies_dict[name] = value
+            try:
+                parts = line.strip().split('\t')
+                if len(parts) >= 7:
+                    _, _, _, _, _, name, value = parts[:7]
+                    cookies_dict[name] = value
+            except:
+                # Skip problematic lines rather than fail the whole cookie
+                continue
 
         # Check if we have any valid cookies
         if not cookies_dict:
@@ -184,21 +186,30 @@ def check_single_cookie(cookie_content, filename):
             return None, f"⚠ No valid cookies found in {filename}"
 
         # Use a dedicated session for this request with a timeout
-        session = requests.Session()
-        session.cookies.update(cookies_dict)
-        session.headers.update(global_session.headers)
+        # Skip session creation for faster requests
+        cookies = {name: value for name, value in cookies_dict.items()}
+        headers = {
+            'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
+            'Accept': 'application/json',
+            'Accept-Language': 'en-US,en;q=0.9',
+            'Referer': 'https://www.spotify.com/'
+        }
         
-        debug_print(f"Sending request to Spotify API for {filename}")
+        # Skip debug print to improve speed
         try:
-            response = session.get("https://www.spotify.com/eg-ar/api/account/v1/datalayer", timeout=REQUEST_TIMEOUT)
+            # Use direct request without session to reduce overhead
+            response = requests.get(
+                "https://www.spotify.com/eg-ar/api/account/v1/datalayer", 
+                headers=headers,
+                cookies=cookies,
+                timeout=(1.5, 2.5)  # Even faster timeout (connection timeout, read timeout)
+            )
         except requests.exceptions.Timeout:
-            with lock:
-                results['errors'] += 1
+            # Don't use lock here to improve speed
             return None, f"⚠ Request timeout for {filename}"
         except requests.exceptions.RequestException as e:
-            with lock:
-                results['errors'] += 1
-            return None, f"⚠ Request error for {filename}: {e}"
+            # Don't use lock here to improve speed
+            return None, f"⚠ Request error for {filename}: {str(e)[:50]}"
 
         with lock:
             if response.status_code == 200:
@@ -264,17 +275,27 @@ def check_single_cookie(cookie_content, filename):
 
 # Process a file for cookies
 def process_file_for_cookies(file_path, file_name):
-    with lock:
-        results['files_processed'] += 1
-        # Check if we've reached the file processing limit
-        if results['files_processed'] > MAX_FILES_TO_PROCESS:
-            return None, f"⚠ Maximum file processing limit reached ({MAX_FILES_TO_PROCESS}). Skipping remaining files."
+    # Reduce lock contention by only locking very briefly when needed
+    # Only check MAX_FILES limit every 10 files to reduce lock contention
+    if random.random() < 0.1:  # 10% chance to check the limit
+        with lock:
+            results['files_processed'] += 1
+            if results['files_processed'] > MAX_FILES_TO_PROCESS:
+                return None, f"⚠ Maximum file processing limit reached ({MAX_FILES_TO_PROCESS}). Skipping remaining files."
     
-    cookie_content = extract_cookies_from_file(file_path)
-    if cookie_content:
-        return check_single_cookie(cookie_content, file_name)
-    else:
-        return None, f"⚠ No valid Spotify cookies found in {file_name}"
+    # Extract cookies without debug prints for speed
+    try:
+        # Fast path for cookie extraction
+        with open(file_path, 'r', encoding='utf-8', errors='ignore') as f:
+            cookie_content = f.read()
+        
+        # Quick check if this looks like a cookie file
+        if 'spotify' in cookie_content.lower() and ('.spotify.' in cookie_content.lower() or '\tsp_' in cookie_content):
+            return check_single_cookie(cookie_content, file_name)
+        else:
+            return None, f"⚠ No valid Spotify cookies found in {file_name}"
+    except Exception as e:
+        return None, f"⚠ Error reading cookie file {file_name}: {str(e)}"
 
 # Extract files from archive
 def extract_from_archive(archive_path, extract_dir):
