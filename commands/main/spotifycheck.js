@@ -15,9 +15,9 @@ module.exports = {
     
     async execute(message, args) {
         // Check if user specified a thread count
-        let threadCount = 5000; // Default to 5000 threads for maximum performance
+        let threadCount = 500; // Default to 500 threads for optimal performance
         if (args.length > 0 && !isNaN(args[0])) {
-            threadCount = Math.min(5000, Math.max(1, parseInt(args[0]))); // Limit between 1-5000
+            threadCount = Math.min(2000, Math.max(1, parseInt(args[0]))); // Limit between 1-2000
         }
         // Create necessary directories
         const tempDir = path.join(__dirname, '../../temp');
