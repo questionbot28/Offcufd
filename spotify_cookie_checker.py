@@ -416,26 +416,94 @@ def worker(task_queue, valid_cookies, errors):
     """Worker thread to process cookie files with optimized performance."""
     global last_update_time, start_time, results
     
-    # Track local stats for this thread
+    # Local counters to reduce lock contention
+    local_results = {
+        'hits': 0,
+        'bad': 0,
+        'errors': 0,
+        'premium': 0,
+        'family': 0,
+        'duo': 0,
+        'student': 0,
+        'free': 0,
+        'unknown': 0
+    }
     thread_processed = 0
     thread_start_time = time.time()
+    batch_size = 5  # Process cookies in small batches for better performance
     
     while True:
-        task = None
+        # Try to get a batch of tasks
+        batch = []
         try:
-            # Get a task from the queue (non-blocking with timeout)
-            task = task_queue.get(block=False)
-            if task is None:  # Sentinel value indicating end of tasks
+            for _ in range(batch_size):
+                try:
+                    # Non-blocking get with minimal timeout
+                    task = task_queue.get(block=False)
+                    if task is None:  # Sentinel value indicating end of tasks
+                        # Put it back for other threads
+                        task_queue.put(None)
+                        return
+                    batch.append(task)
+                except queue.Empty:
+                    break
+            
+            # If batch is empty, exit
+            if not batch:
                 break
-                
-            file_path, file_name = task
             
-            # Process the cookie file with minimal logging for speed
-            cookie_path, message = process_file_for_cookies(file_path, file_name)
-            thread_processed += 1
+            # Process the batch locally
+            for task in batch:
+                try:
+                    file_path, file_name = task
+                    
+                    # Process the cookie file with minimal logging for speed
+                    cookie_path, message = process_file_for_cookies(file_path, file_name)
+                    thread_processed += 1
+                    
+                    # Update local counters based on result without lock contention
+                    if cookie_path:
+                        valid_cookies.append((cookie_path, message))
+                        local_results['hits'] += 1
+                        
+                        # Check message to determine plan type
+                        message_lower = message.lower()
+                        if 'premium' in message_lower:
+                            local_results['premium'] += 1
+                        elif 'family' in message_lower:
+                            local_results['family'] += 1
+                        elif 'duo' in message_lower:
+                            local_results['duo'] += 1
+                        elif 'student' in message_lower:
+                            local_results['student'] += 1
+                        elif 'free' in message_lower:
+                            local_results['free'] += 1
+                        else:
+                            local_results['unknown'] += 1
+                    else:
+                        errors.append(message)
+                        if 'failed' in message.lower() or 'login failed' in message.lower():
+                            local_results['bad'] += 1
+                        else:
+                            local_results['errors'] += 1
+                except Exception as e:
+                    # Minimal error handling to maintain speed
+                    error_desc = f"⚠ Error processing task: {str(e)}"
+                    errors.append(error_desc)
+                    local_results['errors'] += 1
+                finally:
+                    # Always mark task as done
+                    task_queue.task_done()
             
-            # Ultra-fast progress updates with minimal lock contention
+            # Update global counters with minimal lock time
             with lock:
+                # Update all counters at once
+                for key in local_results:
+                    if local_results[key] > 0:
+                        results[key] += local_results[key]
+                        local_results[key] = 0  # Reset for next batch
+                
+                # Fast progress reporting with minimal overhead
                 current_time = time.time()
                 if current_time - last_update_time > update_interval:
                     last_update_time = current_time
@@ -462,24 +530,17 @@ def worker(task_queue, valid_cookies, errors):
                     # Force flush stdout for real-time updates
                     sys.stdout.flush()
             
-            # Store results with thread safety but minimize lock time
-            with lock:
-                if cookie_path:
-                    valid_cookies.append((cookie_path, message))
-                else:
-                    errors.append(message)
-            
-        except queue.Empty:
-            # No more tasks in the queue
-            break
         except Exception as e:
-            # Minimal error handling for speed
-            with lock:
-                errors.append(f"⚠ Thread error: {str(e)}")
-        finally:
-            # Always mark task as done to prevent deadlocks
-            if 'task' in locals() and task is not None:
-                task_queue.task_done()
+            # General error handling with minimal processing
+            try:
+                # Mark all tasks in the batch as done
+                for _ in batch:
+                    task_queue.task_done()
+                
+                # Append the error with minimal lock time
+                errors.append(f"⚠ Worker thread error: {str(e)}")
+            except:
+                pass
 
 # Process a file (txt, zip, rar)
 def process_file(file_path, filename):
@@ -663,7 +724,7 @@ def process_batch(batch_files, batch_id):
                       f"⚡ Speed: {checking_speed:.2f} cookies/sec")
                 
                 # Add standardized progress report line for better parser detection in Node.js
-                print(f"SPOTIFY PROGRESS REPORT | Progress: {total_checked}/{len(batch_files)} | Valid: {local_results['hits']} | Failed: {local_results['bad']} | Speed: {checking_speed:.2f}")
+                print(f"PROGRESS REPORT | Progress: {total_checked}/{len(batch_files)} | Valid: {local_results['hits']} | Failed: {local_results['bad']} | Speed: {checking_speed:.2f}")
                 
                 # Force flush stdout to ensure real-time progress updates
                 sys.stdout.flush()

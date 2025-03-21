@@ -498,22 +498,77 @@ def process_cookie_file(cookie_file):
 def worker(task_queue, results):
     """Worker thread to process Netflix cookie files using a queue system."""
     global last_update_time, start_time
+    
+    # Counters for this worker thread to reduce lock contention
+    local_counter = {
+        'checked': 0,
+        'working': 0,
+        'fails': 0,
+        'unsubscribed': 0,
+        'broken': 0
+    }
+    thread_start_time = time.time()
+    batch_size = 5  # Process small batches before updating global counters
+    
     while True:
-        cookie_file = None
+        # Get a batch of tasks to reduce lock contention
+        batch = []
         try:
-            # Get a task from the queue (non-blocking with timeout)
-            cookie_file = task_queue.get(block=False)
-            if cookie_file is None:  # Sentinel value to indicate end of tasks
+            for _ in range(batch_size):
+                try:
+                    # Non-blocking get with minimal timeout
+                    cookie_file = task_queue.get(block=False)
+                    if cookie_file is None:  # Sentinel value to indicate end of tasks
+                        # Put it back for other threads
+                        task_queue.put(None)
+                        return
+                    batch.append(cookie_file)
+                except queue.Empty:
+                    break
+            
+            # If batch is empty, exit the loop
+            if not batch:
                 break
-            
-            # Process the cookie file without unnecessary debug output to improve speed
-            result = process_cookie_file(cookie_file)
-            
-            # Store results with thread safety
-            with lock:
-                results.append(result)
                 
-                # Ultra-fast real-time progress updates
+            # Process the batch
+            for cookie_file in batch:
+                try:
+                    # Process the cookie file and update local counters
+                    result = process_cookie_file(cookie_file)
+                    results.append(result)
+                    
+                    # Update local counters based on result
+                    local_counter['checked'] += 1
+                    if "Working" in result:
+                        local_counter['working'] += 1
+                    elif "Unsubscribed" in result:
+                        local_counter['unsubscribed'] += 1
+                    elif "Failed" in result:
+                        local_counter['fails'] += 1
+                    else:
+                        local_counter['broken'] += 1
+                except Exception as e:
+                    # Minimal error handling to maintain speed
+                    local_counter['broken'] += 1
+                    local_counter['checked'] += 1
+                finally:
+                    # Mark task as complete regardless of outcome
+                    task_queue.task_done()
+            
+            # Update global counters with minimal lock time
+            with lock:
+                global total_checked, total_working, total_fails, total_unsubscribed, total_broken
+                total_checked += local_counter['checked']
+                total_working += local_counter['working']
+                total_fails += local_counter['fails']
+                total_unsubscribed += local_counter['unsubscribed']
+                total_broken += local_counter['broken']
+                
+                # Reset local counters after updating globals
+                for key in local_counter:
+                    local_counter[key] = 0
+                
+                # Fast progress reporting with minimal overhead
                 current_time = time.time()
                 if current_time - last_update_time > update_interval:
                     last_update_time = current_time
@@ -533,17 +588,15 @@ def worker(task_queue, results):
                     
                     # Force flush stdout for real-time updates
                     sys.stdout.flush()
-                
-            # Mark task as complete
-            task_queue.task_done()
             
-        except queue.Empty:
-            # No more tasks in the queue
-            break
         except Exception as e:
-            # Mark task as done even if there was an error - minimal error handling for speed
-            if 'cookie_file' in locals() and cookie_file is not None:
-                task_queue.task_done()
+            # General error handling with minimal processing
+            # Mark any remaining tasks as done
+            for _ in batch:
+                try:
+                    task_queue.task_done()
+                except:
+                    pass
 
 def extract_from_archive(archive_path, extract_dir):
     """Extract files from a ZIP or RAR archive."""

@@ -469,7 +469,7 @@ async function checkSpotifyCookies(filePath, message, statusMessage, threadCount
             try {
                 const lines = output.split('\n');
                 for (const line of lines) {
-                    if (line.includes('Progress:') || line.includes('SPOTIFY PROGRESS REPORT')) {
+                    if (line.includes('Progress:') || line.includes('SPOTIFY PROGRESS REPORT') || line.includes('PROGRESS REPORT')) {
                         // Parse the progress information 
                         const progressData = {
                             current: 0,
