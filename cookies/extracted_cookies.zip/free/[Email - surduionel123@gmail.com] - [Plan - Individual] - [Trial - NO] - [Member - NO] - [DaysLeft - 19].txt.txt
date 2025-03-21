@@ -1,0 +1,49 @@
+
+    ─────────────────────────────────────────────────────────────
+    PLAN       : Free
+    COUNTRY    : RO
+    AutoPay    : False
+    Trial      : False
+    Invite Link: N/A
+    Email      : N/A
+    ─────────────────────────────────────────────────────────────
+
+    PLAN = Free
+COUNTRY = RO
+AutoPay = False
+Trial = False
+Checker By: by nobody028912
+Spotify COOKIE :👇
+
+
+PLAN = Free
+COUNTRY = RO
+AutoPay = False
+Trial = False
+Checker By: by nobody028912
+Spotify COOKIE :👇
+
+
+.spotify.com	TRUE	/	FALSE	1752670019	OptanonConsent	isGpcEnabled=0&datestamp=Tue+Jul+16+2024+15%3A46%3A59+GMT%2B0300+(Eastern+European+Summer+Time)&version=202405.2.0&browserGpcFlag=0&isIABGlobal=false&hosts=&consentId=0e46ac52-bc57-495a-a7c1-936e91da9f00&interactionCount=1&isAnonUser=1&landingPath=https%3A%2F%2Fwww.spotify.com%2Fsc-en%2Fdownload%2Fwindows%2F&groups=s00%3A1%2Cf00%3A0%2Cm00%3A0%2Ct00%3A0%2Cf11%3A0%2Ci00%3A0%2CV2STACK3%3A0%2CV2STACK11%3A0%2CV2STACK20%3A0%2Cm03%3A1
+.spotify.com	TRUE	/	TRUE	1752670016	sp_adid	e4166ade-74da-4d22-a286-e806f221f6d8
+.spotify.com	TRUE	/	TRUE	1755694013	sp_m	sc-en
+accounts.spotify.com	FALSE	/	TRUE	1755694054	__Host-device_id	AQDiqOZ-5xeKFqjEPN98RrplH_DQuNSCnyKxaXVPoaTjDGUVE0ts4vl8der0tup12P5TV0zMPR_7xK53JnbgLr-XwldMhu1Wc30
+.spotify.com	TRUE	/	TRUE	1752670089	sp_dc	AQDuIFbas-7b7t1lvoBDVxMSx8u1UvSzoEal9XVBM7G5bkSNMB4zEZFdd2U1GHTh9TQH0NSSdxbeRCjvjDRJqFHLIinar8cTLk_lU8vCmRJnU5r4_OB0vhjr5HG4HwOOMxZbMrFkXyYTGOy0aHutM6th5x2_lXY
+.spotify.com	TRUE	/	TRUE	1752670089	sp_key	c0e37958-ce68-49d3-8911-674b8cb750cc
+.spotify.com	TRUE	/	TRUE	1752670093	sp_t	15f5cc65-750b-4af4-9954-bdc55d03a7bc
+.spotify.com	TRUE	/	TRUE	1726318132	sp_gaid	0088fcb3a06435324230a3c0653a08902753428a6e3cf0894cc9d1
+
+===========================================
+ // 
+Email: surduionel123@gmail.com
+Plan: Individual
+Trial: NO
+Member: NO
+Days Left: 19
+===========================================
+
+    
+    ─────────────────────────────────────────────────────────────
+                    CHECKER BY ITSMEBOI
+    ─────────────────────────────────────────────────────────────
+    

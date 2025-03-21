@@ -1,0 +1,46 @@
+
+    ─────────────────────────────────────────────────────────────
+    PLAN       : Premium
+    COUNTRY    : EG
+    AutoPay    : False
+    Trial      : False
+    Invite Link: N/A
+    Email      : N/A
+    ─────────────────────────────────────────────────────────────
+
+    PLAN = Premium
+COUNTRY = EG
+AutoPay = False
+Trial = False
+Checker By: by nobody028912
+Spotify COOKIE :👇
+
+
+.spotify.com	TRUE	/	TRUE	1768910165	sp_t	12cf45dde811faaea09581bb250dca38
+.spotify.com	TRUE	/	FALSE	1738583519	_gcl_au	1.1.1005934783.1730807519
+.spotify.com	TRUE	/	TRUE	1768910169	sp_adid	b4d8062e-f3af-4c0d-830a-4b988e00481d
+.spotify.com	TRUE	/	FALSE	1762343523	OptanonAlertBoxClosed	2024-11-05T11:52:03.050Z
+accounts.spotify.com	FALSE	/	TRUE	1765367528	__Host-device_id	AQCD8tRPneXIIUWPG_VgVaqh3ywfAx2hum-835bqTkqCE-CETJulTJLV8N9YN92mgYcz01AFM_2okBUGVzHVdXTKzS8F-i8t5NM
+.spotify.com	TRUE	/	TRUE	1762343530	sp_dc	AQCgG9iqN8Q0of57lJTuWLdC64vbck6joUZ0_Y_LAsk_4ht-a4XS62khZ0ymu1ktSoh-QtZqEaw_v5qa8BR5K00FqK3oGfQFBEVTSpIXx-r6WsAv4KcDPmhbosIugZe4vSgfzlRXiixtUzj3kn3G32OjuJBM4DnpiuTBdGbSi21vMgEBXRogVgRbH-1I5yFmHUiYADxev4Y5913d9Q68evFd-3o
+.spotify.com	TRUE	/	TRUE	1762343530	sp_key	35c9a9c8-622c-49dd-8ca2-bf4a01d8bd46
+.spotify.com	TRUE	/	TRUE	1769532286	sp_m	eg-ar
+.spotify.com	TRUE	/	TRUE	1740156287	sp_last_utm	%7B%22utm_campaign%22%3A%22your_account%22%2C%22utm_medium%22%3A%22menu%22%2C%22utm_source%22%3A%22spotify%22%7D
+.spotify.com	TRUE	/	TRUE	1740156287	sp_gaid	0088fc92c89734c86b0c65e65f3328f27cebbd35051e84fd1d9857
+.spotify.com	TRUE	/	FALSE	1769049888	_hp5_event_props.4043975597	%7B%22loggedIn%22%3Atrue%2C%22market%22%3A%22eg%22%2C%22language%22%3A%22ar%22%7D
+.spotify.com	TRUE	/	FALSE	1769136288	_cs_c	0
+.spotify.com	TRUE	/	FALSE	1769158986	_scid	YhOzRVGNowVLTyLq5eQ5RXmof8_skyHAoNxGhg
+.spotify.com	TRUE	/	FALSE	1769158986	_scid_r	YhOzRVGNowVLTyLq5eQ5RXmof8_skyHAoNxGhg
+.spotify.com	TRUE	/	FALSE	1769049888	_hp5_meta.4043975597	%7B%22userId%22%3A%223640377058504206%22%2C%22sessionId%22%3A%22468862739386156%22%2C%22lastEventTime%22%3A1734972288310%2C%22sessionProperties%22%3A%7B%22time%22%3A1734972288310%2C%22referrer%22%3A%22https%3A%2F%2Fopen.spotify.com%2F%22%2C%22id%22%3A%22468862739386156%22%2C%22search_keyword%22%3A%22%22%2C%22utm%22%3A%7B%22source%22%3A%22spotify%22%2C%22medium%22%3A%22menu%22%2C%22term%22%3A%22%22%2C%22content%22%3A%22%22%2C%22campaign%22%3A%22your_account%22%7D%2C%22initial_pageview_info%22%3A%7B%22time%22%3A1734972288310%2C%22id%22%3A%22940630102144282%22%2C%22title%22%3A%22Spotify%22%2C%22url%22%3A%7B%22domain%22%3A%22www.spotify.com%22%2C%22path%22%3A%22%2Feg-ar%2Faccount%2Foverview%2F%22%2C%22query%22%3A%22%3Futm_source%3Dspotify%26utm_medium%3Dmenu%26utm_campaign%3Dyour_account%22%2C%22hash%22%3A%22%22%7D%2C%22source_properties%22%3A%7B%22screen_height%22%3A695%2C%22screen_width%22%3A1536%7D%7D%7D%7D
+.spotify.com	TRUE	/	FALSE	1769158987	_sctr	1%7C1734904800000
+.spotify.com	TRUE	/	FALSE	1769136288	_cs_id	fee6093a-7a00-a1b7-e031-408736ee5458.1734972288.2.1734982869.1734982869.1732551656.1769136288284.1
+.spotify.com	TRUE	/	FALSE	1769689497	_ga_S35RN5WNT2	GS1.1.1735129496.2.0.1735129496.0.0.0
+open.spotify.com	FALSE	/	FALSE	1738583765	perf_dv6Tr4b	1
+.spotify.com	TRUE	/	FALSE	1771934189	_ga	GA1.2.1830765096.1730807519
+.spotify.com	TRUE	/	FALSE	1768910169	OptanonConsent	isGpcEnabled=0&datestamp=Mon+Jan+20+2025+13%3A56%3A09+GMT%2B0200+(Eastern+European+Standard+Time)&version=202411.2.0&browserGpcFlag=0&isIABGlobal=false&hosts=&landingPath=NotLandingPage&groups=s00%3A1%2Cf00%3A1%2Cm00%3A1%2Ct00%3A1%2Ci00%3A1%2Cf11%3A1%2Cm03%3A1%2Cf02%3A1%2Ct02%3A1&geolocation=EG%3BC&AwaitingReconsent=false
+.spotify.com	TRUE	/	FALSE	1771934189	_ga_BMC5VGR8YS	GS1.2.1737374169.27.1.1737374188.41.0.0
+.spotify.com	TRUE	/	FALSE	1771934556	_ga_ZWG1NSHWD8	GS1.1.1737374168.30.1.1737374556.0.0.0
+    
+    ─────────────────────────────────────────────────────────────
+                    CHECKER BY ITSMEBOI
+    ─────────────────────────────────────────────────────────────
+    
